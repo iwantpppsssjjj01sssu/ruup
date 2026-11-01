@@ -4,28 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>simmons</title>
+    <title>ruup</title>
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="simmons" />
+    <meta property="og:title" content="ruup" />
     <meta property="og:description"
         content="A refined sleep experience shaped by heritage, innovation, and lasting comfort." />
-    <meta property="og:url" content="https://yshnada-del.github.io/simmons/" />
-    <meta property="og:image" content="https://yshnada-del.github.io/simmons/img/og.png" />
+    <meta property="og:url" content="https://iwantpppsssjjj01sssu.github.io/ruup/" />
+    <meta property="og:image" content="https://iwantpppsssjjj01sssu.github.io/ruup/img/og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt"
         content="We aimed to convey Simmons’ “unshakable comfort” through simple, impactful imagery." />
-    <meta property="og:site_name" content="simmons" />
-    <!-- ?�트4�? -->
+    <meta property="og:site_name" content="ruup" />
+    <!-- 폰트 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Roboto:ital,wght@0,100..900;1,100..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap">
     <link rel="stylesheet" as="style" crossorigin
         href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2.0.5/fonts/variable/woff2/SUIT-Variable.css">
 
     <link rel="icon" href="simmons_favicon_io/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="simmons_favicon_io/favicon-32x32.png" />
@@ -33,51 +31,13 @@
 
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/index_style.css">
-    <link rel="stylesheet" href="css/intro.css">
+    <link rel="stylesheet" href="css/index_kok.css">
 
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
     <script src="js/common.js"></script>
-    <script src="js/index_main.js"></script>
-    <script src="js/intro.js"></script>
+    <script src="js/index_kok.js"></script>
 </head>
 
-<body>
-    <div id="intro-overlay" aria-hidden="true">
-        <button type="button" class="intro_skip_button" aria-label="Skip intro">
-            <span class="intro_skip_label">Skip Intro</span>
-            <span class="intro_skip_icon" aria-hidden="true"></span>
-        </button>
-        <div class="intro_stage">
-            <div class="intro_stage_content">
-                <div class="intro_logo_mark">
-                    <img src="img/logo2.png" alt="Simmons">
-                </div>
-                <div class="intro_year_slot">
-                    <div class="intro_year_digits" aria-label="intro year">
-                        <span class="intro_digit" data-digit-index="0">
-                            <span class="intro_digit_current">1</span>
-                            <span class="intro_digit_next" aria-hidden="true"></span>
-                        </span>
-                        <span class="intro_digit" data-digit-index="1">
-                            <span class="intro_digit_current">8</span>
-                            <span class="intro_digit_next" aria-hidden="true"></span>
-                        </span>
-                        <span class="intro_digit" data-digit-index="2">
-                            <span class="intro_digit_current">7</span>
-                            <span class="intro_digit_next" aria-hidden="true"></span>
-                        </span>
-                        <span class="intro_digit" data-digit-index="3">
-                            <span class="intro_digit_current">0</span>
-                            <span class="intro_digit_next" aria-hidden="true"></span>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
+<body class="kok-page is-at-top">
     <div class="wrap main-shell">
 
         <!-- header start -->
@@ -199,963 +159,432 @@
             </div>
         </header>
         <!-- //header end -->
-        <main>
-            <section class="main_visual">
-                <div class="main_visual_media">
-                    <video class="main_visual_video" autoplay muted loop playsinline>
-                        <source src="video/main_video.mp4" type="video/mp4">
-                    </video>
-                    <div class="main_visual_overlay" aria-hidden="true"></div>
+
+        <main class="kok-main">
+            <!-- 1. 히어로 -->
+            <section class="kv" id="kv">
+                <video class="kv_video" autoplay muted loop playsinline aria-hidden="true">
+                    <source src="video/main_video.mp4" type="video/mp4">
+                </video>
+                <div class="kv_overlay" aria-hidden="true"></div>
+
+                <div class="kv_title">
+                    <h1 class="kv_logo">
+                        <img src="vector/main_logo.svg" alt="Simmons">
+                    </h1>
+                    <p class="kv_tagline">Beyond expectation, <strong>always.</strong></p>
+                    <span class="kv_dash" aria-hidden="true"></span>
                 </div>
 
-                <div class="main_visual_inner">
-                    <div class="main_visual_copy">
-                        <h2 class="main_visual_title">
-                            <img src="vector/main_logo.svg" alt="Simmons">
-                        </h2>
-                        <div class="main_visual_line" aria-hidden="true"></div>
-                        <p class="main_visual_desc">Beyond expectation, <strong>always.</strong></p>
-                    </div>
+                <a class="kv_scroll" href="#special" aria-label="Scroll to Why SIMMONS">
+                    <span class="kv_mouse"><i></i></span>
+                    <span>SCROLL</span>
+                    <span class="kv_scroll_line"></span>
+                </a>
+            </section>
 
-                    <div class="banner_all">
-                        <article class="banner banner_primary">
-                            <div class="txt_box">
-                                <span>New</span>
-                            </div>
+            <!-- 2. 특별한 이유 (01~04) -->
+            <section class="special" id="special" aria-labelledby="special-heading">
+                <div class="special_inner">
+                    <div class="special_copy">
+                        <p class="kok_eyebrow">WHY SIMMONS</p>
+                        <h2 id="special-heading">SIMMONS,<br><em>made different</em></h2>
+                        <p class="special_lead">Every night of rest, made easier and deeper<br>by 150 years of sleep craft.</p>
 
-                            <div class="pic_box">
-                                <a href="product/product.html" class="banner_primary_image_link"
-                                    aria-label="N32 Motion Bed product page">
-                                    <img src="img/main_picture.png" alt="N32 Motion Bed">
-                                </a>
-                                <a href="product/product.html" class="box">
-                                    <span>view more</span>
-                                </a>
-                            </div>
-
-                            <div class="banner_primary_body">
-                                <p class="banner_product_name">
-                                    <span class="banner_product_prefix">
-                                        <span class="txt">N</span><span class="num_wrap"><span
-                                                class="num">32</span></span>
-                                    </span>
-                                    <span class="banner_product_label">Motion Bed</span>
-                                </p>
-
-                                <div class="button_all">
-                                    <span class="tag">#Top safety</span>
-                                    <span class="tag">#More Ease!</span>
-                                </div>
-                            </div>
-                        </article>
-
-                        <div class="banner_stack">
-                            <article class="banner banner_secondary">
-                                <div class="banner_secondary_copy">
-                                    <p class="banner_brand">SIMMONS</p>
-                                    <a href="list/list.html" class="banner_headline_link">
-                                        <p class="banner_headline">N32 2026 NEW COLLECTION</p>
+                        <div class="special_list">
+                            <article class="special_item is-active">
+                                <h3>
+                                    <a href="#special-heritage" data-special="0">
+                                        <span class="special_number">01</span>
+                                        <span class="special_name">Heritage since 1870</span>
+                                        <span class="special_plus" aria-hidden="true">+</span>
                                     </a>
-                                    <div class="banner_divider" aria-hidden="true"></div>
-                                </div>
-                                <a href="list/list.html" class="banner_arrow" aria-label="N32 2026 NEW COLLECTION 바로가�?>
-                                    <img src=" icon/chevron-right.svg" alt="">
-                                </a>
+                                </h3>
                             </article>
-
-                            <article class="banner banner_secondary">
-                                <div class="banner_secondary_copy">
-                                    <p class="banner_brand">SIMMONS</p>
-                                    <a href="promo/promo.html" class="banner_headline_link">
-                                        <p class="banner_headline banner_headline_single">1st Anniversary | Official
-                                            Store</p>
+                            <article class="special_item">
+                                <h3>
+                                    <a href="#special-tech" data-special="1">
+                                        <span class="special_number">02</span>
+                                        <span class="special_name">Beautyrest Technology</span>
+                                        <span class="special_plus" aria-hidden="true">+</span>
                                     </a>
-                                    <div class="banner_divider" aria-hidden="true"></div>
-                                </div>
-                                <a href="promo/promo.html" class="banner_arrow" aria-label="1st Anniversary Official Store 바로가�?>
-                                    <img src=" icon/chevron-right.svg" alt="">
-                                </a>
+                                </h3>
                             </article>
-
-                            <article class="banner banner_secondary">
-                                <div class="banner_secondary_copy">
-                                    <p class="banner_brand">SIMMONS</p>
-                                    <a href="promo/promo.html" class="banner_headline_link">
-                                        <p class="banner_headline banner_headline_single">March Official Store Promotion
-                                        </p>
+                            <article class="special_item">
+                                <h3>
+                                    <a href="#special-sleep" data-special="2">
+                                        <span class="special_number">03</span>
+                                        <span class="special_name">Personal Sleep Solution</span>
+                                        <span class="special_plus" aria-hidden="true">+</span>
                                     </a>
-                                    <div class="banner_divider" aria-hidden="true"></div>
-                                </div>
-                                <a href="promo/promo.html" class="banner_arrow" aria-label="March Official Store Promotion 바로가�?>
-                                    <img src=" icon/chevron-right.svg" alt="">
-                                </a>
+                                </h3>
+                            </article>
+                            <article class="special_item">
+                                <h3>
+                                    <a href="#special-visit" data-special="3">
+                                        <span class="special_number">04</span>
+                                        <span class="special_name">Spaces to Experience</span>
+                                        <span class="special_plus" aria-hidden="true">+</span>
+                                    </a>
+                                </h3>
                             </article>
                         </div>
-
                     </div>
 
-                    <div class="float_buttons">
-                        <button type="button" class="float_button float_button_ai">
-                            <img src="icon/AI_button.svg" alt="AI button">
-                        </button>
-                        <button type="button" class="float_button float_button_top">
-                            <img src="icon/top_button.svg" alt="Top button">
-                        </button>
+                    <div class="special_visual">
+                        <figure class="special_card" id="special-heritage">
+                            <img src="img/main_story.png" alt="Simmons signature bed" loading="lazy">
+                            <figcaption class="special_overlay">
+                                <h3>Heritage since 1870</h3>
+                                <p>A legacy of sleep, crafted into every layer for over 150 years.</p>
+                            </figcaption>
+                        </figure>
+                        <figure class="special_card" id="special-tech">
+                            <img src="img/main_circle4.png" alt="Close-up of Beautyrest quilted fabric" loading="lazy">
+                            <figcaption class="special_overlay">
+                                <h3>Beautyrest Technology</h3>
+                                <p>Pocketed coils that move with your body, not against it.</p>
+                            </figcaption>
+                        </figure>
+                        <figure class="special_card" id="special-sleep">
+                            <img src="img/main_sleep.png" alt="Simmons mattress for sleep solution" loading="lazy">
+                            <figcaption class="special_overlay">
+                                <h3>Personal Sleep Solution</h3>
+                                <p>Find the firmness and fit made for the way you sleep.</p>
+                            </figcaption>
+                        </figure>
+                        <figure class="special_card" id="special-visit">
+                            <img src="img/main_card2.png" alt="SIMMONS Factorium experience space" loading="lazy">
+                            <figcaption class="special_overlay">
+                                <h3>Spaces to Experience</h3>
+                                <p>Feel the difference in person at Factorium, Terrace and showrooms.</p>
+                            </figcaption>
+                        </figure>
                     </div>
                 </div>
             </section>
 
-            <section class="story">
-                <div class="story_inner">
-                    <h2 class="story_title">Simmons Story</h2>
-
-                    <p class="story_keyword story_keyword_classic"><span class="story_keyword_label">Classic</span></p>
-                    <p class="story_keyword story_keyword_enduring"><span class="story_keyword_label">Enduring</span>
-                    </p>
-                    <p class="story_keyword story_keyword_heritage"><span class="story_keyword_label">Heritage</span>
-                    </p>
-                    <p class="story_keyword story_keyword_timeless"><span class="story_keyword_label">Timeless</span>
-                    </p>
-                    <p class="story_keyword story_keyword_elegant"><span class="story_keyword_label">Elegant</span></p>
-                    <p class="story_keyword story_keyword_prestige"><span class="story_keyword_label">Prestige</span>
-                    </p>
-
-                    <div class="story_image">
-                        <img src="img/main_story.png" alt="Simmons Story bed">
-                    </div>
-
-                    <button type="button" class="story_button" aria-label="Explore Simmons Story">
-                        <svg class="story_button_svg" viewBox="0 0 353.94 111.5" aria-hidden="true" focusable="false">
-                            <path class="story_button_shape"
-                                d="M229.58,82.25c-2.74,2.08-6.49,4.88-12.09,6.65-4.25,1.34-7.98,1.6-10.51,1.59H54.86c-19.52,0-35.35-15.83-35.35-35.35h0c0-19.52,15.83-35.35,35.35-35.35h152.12c3.14-.18,7.38.04,11.98,1.7,4.29,1.54,7.19,3.72,8.83,4.98,2.66,2.03,2.91,2.78,7.1,6.88,4.58,4.48,6.88,6.72,9.73,8.44,2.26,1.37,6.16,3.66,11.7,4.09,5.72.44,10.06-1.36,12.11-2.24.93-.4,5.66-2.49,10.01-7.05,2.38-2.49,3.13-4.14,6.63-7.41,1.17-1.09,2.48-2.32,4.4-3.66,6.67-4.66,13.5-5.74,17.03-6,.71-.05,1.27-.08,1.64-.09,2.15-.08,8.57-.11,15.85,3.18,3.36,1.51,11.96,6.01,17.18,16.11,1.08,2.09,3.95,8.14,3.93,16.44,0,4.33-.81,12.73-6.61,20.79-1.1,1.53-8.24,11.12-21.47,13.92-.93.2-1.67.33-2.12.4-1.95.3-12.22,1.73-21.89-3.62-5.79-3.2-10.46-8.33-13.53-11.69-.79-.86-3.02-3.36-6.58-5.83-1.39-.97-3.12-2.15-5.68-3.13-1.23-.47-4.25-1.5-8.27-1.54-1.62-.02-4.53.11-7.9,1.22-3.02,1-5.36,2.43-8.39,4.74-7.28,5.52-7.18,7.37-13.08,11.85Z" />
-                            <circle class="story_button_ring" cx="309.45" cy="55.02" r="27.81" />
+            <!-- 3. 조인 (블루 원형 궤도) -->
+            <section class="join" aria-labelledby="join-heading">
+                <svg class="join_edge" viewBox="0 0 1400 160" preserveAspectRatio="none" aria-hidden="true">
+                    <path d="M0 160V96C120 40 240 40 350 80S580 140 700 90 930 20 1050 64 1280 120 1400 70V160Z" />
+                </svg>
+                <div class="join_stage">
+                    <div class="join_orbit" aria-hidden="true">
+                        <svg viewBox="0 0 800 800">
+                            <defs>
+                                <path id="join-orbit-path" d="M400 50 A350 350 0 1 1 399.99 50" />
+                            </defs>
+                            <text>
+                                <textPath href="#join-orbit-path" startOffset="0%" textLength="2185" lengthAdjust="spacing">SLEEP BETTER ✦ SIMMONS ✦ BEAUTYREST ✦ SLEEP BETTER ✦ SIMMONS ✦ BEAUTYREST ✦</textPath>
+                            </text>
                         </svg>
-                        <span class="story_button_content">
-                            <span class="story_button_text">Explore Story</span>
-                            <span class="story_button_icon" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" focusable="false">
-                                    <path d="M17 7L7 17" />
-                                    <path d="M8 7H17V16" />
-                                </svg>
-                            </span>
-                        </span>
-                    </button>
-                </div>
-            </section>
-
-            <section class="product">
-                <div class="sub_bg" aria-hidden="true">
-                    <img src="vector/main_product_bg.svg" alt="">
-                </div>
-
-                <div class="product_inner">
-                    <div class="product_stage">
-                        <div class="product_visual">
-                            <div class="product_circle">
-                                <svg class="product_circle_svg" viewBox="0 0 1417 1418"
-                                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                    <defs>
-                                        <pattern id="product-circle-fill-top-left" patternUnits="userSpaceOnUse" x="24"
-                                            y="126" width="760" height="760">
-                                            <image href="img/main_circle4.png" x="0" y="0" width="760" height="760"
-                                                preserveAspectRatio="xMidYMid slice" />
-                                        </pattern>
-                                        <pattern id="product-circle-fill-bottom-left" patternUnits="userSpaceOnUse"
-                                            x="-48" y="664" width="760" height="760">
-                                            <image href="img/main_circle3.png" x="0" y="0" width="760" height="760"
-                                                preserveAspectRatio="xMidYMid slice" />
-                                        </pattern>
-                                        <pattern id="product-circle-fill-right" patternUnits="userSpaceOnUse" x="720"
-                                            y="328" width="520" height="760">
-                                            <image href="img/main_circle.png" x="0" y="0" width="520" height="760"
-                                                preserveAspectRatio="xMidYMid slice" />
-                                        </pattern>
-                                        <pattern id="product-circle-fill-bottom-right" patternUnits="userSpaceOnUse"
-                                            x="466" y="744" width="760" height="760">
-                                            <image href="img/main_circle2.png" x="0" y="0" width="760" height="760"
-                                                preserveAspectRatio="xMidYMid slice" />
-                                        </pattern>
-                                        <pattern id="product-circle-fill-top" patternUnits="userSpaceOnUse" x="360"
-                                            y="92" width="700" height="520">
-                                            <image href="img/main_circle5.png" x="0" y="0" width="700" height="520"
-                                                preserveAspectRatio="xMidYMid slice" />
-                                        </pattern>
-                                        <filter id="product-circle-dim" color-interpolation-filters="sRGB" x="-20%"
-                                            y="-20%" width="140%" height="140%">
-                                            <feFlood flood-color="#000000" flood-opacity="0.3" result="dimColor" />
-                                            <feComposite in="dimColor" in2="SourceGraphic" operator="atop" />
-                                        </filter>
-                                    </defs>
-
-                                    <g class="product_circle_rotor">
-                                        <path
-                                            d="M200.365 705.72C200.774 603.382 232.237 503.716 290.601 419.874C348.965 336.032 431.487 271.955 527.277 236.1L622.382 487.02C577.305 503.893 538.471 534.047 511.005 573.502C483.54 612.957 468.734 659.859 468.541 708.017L200.365 705.72Z"
-                                            class="product_circle_piece" data-piece="left"
-                                            fill="url(#product-circle-fill-top-left)" />
-                                        <path
-                                            d="M550.583 1187.18C453.276 1154.72 367.974 1093.6 305.932 1011.87C243.891 930.15 208.028 831.668 203.075 729.425L470.94 717.699C473.271 765.814 490.148 812.159 519.343 850.617C548.539 889.075 588.682 917.84 634.473 933.115L550.583 1187.18Z"
-                                            class="product_circle_piece" data-piece="bottom-left"
-                                            fill="url(#product-circle-fill-bottom-left)" />
-                                        <path
-                                            d="M1117.92 416.145C1177.8 499.454 1211.08 598.828 1213.35 701.154C1215.62 803.479 1186.79 903.946 1130.65 989.295L906.32 841.465C932.738 801.301 946.309 754.022 945.239 705.869C944.17 657.716 928.511 610.951 900.33 571.747L1117.92 416.145Z"
-                                            class="product_circle_piece" data-piece="right"
-                                            fill="url(#product-circle-fill-right)" />
-                                        <path
-                                            d="M1115.54 1011C1054.99 1093.27 970.809 1155.16 874.102 1188.5C777.394 1221.83 672.707 1225.04 573.857 1197.71L644.301 939.54C690.819 952.404 740.083 950.893 785.593 935.206C831.102 919.52 870.718 890.396 899.211 851.677L1115.54 1011Z"
-                                            class="product_circle_piece" data-piece="bottom-right"
-                                            fill="url(#product-circle-fill-bottom-right)" />
-                                        <path
-                                            d="M552.315 227.467C649.875 196.678 754.623 196.206 852.735 226.113C950.847 256.02 1037.71 314.9 1101.87 394.984L892.779 561.787C862.589 524.1 821.711 496.392 775.541 482.318C729.371 468.244 680.078 468.466 634.167 482.955L552.315 227.467Z"
-                                            class="product_circle_piece" data-piece="top"
-                                            fill="url(#product-circle-fill-top)" />
-
-                                    </g>
-                                </svg>
-
-                                <div class="product_circle_badge">
-                                    <span>Black</span>
-                                </div>
-
-                                <div class="product_scroll">
-                                    <button type="button" class="product_scroll_arrow product_scroll_arrow_up"
-                                        aria-label="Scroll up">
-                                        <img src="icon/chevron-up.svg" alt="">
-                                    </button>
-                                    <!-- <div class="product_scroll_mouse">
-                                        <img src="vector/main_mouse.svg" alt="mouse icon">
-                                    </div> -->
-                                    <button type="button" class="product_scroll_arrow product_scroll_arrow_down"
-                                        aria-label="Scroll down">
-                                        <img src="icon/chevron-down.svg" alt="">
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="product_panel">
-                            <div class="product_slides">
-                                <article class="product_slide is-active" data-product-slide="1">
-                                    <div class="product_content">
-                                        <p class="product_eyebrow">Beautyrest Black</p>
-                                        <div class="product_line" aria-hidden="true"></div>
-                                        <div class="product_heading">
-                                            <h2 class="product_title">Black Lauren</h2>
-                                            <div class="product_arrow" aria-hidden="true">
-                                                <img src="icon/arrow-up-right.svg" alt="">
-                                            </div>
-                                        </div>
-                                        <p class="product_description">
-                                            Explore signature mattresses designed with refined materials,
-                                            advanced support, and the comfort philosophy that defines
-                                            <strong><span class="product_description_nowrap">SIMMONS.</span></strong>
-                                        </p>
-
-                                        <div class="product_bb" aria-hidden="true"></div>
-                                    </div>
-
-                                    <div class="product_image">
-                                        <img src="img/main_prodcut.png" alt="Beautyrest Black Lauren mattress">
-                                    </div>
-                                </article>
-
-                                <article class="product_slide" data-product-slide="2" aria-hidden="true">
-                                    <div class="product_content">
-                                        <p class="product_eyebrow">Beautyrest Black</p>
-                                        <div class="product_line" aria-hidden="true"></div>
-                                        <div class="product_heading">
-                                            <h2 class="product_title">Black Eger</h2>
-                                            <div class="product_arrow" aria-hidden="true">
-                                                <img src="icon/arrow-up-right.svg" alt="">
-                                            </div>
-                                        </div>
-                                        <p class="product_description">
-                                            Explore signature mattresses designed with refined materials,
-                                            advanced support, and the comfort philosophy that defines
-                                            <strong><span class="product_description_nowrap">SIMMONS.</span></strong>
-                                        </p>
-
-                                        <div class="product_bb" aria-hidden="true"></div>
-                                    </div>
-
-                                    <div class="product_image">
-                                        <img src="img/main_prodcut2.png" alt="Beautyrest Black Eger mattress">
-                                    </div>
-                                </article>
-
-                                <article class="product_slide" data-product-slide="3" aria-hidden="true">
-                                    <div class="product_content">
-                                        <p class="product_eyebrow">Beautyrest Black</p>
-                                        <div class="product_line" aria-hidden="true"></div>
-                                        <div class="product_heading">
-                                            <h2 class="product_title">Black Kelly</h2>
-                                            <div class="product_arrow" aria-hidden="true">
-                                                <img src="icon/arrow-up-right.svg" alt="">
-                                            </div>
-                                        </div>
-                                        <p class="product_description">
-                                            Explore signature mattresses designed with refined materials,
-                                            advanced support, and the comfort philosophy that defines
-                                            <strong><span class="product_description_nowrap">SIMMONS.</span></strong>
-                                        </p>
-
-                                        <div class="product_bb" aria-hidden="true"></div>
-                                    </div>
-
-                                    <div class="product_image">
-                                        <img class="product_image_mirrored" src="img/main_prodcut3.png"
-                                            alt="Beautyrest Black Kelly mattress">
-                                    </div>
-                                </article>
-
-                                <article class="product_slide" data-product-slide="4" aria-hidden="true">
-                                    <div class="product_content">
-                                        <p class="product_eyebrow">Beautyrest Mattress</p>
-                                        <div class="product_line" aria-hidden="true"></div>
-                                        <div class="product_heading">
-                                            <h2 class="product_title">Black Devola</h2>
-                                            <div class="product_arrow" aria-hidden="true">
-                                                <img src="icon/arrow-up-right.svg" alt="">
-                                            </div>
-                                        </div>
-                                        <p class="product_description">
-                                            Explore signature mattresses designed with refined materials,
-                                            advanced support, and the comfort philosophy that defines
-                                            <strong><span class="product_description_nowrap">SIMMONS.</span></strong>
-                                        </p>
-
-                                        <div class="product_bb" aria-hidden="true"></div>
-                                    </div>
-
-                                    <div class="product_image">
-                                        <img src="img/main_prodcut4.png" alt="Black Devola mattress">
-                                    </div>
-                                </article>
-
-                                <article class="product_slide" data-product-slide="5" aria-hidden="true">
-                                    <div class="product_content">
-                                        <p class="product_eyebrow">Beautyrest Mattress</p>
-                                        <div class="product_line" aria-hidden="true"></div>
-                                        <div class="product_heading">
-                                            <h2 class="product_title">Black Marion</h2>
-                                            <div class="product_arrow" aria-hidden="true">
-                                                <img src="icon/arrow-up-right.svg" alt="">
-                                            </div>
-                                        </div>
-                                        <p class="product_description">
-                                            Explore signature mattresses designed with refined materials,
-                                            advanced support, and the comfort philosophy that defines
-                                            <strong><span class="product_description_nowrap">SIMMONS.</span></strong>
-                                        </p>
-
-                                        <div class="product_bb" aria-hidden="true"></div>
-                                    </div>
-
-                                    <div class="product_image">
-                                        <img class="product_image_mirrored" src="img/main_prodcut5.png"
-                                            alt="Black Marion mattress">
-                                    </div>
-                                </article>
-                            </div>
-                        </div>
+                    </div>
+                    <div class="join_disc">
+                        <p class="join_eyebrow">SINCE 1870</p>
+                        <h2 id="join-heading">Rest deeper,<br><em>wake brighter</em></h2>
+                        <a class="kok_pill kok_pill_white" href="list/list.html">Find Your Mattress <span aria-hidden="true">↗</span></a>
                     </div>
                 </div>
             </section>
 
-            <section class="sleep_solution">
-                <div class="bg">
-                    <div class="txt_s">
-                        <span>-Sleep Solution-</span>
+            <!-- 4. 마키 띠 -->
+            <div class="marquee" aria-hidden="true">
+                <div class="marquee_track">
+                    <span>BEAUTYREST BLACK</span><i>✦</i>
+                    <span>N32 MOTION BED</span><i>✦</i>
+                    <span>SLEEP SOLUTION</span><i>✦</i>
+                    <span>FACTORIUM</span><i>✦</i>
+                    <span>SINCE 1870</span><i>✦</i>
+                    <span>BEAUTYREST BLACK</span><i>✦</i>
+                    <span>N32 MOTION BED</span><i>✦</i>
+                    <span>SLEEP SOLUTION</span><i>✦</i>
+                    <span>FACTORIUM</span><i>✦</i>
+                    <span>SINCE 1870</span><i>✦</i>
+                </div>
+            </div>
+
+            <!-- 5. 기능 소개 -->
+            <section class="features" aria-label="SIMMONS services">
+
+                <!-- 5-1 제품 -->
+                <article class="feature reveal">
+                    <div class="feature_copy">
+                        <p class="kok_eyebrow">01 &nbsp;PRODUCTS</p>
+                        <h2>Signature mattresses,<br><em>made to last</em></h2>
+                        <p class="feature_desc">Refined materials, advanced support and the comfort philosophy that
+                            defines SIMMONS — from Beautyrest Black to the new N32 Motion Bed.</p>
+                        <div class="feature_links">
+                            <a class="kok_pill" href="list/list.html">All Mattresses <span aria-hidden="true">↗</span></a>
+                            <a class="kok_pill kok_pill_line" href="product/product.html">N32 Motion Bed <span aria-hidden="true">↗</span></a>
+                        </div>
                     </div>
-                    <div class="img">
-                        <img src="img/main_sleep.png" alt="main_mattress">
+
+                    <div class="screen screen_product" data-product-screen>
+                        <div class="screen_top">
+                            <span class="screen_mark">S</span>
+                            <strong data-product-eyebrow>Beautyrest Black<small>Signature Collection</small></strong>
+                            <span class="screen_badge">NEW</span>
+                        </div>
+                        <div class="product_stage">
+                            <img src="img/main_prodcut.png" alt="Black Lauren mattress" data-product-image>
+                        </div>
+                        <div class="product_meta">
+                            <p class="product_name" data-product-name>Black Lauren</p>
+                            <a href="product/product.html" class="screen_arrow" aria-label="View product">↗</a>
+                        </div>
+                        <div class="product_tags">
+                            <span>#Top safety</span>
+                            <span>#More ease</span>
+                            <span>#Pocket coil</span>
+                        </div>
+                        <div class="screen_chips" role="tablist" aria-label="Mattress line-up">
+                            <button type="button" class="is-active" data-name="Black Lauren" data-eyebrow="Beautyrest Black" data-src="img/main_prodcut.png">Lauren</button>
+                            <button type="button" data-name="Black Eger" data-eyebrow="Beautyrest Black" data-src="img/main_prodcut2.png">Eger</button>
+                            <button type="button" data-name="Black Kelly" data-eyebrow="Beautyrest Black" data-src="img/main_prodcut3.png">Kelly</button>
+                            <button type="button" data-name="Black Devola" data-eyebrow="Beautyrest Mattress" data-src="img/main_prodcut4.png">Devola</button>
+                            <button type="button" data-name="Black Marion" data-eyebrow="Beautyrest Mattress" data-src="img/main_prodcut5.png">Marion</button>
+                        </div>
                     </div>
-                    <div class="txt_b">
-                        <span>Sleep Solution</span>
+                </article>
+
+                <!-- 5-2 수면 솔루션 -->
+                <article class="feature feature_reverse reveal">
+                    <div class="feature_copy">
+                        <p class="kok_eyebrow">02 &nbsp;SLEEP SOLUTION</p>
+                        <h2>Know your sleep,<br><em>match your bed</em></h2>
+                        <p class="feature_desc">Take a short sleep test and get a personal report — your sleeping
+                            style, firmness preference and the mattress that fits you best.</p>
+                        <div class="feature_links">
+                            <a class="kok_pill" href="sleep/sleep_main.html">Start Sleep Test <span aria-hidden="true">↗</span></a>
+                        </div>
                     </div>
-                    <div class="btn_test">
-                        <a href="sleep/sleep_main.html" class="sleep_solution_button"
-                            aria-label="View More Sleep Solution">
-                            <svg class="sleep_solution_button_svg" viewBox="0 0 353.94 111.5" aria-hidden="true"
-                                focusable="false">
-                                <path class="sleep_solution_button_shape"
-                                    d="M229.58,82.25c-2.74,2.08-6.49,4.88-12.09,6.65-4.25,1.34-7.98,1.6-10.51,1.59H54.86c-19.52,0-35.35-15.83-35.35-35.35h0c0-19.52,15.83-35.35,35.35-35.35h152.12c3.14-.18,7.38.04,11.98,1.7,4.29,1.54,7.19,3.72,8.83,4.98,2.66,2.03,2.91,2.78,7.1,6.88,4.58,4.48,6.88,6.72,9.73,8.44,2.26,1.37,6.16,3.66,11.7,4.09,5.72.44,10.06-1.36,12.11-2.24.93-.4,5.66-2.49,10.01-7.05,2.38-2.49,3.13-4.14,6.63-7.41,1.17-1.09,2.48-2.32,4.4-3.66,6.67-4.66,13.5-5.74,17.03-6,.71-.05,1.27-.08,1.64-.09,2.15-.08,8.57-.11,15.85,3.18,3.36,1.51,11.96,6.01,17.18,16.11,1.08,2.09,3.95,8.14,3.93,16.44,0,4.33-.81,12.73-6.61,20.79-1.1,1.53-8.24,11.12-21.47,13.92-.93.2-1.67.33-2.12.4-1.95.3-12.22,1.73-21.89-3.62-5.79-3.2-10.46-8.33-13.53-11.69-.79-.86-3.02-3.36-6.58-5.83-1.39-.97-3.12-2.15-5.68-3.13-1.23-.47-4.25-1.5-8.27-1.54-1.62-.02-4.53.11-7.9,1.22-3.02,1-5.36,2.43-8.39,4.74-7.28,5.52-7.18,7.37-13.08,11.85Z" />
-                                <circle class="sleep_solution_button_ring" cx="309.45" cy="55.02" r="27.81" />
-                            </svg>
-                            <span class="sleep_solution_button_content">
-                                <span class="sleep_solution_button_text">View More</span>
-                                <span class="sleep_solution_button_icon" aria-hidden="true">
-                                    <svg viewBox="0 0 24 24" focusable="false">
-                                        <path d="M17 7L7 17" />
-                                        <path d="M8 7H17V16" />
-                                    </svg>
-                                </span>
-                            </span>
+
+                    <div class="screen screen_sleep">
+                        <div class="screen_top">
+                            <span class="screen_mark">S</span>
+                            <strong>My Sleep Report<small>This week</small></strong>
+                            <span class="screen_badge screen_badge_soft">Deep Sleeper</span>
+                        </div>
+                        <div class="sleep_stats">
+                            <div>
+                                <small>Sleep score</small>
+                                <b>86</b>
+                            </div>
+                            <div>
+                                <small>Avg. sleep</small>
+                                <b>7.4<em>h</em></b>
+                            </div>
+                            <div>
+                                <small>This month</small>
+                                <b class="is-up">+12%</b>
+                            </div>
+                        </div>
+                        <ul class="sleep_week">
+                            <li class="is-done"><i></i>M</li>
+                            <li class="is-done"><i></i>T</li>
+                            <li class="is-done"><i></i>W</li>
+                            <li class="is-done"><i></i>T</li>
+                            <li class="is-today"><i></i>F</li>
+                            <li><i></i>S</li>
+                            <li><i></i>S</li>
+                        </ul>
+                        <div class="sleep_match">
+                            <div class="sleep_match_head">
+                                <span>Firmness match</span>
+                                <b>80%</b>
+                            </div>
+                            <div class="sleep_bar"><span style="--value: 80%"></span></div>
+                            <p>Recommended · <strong>Beautyrest Black Lauren</strong></p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 5-3 오프라인 -->
+                <article class="feature reveal">
+                    <div class="feature_copy">
+                        <p class="kok_eyebrow">03 &nbsp;VISIT</p>
+                        <h2>Experience it<br><em>in person</em></h2>
+                        <p class="feature_desc">Discover the spaces where the world of SIMMONS comes to life — where
+                            craftsmanship, lifestyle and design meet.</p>
+                        <div class="feature_links">
+                            <a class="kok_pill" href="offline/offline.html">Book a Visit <span aria-hidden="true">↗</span></a>
+                        </div>
+                    </div>
+
+                    <div class="screen screen_visit" data-visit-screen>
+                        <div class="screen_tabs" role="tablist" aria-label="Places">
+                            <button type="button" class="is-active" data-src="img/main_card2.png"
+                                data-title="Factorium"
+                                data-desc="Where craftsmanship and heritage begin.">Factorium</button>
+                            <button type="button" data-src="img/main_card.png" data-title="Simmons Terrace"
+                                data-desc="Blending comfort, lifestyle and design.">Terrace</button>
+                            <button type="button" data-src="img/main_card3.png" data-title="Showrooms"
+                                data-desc="Signature products and curated sleep spaces up close.">Showrooms</button>
+                        </div>
+                        <div class="visit_image">
+                            <img src="img/main_card2.png" alt="SIMMONS experience space" data-visit-image>
+                            <span class="screen_badge">Open today</span>
+                        </div>
+                        <div class="visit_info">
+                            <p class="visit_title" data-visit-title>Factorium</p>
+                            <p class="visit_desc" data-visit-desc>Where craftsmanship and heritage begin.</p>
+                        </div>
+                        <ul class="visit_rows">
+                            <li><span>Hours</span><b>10:00 – 18:00</b></li>
+                            <li><span>Reservation</span><b>Online booking</b></li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- 5-4 리뷰 -->
+                <article class="feature feature_reverse reveal">
+                    <div class="feature_copy">
+                        <p class="kok_eyebrow">04 &nbsp;REVIEW</p>
+                        <h2>Real nights,<br><em>real stories</em></h2>
+                        <p class="feature_desc">See how SIMMONS changed the way people sleep — reviews on our
+                            products and showroom visits.</p>
+                        <div class="feature_links">
+                            <a class="kok_pill" href="promo/promo.html">Community <span aria-hidden="true">↗</span></a>
+                        </div>
+                    </div>
+
+                    <div class="screen screen_review" data-review-screen>
+                        <div class="screen_tabs" role="tablist" aria-label="Review category">
+                            <button type="button" class="is-active" data-review="products">Products</button>
+                            <button type="button" data-review="offline">Offline</button>
+                        </div>
+
+                        <div class="review_list is-active" data-review-list="products">
+                            <div class="review_post">
+                                <span class="review_avatar"><img src="icon/user.svg" alt=""></span>
+                                <div class="review_body">
+                                    <p class="review_name">Panda lover <span class="review_stars" aria-label="5 stars">★★★★★</span></p>
+                                    <p class="review_text">Waking up without back pain for the first time in years.</p>
+                                    <p class="review_count"><span>♥ 128</span><span>💬 14</span></p>
+                                </div>
+                                <img class="review_thumb" src="img/main_review.png" alt="Review photo">
+                            </div>
+                            <div class="review_post">
+                                <span class="review_avatar is-dark"><img src="icon/user.svg" alt=""></span>
+                                <div class="review_body">
+                                    <p class="review_name">Sunny night <span class="review_stars" aria-label="5 stars">★★★★★</span></p>
+                                    <p class="review_text">Firm but soft at the same time. Worth every penny.</p>
+                                    <p class="review_count"><span>♥ 96</span><span>💬 9</span></p>
+                                </div>
+                                <img class="review_thumb" src="img/main_review2.png" alt="Review photo">
+                            </div>
+                            <div class="review_post">
+                                <span class="review_avatar"><img src="icon/user.svg" alt=""></span>
+                                <div class="review_body">
+                                    <p class="review_name">Cloud nine <span class="review_stars" aria-label="5 stars">★★★★★</span></p>
+                                    <p class="review_text">My partner moves a lot, and I don't feel it at all.</p>
+                                    <p class="review_count"><span>♥ 74</span><span>💬 6</span></p>
+                                </div>
+                                <img class="review_thumb" src="img/main_review3.png" alt="Review photo">
+                            </div>
+                        </div>
+
+                        <div class="review_list" data-review-list="offline" hidden>
+                            <div class="review_post">
+                                <span class="review_avatar"><img src="icon/user.svg" alt=""></span>
+                                <div class="review_body">
+                                    <p class="review_name">Showroom lover <span class="review_stars" aria-label="5 stars">★★★★★</span></p>
+                                    <p class="review_text">Tried six mattresses in one visit. Staff were so kind.</p>
+                                    <p class="review_count"><span>♥ 88</span><span>💬 11</span></p>
+                                </div>
+                                <img class="review_thumb" src="img/main_review5.png" alt="Review photo">
+                            </div>
+                            <div class="review_post">
+                                <span class="review_avatar is-dark"><img src="icon/user.svg" alt=""></span>
+                                <div class="review_body">
+                                    <p class="review_name">Studio visit <span class="review_stars" aria-label="5 stars">★★★★★</span></p>
+                                    <p class="review_text">The Factorium tour was a great weekend outing.</p>
+                                    <p class="review_count"><span>♥ 61</span><span>💬 5</span></p>
+                                </div>
+                                <img class="review_thumb" src="img/main_review6.png" alt="Review photo">
+                            </div>
+                            <div class="review_post">
+                                <span class="review_avatar"><img src="icon/user.svg" alt=""></span>
+                                <div class="review_body">
+                                    <p class="review_name">Weekend lounge <span class="review_stars" aria-label="5 stars">★★★★★</span></p>
+                                    <p class="review_text">Beautiful space, and the coffee at Terrace is great too.</p>
+                                    <p class="review_count"><span>♥ 52</span><span>💬 3</span></p>
+                                </div>
+                                <img class="review_thumb" src="img/main_review7.png" alt="Review photo">
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+            <!-- 6. 이벤트 -->
+            <section class="event" aria-labelledby="event-heading">
+                <div class="event_inner">
+                    <div class="event_head reveal">
+                        <div>
+                            <p class="kok_eyebrow">EVENT</p>
+                            <h2 id="event-heading">Now at<br><em>SIMMONS</em></h2>
+                        </div>
+                        <a class="kok_pill kok_pill_line" href="promo/promo.html">View More <span aria-hidden="true">↗</span></a>
+                    </div>
+
+                    <div class="event_grid">
+                        <a class="event_card reveal" href="promo/promo.html">
+                            <span class="event_label">Official Store</span>
+                            <p class="event_sub">Free Gifts with Purchase</p>
+                            <h3>FREE Lumila<br>Bedding Set</h3>
+                            <p class="event_note">For purchases of $2,000 or more, based on final payment amount.</p>
+                            <span class="event_go" aria-hidden="true">↗</span>
+                        </a>
+                        <a class="event_card event_card_blue reveal" href="promo/promo.html">
+                            <span class="event_label">Official Store</span>
+                            <p class="event_sub">March 3 – March 31, 2026</p>
+                            <h3>36 Months<br>Interest-Free</h3>
+                            <p class="event_note">Credit card payments (excluding Easy Pay).</p>
+                            <span class="event_go" aria-hidden="true">↗</span>
+                        </a>
+                        <a class="event_card event_card_navy reveal" href="offline/offline.html">
+                            <span class="event_label">Grand Open</span>
+                            <p class="event_sub">Try premium mattresses for free</p>
+                            <h3>Sleep Lounge<br>Grand Open</h3>
+                            <p class="event_note">Book your visit online easily.</p>
+                            <span class="event_go" aria-hidden="true">↗</span>
                         </a>
                     </div>
                 </div>
             </section>
 
-            <section class="offline">
-                <div class="offline_inner">
-                    <div class="offline_track">
-                        <div class="offline_track_line"></div>
-                        <ul class="offline_track_list">
-                            <li class="offline_track_item is-active">
-                                <button type="button" class="offline_track_button" data-offline-index="0"
-                                    aria-current="true">
-                                    <span class="offline_track_dot">
-                                        <span class="offline_track_dot_inner"></span>
-                                        <span class="offline_track_dot_outer"></span>
-                                    </span>
-                                    <span class="offline_track_label">Factorium</span>
-                                </button>
-                            </li>
-                            <li class="offline_track_item">
-                                <button type="button" class="offline_track_button" data-offline-index="1">
-                                    <span class="offline_track_dot">
-                                        <span class="offline_track_dot_inner"></span>
-                                        <span class="offline_track_dot_outer"></span>
-                                    </span>
-                                    <span class="offline_track_label">Simmons Terrace</span>
-                                </button>
-                            </li>
-                            <li class="offline_track_item">
-                                <button type="button" class="offline_track_button" data-offline-index="2">
-                                    <span class="offline_track_dot">
-                                        <span class="offline_track_dot_inner"></span>
-                                        <span class="offline_track_dot_outer"></span>
-                                    </span>
-                                    <span class="offline_track_label">Showrooms</span>
-                                </button>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="offline_content">
-                        <div class="offline_info">
-                            <div class="offline_title">
-                                <p class="offline_title_left">Experience</p>
-                                <p class="offline_title_right">SIMMONS</p>
-                            </div>
-
-                            <div class="offline_description">
-                                <a href="offline/offline.html" class="offline_description_icon"
-                                    aria-label="Go to offline page">
-                                    <img src="icon/arrow-up-right.svg" alt="">
-                                </a>
-                                <p class="offline_description_text">
-                                    Discover the spaces where the world of SIMMONS comes to life in Factorium,
-                                    where craftsmanship and heritage begin.
-                                </p>
-                            </div>
+            <!-- 7. 고객센터 -->
+            <section class="contact" aria-labelledby="contact-heading">
+                <div class="contact_inner">
+                    <h2 id="contact-heading" class="reveal">We're here<br><em>for your sleep</em></h2>
+                    <div class="contact_grid">
+                        <div class="contact_card reveal">
+                            <span class="contact_icon" aria-hidden="true">☎</span>
+                            <h3>Customer Service</h3>
+                            <p>1899-8182 · Mon–Fri, 9 AM–6 PM<br>master@simmons.co.kr</p>
                         </div>
-
-                        <article class="offline_slide is-active" data-offline-slide="0"
-                            data-offline-description="Discover the spaces where the world of SIMMONS comes to life in Factorium, where craftsmanship and heritage begin.">
-                            <div class="offline_card_wrap">
-                                <article class="offline_card">
-                                    <div class="offline_card_image">
-                                        <img src="img/main_card2.png" alt="SIMMONS Factorium experience space">
-                                    </div>
-                                    <button type="button" class="offline_card_button">
-                                        <svg class="offline_card_button_svg" viewBox="0 0 353.94 111.5"
-                                            aria-hidden="true" focusable="false">
-                                            <path class="offline_card_button_shape"
-                                                d="M229.58,82.25c-2.74,2.08-6.49,4.88-12.09,6.65-4.25,1.34-7.98,1.6-10.51,1.59H54.86c-19.52,0-35.35-15.83-35.35-35.35h0c0-19.52,15.83-35.35,35.35-35.35h152.12c3.14-.18,7.38.04,11.98,1.7,4.29,1.54,7.19,3.72,8.83,4.98,2.66,2.03,2.91,2.78,7.1,6.88,4.58,4.48,6.88,6.72,9.73,8.44,2.26,1.37,6.16,3.66,11.7,4.09,5.72.44,10.06-1.36,12.11-2.24.93-.4,5.66-2.49,10.01-7.05,2.38-2.49,3.13-4.14,6.63-7.41,1.17-1.09,2.48-2.32,4.4-3.66,6.67-4.66,13.5-5.74,17.03-6,.71-.05,1.27-.08,1.64-.09,2.15-.08,8.57-.11,15.85,3.18,3.36,1.51,11.96,6.01,17.18,16.11,1.08,2.09,3.95,8.14,3.93,16.44,0,4.33-.81,12.73-6.61,20.79-1.1,1.53-8.24,11.12-21.47,13.92-.93.2-1.67.33-2.12.4-1.95.3-12.22,1.73-21.89-3.62-5.79-3.2-10.46-8.33-13.53-11.69-.79-.86-3.02-3.36-6.58-5.83-1.39-.97-3.12-2.15-5.68-3.13-1.23-.47-4.25-1.5-8.27-1.54-1.62-.02-4.53.11-7.9,1.22-3.02,1-5.36,2.43-8.39,4.74-7.28,5.52-7.18,7.37-13.08,11.85Z" />
-                                            <circle class="offline_card_button_ring" cx="309.45" cy="55.02" r="27.81" />
-                                        </svg>
-                                        <span class="offline_card_button_content">
-                                            <span class="offline_card_button_text">Book a Visit</span>
-                                            <span class="offline_card_button_icon" aria-hidden="true">
-                                                <svg viewBox="0 0 24 24" focusable="false">
-                                                    <path d="M17 7L7 17" />
-                                                    <path d="M8 7H17V16" />
-                                                </svg>
-                                            </span>
-                                        </span>
-                                    </button>
-                                </article>
-                            </div>
-                        </article>
-
-                        <article class="offline_slide" data-offline-slide="1" aria-hidden="true"
-                            data-offline-description="Discover the spaces where the world of SIMMONS comes to life in Simmons Terrace, blending comfort, lifestyle, and design.">
-                            <div class="offline_card_wrap">
-                                <article class="offline_card">
-                                    <div class="offline_card_image">
-                                        <img src="img/main_card.png" alt="SIMMONS Terrace experience space">
-                                    </div>
-                                    <button type="button" class="offline_card_button">
-                                        <svg class="offline_card_button_svg" viewBox="0 0 353.94 111.5"
-                                            aria-hidden="true" focusable="false">
-                                            <path class="offline_card_button_shape"
-                                                d="M229.58,82.25c-2.74,2.08-6.49,4.88-12.09,6.65-4.25,1.34-7.98,1.6-10.51,1.59H54.86c-19.52,0-35.35-15.83-35.35-35.35h0c0-19.52,15.83-35.35,35.35-35.35h152.12c3.14-.18,7.38.04,11.98,1.7,4.29,1.54,7.19,3.72,8.83,4.98,2.66,2.03,2.91,2.78,7.1,6.88,4.58,4.48,6.88,6.72,9.73,8.44,2.26,1.37,6.16,3.66,11.7,4.09,5.72.44,10.06-1.36,12.11-2.24.93-.4,5.66-2.49,10.01-7.05,2.38-2.49,3.13-4.14,6.63-7.41,1.17-1.09,2.48-2.32,4.4-3.66,6.67-4.66,13.5-5.74,17.03-6,.71-.05,1.27-.08,1.64-.09,2.15-.08,8.57-.11,15.85,3.18,3.36,1.51,11.96,6.01,17.18,16.11,1.08,2.09,3.95,8.14,3.93,16.44,0,4.33-.81,12.73-6.61,20.79-1.1,1.53-8.24,11.12-21.47,13.92-.93.2-1.67.33-2.12.4-1.95.3-12.22,1.73-21.89-3.62-5.79-3.2-10.46-8.33-13.53-11.69-.79-.86-3.02-3.36-6.58-5.83-1.39-.97-3.12-2.15-5.68-3.13-1.23-.47-4.25-1.5-8.27-1.54-1.62-.02-4.53.11-7.9,1.22-3.02,1-5.36,2.43-8.39,4.74-7.28,5.52-7.18,7.37-13.08,11.85Z" />
-                                            <circle class="offline_card_button_ring" cx="309.45" cy="55.02" r="27.81" />
-                                        </svg>
-                                        <span class="offline_card_button_content">
-                                            <span class="offline_card_button_text">Book a Visit</span>
-                                            <span class="offline_card_button_icon" aria-hidden="true">
-                                                <svg viewBox="0 0 24 24" focusable="false">
-                                                    <path d="M17 7L7 17" />
-                                                    <path d="M8 7H17V16" />
-                                                </svg>
-                                            </span>
-                                        </span>
-                                    </button>
-                                </article>
-                            </div>
-                        </article>
-
-                        <article class="offline_slide" data-offline-slide="2" aria-hidden="true"
-                            data-offline-description="Discover inspiring SIMMONS showrooms where you can explore signature products and curated sleep spaces up close.">
-                            <div class="offline_card_wrap">
-                                <article class="offline_card">
-                                    <div class="offline_card_image">
-                                        <img src="img/main_card3.png" alt="SIMMONS showroom experience space">
-                                    </div>
-                                    <button type="button" class="offline_card_button">
-                                        <svg class="offline_card_button_svg" viewBox="0 0 353.94 111.5"
-                                            aria-hidden="true" focusable="false">
-                                            <path class="offline_card_button_shape"
-                                                d="M229.58,82.25c-2.74,2.08-6.49,4.88-12.09,6.65-4.25,1.34-7.98,1.6-10.51,1.59H54.86c-19.52,0-35.35-15.83-35.35-35.35h0c0-19.52,15.83-35.35,35.35-35.35h152.12c3.14-.18,7.38.04,11.98,1.7,4.29,1.54,7.19,3.72,8.83,4.98,2.66,2.03,2.91,2.78,7.1,6.88,4.58,4.48,6.88,6.72,9.73,8.44,2.26,1.37,6.16,3.66,11.7,4.09,5.72.44,10.06-1.36,12.11-2.24.93-.4,5.66-2.49,10.01-7.05,2.38-2.49,3.13-4.14,6.63-7.41,1.17-1.09,2.48-2.32,4.4-3.66,6.67-4.66,13.5-5.74,17.03-6,.71-.05,1.27-.08,1.64-.09,2.15-.08,8.57-.11,15.85,3.18,3.36,1.51,11.96,6.01,17.18,16.11,1.08,2.09,3.95,8.14,3.93,16.44,0,4.33-.81,12.73-6.61,20.79-1.1,1.53-8.24,11.12-21.47,13.92-.93.2-1.67.33-2.12.4-1.95.3-12.22,1.73-21.89-3.62-5.79-3.2-10.46-8.33-13.53-11.69-.79-.86-3.02-3.36-6.58-5.83-1.39-.97-3.12-2.15-5.68-3.13-1.23-.47-4.25-1.5-8.27-1.54-1.62-.02-4.53.11-7.9,1.22-3.02,1-5.36,2.43-8.39,4.74-7.28,5.52-7.18,7.37-13.08,11.85Z" />
-                                            <circle class="offline_card_button_ring" cx="309.45" cy="55.02" r="27.81" />
-                                        </svg>
-                                        <span class="offline_card_button_content">
-                                            <span class="offline_card_button_text">Book a Visit</span>
-                                            <span class="offline_card_button_icon" aria-hidden="true">
-                                                <svg viewBox="0 0 24 24" focusable="false">
-                                                    <path d="M17 7L7 17" />
-                                                    <path d="M8 7H17V16" />
-                                                </svg>
-                                            </span>
-                                        </span>
-                                    </button>
-                                </article>
-                            </div>
-                        </article>
+                        <a class="contact_card reveal" href="offline/offline.html">
+                            <span class="contact_icon" aria-hidden="true">✦</span>
+                            <h3>Book a Showroom Visit</h3>
+                            <p>Reserve a time to try every mattress in person.</p>
+                            <span class="event_go" aria-hidden="true">↗</span>
+                        </a>
                     </div>
-                </div>
-
-                <section class="review">
-                <div class="review_inner">
-                    <h2 class="review_title">Review</h2>
-
-
-                    <div class="review_stage">
-                        <div class="review_set is-active" data-review-set="products">
-                            <div class="review_card_slot review_card_slot_01">
-                                <article class="review_card review_card_light">
-                                    <div class="review_card_inner">
-                                        <div class="review_card_face review_card_face_front" aria-hidden="true">
-                                            <p class="review_card_brand">SIMMONS</p>
-                                        </div>
-                                        <div class="review_card_face review_card_face_back">
-                                            <p class="review_card_heading">PRODUCTS<br>REVIEW</p>
-                                            <div class="review_profile">
-                                                <div class="review_profile_avatar review_profile_avatar_light">
-                                                    <img src="icon/user.svg" alt="Panda lover profile image">
-                                                </div>
-                                                <div class="txt_all">
-                                                    <p class="review_profile_name">Panda lover</p>
-                                                    <div class="star_all" aria-label="5 stars">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="review_card_image">
-                                                <img src="img/main_review.png" alt="Products review mattress photo 1">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </article>
-                            </div>
-                            <div class="review_card_slot review_card_slot_02">
-                                <article class="review_card review_card_dark">
-                                    <div class="review_card_inner">
-                                        <div class="review_card_face review_card_face_front" aria-hidden="true">
-                                            <p class="review_card_brand">SIMMONS</p>
-                                        </div>
-                                        <div class="review_card_face review_card_face_back">
-                                            <p class="review_card_heading">PRODUCTS<br>REVIEW</p>
-                                            <div class="review_profile">
-                                                <div class="review_profile_avatar review_profile_avatar_dark">
-                                                    <img src="icon/user.svg" alt="Sunny night profile image">
-                                                </div>
-                                                <div class="txt_all">
-                                                    <p class="review_profile_name">Sunny night</p>
-                                                    <div class="star_all" aria-label="5 stars">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="review_card_image">
-                                                <img src="img/main_review2.png" alt="Products review mattress photo 2">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </article>
-                            </div>
-                            <div class="review_card_slot review_card_slot_03">
-                                <article class="review_card review_card_light">
-                                    <div class="review_card_inner">
-                                        <div class="review_card_face review_card_face_front" aria-hidden="true">
-                                            <p class="review_card_brand">SIMMONS</p>
-                                        </div>
-                                        <div class="review_card_face review_card_face_back">
-                                            <p class="review_card_heading">PRODUCTS<br>REVIEW</p>
-                                            <div class="review_profile">
-                                                <div class="review_profile_avatar review_profile_avatar_light">
-                                                    <img src="icon/user.svg" alt="Cloud nine profile image">
-                                                </div>
-                                                <div class="txt_all">
-                                                    <p class="review_profile_name">Cloud nine</p>
-                                                    <div class="star_all" aria-label="5 stars">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="review_card_image">
-                                                <img src="img/main_review3.png" alt="Products review mattress photo 3">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </article>
-                            </div>
-                            <div class="review_card_slot review_card_slot_04">
-                                <article class="review_card review_card_dark">
-                                    <div class="review_card_inner">
-                                        <div class="review_card_face review_card_face_front" aria-hidden="true">
-                                            <p class="review_card_brand">SIMMONS</p>
-                                        </div>
-                                        <div class="review_card_face review_card_face_back">
-                                            <p class="review_card_heading">PRODUCTS<br>REVIEW</p>
-                                            <div class="review_profile">
-                                                <div class="review_profile_avatar review_profile_avatar_dark">
-                                                    <img src="icon/user.svg" alt="Warm rest profile image">
-                                                </div>
-                                                <div class="txt_all">
-                                                    <p class="review_profile_name">Warm rest</p>
-                                                    <div class="star_all" aria-label="5 stars">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="review_card_image">
-                                                <img src="img/main_review4.png" alt="Products review mattress photo 4">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </article>
-                            </div>
-                        </div>
-
-                        <div class="review_set" data-review-set="offline">
-                            <div class="review_card_slot review_card_slot_01">
-                                <article class="review_card review_card_light">
-                                    <div class="review_card_inner">
-                                        <div class="review_card_face review_card_face_front" aria-hidden="true">
-                                            <p class="review_card_brand">SIMMONS</p>
-                                        </div>
-                                        <div class="review_card_face review_card_face_back">
-                                            <p class="review_card_heading">OFFLINE<br>REVIEW</p>
-                                            <div class="review_profile">
-                                                <div class="review_profile_avatar review_profile_avatar_light">
-                                                    <img src="icon/user.svg" alt="Showroom lover profile image">
-                                                </div>
-                                                <div class="txt_all">
-                                                    <p class="review_profile_name">Showroom lover</p>
-                                                    <div class="star_all" aria-label="5 stars">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="review_card_image">
-                                                <img src="img/main_review5.png" alt="Offline review photo 1">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </article>
-                            </div>
-                            <div class="review_card_slot review_card_slot_02">
-                                <article class="review_card review_card_dark">
-                                    <div class="review_card_inner">
-                                        <div class="review_card_face review_card_face_front" aria-hidden="true">
-                                            <p class="review_card_brand">SIMMONS</p>
-                                        </div>
-                                        <div class="review_card_face review_card_face_back">
-                                            <p class="review_card_heading">OFFLINE<br>REVIEW</p>
-                                            <div class="review_profile">
-                                                <div class="review_profile_avatar review_profile_avatar_dark">
-                                                    <img src="icon/user.svg" alt="Studio visit profile image">
-                                                </div>
-                                                <div class="txt_all">
-                                                    <p class="review_profile_name">Studio visit</p>
-                                                    <div class="star_all" aria-label="5 stars">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="review_card_image">
-                                                <img src="img/main_review6.png" alt="Offline review photo 2">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </article>
-                            </div>
-                            <div class="review_card_slot review_card_slot_03">
-                                <article class="review_card review_card_light">
-                                    <div class="review_card_inner">
-                                        <div class="review_card_face review_card_face_front" aria-hidden="true">
-                                            <p class="review_card_brand">SIMMONS</p>
-                                        </div>
-                                        <div class="review_card_face review_card_face_back">
-                                            <p class="review_card_heading">OFFLINE<br>REVIEW</p>
-                                            <div class="review_profile">
-                                                <div class="review_profile_avatar review_profile_avatar_light">
-                                                    <img src="icon/user.svg" alt="Weekend lounge profile image">
-                                                </div>
-                                                <div class="txt_all">
-                                                    <p class="review_profile_name">Weekend lounge</p>
-                                                    <div class="star_all" aria-label="5 stars">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="review_card_image">
-                                                <img src="img/main_review7.png" alt="Offline review photo 3">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </article>
-                            </div>
-                            <div class="review_card_slot review_card_slot_04">
-                                <article class="review_card review_card_dark">
-                                    <div class="review_card_inner">
-                                        <div class="review_card_face review_card_face_front" aria-hidden="true">
-                                            <p class="review_card_brand">SIMMONS</p>
-                                        </div>
-                                        <div class="review_card_face review_card_face_back">
-                                            <p class="review_card_heading">OFFLINE<br>REVIEW</p>
-                                            <div class="review_profile">
-                                                <div class="review_profile_avatar review_profile_avatar_dark">
-                                                    <img src="icon/user.svg" alt="Sleep curator profile image">
-                                                </div>
-                                                <div class="txt_all">
-                                                    <p class="review_profile_name">Sleep curator</p>
-                                                    <div class="star_all" aria-label="5 stars">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                        <img src="icon/star.svg" alt="" aria-hidden="true">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="review_card_image">
-                                                <img src="img/main_review8.png" alt="Offline review photo 4">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </article>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="review_filter_button" role="tablist" aria-label="Review category">
-                        <button type="button" class="review_filter_option is-active" data-review-category="products"
-                            aria-pressed="true">
-                            Products
-                        </button>
-                        <button type="button" class="review_filter_option" data-review-category="offline"
-                            aria-pressed="false">
-                            Offline
-                        </button>
-                    </div>
-                </div>
-                </section>
-            </section>
-
-            <section class="event">
-                <div class="event_inner">
-                    <div class="event_visual">
-                        <div class="event_card_stack">
-                            <div class="event_backdrop" aria-hidden="true">
-                                <p class="event_backdrop_word event_backdrop_word_simmons">SIMMONS</p>
-                                <p class="event_backdrop_word event_backdrop_word_event">EVENT</p>
-                            </div>
-
-                            <article class="event_card event_card_white">
-                                <!-- <span class="event_card_dot" aria-hidden="true"></span> -->
-
-                                <div class="event_card_top">
-                                    <h2 class="event_card_title">SIMMONS EVENT</h2>
-
-                                    <ul class="event_card_lead">
-                                        <li class="event_card_lead_item event_card_lead_item_top">
-                                            <p class="event_card_copy event_card_copy_medium">
-                                                Official Online Store Exclusive Promotion
-                                            </p>
-                                            <p class="event_card_copy event_card_copy_regular">
-                                                Free Gifts with Purchase
-                                            </p>
-                                        </li>
-                                        <li class="event_card_lead_item event_card_lead_item_bottom">
-                                            <p class="event_card_copy event_card_copy_headline">
-                                                FREE Lumila Bedding Set
-                                            </p>
-                                            <p class="event_card_copy event_card_copy_regular">
-                                                ( for purchases of 2,000$ or more, based on final payment amount )
-                                            </p>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div class="event_card_txt">
-                                    <ul>
-                                        <li>
-                                            <p class="event_card_copy event_card_copy_medium">
-                                                Gifts shipped separately in sequence
-                                            </p>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div class="event_card_bottom">
-                                    <p>SIMMONS.com</p>
-                                    <p>theSIMMONS.EVENT</p>
-                                </div>
-                            </article>
-
-                            <article class="event_card event_card_brown">
-                                <!-- <span class="event_card_dot" aria-hidden="true"></span> -->
-
-                                <div class="event_card_top">
-                                    <h2 class="event_card_title">SIMMONS EVENT</h2>
-
-                                    <ul class="event_card_lead">
-                                        <li class="event_card_lead_item event_card_lead_item_top">
-                                            <p class="event_card_copy event_card_copy_medium">
-                                                Official Online Store Exclusive Promotion
-                                            </p>
-                                        </li>
-                                        <li class="event_card_lead_item event_card_lead_item_bottom">
-                                            <p class="event_card_copy event_card_copy_headline">
-                                                36 Months Interest-Free
-                                            </p>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div class="event_card_bottom event_card_bottom_extended">
-                                    <ul>
-                                        <li class="event_card_bottom_row">
-                                            <p class="event_card_copy event_card_copy_regular event_card_copy_label">
-                                                Event Period</p>
-                                            <p class="event_card_copy event_card_copy_regular">March 3 - March 31, 2026
-                                            </p>
-                                        </li>
-                                        <li class="event_card_bottom_row">
-                                            <p class="event_card_copy event_card_copy_regular event_card_copy_label">
-                                                Eligibility</p>
-                                            <p class="event_card_copy event_card_copy_regular">
-                                                Credit card payments (excluding Easy Pay)
-                                            </p>
-                                        </li>
-                                        <li class="event_card_bottom_row event_card_bottom_row_links">
-                                            <p>SIMMONS.com</p>
-                                            <p>theSIMMONS.EVENT</p>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </article>
-
-                            <article class="event_card event_card_burgundy">
-                                <!-- <span class="event_card_dot" aria-hidden="true"></span> -->
-
-                                <div class="event_card_top">
-                                    <h2 class="event_card_title">SIMMONS EVENT</h2>
-
-                                    <ul class="event_card_lead">
-                                        <li class="event_card_lead_item event_card_lead_item_top">
-                                            <p class="event_card_copy event_card_copy_medium">
-                                                Try Our Free Experience &amp; Premium Mattresses
-                                            </p>
-                                        </li>
-                                        <li class="event_card_lead_item event_card_lead_item_bottom">
-                                            <p class="event_card_copy event_card_copy_headline">
-                                                Sleep Lounge Grand Open
-                                            </p>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div class="event_card_txt">
-                                    <ul>
-                                        <li>
-                                            <p class="event_card_copy event_card_copy_medium">
-                                                Book Your Visit Online Easily
-                                            </p>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div class="event_card_bottom">
-                                    <p>SIMMONS.com</p>
-                                    <p>theSIMMONS.EVENT</p>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
-
-                    <button type="button" class="event_more_button" aria-label="View More Events">
-                        <svg class="event_more_button_svg" viewBox="0 0 353.94 111.5" aria-hidden="true"
-                            focusable="false">
-                            <path class="event_more_button_shape"
-                                d="M229.58,82.25c-2.74,2.08-6.49,4.88-12.09,6.65-4.25,1.34-7.98,1.6-10.51,1.59H54.86c-19.52,0-35.35-15.83-35.35-35.35h0c0-19.52,15.83-35.35,35.35-35.35h152.12c3.14-.18,7.38.04,11.98,1.7,4.29,1.54,7.19,3.72,8.83,4.98,2.66,2.03,2.91,2.78,7.1,6.88,4.58,4.48,6.88,6.72,9.73,8.44,2.26,1.37,6.16,3.66,11.7,4.09,5.72.44,10.06-1.36,12.11-2.24.93-.4,5.66-2.49,10.01-7.05,2.38-2.49,3.13-4.14,6.63-7.41,1.17-1.09,2.48-2.32,4.4-3.66,6.67-4.66,13.5-5.74,17.03-6,.71-.05,1.27-.08,1.64-.09,2.15-.08,8.57-.11,15.85,3.18,3.36,1.51,11.96,6.01,17.18,16.11,1.08,2.09,3.95,8.14,3.93,16.44,0,4.33-.81,12.73-6.61,20.79-1.1,1.53-8.24,11.12-21.47,13.92-.93.2-1.67.33-2.12.4-1.95.3-12.22,1.73-21.89-3.62-5.79-3.2-10.46-8.33-13.53-11.69-.79-.86-3.02-3.36-6.58-5.83-1.39-.97-3.12-2.15-5.68-3.13-1.23-.47-4.25-1.5-8.27-1.54-1.62-.02-4.53.11-7.9,1.22-3.02,1-5.36,2.43-8.39,4.74-7.28,5.52-7.18,7.37-13.08,11.85Z" />
-                            <circle class="event_more_button_ring" cx="309.45" cy="55.02" r="27.81" />
-                        </svg>
-                        <span class="event_more_button_content">
-                            <span class="event_more_button_text">View More</span>
-                            <span class="event_more_button_icon" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" focusable="false">
-                                    <path d="M17 7L7 17" />
-                                    <path d="M8 7H17V16" />
-                                </svg>
-                            </span>
-                        </span>
-                    </button>
                 </div>
             </section>
 
+            <div class="float_buttons">
+                <button type="button" class="float_button float_button_ai">
+                    <img src="icon/AI_button.svg" alt="AI button">
+                </button>
+                <button type="button" class="float_button float_button_top">
+                    <img src="icon/top_button.svg" alt="Top button">
+                </button>
+            </div>
         </main>
+
         <!-- footer start -->
         <footer>
             <div class="footer_inner">
