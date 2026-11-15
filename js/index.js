@@ -616,6 +616,19 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('resize', requestArc);
     }
 
+    // 5-1. 아치 카드 인물: 섹션이 화면에 들어오면 왼쪽 카드부터 한 명씩 스르륵 등장 (한 번만)
+    const arcSection = document.querySelector('[data-arc]');
+    if (arcSection && !prefersReducedMotion && 'IntersectionObserver' in window) {
+        arcSection.dataset.chars = 'wait';
+        const charObserver = new IntersectionObserver((entries) => {
+            if (entries.some((entry) => entry.isIntersecting)) {
+                arcSection.dataset.chars = 'in';
+                charObserver.disconnect();
+            }
+        }, { threshold: 0.35 });
+        charObserver.observe(arcSection.querySelector('.arc_sticky') || arcSection);
+    }
+
     // 5-2. 아치 카드 뒤적이기: 가리킨 카드가 맨 앞으로, 양옆 카드는 가까울수록 크게 벌어짐
     const arcList = document.querySelector('.arc_cards');
     if (arcList && window.matchMedia('(hover: hover)').matches) {

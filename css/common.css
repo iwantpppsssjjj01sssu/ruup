@@ -5,6 +5,71 @@
    - 헤더, 모바일 메뉴, 푸터, 버튼, 카드 등 모든 페이지 공용
    ========================================================= */
 
+/* Paperlogy 서체 (헤더·모바일 메뉴·인트로용) */
+@font-face {
+  font-family: 'Paperlogy';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-1Thin.woff2') format('woff2');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Paperlogy';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-2ExtraLight.woff2') format('woff2');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Paperlogy';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-3Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Paperlogy';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-4Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Paperlogy';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-5Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Paperlogy';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-6SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Paperlogy';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Paperlogy';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Paperlogy';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-9Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   /* 브랜드 컬러 (로고 그라데이션 기반) */
   --luup-sky: #5cc8f7;
@@ -25,9 +90,9 @@
   --luup-sky-soft: #eaf6fe;
   --luup-mint-soft: #e6fbf5;
 
-  /* 본문 글씨는 Pretendard, 헤더(상단 메뉴)만 SUIT */
+  /* 본문 글씨는 Pretendard, 헤더(상단 메뉴)만 Paperlogy */
   --luup-font: 'Pretendard Variable', 'Pretendard', 'SUIT Variable', sans-serif;
-  --luup-font-header: 'SUIT Variable', 'SUIT', 'Pretendard Variable', sans-serif;
+  --luup-font-header: 'Paperlogy', 'Pretendard Variable', sans-serif;
   --luup-radius: 24px;
   --luup-shadow: 0 24px 60px rgba(12, 26, 46, 0.12);
   --luup-header-h: 76px;
@@ -976,7 +1041,7 @@ body.has-dark-hero.is-at-top .site_actions .btn_line {
   }
 }
 
-/* 헤더와 모바일 메뉴는 기존 SUIT 유지 */
+/* 헤더와 모바일 메뉴는 Paperlogy */
 .site_header,
 .mobile_menu {
   font-family: var(--luup-font-header);

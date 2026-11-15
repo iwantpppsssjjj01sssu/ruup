@@ -6237,18 +6237,11 @@ a.gg_more:hover {
 
 /* =========================================================
    인트로 다듬기
-   - 글씨: 웨이브 파도체(Wave), 작게, 굵기 없이 — 첫 글자는 밝은 흰색, 나머지는 회색으로 구분
+   - 글씨: Paperlogy, 작게, 굵기 없이 — 첫 글자는 밝은 흰색, 나머지는 회색으로 구분
    - 속도: 전체를 느리게 (R 그리기 → 단어 등장 → 머무름 → 접힘 → LUUP 머무름 → 화면 열림)
    ========================================================= */
-@font-face {
-  font-family: 'Wave';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2404@1.0/WavvePADO-Regular.woff2') format('woff2');
-  font-weight: normal;
-  font-display: swap;
-}
-
 .intro_side {
-  font-family: 'Wave', var(--luup-font);
+  font-family: 'Paperlogy', var(--luup-font);
   font-size: clamp(12px, 1.8vw, 26px);
   font-weight: 400;
   letter-spacing: 0;
@@ -6564,7 +6557,7 @@ a.gg_more:hover {
 
 /* 제목 위 영문 라벨(TODAY·RECORD): 웨이브 파도체 — 굵기가 하나뿐이라 400으로 */
 .gg_tags_main {
-  font-family: 'Wave', var(--luup-font);
+  font-family: 'Paperlogy', var(--luup-font);
   font-weight: 400;
 }
 
@@ -7299,4 +7292,183 @@ a.gg_more:hover {
 /* 하루 1분… 문장: 굵기 낮춤 (600 → 400) */
 .gap_text {
   font-weight: 400;
+}
+
+
+/* =========================================================
+   기능 카드 앞면: 고민(페인포인트) 카드 — 뒷면은 기존 보라색 그대로
+   - 하얀 카드 + 위 작은 라벨 줄 + 큰 그림 칸 + 굵은 제목 + 구분선 + 아래 문구와 까만 동그라미 화살표
+   - 그림 칸 색은 카드마다 다른 파스텔
+   ========================================================= */
+.arc .arc_front.pp {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 0;
+  padding: calc(var(--w) * 0.075);
+  border: 1px solid rgba(30, 30, 50, 0.05);
+  border-radius: calc(var(--w) * 0.11);
+  background: linear-gradient(180deg, #fbfbfd 0%, #f4f4f8 100%);
+  color: #26262e;
+  box-shadow: 0 22px 44px -16px rgba(60, 50, 120, 0.28), 0 2px 6px rgba(60, 50, 120, 0.06), inset 0 1px 0 #fff;
+}
+
+.arc .arc_front.pp::before,
+.arc .arc_front.pp::after {
+  display: none;
+}
+
+/* 작은 라벨 줄: LUUP · STORY  #01 */
+.pp_meta {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 calc(var(--w) * 0.045);
+  padding: 0 calc(var(--w) * 0.01);
+  font-size: clamp(8px, calc(var(--w) * 0.046), 12px);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #8c8c98;
+}
+
+/* 큰 그림 칸 */
+.pp_art {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: calc(var(--w) * 0.075);
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 100%, rgba(255, 255, 255, 0.4) 0%, transparent 70%),
+    linear-gradient(160deg, var(--a1) 0%, var(--a2) 100%);
+}
+
+/* 캐릭터: 아래에서 올라온 상반신 */
+.pp_char {
+  position: absolute;
+  left: 50%;
+  bottom: -8%;
+  width: 104%;
+  height: auto;
+  filter: drop-shadow(0 10px 14px rgba(40, 40, 70, 0.18));
+  transform: translateX(-50%);
+}
+
+.pp_char_luupy {
+  bottom: 0;
+  width: 74%;
+}
+
+/* 제목: 굵게 */
+.arc .pp_title {
+  margin: calc(var(--w) * 0.07) 0 0;
+  font-size: clamp(11px, calc(var(--w) * 0.088), 23px);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.035em;
+  color: #26262e;
+  word-break: keep-all;
+}
+
+/* 아래: 구분선 + 문구 + 까만 동그라미 화살표 */
+.pp_foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-top: calc(var(--w) * 0.055);
+  padding-top: calc(var(--w) * 0.05);
+  border-top: 1px solid #e2e2ea;
+  font-size: clamp(9px, calc(var(--w) * 0.05), 13px);
+  font-weight: 600;
+  color: #6b6b78;
+}
+
+.pp_foot i {
+  flex: none;
+  width: calc(var(--w) * 0.12);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #2a2a30 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17 17 7M9 7h8v8'/%3E%3C/svg%3E") center / 50% no-repeat;
+  box-shadow: 0 4px 10px rgba(30, 30, 40, 0.25);
+  transition: transform 0.25s ease;
+}
+
+.arc_flip:hover .pp_foot i {
+  transform: rotate(45deg);
+}
+
+/* 섹션에 처음 들어오면 인물이 왼쪽 카드부터 한 명씩 스르륵 올라옴
+   (JS가 data-chars="wait" → "in"으로 바꿈. JS가 없으면 그냥 다 보임) */
+.arc[data-chars] .pp_char {
+  transition:
+    opacity 1.2s ease,
+    transform 1.6s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 1.2s ease;
+  transition-delay: calc(var(--i) * 0.3s + 0.3s);
+}
+
+.arc[data-chars="wait"] .pp_char {
+  opacity: 0;
+  transform: translate(-50%, 55%) scale(0.9);
+  filter: blur(6px) drop-shadow(0 10px 14px rgba(40, 40, 70, 0));
+}
+
+/* 제목 형광펜: 카드를 가리키면 왼쪽부터 칠해짐 */
+.arc .pp_title {
+  align-self: flex-start;
+  background: linear-gradient(transparent 58%, color-mix(in srgb, var(--a2) 85%, transparent) 58% 92%, transparent 92%) no-repeat 0 0 / 0% 100%;
+  transition: background-size 0.45s ease;
+}
+
+.arc_card:hover .pp_title,
+.arc_card.is-front .pp_title,
+.arc_card:focus-within .pp_title {
+  background-size: 100% 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arc .pp_title {
+    transition: none;
+  }
+}
+
+/* 카드 비율: 조금 더 세로로 길게 */
+.arc .arc_card {
+  height: calc(var(--w) * 1.5);
+}
+
+/* 카드마다 앞면 그림 칸 색을 다르게 (파스텔) */
+.arc_card:nth-child(1) { --a1: #ffe6d6; --a2: #ffd2bd; }
+.arc_card:nth-child(2) { --a1: #e9e0ff; --a2: #d6c8fb; }
+.arc_card:nth-child(3) { --a1: #dcedff; --a2: #c4dcfb; }
+.arc_card:nth-child(4) { --a1: #fff2c9; --a2: #ffe4a1; }
+.arc_card:nth-child(5) { --a1: #ffe0ec; --a2: #fbc9dc; }
+.arc_card:nth-child(6) { --a1: #d8f5e8; --a2: #bdecd6; }
+.arc_card:nth-child(7) { --a1: #d6f1f5; --a2: #bce4ec; }
+.arc_card:nth-child(8) { --a1: #ecf6cf; --a2: #dbedab; }
+
+/* 모바일: 카드가 작아서 라벨 줄·부제·칩·아래 문구는 숨기고 버튼만 */
+@media (max-width: 760px) {
+  .pp_meta,
+  .pp_foot span {
+    display: none;
+  }
+
+  .pp_foot {
+    justify-content: flex-end;
+  }
+
+}
+
+/* SMALL STEPS → BIG GROWTH 구간: 화면 한 장 꽉 채우지 않고 70% 정도로 줄임 */
+.gap_sticky {
+  height: clamp(480px, 70svh, 720px);
+  min-height: 0;
+}
+
+@media (max-width: 900px) {
+  .gap_sticky {
+    height: clamp(380px, 60svh, 560px);
+  }
 }
