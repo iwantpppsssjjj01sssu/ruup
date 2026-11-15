@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 230">
+  <defs>
+    <linearGradient id="face" x1="30" y1="20" x2="190" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7ad6fb"/>
+      <stop offset="0.55" stop-color="#4fdcd2"/>
+      <stop offset="1" stop-color="#2fe0b5"/>
+    </linearGradient>
+    <linearGradient id="side" x1="30" y1="20" x2="190" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2f9fd8"/>
+      <stop offset="1" stop-color="#14b48f"/>
+    </linearGradient>
+    <radialGradient id="shine" cx="0.3" cy="0.2" r="0.6">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.75"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- 바닥 그림자 -->
+  <ellipse cx="108" cy="216" rx="78" ry="9" fill="#0c1a2e" opacity="0.1"/>
+
+  <!-- 입체 옆면 -->
+  <g fill="url(#side)" stroke="url(#side)" transform="translate(9 11)">
+    <rect x="34" y="26" width="54" height="170" rx="27" stroke="none"/>
+    <path d="M60 26H122C164 26 184 56 184 88S162 150 122 150H60Z" stroke="none"/>
+    <path d="M116 146L162 192" fill="none" stroke-width="52" stroke-linecap="round"/>
+  </g>
+
+  <!-- 앞면 -->
+  <g fill="url(#face)" stroke="url(#face)">
+    <rect x="34" y="26" width="54" height="170" rx="27" stroke="none"/>
+    <path d="M60 26H122C164 26 184 56 184 88S162 150 122 150H60Z" stroke="none"/>
+    <path d="M116 146L162 192" fill="none" stroke-width="52" stroke-linecap="round"/>
+  </g>
+
+  <!-- 하이라이트 -->
+  <rect x="42" y="34" width="26" height="96" rx="13" fill="url(#shine)"/>
+  <ellipse cx="128" cy="50" rx="40" ry="16" fill="#fff" opacity="0.28"/>
+
+  <!-- 얼굴 -->
+  <ellipse cx="96" cy="104" rx="10" ry="6" fill="#ff8fa3" opacity="0.45"/>
+  <ellipse cx="164" cy="104" rx="10" ry="6" fill="#ff8fa3" opacity="0.45"/>
+  <ellipse cx="112" cy="84" rx="9" ry="11" fill="#0c1a2e"/>
+  <ellipse cx="148" cy="84" rx="9" ry="11" fill="#0c1a2e"/>
+  <circle cx="115" cy="80" r="3.2" fill="#fff"/>
+  <circle cx="151" cy="80" r="3.2" fill="#fff"/>
+  <path d="M118 104Q130 116 142 104" fill="none" stroke="#0c1a2e" stroke-width="5" stroke-linecap="round"/>
+</svg>

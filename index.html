@@ -1,637 +1,422 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
+<!-- head:start -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ruup</title>
+    <title>LUUP | 작은 반복이 만드는 큰 변화</title>
+    <meta name="description" content="작은 반복이 만드는 큰 변화. LUUP은 매일의 루틴을 만들고, 체크하고, 이어가도록 돕는 습관·루틴 관리 서비스예요.">
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="ruup" />
-    <meta property="og:description"
-        content="A refined sleep experience shaped by heritage, innovation, and lasting comfort." />
-    <meta property="og:url" content="https://iwantpppsssjjj01sssu.github.io/ruup/" />
-    <meta property="og:image" content="https://iwantpppsssjjj01sssu.github.io/ruup/img/og.png" />
+    <meta property="og:title" content="LUUP | 작은 반복이 만드는 큰 변화" />
+    <meta property="og:description" content="작은 반복이 만드는 큰 변화. LUUP은 매일의 루틴을 만들고, 체크하고, 이어가도록 돕는 습관·루틴 관리 서비스예요." />
+    <meta property="og:url" content="https://iwantpppsssjjj01sssu.github.io/luup/" />
+    <meta property="og:image" content="https://iwantpppsssjjj01sssu.github.io/luup/img/common_og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt"
-        content="We aimed to convey Simmons’ “unshakable comfort” through simple, impactful imagery." />
-    <meta property="og:site_name" content="ruup" />
+    <meta property="og:site_name" content="LUUP" />
+    <meta property="og:locale" content="ko_KR" />
+    <link rel="icon" type="image/svg+xml" href="img/common_favicon.svg">
     <!-- 폰트 -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Roboto:ital,wght@0,100..900;1,100..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap">
-    <link rel="stylesheet" as="style" crossorigin
-        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2.0.5/fonts/variable/woff2/SUIT-Variable.css">
-
-    <link rel="icon" href="simmons_favicon_io/favicon.ico" />
-    <link rel="icon" type="image/png" sizes="32x32" href="simmons_favicon_io/favicon-32x32.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="simmons_favicon_io/apple-touch-icon.png" />
-
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/index_kok.css">
-
     <script src="js/common.js"></script>
-    <script src="js/index_kok.js"></script>
+<!-- head:end -->
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/studio_header.css">
 </head>
 
-<body class="kok-page is-at-top">
-    <div class="wrap main-shell">
-
-        <!-- header start -->
-        <header>
-            <div class="inner">
-                <div class="logo">
-                    <img src="icon/logo.svg" alt="simmons">
-                </div>
-                <nav>
-                    <ul class="gnb">
-                        <li><a href="#">About Us</a>
-                        </li>
-                        <li><a href="#">Products</a>
-
-                        </li>
-                        <li><a href="#">Sleep Solution</a>
-
-                        </li>
-                        <li><a href="#">Visit</a>
-
-                        </li>
-                        <li><a href="promo/promo.html">Community</a>
-                        </li>
-                    </ul><!-- //.gnb -->
-                </nav>
-                <div class="right">
-                    <ul>
-                        <li>
-                            <a href="#" class="search_link" aria-label="Search">
-                                <span class="search_hint" aria-hidden="true"></span>
-                                <img src="icon/search.svg" alt="">
-                            </a>
-                        </li>
-                        <li><a href="#" class="menu_toggle" aria-label="Open menu"><img src="icon/menu.svg" alt=""></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="sub_tab_backdrop" aria-hidden="true"></div>
-            <div class="sub_tab" aria-hidden="true">
-                <div class="sub_tab_inner">
-                    <div class="sub_tab_btn">
-                        <div class="sub_tab_lang_box">
-                            <div class="sub_tab_lang" aria-label="Language options">
-                                <button type="button" class="sub_tab_lang_option is-active" data-lang="en">EN</button>
-                                <button type="button" class="sub_tab_lang_option" data-lang="kr">KR</button>
-                                <span class="sub_tab_lang_highlight" aria-hidden="true"></span>
-                            </div>
-                        </div>
-                        <button type="button" class="sub_tab_close" aria-label="Close menu"><img src="icon/header_x.svg"
-                                alt="" aria-hidden="true"></button>
-                    </div>
-                    <div class="sub_tab_top">
-                        <div class="tab_gnb">
-                            <a href="#" class="tab_gnb_link is-default" data-tab="about">About Us</a>
-                            <a href="#" class="tab_gnb_link" data-tab="products">Products</a>
-                            <a href="#" class="tab_gnb_link" data-tab="sleep">Sleep Solution</a>
-                            <a href="#" class="tab_gnb_link" data-tab="visit">Visit</a>
-                            <a href="promo/promo.html" class="tab_gnb_link" data-tab="community">Community</a>
-                        </div>
-                        <div class="tab_sub" aria-label="Sub menu">
-                            <div class="tab_sub_panel is-default" data-tab="about">
-                                <a href="#">Simmons</a>
-                                <a href="#">Hotel Story</a>
-                            </div>
-                            <div class="tab_sub_panel" data-tab="products">
-                                <a href="#">Mattresses</a>
-                                <a href="#">Bed Frames</a>
-                                <a href="#">Bedding</a>
-                                <a href="#">Living Collections</a>
-                            </div>
-                            <div class="tab_sub_panel" data-tab="sleep">
-                                <a href="#">Sleep Match</a>
-                                <a href="#">Sleep Test</a>
-                                <a href="#">Sleep Report</a>
-                            </div>
-                            <div class="tab_sub_panel" data-tab="visit">
-                                <a href="#">Factorium</a>
-                                <a href="#">Location</a>
-                            </div>
-                            <div class="tab_sub_panel" data-tab="community">
-                                <a href="#">Notice</a>
-                                <a href="promo/promo.html">Event</a>
-                                <a href="#">Customer Service</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="sub_tab_bottom">
-                        <div class="bt_top">
-                            <p>CONTACT</p>
-                            <div class="info">
-                                <div class="con_left">
-                                    <p>Customer Service: 1899-8182</p>
-                                    <p>Mon-Fri, 9 AM-6 PM</p>
-                                    <p>master@simmons.co.kr</p>
-                                </div>
-                                <div class="con_right">
-                                    <a href="#" aria-label="Kakao">
-                                        <img src="icon/kakao.svg" alt="Kakao">
-                                    </a>
-                                    <a href="#" aria-label="Instagram">
-                                        <img src="icon/insta.svg" alt="Instagram">
-                                    </a>
-                                    <a href="#" aria-label="YouTube">
-                                        <img src="icon/youtube.svg" alt="YouTube">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bt_bottom">
-                            <div class="bt_bottom_left">
-                                <a href="#">Privacy Policy</a>
-                                <a href="#">Terms of Use</a>
-                            </div>
-                            <p class="bt_bottom_copy">&copy; 2025 Simmons</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-        <!-- //header end -->
-
-        <main class="kok-main">
-            <!-- 1. 히어로 -->
-            <section class="kv" id="kv">
-                <video class="kv_video" autoplay muted loop playsinline aria-hidden="true">
-                    <source src="video/main_video.mp4" type="video/mp4">
-                </video>
-                <div class="kv_overlay" aria-hidden="true"></div>
-
-                <div class="kv_title">
-                    <h1 class="kv_logo">
-                        <img src="vector/main_logo.svg" alt="Simmons">
-                    </h1>
-                    <p class="kv_tagline">Beyond expectation, <strong>always.</strong></p>
-                    <span class="kv_dash" aria-hidden="true"></span>
-                </div>
-
-                <a class="kv_scroll" href="#special" aria-label="Scroll to Why SIMMONS">
-                    <span class="kv_mouse"><i></i></span>
-                    <span>SCROLL</span>
-                    <span class="kv_scroll_line"></span>
-                </a>
-            </section>
-
-            <!-- 2. 특별한 이유 (01~04) -->
-            <section class="special" id="special" aria-labelledby="special-heading">
-                <div class="special_inner">
-                    <div class="special_copy">
-                        <p class="kok_eyebrow">WHY SIMMONS</p>
-                        <h2 id="special-heading">SIMMONS,<br><em>made different</em></h2>
-                        <p class="special_lead">Every night of rest, made easier and deeper<br>by 150 years of sleep craft.</p>
-
-                        <div class="special_list">
-                            <article class="special_item is-active">
-                                <h3>
-                                    <a href="#special-heritage" data-special="0">
-                                        <span class="special_number">01</span>
-                                        <span class="special_name">Heritage since 1870</span>
-                                        <span class="special_plus" aria-hidden="true">+</span>
-                                    </a>
-                                </h3>
-                            </article>
-                            <article class="special_item">
-                                <h3>
-                                    <a href="#special-tech" data-special="1">
-                                        <span class="special_number">02</span>
-                                        <span class="special_name">Beautyrest Technology</span>
-                                        <span class="special_plus" aria-hidden="true">+</span>
-                                    </a>
-                                </h3>
-                            </article>
-                            <article class="special_item">
-                                <h3>
-                                    <a href="#special-sleep" data-special="2">
-                                        <span class="special_number">03</span>
-                                        <span class="special_name">Personal Sleep Solution</span>
-                                        <span class="special_plus" aria-hidden="true">+</span>
-                                    </a>
-                                </h3>
-                            </article>
-                            <article class="special_item">
-                                <h3>
-                                    <a href="#special-visit" data-special="3">
-                                        <span class="special_number">04</span>
-                                        <span class="special_name">Spaces to Experience</span>
-                                        <span class="special_plus" aria-hidden="true">+</span>
-                                    </a>
-                                </h3>
-                            </article>
-                        </div>
-                    </div>
-
-                    <div class="special_visual">
-                        <figure class="special_card" id="special-heritage">
-                            <img src="img/main_story.png" alt="Simmons signature bed" loading="lazy">
-                            <figcaption class="special_overlay">
-                                <h3>Heritage since 1870</h3>
-                                <p>A legacy of sleep, crafted into every layer for over 150 years.</p>
-                            </figcaption>
-                        </figure>
-                        <figure class="special_card" id="special-tech">
-                            <img src="img/main_circle4.png" alt="Close-up of Beautyrest quilted fabric" loading="lazy">
-                            <figcaption class="special_overlay">
-                                <h3>Beautyrest Technology</h3>
-                                <p>Pocketed coils that move with your body, not against it.</p>
-                            </figcaption>
-                        </figure>
-                        <figure class="special_card" id="special-sleep">
-                            <img src="img/main_sleep.png" alt="Simmons mattress for sleep solution" loading="lazy">
-                            <figcaption class="special_overlay">
-                                <h3>Personal Sleep Solution</h3>
-                                <p>Find the firmness and fit made for the way you sleep.</p>
-                            </figcaption>
-                        </figure>
-                        <figure class="special_card" id="special-visit">
-                            <img src="img/main_card2.png" alt="SIMMONS Factorium experience space" loading="lazy">
-                            <figcaption class="special_overlay">
-                                <h3>Spaces to Experience</h3>
-                                <p>Feel the difference in person at Factorium, Terrace and showrooms.</p>
-                            </figcaption>
-                        </figure>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 3. 조인 (블루 원형 궤도) -->
-            <section class="join" aria-labelledby="join-heading">
-                <svg class="join_edge" viewBox="0 0 1400 160" preserveAspectRatio="none" aria-hidden="true">
-                    <path d="M0 160V96C120 40 240 40 350 80S580 140 700 90 930 20 1050 64 1280 120 1400 70V160Z" />
+<body>
+    <!-- 첫 화면 인트로: 어두운 화면에 R 캐릭터가 선으로 그려짐 → 양옆 글자 → 파란 화면이 종이처럼 찢어지며 시작 -->
+    <div class="intro" data-intro aria-hidden="true">
+        <div class="intro_cols" data-intro-cols></div>
+        <div class="intro_dark">
+            <div class="intro_row">
+                <p class="intro_side intro_left"><span class="intro_word"><b>L</b><span class="intro_rest">earn</span></span><span class="intro_word"><b>U</b><span class="intro_rest">nderstand</span></span></p>
+                <svg class="intro_r" viewBox="20 12 180 214">
+                    <rect class="intro_line" x="34" y="26" width="54" height="170" rx="27" pathLength="1"/>
+                    <path class="intro_line" d="M60 26H122C164 26 184 56 184 88S162 150 122 150H60Z" pathLength="1"/>
+                    <path class="intro_line" d="M134.4 127.6L158.4 151.6A26 26 0 0 1 121.6 188.4L97.6 164.4" pathLength="1"/>
+                    <!-- 안쪽 선 가리기: 같은 모양을 배경색으로 덮어서 겉 테두리만 남김 -->
+                    <g class="intro_fill">
+                        <rect x="34" y="26" width="54" height="170" rx="27"/>
+                        <path d="M60 26H122C164 26 184 56 184 88S162 150 122 150H60Z"/>
+                        <path d="M134.4 127.6L158.4 151.6A26 26 0 0 1 121.6 188.4L97.6 164.4Z"/>
+                    </g>
+                    <ellipse class="intro_eye" cx="112" cy="84" rx="9" ry="11"/>
+                    <ellipse class="intro_eye" cx="148" cy="84" rx="9" ry="11"/>
+                    <path class="intro_line intro_smile" d="M118 106Q130 118 142 106" pathLength="1"/>
                 </svg>
-                <div class="join_stage">
-                    <div class="join_orbit" aria-hidden="true">
-                        <svg viewBox="0 0 800 800">
-                            <defs>
-                                <path id="join-orbit-path" d="M400 50 A350 350 0 1 1 399.99 50" />
-                            </defs>
-                            <text>
-                                <textPath href="#join-orbit-path" startOffset="0%" textLength="2185" lengthAdjust="spacing">SLEEP BETTER ✦ SIMMONS ✦ BEAUTYREST ✦ SLEEP BETTER ✦ SIMMONS ✦ BEAUTYREST ✦</textPath>
-                            </text>
-                        </svg>
-                    </div>
-                    <div class="join_disc">
-                        <p class="join_eyebrow">SINCE 1870</p>
-                        <h2 id="join-heading">Rest deeper,<br><em>wake brighter</em></h2>
-                        <a class="kok_pill kok_pill_white" href="list/list.html">Find Your Mattress <span aria-hidden="true">↗</span></a>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 4. 마키 띠 -->
-            <div class="marquee" aria-hidden="true">
-                <div class="marquee_track">
-                    <span>BEAUTYREST BLACK</span><i>✦</i>
-                    <span>N32 MOTION BED</span><i>✦</i>
-                    <span>SLEEP SOLUTION</span><i>✦</i>
-                    <span>FACTORIUM</span><i>✦</i>
-                    <span>SINCE 1870</span><i>✦</i>
-                    <span>BEAUTYREST BLACK</span><i>✦</i>
-                    <span>N32 MOTION BED</span><i>✦</i>
-                    <span>SLEEP SOLUTION</span><i>✦</i>
-                    <span>FACTORIUM</span><i>✦</i>
-                    <span>SINCE 1870</span><i>✦</i>
-                </div>
+                <p class="intro_side intro_right"><span class="intro_word"><b>U</b><span class="intro_rest">nlock</span></span><span class="intro_word"><b>P</b><span class="intro_rest">rogress</span></span></p>
             </div>
+        </div>
+        <div class="intro_tear">
+            <div class="intro_half intro_top" data-intro-top></div>
+            <div class="intro_half intro_bottom" data-intro-bottom></div>
+        </div>
+        <button type="button" class="intro_skip" data-intro-skip>건너뛰기</button>
+    </div>
 
-            <!-- 5. 기능 소개 -->
-            <section class="features" aria-label="SIMMONS services">
-
-                <!-- 5-1 제품 -->
-                <article class="feature reveal">
-                    <div class="feature_copy">
-                        <p class="kok_eyebrow">01 &nbsp;PRODUCTS</p>
-                        <h2>Signature mattresses,<br><em>made to last</em></h2>
-                        <p class="feature_desc">Refined materials, advanced support and the comfort philosophy that
-                            defines SIMMONS — from Beautyrest Black to the new N32 Motion Bed.</p>
-                        <div class="feature_links">
-                            <a class="kok_pill" href="list/list.html">All Mattresses <span aria-hidden="true">↗</span></a>
-                            <a class="kok_pill kok_pill_line" href="product/product.html">N32 Motion Bed <span aria-hidden="true">↗</span></a>
-                        </div>
-                    </div>
-
-                    <div class="screen screen_product" data-product-screen>
-                        <div class="screen_top">
-                            <span class="screen_mark">S</span>
-                            <strong data-product-eyebrow>Beautyrest Black<small>Signature Collection</small></strong>
-                            <span class="screen_badge">NEW</span>
-                        </div>
-                        <div class="product_stage">
-                            <img src="img/main_prodcut.png" alt="Black Lauren mattress" data-product-image>
-                        </div>
-                        <div class="product_meta">
-                            <p class="product_name" data-product-name>Black Lauren</p>
-                            <a href="product/product.html" class="screen_arrow" aria-label="View product">↗</a>
-                        </div>
-                        <div class="product_tags">
-                            <span>#Top safety</span>
-                            <span>#More ease</span>
-                            <span>#Pocket coil</span>
-                        </div>
-                        <div class="screen_chips" role="tablist" aria-label="Mattress line-up">
-                            <button type="button" class="is-active" data-name="Black Lauren" data-eyebrow="Beautyrest Black" data-src="img/main_prodcut.png">Lauren</button>
-                            <button type="button" data-name="Black Eger" data-eyebrow="Beautyrest Black" data-src="img/main_prodcut2.png">Eger</button>
-                            <button type="button" data-name="Black Kelly" data-eyebrow="Beautyrest Black" data-src="img/main_prodcut3.png">Kelly</button>
-                            <button type="button" data-name="Black Devola" data-eyebrow="Beautyrest Mattress" data-src="img/main_prodcut4.png">Devola</button>
-                            <button type="button" data-name="Black Marion" data-eyebrow="Beautyrest Mattress" data-src="img/main_prodcut5.png">Marion</button>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- 5-2 수면 솔루션 -->
-                <article class="feature feature_reverse reveal">
-                    <div class="feature_copy">
-                        <p class="kok_eyebrow">02 &nbsp;SLEEP SOLUTION</p>
-                        <h2>Know your sleep,<br><em>match your bed</em></h2>
-                        <p class="feature_desc">Take a short sleep test and get a personal report — your sleeping
-                            style, firmness preference and the mattress that fits you best.</p>
-                        <div class="feature_links">
-                            <a class="kok_pill" href="sleep/sleep_main.html">Start Sleep Test <span aria-hidden="true">↗</span></a>
-                        </div>
-                    </div>
-
-                    <div class="screen screen_sleep">
-                        <div class="screen_top">
-                            <span class="screen_mark">S</span>
-                            <strong>My Sleep Report<small>This week</small></strong>
-                            <span class="screen_badge screen_badge_soft">Deep Sleeper</span>
-                        </div>
-                        <div class="sleep_stats">
-                            <div>
-                                <small>Sleep score</small>
-                                <b>86</b>
-                            </div>
-                            <div>
-                                <small>Avg. sleep</small>
-                                <b>7.4<em>h</em></b>
-                            </div>
-                            <div>
-                                <small>This month</small>
-                                <b class="is-up">+12%</b>
-                            </div>
-                        </div>
-                        <ul class="sleep_week">
-                            <li class="is-done"><i></i>M</li>
-                            <li class="is-done"><i></i>T</li>
-                            <li class="is-done"><i></i>W</li>
-                            <li class="is-done"><i></i>T</li>
-                            <li class="is-today"><i></i>F</li>
-                            <li><i></i>S</li>
-                            <li><i></i>S</li>
-                        </ul>
-                        <div class="sleep_match">
-                            <div class="sleep_match_head">
-                                <span>Firmness match</span>
-                                <b>80%</b>
-                            </div>
-                            <div class="sleep_bar"><span style="--value: 80%"></span></div>
-                            <p>Recommended · <strong>Beautyrest Black Lauren</strong></p>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- 5-3 오프라인 -->
-                <article class="feature reveal">
-                    <div class="feature_copy">
-                        <p class="kok_eyebrow">03 &nbsp;VISIT</p>
-                        <h2>Experience it<br><em>in person</em></h2>
-                        <p class="feature_desc">Discover the spaces where the world of SIMMONS comes to life — where
-                            craftsmanship, lifestyle and design meet.</p>
-                        <div class="feature_links">
-                            <a class="kok_pill" href="offline/offline.html">Book a Visit <span aria-hidden="true">↗</span></a>
-                        </div>
-                    </div>
-
-                    <div class="screen screen_visit" data-visit-screen>
-                        <div class="screen_tabs" role="tablist" aria-label="Places">
-                            <button type="button" class="is-active" data-src="img/main_card2.png"
-                                data-title="Factorium"
-                                data-desc="Where craftsmanship and heritage begin.">Factorium</button>
-                            <button type="button" data-src="img/main_card.png" data-title="Simmons Terrace"
-                                data-desc="Blending comfort, lifestyle and design.">Terrace</button>
-                            <button type="button" data-src="img/main_card3.png" data-title="Showrooms"
-                                data-desc="Signature products and curated sleep spaces up close.">Showrooms</button>
-                        </div>
-                        <div class="visit_image">
-                            <img src="img/main_card2.png" alt="SIMMONS experience space" data-visit-image>
-                            <span class="screen_badge">Open today</span>
-                        </div>
-                        <div class="visit_info">
-                            <p class="visit_title" data-visit-title>Factorium</p>
-                            <p class="visit_desc" data-visit-desc>Where craftsmanship and heritage begin.</p>
-                        </div>
-                        <ul class="visit_rows">
-                            <li><span>Hours</span><b>10:00 – 18:00</b></li>
-                            <li><span>Reservation</span><b>Online booking</b></li>
-                        </ul>
-                    </div>
-                </article>
-
-                <!-- 5-4 리뷰 -->
-                <article class="feature feature_reverse reveal">
-                    <div class="feature_copy">
-                        <p class="kok_eyebrow">04 &nbsp;REVIEW</p>
-                        <h2>Real nights,<br><em>real stories</em></h2>
-                        <p class="feature_desc">See how SIMMONS changed the way people sleep — reviews on our
-                            products and showroom visits.</p>
-                        <div class="feature_links">
-                            <a class="kok_pill" href="promo/promo.html">Community <span aria-hidden="true">↗</span></a>
-                        </div>
-                    </div>
-
-                    <div class="screen screen_review" data-review-screen>
-                        <div class="screen_tabs" role="tablist" aria-label="Review category">
-                            <button type="button" class="is-active" data-review="products">Products</button>
-                            <button type="button" data-review="offline">Offline</button>
-                        </div>
-
-                        <div class="review_list is-active" data-review-list="products">
-                            <div class="review_post">
-                                <span class="review_avatar"><img src="icon/user.svg" alt=""></span>
-                                <div class="review_body">
-                                    <p class="review_name">Panda lover <span class="review_stars" aria-label="5 stars">★★★★★</span></p>
-                                    <p class="review_text">Waking up without back pain for the first time in years.</p>
-                                    <p class="review_count"><span>♥ 128</span><span>💬 14</span></p>
-                                </div>
-                                <img class="review_thumb" src="img/main_review.png" alt="Review photo">
-                            </div>
-                            <div class="review_post">
-                                <span class="review_avatar is-dark"><img src="icon/user.svg" alt=""></span>
-                                <div class="review_body">
-                                    <p class="review_name">Sunny night <span class="review_stars" aria-label="5 stars">★★★★★</span></p>
-                                    <p class="review_text">Firm but soft at the same time. Worth every penny.</p>
-                                    <p class="review_count"><span>♥ 96</span><span>💬 9</span></p>
-                                </div>
-                                <img class="review_thumb" src="img/main_review2.png" alt="Review photo">
-                            </div>
-                            <div class="review_post">
-                                <span class="review_avatar"><img src="icon/user.svg" alt=""></span>
-                                <div class="review_body">
-                                    <p class="review_name">Cloud nine <span class="review_stars" aria-label="5 stars">★★★★★</span></p>
-                                    <p class="review_text">My partner moves a lot, and I don't feel it at all.</p>
-                                    <p class="review_count"><span>♥ 74</span><span>💬 6</span></p>
-                                </div>
-                                <img class="review_thumb" src="img/main_review3.png" alt="Review photo">
-                            </div>
-                        </div>
-
-                        <div class="review_list" data-review-list="offline" hidden>
-                            <div class="review_post">
-                                <span class="review_avatar"><img src="icon/user.svg" alt=""></span>
-                                <div class="review_body">
-                                    <p class="review_name">Showroom lover <span class="review_stars" aria-label="5 stars">★★★★★</span></p>
-                                    <p class="review_text">Tried six mattresses in one visit. Staff were so kind.</p>
-                                    <p class="review_count"><span>♥ 88</span><span>💬 11</span></p>
-                                </div>
-                                <img class="review_thumb" src="img/main_review5.png" alt="Review photo">
-                            </div>
-                            <div class="review_post">
-                                <span class="review_avatar is-dark"><img src="icon/user.svg" alt=""></span>
-                                <div class="review_body">
-                                    <p class="review_name">Studio visit <span class="review_stars" aria-label="5 stars">★★★★★</span></p>
-                                    <p class="review_text">The Factorium tour was a great weekend outing.</p>
-                                    <p class="review_count"><span>♥ 61</span><span>💬 5</span></p>
-                                </div>
-                                <img class="review_thumb" src="img/main_review6.png" alt="Review photo">
-                            </div>
-                            <div class="review_post">
-                                <span class="review_avatar"><img src="icon/user.svg" alt=""></span>
-                                <div class="review_body">
-                                    <p class="review_name">Weekend lounge <span class="review_stars" aria-label="5 stars">★★★★★</span></p>
-                                    <p class="review_text">Beautiful space, and the coffee at Terrace is great too.</p>
-                                    <p class="review_count"><span>♥ 52</span><span>💬 3</span></p>
-                                </div>
-                                <img class="review_thumb" src="img/main_review7.png" alt="Review photo">
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            </section>
-
-            <!-- 6. 이벤트 -->
-            <section class="event" aria-labelledby="event-heading">
-                <div class="event_inner">
-                    <div class="event_head reveal">
-                        <div>
-                            <p class="kok_eyebrow">EVENT</p>
-                            <h2 id="event-heading">Now at<br><em>SIMMONS</em></h2>
-                        </div>
-                        <a class="kok_pill kok_pill_line" href="promo/promo.html">View More <span aria-hidden="true">↗</span></a>
-                    </div>
-
-                    <div class="event_grid">
-                        <a class="event_card reveal" href="promo/promo.html">
-                            <span class="event_label">Official Store</span>
-                            <p class="event_sub">Free Gifts with Purchase</p>
-                            <h3>FREE Lumila<br>Bedding Set</h3>
-                            <p class="event_note">For purchases of $2,000 or more, based on final payment amount.</p>
-                            <span class="event_go" aria-hidden="true">↗</span>
-                        </a>
-                        <a class="event_card event_card_blue reveal" href="promo/promo.html">
-                            <span class="event_label">Official Store</span>
-                            <p class="event_sub">March 3 – March 31, 2026</p>
-                            <h3>36 Months<br>Interest-Free</h3>
-                            <p class="event_note">Credit card payments (excluding Easy Pay).</p>
-                            <span class="event_go" aria-hidden="true">↗</span>
-                        </a>
-                        <a class="event_card event_card_navy reveal" href="offline/offline.html">
-                            <span class="event_label">Grand Open</span>
-                            <p class="event_sub">Try premium mattresses for free</p>
-                            <h3>Sleep Lounge<br>Grand Open</h3>
-                            <p class="event_note">Book your visit online easily.</p>
-                            <span class="event_go" aria-hidden="true">↗</span>
-                        </a>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 7. 고객센터 -->
-            <section class="contact" aria-labelledby="contact-heading">
-                <div class="contact_inner">
-                    <h2 id="contact-heading" class="reveal">We're here<br><em>for your sleep</em></h2>
-                    <div class="contact_grid">
-                        <div class="contact_card reveal">
-                            <span class="contact_icon" aria-hidden="true">☎</span>
-                            <h3>Customer Service</h3>
-                            <p>1899-8182 · Mon–Fri, 9 AM–6 PM<br>master@simmons.co.kr</p>
-                        </div>
-                        <a class="contact_card reveal" href="offline/offline.html">
-                            <span class="contact_icon" aria-hidden="true">✦</span>
-                            <h3>Book a Showroom Visit</h3>
-                            <p>Reserve a time to try every mattress in person.</p>
-                            <span class="event_go" aria-hidden="true">↗</span>
-                        </a>
-                    </div>
-                </div>
-            </section>
-
-            <div class="float_buttons">
-                <button type="button" class="float_button float_button_ai">
-                    <img src="icon/AI_button.svg" alt="AI button">
-                </button>
-                <button type="button" class="float_button float_button_top">
-                    <img src="icon/top_button.svg" alt="Top button">
+<!-- header:start -->
+    <header class="site_header">
+        <div class="site_header_inner">
+            <a class="site_logo" href="index.html"><img src="img/common_logo_black.svg" alt="LUUP 홈"></a>
+            <nav class="site_nav" aria-label="주요 메뉴">
+                <ul>
+                    <li><a href="today/today.html">TODAY</a></li>
+                    <li><a href="routine/routine.html">ROUTINE</a></li>
+                    <li><a href="sleep/sleep_main.html">RECORD</a></li>
+                    <li><a href="offline/offline.html">GROWTH</a></li>
+                    <li><a href="my/my.html">MY</a></li>
+                </ul>
+            </nav>
+            <div class="site_actions">
+                <a class="btn btn_small btn_line" href="sleep/sleep_main.html">진단 시작하기</a>
+                <button type="button" class="menu_button" data-menu-open aria-label="메뉴 열기" aria-expanded="false" aria-controls="mobile-menu">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
                 </button>
             </div>
-        </main>
+        </div>
+    </header>
+    <div class="mobile_menu" id="mobile-menu" aria-hidden="true">
+        <div class="mobile_menu_top">
+            <a class="site_logo" href="index.html"><img src="img/common_logo_blue.png" alt="LUUP 홈"></a>
+            <button type="button" class="menu_button" data-menu-close aria-label="메뉴 닫기">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+        </div>
+        <nav aria-label="모바일 메뉴">
+            <a href="today/today.html">TODAY</a>
+            <a href="routine/routine.html">ROUTINE</a>
+            <a href="sleep/sleep_main.html">RECORD</a>
+            <a href="offline/offline.html">GROWTH</a>
+            <a href="my/my.html">MY</a>
+        </nav>
+        <a class="btn btn_gradient" href="sleep/sleep_main.html">루틴 유형 진단하기</a>
+    </div>
+<!-- header:end -->
 
-        <!-- footer start -->
-        <footer>
-            <div class="footer_inner">
-                <section class="info">
-                    <ul class="sns_list">
-                        <li>
-                            <a href="#" aria-label="Kakao">
-                                <img src="icon/kakao.svg" alt="Kakao">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" aria-label="Instagram">
-                                <img src="icon/insta.svg" alt="Instagram">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" aria-label="YouTube">
-                                <img src="icon/youtube.svg" alt="YouTube">
-                            </a>
-                        </li>
-                    </ul>
+    <main>
+        <!-- 1. 히어로: 밝은 바탕 + 오른쪽 위 작은 그림 + 두 줄 소개 + 아주 큰 LUUP -->
+        <!-- 1. 첫 화면: 검은 배경 + 가운데 큰 영문 제목, 스크롤하면 왼쪽 반은 아래에서·오른쪽 반은 위에서 다음 장면이 밀려 들어옴 -->
+        <section class="gg" aria-labelledby="hero-title" data-gg data-dark-hero>
+            <h1 id="hero-title" class="sr_only">LUUP - 나의 속도로, 오늘도 한 걸음 UP!</h1>
+            <div class="gg_sticky">
+                <div class="gg_ch" style="--c:#9eeaff; z-index:1" data-gg-ch>
+                    <p class="sr_only">1분 만에 루틴 만들기</p>
+                    <div class="gg_half gg_l">
+                        <img class="gg_pic gg_pic_wide" src="img/main_photo_tablet_quiz.png" alt="">
+                        <div class="gg_view" aria-hidden="true">
+                            <p class="gg_tags"><span class="gg_tags_main" data-scramble>TODAY</span><br><span class="gg_tags_sub">1분 만에 루틴 만들기</span></p>
+                            <p class="gg_title">LET'S BEGIN<br>TODAY</p>
+                            <span class="gg_more">오늘의 루틴 보기 ↗</span>
+                        </div>
+                    </div>
+                    <div class="gg_half gg_r_half">
+                        <img class="gg_pic gg_pic_wide" src="img/main_photo_tablet_quiz.png" alt="">
+                        <div class="gg_view">
+                            <p class="gg_tags"><span class="gg_tags_main" data-scramble>TODAY</span><br><span class="gg_tags_sub">1분 만에 루틴 만들기</span></p>
+                            <p class="gg_title">LET'S BEGIN<br>TODAY</p>
+                            <a class="gg_more" href="today/today.html">오늘의 루틴 보기 <span aria-hidden="true">↗</span></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="gg_ch" style="--c:#ffe58f; z-index:2" data-gg-ch>
+                    <p class="sr_only">끊기지 않는 연속 기록</p>
+                    <div class="gg_half gg_l">
+                        <img class="gg_pic gg_pic_wide" src="img/main_photo_kids_sofa.png" alt="">
+                        <div class="gg_view" aria-hidden="true">
+                            <p class="gg_tags"><span class="gg_tags_main" data-scramble>RECORD</span><br><span class="gg_tags_sub">끊기지 않는 연속 기록</span></p>
+                            <p class="gg_title">KEEP IT<br>GOING</p>
+                            <span class="gg_more">기록 보러 가기 ↗</span>
+                        </div>
+                    </div>
+                    <div class="gg_half gg_r_half">
+                        <img class="gg_pic gg_pic_wide" src="img/main_photo_kids_sofa.png" alt="">
+                        <div class="gg_view">
+                            <p class="gg_tags"><span class="gg_tags_main" data-scramble>RECORD</span><br><span class="gg_tags_sub">끊기지 않는 연속 기록</span></p>
+                            <p class="gg_title">KEEP IT<br>GOING</p>
+                            <a class="gg_more" href="sleep/sleep_main.html">기록 보러 가기 <span aria-hidden="true">↗</span></a>
+                        </div>
+                    </div>
+                </div>
+                <p class="gg_corner gg_corner_l" aria-hidden="true">LU</p>
+                <p class="gg_corner gg_corner_c" aria-hidden="true"><span data-gg-count>01</span> / 02</p>
+            </div>
+        </section>
 
-                    <p class="info_text">
-                        Terms of Use | Privacy Policy<br>
-                        SIMMONS Co., Ltd.<br>
-                        CEOs: Minsoo Kim, Jeongho Ahn | Address: 1000 Sasil-ro, Moga-myeon, Icheon-si, Gyeonggi-do,
-                        Republic of Korea | Customer Service: +82-1899-8182<br>
-                        Business Registration No.: 126-81-24808 | Verify Business Information | Mail-Order Sales
-                        Registration No.: 2014-Gyeonggi-Icheon-0135<br>
-                        Chief Privacy Officer: Jonguk Jin | Hosting Service Provider: NHN Commerce Co., Ltd.<br>
-                        Contact: master@simmons.co.kr<br>
-                        For secure transactions, customers paying by cash may use the consumer damage compensation
-                        insurance service covering the full payment amount through the purchase safety service
-                        subscribed to by this shopping mall.
-                    </p>
-                </section>
+        <!-- 2. 특별한 이유: 왼쪽 단계 01~04 + 오른쪽 큰 휴대폰, 스크롤하면 화면이 한 장씩 접힘 -->
+        <section class="w2" id="special" aria-labelledby="special-heading" data-w2>
+            <div class="w2_sticky">
+                <p class="w2_mark" aria-hidden="true">LUUP</p>
+                <span class="w2_star w2_star_1" aria-hidden="true"></span>
+                <span class="w2_star w2_star_2" aria-hidden="true"></span>
+                <span class="w2_star w2_star_3" aria-hidden="true"></span>
 
-                <section class="bottom">
-                    <p class="brand_text">SIMMONS</p>
-                    <p class="copy">
-                        Copyright &copy; 2025 SIMMONS-K Co., Ltd. All Rights Reserved.
-                    </p>
-                </section>
-            </div><!-- //.wrap -->
-        </footer>
-        <!-- //footer end -->
-    </div><!-- //.wrap -->
+                <div class="w2_inner">
+                    <div class="w2_copy">
+                        <p class="w2_label">Why <b>LUUP</b></p>
+                        <h2 id="special-heading" class="w2_title"><b>LUUP</b>이 <em>특별한 이유</em></h2>
+                        <p class="w2_lead">꾸준함은 의지만으로 만들어지지 않아요.<br>매일 이어갈 수 있는 작은 루틴이 필요해요.</p>
+
+                        <ol class="w2_steps">
+                            <li><button type="button" class="w2_step is-active" data-w2-step="0" aria-current="step"><span class="w2_no">01</span><span class="w2_txt"><b>1분 만에 루틴 만들기</b><small>검증된 템플릿을 고르기만 하면 오늘부터 바로 시작해요.</small></span></button></li>
+                            <li><button type="button" class="w2_step" data-w2-step="1"><span class="w2_no">02</span><span class="w2_txt"><b>잊지 않게 알려주는 알림</b><small>하루 패턴에 맞춰 딱 필요한 순간에만 알려드려요.</small></span></button></li>
+                            <li><button type="button" class="w2_step" data-w2-step="2"><span class="w2_no">03</span><span class="w2_txt"><b>끊기지 않는 연속 기록</b><small>쌓이는 연속 기록이 내일도 이어갈 이유가 돼요.</small></span></button></li>
+                            <li><button type="button" class="w2_step" data-w2-step="3"><span class="w2_no">04</span><span class="w2_txt"><b>한눈에 보는 성장 리포트</b><small>주간·월간 리포트로 얼마나 달라졌는지 확인해요.</small></span></button></li>
+                        </ol>
+                    </div>
+
+                    <figure class="w2_photo" data-w2-photo aria-hidden="true">
+                        <div class="w2_slide w2_slide_1" data-w2-slide><img class="w2_pic" src="img/main_photo_girl_desk.png" alt=""></div>
+                        <div class="w2_slide w2_slide_2" data-w2-slide><img class="w2_pic" src="img/main_photo_mom_office.png" alt=""></div>
+                        <div class="w2_slide w2_slide_3" data-w2-slide><img class="w2_pic" src="img/main_photo_kids_rug.png" alt=""></div>
+                        <div class="w2_slide w2_slide_4" data-w2-slide><img class="w2_pic" src="img/main_photo_dad_kitchen.png" alt=""></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. 넘어가는 구간: SMALL STEPS → BIG GROWTH 로 글자가 바뀌고, 아래 문장이 한 단어씩 진해짐 -->
+        <section class="gap" aria-label="작은 루틴이 큰 성장으로" data-gap>
+            <div class="gap_sticky">
+                <!-- SMALL STEPS 가 작게 나왔다가 BIG GROWTH 로 바뀜 -->
+                <p class="gap_swap" aria-label="SMALL STEPS, BIG GROWTH">
+                    <span class="gap_from" aria-hidden="true">SMALL STEPS</span>
+                    <span class="gap_to" aria-hidden="true"><span class="gap_lt" style="--i:0">B</span><span class="gap_lt" style="--i:1">I</span><span class="gap_lt" style="--i:2">G</span><span class="gap_sp"> </span><span class="gap_lt" style="--i:4">G</span><span class="gap_lt" style="--i:5">R</span><span class="gap_lt" style="--i:6">O</span><span class="gap_lt" style="--i:7">W</span><span class="gap_lt" style="--i:8">T</span><span class="gap_lt" style="--i:9">H</span></span>
+                </p>
+                <p class="gap_text"><span style="--i:0">하루</span> <span style="--i:1">1분,</span> <span style="--i:2">작은</span> <span style="--i:3">체크</span> <span style="--i:4">하나가</span> <span style="--i:5">내일의</span> <span style="--i:6">습관이</span> <span style="--i:7">되고,</span><br><mark class="gap_mark"><span style="--i:8">쌓인</span> <span style="--i:9">습관은</span> <span style="--i:10">아이가</span> <span style="--i:11">스스로</span> <span style="--i:12">자라는</span> <span style="--i:13">힘이</span> <span style="--i:14">돼요.</span></mark></p>
+            </div>
+        </section>
+
+        <!-- 5. 기능 소개: 아치형 카드 (스크롤하면 한 장씩 뒤집힘) -->
+        <section class="arc" aria-labelledby="arc-heading" data-arc>
+            <div class="arc_sticky">
+                <!-- 가운데 제목 + 양옆에 떠 있는 동그란 사진 -->
+                <div class="arc_head">
+                    <span class="arc_bubble arc_bubble_1" aria-hidden="true"><img src="img/common_character.svg" alt=""></span>
+                    <span class="arc_bubble arc_bubble_2" aria-hidden="true"><img src="img/common_character_book.png" alt=""></span>
+                    <span class="arc_bubble arc_bubble_3" aria-hidden="true"><img src="img/common_character_book.png" alt=""></span>
+                    <span class="arc_bubble arc_bubble_4" aria-hidden="true"><img src="img/common_character.svg" alt=""></span>
+
+                    <h2 id="arc-heading" class="arc_title">작은 반복이 쌓여,<br>더 큰 성장으로, <em>LUUP</em></h2>
+                    <p class="arc_sub">아이와 함께 <b>매일의 루틴</b>을 쌓아 가며<br><b>스스로 자라는 힘</b>을 키워요</p>
+                    <div class="arc_actions">
+                        <a class="arc_btn" href="routine/routine.html">루틴 둘러보기 <span aria-hidden="true">→</span></a>
+                        <a class="arc_more" href="today/today.html#report">성장 리포트 보기</a>
+                    </div>
+                </div>
+                <ul class="arc_cards">
+                    <li class="arc_card" style="--i:0">
+                        <a class="arc_flip" href="today/today.html">
+                            <div class="arc_face arc_front arc_front_today" aria-hidden="true">
+                                <div class="arc_art" data-emoji="✅">
+                                <div class="mini_list">
+                                    <p class="is-done"><i>✓</i>일어나서 물 한 잔</p>
+                                    <p class="is-done"><i>✓</i>아침 스트레칭</p>
+                                    <p><i></i>점심 후 산책</p>
+                                    <p><i></i>10분 독서</p>
+                                </div>
+                                <span class="mini_badge">2 / 5</span>
+                                </div>
+                                <div class="arc_label"><b>Today</b><span>체크 한 번으로 오늘을 완성해요</span></div>
+                            </div>
+                            <div class="arc_face arc_back">
+                                <span class="arc_no">01 TODAY</span>
+                                <strong>CHECK<br>TODAY</strong>
+                                <p>체크 한 번으로 오늘을 완성해요</p>
+                                <span class="arc_go">오늘의 루틴 보기 →</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="arc_card" style="--i:1">
+                        <a class="arc_flip" href="today/today.html">
+                            <div class="arc_face arc_front arc_front_streak" aria-hidden="true">
+                                <div class="arc_art" data-emoji="🔥">
+                                <span class="mini_emoji">🔥</span>
+                                <b class="mini_big">23일</b>
+                                <span class="mini_caption">연속 실천 중</span>
+                                </div>
+                                <div class="arc_label"><b>Streak</b><span>끊기지 않는 기록이 다음 한 걸음이 돼요</span></div>
+                            </div>
+                            <div class="arc_face arc_back">
+                                <span class="arc_no">STREAK</span>
+                                <strong>UNBROKEN<br>STREAK</strong>
+                                <p>끊기지 않는 연속 기록이 다음 한 걸음의 힘이 돼요</p>
+                                <span class="arc_go">기록 이어가기 →</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="arc_card" style="--i:2">
+                        <a class="arc_flip" href="today/today.html#report">
+                            <div class="arc_face arc_front arc_front_report" aria-hidden="true">
+                                <div class="arc_art" data-emoji="📊">
+                                <span class="mini_caption">이번 주 달성률</span>
+                                <div class="mini_bars"><i style="--h:55%"></i><i style="--h:80%"></i><i style="--h:40%"></i><i style="--h:92%"></i><i style="--h:70%"></i><i style="--h:100%"></i><i style="--h:85%"></i></div>
+                                <b class="mini_big">82%</b>
+                                </div>
+                                <div class="arc_label"><b>Report</b><span>쌓인 기록이 변화를 보여줘요</span></div>
+                            </div>
+                            <div class="arc_face arc_back">
+                                <span class="arc_no">02 REPORT</span>
+                                <strong>SEE THE<br>CHANGE</strong>
+                                <p>쌓인 기록이 변화를 보여줘요</p>
+                                <span class="arc_go">리포트 보기 →</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="arc_card" style="--i:3">
+                        <a class="arc_flip" href="my/my.html">
+                            <div class="arc_face arc_front arc_front_alarm" aria-hidden="true">
+                                <div class="arc_art" data-emoji="⏰">
+                                <p class="mini_noti"><b>LUUP · 오전 7:00</b>일어날 시간이에요! 💧</p>
+                                <p class="mini_noti"><b>LUUP · 오후 4:00</b>받아쓰기 연습 시간 ✏️</p>
+                                <p class="mini_noti"><b>LUUP · 오후 10:30</b>루틴 2개 남았어요</p>
+                                </div>
+                                <div class="arc_label"><b>Reminder</b><span>딱 맞는 순간에 부드럽게 알려줘요</span></div>
+                            </div>
+                            <div class="arc_face arc_back">
+                                <span class="arc_no">REMINDER</span>
+                                <strong>GENTLE<br>REMINDER</strong>
+                                <p>딱 맞는 순간에 부드럽게 알려줘요</p>
+                                <span class="arc_go">알림 설정하기 →</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="arc_card" style="--i:4">
+                        <a class="arc_flip" href="offline/offline.html">
+                            <div class="arc_face arc_front arc_front_together" aria-hidden="true">
+                                <div class="arc_art" data-emoji="🤝">
+                                <div class="mini_people"><span>🧒</span><span>👧</span><span>🧑</span><span>+</span></div>
+                                <b class="mini_big">1,248명</b>
+                                <span class="mini_caption">아침 6시 기상 챌린지</span>
+                                <div class="mini_progress"><i style="--value:64%"></i></div>
+                                </div>
+                                <div class="arc_label"><b>Together</b><span>혼자보다 함께라서 오래가요</span></div>
+                            </div>
+                            <div class="arc_face arc_back">
+                                <span class="arc_no">03 TOGETHER</span>
+                                <strong>BETTER<br>TOGETHER</strong>
+                                <p>혼자보다 함께라서 오래가요</p>
+                                <span class="arc_go">함께하기 →</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="arc_card" style="--i:5">
+                        <a class="arc_flip" href="routine/routine.html">
+                            <div class="arc_face arc_front arc_front_plan" aria-hidden="true">
+                                <div class="arc_art" data-emoji="🗓️">
+                                <div class="mini_wheel"><span></span></div>
+                                <span class="mini_caption">나의 하루 한눈에</span>
+                                </div>
+                                <div class="arc_label"><b>Day Plan</b><span>하루를 시간대로 나눠 계획해요</span></div>
+                            </div>
+                            <div class="arc_face arc_back">
+                                <span class="arc_no">DAY PLAN</span>
+                                <strong>SHAPE<br>YOUR DAY</strong>
+                                <p>하루를 시간대로 나눠 한눈에 계획해요</p>
+                                <span class="arc_go">나의 루틴 →</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="arc_card" style="--i:6">
+                        <a class="arc_flip" href="promo/promo.html">
+                            <div class="arc_face arc_front arc_front_review" aria-hidden="true">
+                                <div class="arc_art" data-emoji="⭐">
+                                <span class="mini_stars">★★★★★</span>
+                                <p class="mini_quote">“아침마다 싸우던 시간이<br>칭찬하는 시간이 됐어요”</p>
+                                <span class="mini_caption">초등 2학년 하루 엄마</span>
+                                </div>
+                                <div class="arc_label"><b>Review</b><span>작은 반복이 바꾼 하루들</span></div>
+                            </div>
+                            <div class="arc_face arc_back">
+                                <span class="arc_no">04 REVIEW</span>
+                                <strong>REAL<br>STORIES</strong>
+                                <p>작은 반복이 바꾼 하루들</p>
+                                <span class="arc_go">이야기 더 보기 →</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="arc_card" style="--i:7">
+                        <a class="arc_flip" href="sleep/sleep_main.html">
+                            <div class="arc_face arc_front arc_front_buddy" aria-hidden="true">
+                                <div class="arc_art">
+                                <img src="img/common_character.svg" alt="">
+                                <span class="mini_caption">안녕, 나는 루피!</span>
+                                </div>
+                                <div class="arc_label"><b>Luupy</b><span>나에게 맞는 루틴 유형을 찾아봐요</span></div>
+                            </div>
+                            <div class="arc_face arc_back">
+                                <span class="arc_no">WITH LUUP</span>
+                                <strong>WITH<br>LUUPY</strong>
+                                <p>나에게 맞는 루틴 유형부터 알아볼까요?</p>
+                                <span class="arc_go">루틴 유형 진단 →</span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <div class="arc_cta arc_cta_letter" data-arc-cta role="status" aria-live="polite">
+                    <div class="env env_photo">
+                        <img src="img/main_invite.webp" alt="오늘의 루틴, 확인해볼까요? 라고 적힌 편지가 하늘색 봉투에서 나와 있는 초대장" width="1000" height="1234">
+                    </div>
+                    <div class="env_actions">
+                        <button type="button" class="arc_noti_later" data-arc-cta-close tabindex="-1">나중에</button>
+                        <a class="arc_cta_btn" href="today/today.html" tabindex="-1">오늘 루틴 보러가기 <span aria-hidden="true">→</span></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+<!-- footer:start -->
+    <!-- 메인페이지 전용: 본문이 위로 넘겨지며 아래에 고정된 푸터가 드러남 -->
+    <footer class="lf" data-reveal-footer>
+        <span class="lf_line lf_line_v" aria-hidden="true"></span>
+        <span class="lf_line lf_line_h" aria-hidden="true"></span>
+        <div class="lf_cols">
+            <nav class="lf_col" aria-label="하단 메뉴">
+                <h2>Menu</h2>
+                <ul>
+                    <li><a href="today/today.html" data-flip-text>Today</a></li>
+                    <li><a href="routine/routine.html" data-flip-text>Routine</a></li>
+                    <li><a href="sleep/sleep_main.html" data-flip-text>Record</a></li>
+                    <li><a href="offline/offline.html" data-flip-text>Growth</a></li>
+                    <li><a href="my/my.html" data-flip-text>My</a></li>
+                </ul>
+            </nav>
+            <div class="lf_col">
+                <h2>Service</h2>
+                <p>작은 실천이 모여 더 큰 성장으로.<br>LUUP과 함께 나만의 하루를 만들어가요.</p>
+                <p><a href="story/story.html">서비스 소개</a> · <a href="#special">주요 기능 살펴보기</a></p>
+            </div>
+            <div class="lf_col">
+                <h2>Help</h2>
+                <p>처음 시작하는 루틴도 어렵지 않도록,<br>LUUP이 하나씩 안내해 드릴게요.</p>
+                <p><a href="promo/promo.html#faq">자주 묻는 질문</a> · <a href="list/list.html">이용 가이드</a> · <a href="my/my.html">보호자 가이드</a></p>
+            </div>
+            <div class="lf_col lf_col_end">
+                <h2>Connect</h2>
+                <p>아이의 작은 성장을 응원하는<br>LUUP의 다양한 이야기를 전할게요.</p>
+                <p class="lf_soon">공식 채널 준비 중</p>
+            </div>
+        </div>
+
+        <div class="lf_mark" aria-hidden="true">
+            <svg class="lf_word lf_word_line" viewBox="-1 -1 132 49" fill="none" aria-hidden="true" focusable="false"> <path d="M3.4386 10.7941L2.88399 11.3563V11.5812L2.77307 11.6936V28.897L2.88399 29.0094V30.0214L2.99491 30.1338V30.5836L3.10584 30.696L3.21676 31.5955L3.32768 31.708L3.66044 32.9448L3.99321 33.507V33.7319L4.43689 34.6314L4.88058 35.1936L5.21334 35.8682L6.21164 36.9926V37.1051H6.32256L6.43348 37.33L7.43177 38.2295H7.5427L7.98638 38.6793L9.31744 39.3539L9.53928 39.5788H9.76113L10.6485 40.0285H10.8703L11.314 40.2534H11.6468L12.0905 40.4783L13.6434 40.5907L13.7543 40.7032H19.3004L19.7441 40.4783L20.1877 39.8037V34.0692L19.855 33.3946L19.3004 33.0572H14.9744L14.8635 32.9448H14.3089L14.198 32.8324H13.8652L13.5325 32.6075H13.3106L12.8669 32.2702L12.5342 32.1577L11.9796 31.5955H11.8686L11.2031 30.8084L10.4267 29.0094L10.5376 28.897L10.4267 28.7845V28.1099L10.3157 27.9974V23.7247L10.4267 23.6123V11.9185L10.2048 11.3563L9.76113 10.9065L9.20652 10.6816H3.77136L3.66044 10.7941H3.4386Z" fill="none" stroke="url(#lf_paint0_linear_654_1437)" stroke-width="0.22" stroke-linejoin="round" pathLength="1"/> <path d="M24.9573 33.0586L24.8464 33.171L24.2918 33.2835L24.07 33.5084L23.7372 33.6208L22.7389 34.6328L22.2952 35.5323L22.1843 36.2069L22.0734 36.3194V37.4438L22.1843 37.5562L22.2952 38.2308L22.628 38.9055L22.9607 39.3552L23.8481 40.1423L24.5136 40.4796L25.1792 40.5921L25.2901 40.7045H26.3993L27.6194 40.2548L28.285 39.805L28.8396 39.2428L29.5051 37.8935V37.5562L29.616 37.4438V36.3194L29.5051 36.2069V35.8696L29.0614 34.7452L28.8396 34.4079L27.8413 33.5084L26.7321 33.0586H24.9573Z" fill="none" stroke="url(#lf_paint1_linear_654_1437)" stroke-width="0.22" stroke-linejoin="round" pathLength="1"/> <path d="M29.838 11.019L29.6161 11.2438L29.3943 11.806V26.7606L29.5052 26.873V28.1099L29.7271 28.6721L29.6161 28.7845L29.7271 28.8969L29.838 29.684L29.9489 29.7965L30.3926 31.3706L31.28 33.2821L31.5018 33.507L32.1673 34.7438L32.9438 35.6434V35.7558L34.8294 37.6673H34.9404L35.8277 38.4544L36.4933 38.9041L37.0479 39.129L37.2697 39.3539L38.6008 40.0285H38.8226L39.1554 40.2534H39.3772L40.1537 40.5907H40.4864L41.3738 40.9281L42.8158 41.0405L42.9267 41.1529H46.3653L46.4762 41.0405L47.6963 40.9281L47.8073 40.8156L48.5837 40.7032L48.6946 40.5907L49.9148 40.2534L51.8004 39.3539L52.0223 39.129H52.2441L53.9079 38.0046L55.7936 36.2056V36.0931L57.2356 34.2941L58.3448 32.1577V31.9328L58.7885 31.0333V30.696L59.0103 30.2462L59.1213 29.3467L59.3431 28.7845V27.7725L59.454 27.6601V11.9185L59.2322 11.3563L58.7885 10.9065L58.2339 10.6816H53.0206L52.9096 10.7941H52.6878L52.1332 11.2438L51.9114 11.6936V26.6481L51.8004 26.7606V27.6601L51.6895 27.7725L51.4677 28.6721L51.2458 29.0094V29.2343L50.6912 30.0214L50.5803 30.3587L49.1383 31.8204L47.1417 32.9448L46.0325 33.1697L45.9216 33.2821H45.367L45.2561 33.3946H43.925L43.8141 33.2821L42.7049 33.1697L42.5939 33.0572L41.9284 32.9448L40.5974 32.2702L39.4881 31.4831L38.7117 30.696L37.9352 29.5716L37.6025 28.8969V28.6721L37.2697 27.885V27.3228L37.1588 27.2103V26.7606L37.0479 26.6481V11.806L36.7151 11.1314L36.2714 10.7941H36.0496L35.9387 10.6816H30.3926L29.838 11.019Z" fill="none" stroke="url(#lf_paint2_linear_654_1437)" stroke-width="0.22" stroke-linejoin="round" pathLength="1"/> <path d="M91.0666 3.03627H90.8448L90.7338 2.92383H90.0683L89.9574 3.03627H89.7355L88.9591 3.82335L88.0717 5.06019L87.8499 5.17263V5.28507L86.5188 6.74679V6.85923L85.2987 8.20852L84.9659 8.77072L83.6349 10.3449V10.9071L83.8567 11.3568L84.1895 11.5817H86.297L86.4079 11.6942V26.7611L86.297 26.8736V27.5482L86.1861 27.6607V27.998L86.0751 28.1104L85.9642 28.6726L85.5205 29.5722L84.6332 30.809L83.9676 31.4836L82.5256 32.4956L82.082 32.7205H81.8601L81.5273 32.9454H81.1946L80.8618 33.1702H80.3072L80.1963 33.2827H79.6417L79.5308 33.3951H77.8669L77.756 33.2827H77.2014L77.0905 33.1702H76.6468L76.5359 33.0578L75.9813 32.9454L74.6502 32.2707L73.8738 31.7085L72.6536 30.4717L71.8772 29.2348V29.01L71.6553 28.6726V28.4478L71.3226 27.6607V27.3233L71.2116 27.2109V11.919L70.8789 11.2444L70.5461 10.9071L69.9915 10.6822H64.7782L64.6673 10.7946L64.1127 10.9071L63.669 11.3568L63.4471 11.8066V26.8736L63.5581 26.986V28.1104L63.669 28.2229V28.7851L63.8908 29.3473V29.797L64.0018 29.9095L64.3345 31.1463L64.5564 31.4836V31.7085L65.2219 33.1702L65.4437 33.3951L65.8874 34.2946L66.8857 35.6439L67.4403 36.2061V36.3186L69.1041 37.8927L70.3243 38.7922L71.6553 39.4669L71.8772 39.6918L72.3209 39.8042L73.4301 40.3664L74.0956 40.4789L74.8721 40.8162L75.9813 40.9286L76.0922 41.0411H76.8686L76.9796 41.1535H80.4181L80.5291 41.0411H81.3055L81.4164 40.9286H81.8601L82.4147 40.7037H82.8584L82.9693 40.5913L84.1895 40.254L84.5222 40.0291H84.7441L86.7407 39.0171L88.7372 37.5554L91.0666 35.0817L91.6212 34.2946L92.2867 32.9454L92.5086 32.7205V32.4956L93.1741 31.1463V30.9214L93.3959 30.4717V30.1344L93.6178 29.6846L93.7287 28.7851L93.8396 28.6726V28.2229L93.9506 28.1104V26.986L94.0615 26.8736V11.6942L94.1724 11.5817H96.3908L96.9454 11.132V10.9071L97.0564 10.7946L96.9454 10.6822L97.0564 10.5698L96.6127 9.78268L94.727 7.53388L94.0615 6.52191L93.3959 5.84727V5.73483L92.9523 5.28507L91.6212 3.48603L91.0666 3.03627Z" fill="none" stroke="url(#lf_paint3_linear_654_1437)" stroke-width="0.22" stroke-linejoin="round" pathLength="1"/> <path d="M111.254 10.0078H109.923L109.812 10.1203L107.927 10.3451L107.816 10.4576L106.263 10.9073L105.93 11.1322H105.708L103.379 12.3691L103.046 12.7064L102.159 13.2686L101.493 13.9432H101.382L100.051 15.4049L98.8311 17.0915L97.5001 19.7901V20.1274L97.2782 20.4647V20.8021L97.0564 21.1394V21.7016L96.9455 21.814L96.8346 22.826L96.7236 22.9384V42.503L96.9455 43.0652L97.5001 43.515H103.157L103.268 43.4025H103.49L103.934 43.0652V42.8403L104.155 42.503V23.838L104.266 23.7255V22.9384L104.377 22.826L104.599 21.9265L104.932 21.3643V21.1394L105.597 20.1274L106.485 19.1155L107.372 18.4408L107.927 18.2159L108.37 17.8786H108.592L109.258 17.5413L110.145 17.4289L110.256 17.3164H111.254L111.587 16.8667V16.5293L111.476 16.4169L111.587 10.4576L111.254 10.0078Z" fill="none" stroke="url(#lf_paint4_linear_654_1437)" stroke-width="0.22" stroke-linejoin="round" pathLength="1"/> <path d="M115.247 10.1203L113.473 10.0078L113.251 10.3451V16.9791L113.473 17.3164L114.582 17.5413L116.357 18.4408L118.131 20.1274L118.575 20.8021L119.019 21.7016V21.9265L119.463 23.0509L119.352 23.1633L119.463 23.2758V23.838L119.573 23.9504V25.2997L119.463 25.4121L119.352 26.4241L118.908 27.3236L118.797 27.7734L118.131 28.7853L116.911 30.0222L115.358 30.9217H115.137L114.36 31.259H113.916L113.806 31.3714L113.695 31.259L113.584 31.3714H108.592L108.149 31.5963L107.816 31.9336V32.8332L107.705 32.9456V33.2829L107.816 33.3954V38.2303L108.259 38.7925L108.814 39.0174H113.806L113.916 38.9049H114.582L114.693 38.7925L115.691 38.6801L116.135 38.4552H116.579L116.911 38.2303H117.244L118.353 37.6681H118.575L120.239 36.7686L121.903 35.5317L123.456 33.9576V33.8451L124.343 32.8332L125.009 31.8212L125.896 30.0222V29.7973L126.118 29.46V29.1226L126.451 28.448V27.9982L126.783 27.0987V26.3116L126.894 26.1992V23.5006L126.783 23.3882V22.4887L126.672 22.3762V21.9265L126.561 21.814V21.4767L126.34 21.027V20.6896L126.229 20.5772L125.896 19.3403L125.341 18.3284V18.1035L125.12 17.6537L124.343 16.5293L124.232 16.192L123.567 15.2925L122.79 14.5054V14.393L122.014 13.6059H121.903L120.461 12.3691L118.021 11.0198L117.466 10.9073L117.133 10.6825H116.911L116.468 10.4576L115.358 10.2327L115.247 10.1203Z" fill="none" stroke="url(#lf_paint5_linear_654_1437)" stroke-width="0.22" stroke-linejoin="round" pathLength="1"/> <defs> <linearGradient id="lf_paint0_linear_654_1437" x1="-56.459" y1="2.69839" x2="-56.459" y2="43.5142" gradientUnits="userSpaceOnUse"> <stop stop-color="#37A9FB"/> <stop offset="0.52" stop-color="#95D5FF"/> <stop offset="1" stop-color="#EAF7FF"/> </linearGradient> <linearGradient id="lf_paint1_linear_654_1437" x1="-56.4591" y1="2.69974" x2="-56.4591" y2="43.5155" gradientUnits="userSpaceOnUse"> <stop stop-color="#EAF7FF"/> <stop offset="0.48" stop-color="#95D5FF"/> <stop offset="1" stop-color="#37A9FB"/> </linearGradient> <linearGradient id="lf_paint2_linear_654_1437" x1="-56.459" y1="2.69839" x2="-56.459" y2="43.5142" gradientUnits="userSpaceOnUse"> <stop stop-color="#EAF7FF"/> <stop offset="0.48" stop-color="#95D5FF"/> <stop offset="1" stop-color="#37A9FB"/> </linearGradient> <linearGradient id="lf_paint3_linear_654_1437" x1="-56.459" y1="2.69895" x2="-56.459" y2="43.5147" gradientUnits="userSpaceOnUse"> <stop stop-color="#37A9FB"/> <stop offset="0.52" stop-color="#95D5FF"/> <stop offset="1" stop-color="#CCFFFF"/> </linearGradient> <linearGradient id="lf_paint4_linear_654_1437" x1="-56.459" y1="2.6992" x2="-56.459" y2="43.515" gradientUnits="userSpaceOnUse"> <stop stop-color="#CCFFFF"/> <stop offset="0.48" stop-color="#95D5FF"/> <stop offset="1" stop-color="#37A9FB"/> </linearGradient> <linearGradient id="lf_paint5_linear_654_1437" x1="-56.459" y1="2.6992" x2="-56.459" y2="43.515" gradientUnits="userSpaceOnUse"> <stop stop-color="#37A9FB"/> <stop offset="0.52" stop-color="#95D5FF"/> <stop offset="1" stop-color="#CCFFFF"/> </linearGradient> </defs> </svg>
+        </div>
+
+        <div class="lf_bottom">
+            <p>&copy; 2026 LUUP. All rights reserved.</p>
+            <button type="button" class="lf_top" data-back-top>Back to Top <span aria-hidden="true">↑</span></button>
+            <p>이용약관 · 개인정보처리방침</p>
+        </div>
+    </footer>
+<!-- footer:end -->
+    <script src="js/studio_header.js"></script>
+    <script src="js/index.js"></script>
 </body>
 
 </html>

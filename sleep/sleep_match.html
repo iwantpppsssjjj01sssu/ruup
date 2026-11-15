@@ -1,359 +1,145 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
+<!-- head:start -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sleep solution recommand mattress</title>
+    <title>진단 결과 | LUUP</title>
+    <meta name="description" content="작은 반복이 만드는 큰 변화. LUUP은 매일의 루틴을 만들고, 체크하고, 이어가도록 돕는 습관·루틴 관리 서비스예요.">
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="ruup" />
-    <meta property="og:description"
-        content="A refined sleep experience shaped by heritage, innovation, and lasting comfort." />
-    <meta property="og:url" content="https://iwantpppsssjjj01sssu.github.io/ruup/sleep/sleep_match.html" />
-    <meta property="og:image" content="https://iwantpppsssjjj01sssu.github.io/ruup/img/og.png" />
+    <meta property="og:title" content="진단 결과 | LUUP" />
+    <meta property="og:description" content="작은 반복이 만드는 큰 변화. LUUP은 매일의 루틴을 만들고, 체크하고, 이어가도록 돕는 습관·루틴 관리 서비스예요." />
+    <meta property="og:url" content="https://iwantpppsssjjj01sssu.github.io/luup/sleep/sleep_match.html" />
+    <meta property="og:image" content="https://iwantpppsssjjj01sssu.github.io/luup/img/common_og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt"
-        content="We aimed to convey Simmons unwavering comfort through simple, impactful imagery." />
-    <meta property="og:site_name" content="ruup" />
-    <link rel="icon" href="../simmons_favicon_io/favicon.ico" />
-    <link rel="icon" type="image/png" sizes="32x32" href="../simmons_favicon_io/favicon-32x32.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="../simmons_favicon_io/apple-touch-icon.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Roboto:ital,wght@0,100..900;1,100..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap">
-    <link rel="stylesheet" as="style" crossorigin
-        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+    <meta property="og:site_name" content="LUUP" />
+    <meta property="og:locale" content="ko_KR" />
+    <link rel="icon" type="image/svg+xml" href="../img/common_favicon.svg">
+    <!-- 폰트 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2.0.5/fonts/variable/woff2/SUIT-Variable.css">
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/common.css">
-    <link rel="stylesheet" href="css/style_sleep_match.css">
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="../js/common.js"></script>
-    <script src="js/main_sleep.js"></script>
-    <script src="js/sleep_match.js"></script>
+<!-- head:end -->
+    <link rel="stylesheet" href="../css/studio_header.css">
+    <link rel="stylesheet" href="css/test.css">
 </head>
 
-<body class="match_page">
-    <div class="wrap main-shell">
-        <header>
-            <div class="inner">
-                <div class="logo">
-                    <img src="../icon/logo.svg" alt="simmons">
-                </div>
-                <nav>
-                    <ul class="gnb">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Products</a></li>
-                        <li><a href="#">Sleep Solution</a></li>
-                        <li><a href="#">Visit</a></li>
-                        <li><a href="../promo/promo.html">Community</a></li>
-                    </ul>
-                </nav>
-                <div class="right">
-                    <ul>
-                        <li>
-                            <a href="#" class="search_link" aria-label="Search">
-                                <span class="search_hint" aria-hidden="true"></span>
-                                <img src="../icon/search.svg" alt="">
-                            </a>
-                        </li>
-                        <li><a href="#" class="menu_toggle" aria-label="Open menu"><img src="../icon/menu.svg" alt=""></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="sub_tab_backdrop" aria-hidden="true"></div>
-            <div class="sub_tab" aria-hidden="true">
-                <div class="sub_tab_inner">
-                    <div class="sub_tab_btn">
-                        <div class="sub_tab_lang_box">
-                            <div class="sub_tab_lang" aria-label="Language options">
-                                <button type="button" class="sub_tab_lang_option is-active" data-lang="en">EN</button>
-                                <button type="button" class="sub_tab_lang_option" data-lang="kr">KR</button>
-                                <span class="sub_tab_lang_highlight" aria-hidden="true"></span>
-                            </div>
-                        </div>
-                        <button type="button" class="sub_tab_close" aria-label="Close menu"><img src="../icon/header_x.svg"
-                                alt="" aria-hidden="true"></button>
-                    </div>
-                    <div class="sub_tab_top">
-                        <div class="tab_gnb">
-                            <a href="#" class="tab_gnb_link is-default" data-tab="about">About Us</a>
-                            <a href="#" class="tab_gnb_link" data-tab="products">Products</a>
-                            <a href="#" class="tab_gnb_link" data-tab="sleep">Sleep Solution</a>
-                            <a href="#" class="tab_gnb_link" data-tab="visit">Visit</a>
-                            <a href="../promo/promo.html" class="tab_gnb_link" data-tab="community">Community</a>
-                        </div>
-                        <div class="tab_sub" aria-label="Sub menu">
-                            <div class="tab_sub_panel is-default" data-tab="about">
-                                <a href="#">Simmons</a>
-                                <a href="#">Hotel Story</a>
-                            </div>
-                            <div class="tab_sub_panel" data-tab="products">
-                                <a href="#">Mattresses</a>
-                                <a href="#">Bed Frames</a>
-                                <a href="#">Bedding</a>
-                  <a href="#">Living Collections</a>
-                            </div>
-                            <div class="tab_sub_panel" data-tab="sleep">
-                                <a href="#">Sleep Match</a>
-                                <a href="#">Sleep Test</a>
-                                <a href="#">Sleep Report</a>
-                            </div>
-                            <div class="tab_sub_panel" data-tab="visit">
-                                <a href="#">Factorium</a>
-                                <a href="#">Location</a>
-                            </div>
-                            <div class="tab_sub_panel" data-tab="community">
-                                <a href="#">Notice</a>
-                                <a href="../promo/promo.html">Event</a>
-                                <a href="#">Customer Service</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="sub_tab_bottom">
-                        <div class="bt_top">
-                            <p>CONTACT</p>
-                            <div class="info">
-                                <div class="con_left">
-                                    <p>Customer Service: 1899-8182</p>
-                    <p>Mon-Fri, 9 AM-6 PM</p>
-                                    <p>master@simmons.co.kr</p>
-                                </div>
-                                <div class="con_right">
-                                    <a href="#" aria-label="Kakao">
-                                        <img src="../icon/kakao.svg" alt="Kakao">
-                                    </a>
-                                    <a href="#" aria-label="Instagram">
-                                        <img src="../icon/insta.svg" alt="Instagram">
-                                    </a>
-                    <a href="#" aria-label="YouTube">
-                      <img src="../icon/youtube.svg" alt="YouTube">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bt_bottom">
-                            <div class="bt_bottom_left">
-                                <a href="#">Privacy Policy</a>
-                                <a href="#">Terms of Use</a>
-                            </div>
-                <p class="bt_bottom_copy">&copy; 2025 Simmons</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-
-        <main>
-            <div class="page_inner">
-                <h1 class="match_title">Your Perfect Match</h1>
-
-                <div class="contents_wrap">
-                    <div class="receipt_stage">
-                        <div class="receipt_wrap">
-                            <div class="top_bar">
-                                <div class="top_bar_line"></div>
-                            </div>
-
-                            <div class="receipt_mask">
-                                <div class="paper_mask">
-                                    <div class="receipt_inner">
-                                        <div class="receipt_top">
-                                            <div class="match_badge">
-                                                <span class="badge_text">MATCH</span>
-                                                <span class="badge_percent">96%</span>
-                                            </div>
-
-                                            <p class="logo">SIMMONS</p>
-
-                                            <div class="dashed_line"></div>
-
-                                            <div class="sub_line_box">
-                                                <span>PERSONALIZED RECOMMENDATION FOR</span>
-                                            </div>
-
-                                            <div class="state">
-                                                <p>SAD :(</p>
-                                            </div>
-
-                                            <div class="dashed_line"></div>
-                                        </div>
-
-                                        <div class="receipt_visual">
-                                            <img src="../img/sleep_receiptLauren.png" alt="BEAUTYREST LAUREN" class="product_img">
-                                        </div>
-
-                                        <div class="receipt_bottom">
-                                            <div class="triple_line">
-                                                <div class="line_outer"></div>
-                                                <div class="line_inner"></div>
-                                                <div class="line_outer"></div>
-                                            </div>
-
-                                            <div class="info">
-                                                <p class="collection">Wellness Collection</p>
-                                                <h2 class="product_name">BEAUTYREST LAUREN</h2>
-
-                                                <div class="level_area">
-                                                    <div class="level_row">
-                                                        <span class="level_label">Soft</span>
-                                                        <div class="level_meter">
-                                                            <div class="level_cell is_active"></div>
-                                                            <div class="level_cell is_active"></div>
-                                                            <div class="level_cell"></div>
-                                                            <div class="level_cell"></div>
-                                                            <div class="level_cell"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="level_row">
-                                                        <span class="level_label">Regular</span>
-                                                        <div class="level_meter">
-                                                            <div class="level_cell is_active"></div>
-                                                            <div class="level_cell is_active"></div>
-                                                            <div class="level_cell is_active"></div>
-                                                            <div class="level_cell"></div>
-                                                            <div class="level_cell"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="level_row">
-                                                        <span class="level_label">Hard</span>
-                                                        <div class="level_meter">
-                                                            <div class="level_cell"></div>
-                                                            <div class="level_cell"></div>
-                                                            <div class="level_cell"></div>
-                                                            <div class="level_cell"></div>
-                                                            <div class="level_cell"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <p class="description">Sustainable Luxury with Firm Support</p>
-
-                                                <ul class="check_list">
-                                                    <li>
-                                                        <img src="../icon/sleep_dot.svg" alt="dot" class="dot_icon">
-                                                        <span>Eco-friendly materials</span>
-                                                    </li>
-                                                    <li>
-                                                        <img src="../icon/sleep_dot.svg" alt="dot" class="dot_icon">
-                                                        <span>Firm responsive support</span>
-                                                    </li>
-                                                    <li>
-                                                        <img src="../icon/sleep_dot.svg" alt="dot" class="dot_icon">
-                                                        <span>Advanced pressure relief</span>
-                                                    </li>
-                                                    <li>
-                                                        <img src="../icon/sleep_dot.svg" alt="dot" class="dot_icon">
-                                                        <span>Breathable comfort layers</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-
-                                            <div class="price_area">
-                                                <span class="price_label">RECOMMENDED MATTRESS</span>
-                                                <span class="price_value">$9,999</span>
-                                            </div>
-
-                                            <div class="sku_barcode">
-                                                <p class="sku_text">SKU: BR-HAR-2026</p>
-                                                <img src="../img/sleep_code04.png" alt="barcode" class="barcode_img">
-                                            </div>
-
-                                            <div class="star_area">
-                                                <span class="star">&#9733;</span>
-                                                <span class="star">&#9733;</span>
-                                                <span class="star">&#9733;</span>
-                                                <span class="star">&#9733;</span>
-                                                <span class="star">&#9733;</span>
-                                            </div>
-
-                                            <div class="btn_group">
-                                                <a href="../product/product.html" class="receipt_btn fill">Go Product Page <img src="../icon/arrow-right.svg" alt=""></a>
-                                                <button class="receipt_btn outline" type="button">View Sleep Guide <img src="../icon/arrow-right.svg" alt=""></button>
-                                            </div>
-
-                                            <div class="back_link">
-                                                <a href="sleep_ox.html"><img src="../icon/arrow-left.svg" alt=""> Back</a>
-                                            </div>
-
-                                            <div class="receipt_footer">
-                                                <div class="footer_line"></div>
-                                                <p class="thanks">THANK YOU!</p>
-                                                <p class="sweet">Sweet dreams await</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="zigzag_bottom"></div>
-
-                                        <section class="section07 scroll_indicator" aria-label="Scroll indicator">
-                                            <a href="#footer" class="scroll_indicator_link" aria-label="Scroll down">
-                                                <span></span>
-                                                <span></span>
-                                                <span></span>
-                                                Scroll
-                                            </a>
-                                        </section>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="receipt_stage_settled" aria-hidden="true"></div>
-                </div>
-            </div>
-
-            <div class="float_buttons">
-                <button type="button" class="float_button float_button_ai">
-                    <img src="../icon/AI_button.svg" alt="AI button">
-                </button>
-                <button type="button" class="float_button float_button_top">
-                    <img src="../icon/top_button.svg" alt="Top button">
+<body>
+<!-- header:start -->
+    <header class="site_header">
+        <div class="site_header_inner">
+            <a class="site_logo" href="../index.html"><img src="../img/common_logo_black.svg" alt="LUUP 홈"></a>
+            <nav class="site_nav" aria-label="주요 메뉴">
+                <ul>
+                    <li><a href="../today/today.html">TODAY</a></li>
+                    <li><a href="../routine/routine.html">ROUTINE</a></li>
+                    <li><a href="../sleep/sleep_main.html" aria-current="page">RECORD</a></li>
+                    <li><a href="../offline/offline.html">GROWTH</a></li>
+                    <li><a href="../my/my.html">MY</a></li>
+                </ul>
+            </nav>
+            <div class="site_actions">
+                <a class="btn btn_small btn_line" href="../sleep/sleep_main.html">진단 시작하기</a>
+                <button type="button" class="menu_button" data-menu-open aria-label="메뉴 열기" aria-expanded="false" aria-controls="mobile-menu">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
                 </button>
             </div>
-        </main>
-
-        <footer>
-            <div class="footer_inner">
-                <section class="info">
-                    <ul class="sns_list">
-                        <li>
-                <a href="#" aria-label="Kakao"><img src="../icon/kakao.svg" alt="Kakao"></a>
-                        </li>
-                        <li>
-                <a href="#" aria-label="Instagram"><img src="../icon/insta.svg" alt="Instagram"></a>
-                        </li>
-                        <li>
-                <a href="#" aria-label="YouTube"><img src="../icon/youtube.svg" alt="YouTube"></a>
-                        </li>
-                    </ul>
-
-                    <p class="info_text">
-                        Terms of Use | Privacy Policy<br>
-                        SIMMONS Co., Ltd.<br>
-                        CEOs: Minsoo Kim, Jeongho Ahn | Address: 1000 Sasil-ro, Moga-myeon, Icheon-si, Gyeonggi-do,
-                        Republic of Korea | Customer Service: +82-1899-8182<br>
-                        Business Registration No.: 126-81-24808 | Verify Business Information | Mail-Order Sales
-                        Registration No.: 2014-Gyeonggi-Icheon-0135<br>
-                        Chief Privacy Officer: Jonguk Jin | Hosting Service Provider: NHN Commerce Co., Ltd.<br>
-                        Contact: master@simmons.co.kr<br>
-                        For secure transactions, customers paying by cash may use the consumer damage compensation
-                        insurance service covering the full payment amount through the purchase safety service
-                        subscribed to by this shopping mall.
-                    </p>
-                </section>
-
-                <section class="bottom">
-                    <p class="brand_text">SIMMONS</p>
-                    <p class="copy">
-                        Copyright &copy; 2025 SIMMONS-K Co., Ltd. All Rights Reserved.
-                    </p>
-                </section>
-            </div>
-        </footer>
+        </div>
+    </header>
+    <div class="mobile_menu" id="mobile-menu" aria-hidden="true">
+        <div class="mobile_menu_top">
+            <a class="site_logo" href="../index.html"><img src="../img/common_logo_blue.png" alt="LUUP 홈"></a>
+            <button type="button" class="menu_button" data-menu-close aria-label="메뉴 닫기">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+        </div>
+        <nav aria-label="모바일 메뉴">
+            <a href="../today/today.html">TODAY</a>
+            <a href="../routine/routine.html">ROUTINE</a>
+            <a href="../sleep/sleep_main.html" aria-current="page">RECORD</a>
+            <a href="../offline/offline.html">GROWTH</a>
+            <a href="../my/my.html">MY</a>
+        </nav>
+        <a class="btn btn_gradient" href="../sleep/sleep_main.html">루틴 유형 진단하기</a>
     </div>
+<!-- header:end -->
+
+    <main>
+        <section class="page_hero result_hero">
+            <div class="container result_inner">
+                <div class="result_card">
+                    <p class="result_label"><span data-result-name>회원</span>님의 루틴 유형은</p>
+                    <span class="result_icon" data-result-icon aria-hidden="true">🌱</span>
+                    <h1 data-result-type>차근차근 새싹형</h1>
+                    <p class="result_summary" data-result-summary>작은 것부터 하나씩 쌓아가는 타입이에요.</p>
+                </div>
+                <div class="result_detail">
+                    <p class="eyebrow">ABOUT YOU</p>
+                    <p class="result_desc" data-result-desc></p>
+                    <ul class="result_points" data-result-points></ul>
+                    <div class="result_actions">
+                        <a class="btn btn_gradient" href="../list/list.html">전체 루틴 보기 <span class="arrow" aria-hidden="true">↗</span></a>
+                        <a class="btn btn_line result_retry" href="sleep_name.html" data-retry>다시 진단하기</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="section_head">
+                    <div>
+                        <p class="eyebrow">FOR YOU</p>
+                        <h2 class="section_title">지금 바로 시작할<br><em>추천 루틴</em></h2>
+                    </div>
+                </div>
+                <div class="routine_grid" data-result-routines></div>
+            </div>
+        </section>
+
+        <section class="section section_soft">
+            <div class="container result_cta reveal">
+                <div>
+                    <h2 class="section_title">혼자가 어렵다면<br><em>함께해요</em></h2>
+                    <p class="section_desc">같은 목표를 가진 사람들과 챌린지로 이어가면 훨씬 오래 지속할 수 있어요.</p>
+                </div>
+                <a class="btn" href="../offline/offline.html">챌린지 둘러보기 <span class="arrow" aria-hidden="true">↗</span></a>
+            </div>
+        </section>
+    </main>
+
+<!-- footer:start -->
+    <footer class="site_footer">
+        <div class="site_footer_inner">
+            <div class="footer_top">
+                <div class="footer_brand">
+                    <img src="../img/common_logo_blue.png" alt="LUUP">
+                    <p>작은 반복이 만드는 큰 변화.<br>매일의 루틴을 함께 이어가요.</p>
+                </div>
+                <nav class="footer_links" aria-label="하단 메뉴">
+                    <a href="../story/story.html">서비스 소개</a>
+                    <a href="../list/list.html">루틴 둘러보기</a>
+                    <a href="../sleep/sleep_main.html">루틴 유형 진단</a>
+                    <a href="../offline/offline.html">함께하기</a>
+                    <a href="../promo/promo.html">소식</a>
+                    <a href="../promo/promo.html#faq">자주 묻는 질문</a>
+                </nav>
+            </div>
+            <div class="footer_bottom">
+                <p>&copy; 2026 LUUP. All rights reserved.</p>
+                <p>이용약관 · 개인정보처리방침</p>
+            </div>
+            <p class="footer_word" aria-hidden="true"><img src="../img/common_logo_blue.svg" alt="" width="130" height="47"></p>
+        </div>
+    </footer>
+<!-- footer:end -->
+    <script src="../js/routines.js"></script>
+    <script src="js/test.js"></script>
+    <script src="../js/studio_header.js"></script>
 </body>
 
 </html>

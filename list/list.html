@@ -1,486 +1,149 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ruup</title>
-  <meta property="og:type" content="website" />
-    <meta property="og:title" content="ruup" />
-    <meta property="og:description"
-        content="A refined sleep experience shaped by heritage, innovation, and lasting comfort." />
-    <meta property="og:url" content="https://iwantpppsssjjj01sssu.github.io/ruup/list/list.html" />
-    <meta property="og:image" content="https://iwantpppsssjjj01sssu.github.io/ruup/img/og.png" />
+<!-- head:start -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>루틴 둘러보기 | LUUP</title>
+    <meta name="description" content="작은 반복이 만드는 큰 변화. LUUP은 매일의 루틴을 만들고, 체크하고, 이어가도록 돕는 습관·루틴 관리 서비스예요.">
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="루틴 둘러보기 | LUUP" />
+    <meta property="og:description" content="작은 반복이 만드는 큰 변화. LUUP은 매일의 루틴을 만들고, 체크하고, 이어가도록 돕는 습관·루틴 관리 서비스예요." />
+    <meta property="og:url" content="https://iwantpppsssjjj01sssu.github.io/luup/list/list.html" />
+    <meta property="og:image" content="https://iwantpppsssjjj01sssu.github.io/luup/img/common_og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt"
-        content="We aimed to convey Simmons’ “unshakable comfort” through simple, impactful imagery." />
-    <meta property="og:site_name" content="ruup" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Roboto:ital,wght@0,100..900;1,100..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap">
-  <link rel="stylesheet" as="style" crossorigin
-    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
-        <link rel="icon" href="../simmons_favicon_io/favicon.ico" />
-    <link rel="icon" type="image/png" sizes="32x32" href="../simmons_favicon_io/favicon-32x32.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="../simmons_favicon_io/apple-touch-icon.png" />
-  <!-- // 나의 css -->
-  <link rel="stylesheet" href="../css/reset.css">
-  <link rel="stylesheet" href="../css/common.css">
-  <link rel="stylesheet" href="css/style.css">
-
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-  <!-- // 나의 js -->
-  <script src="../js/common.js"></script>
-  <script src="js/list.js"></script>
+    <meta property="og:site_name" content="LUUP" />
+    <meta property="og:locale" content="ko_KR" />
+    <link rel="icon" type="image/svg+xml" href="../img/common_favicon.svg">
+    <!-- 폰트 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2.0.5/fonts/variable/woff2/SUIT-Variable.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <script src="../js/common.js"></script>
+<!-- head:end -->
+    <link rel="stylesheet" href="../css/studio_header.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-  <div class="wrap main-shell">
-    <!-- header start -->
-    <header>
-      <div class="inner">
-        <div class="logo">
-          <img src="../icon/logo.svg" alt="simmons">
+<!-- header:start -->
+    <header class="site_header">
+        <div class="site_header_inner">
+            <a class="site_logo" href="../index.html"><img src="../img/common_logo_black.svg" alt="LUUP 홈"></a>
+            <nav class="site_nav" aria-label="주요 메뉴">
+                <ul>
+                    <li><a href="../today/today.html">TODAY</a></li>
+                    <li><a href="../routine/routine.html">ROUTINE</a></li>
+                    <li><a href="../sleep/sleep_main.html">RECORD</a></li>
+                    <li><a href="../offline/offline.html">GROWTH</a></li>
+                    <li><a href="../my/my.html">MY</a></li>
+                </ul>
+            </nav>
+            <div class="site_actions">
+                <a class="btn btn_small btn_line" href="../sleep/sleep_main.html">진단 시작하기</a>
+                <button type="button" class="menu_button" data-menu-open aria-label="메뉴 열기" aria-expanded="false" aria-controls="mobile-menu">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+                </button>
+            </div>
         </div>
-        <nav>
-          <ul class="gnb">
-            <li><a href="#">About Us</a>
-            </li>
-            <li><a href="#">Products</a>
-
-            </li>
-            <li><a href="#">Sleep Solution</a>
-
-            </li>
-            <li><a href="#">Visit</a>
-
-            </li>
-            <li><a href="../promo/promo.html">Community</a>
-            </li>
-          </ul><!-- //.gnb -->
-        </nav>
-        <div class="right">
-          <ul>
-            <li>
-              <a href="#" class="search_link" aria-label="Search">
-                <span class="search_hint" aria-hidden="true"></span>
-                <img src="../icon/search.svg" alt="">
-              </a>
-            </li>
-            <li><a href="#" class="menu_toggle" aria-label="Open menu"><img src="../icon/menu.svg" alt=""></a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="sub_tab_backdrop" aria-hidden="true"></div>
-      <div class="sub_tab" aria-hidden="true">
-        <div class="sub_tab_inner">
-          <div class="sub_tab_btn">
-            <div class="sub_tab_lang_box">
-              <div class="sub_tab_lang" aria-label="Language options">
-                <button type="button" class="sub_tab_lang_option is-active" data-lang="en">EN</button>
-                <button type="button" class="sub_tab_lang_option" data-lang="kr">KR</button>
-                <span class="sub_tab_lang_highlight" aria-hidden="true"></span>
-              </div>
-            </div>
-            <button type="button" class="sub_tab_close" aria-label="Close menu"><img src="../icon/header_x.svg"
-                alt="" aria-hidden="true"></button>
-          </div>
-          <div class="sub_tab_top">
-            <div class="tab_gnb">
-              <a href="#" class="tab_gnb_link is-default" data-tab="about">About Us</a>
-              <a href="#" class="tab_gnb_link" data-tab="products">Products</a>
-              <a href="#" class="tab_gnb_link" data-tab="sleep">Sleep Solution</a>
-              <a href="#" class="tab_gnb_link" data-tab="visit">Visit</a>
-              <a href="../promo/promo.html" class="tab_gnb_link" data-tab="community">Community</a>
-            </div>
-            <div class="tab_sub" aria-label="Sub menu">
-              <div class="tab_sub_panel is-default" data-tab="about">
-                <a href="#">Simmons</a>
-                <a href="#">Hotel Story</a>
-              </div>
-              <div class="tab_sub_panel" data-tab="products">
-                <a href="#">Mattresses</a>
-                <a href="#">Bed Frames</a>
-                <a href="#">Bedding</a>
-                <a href="#">Living Collections</a>
-              </div>
-              <div class="tab_sub_panel" data-tab="sleep">
-                <a href="#">Sleep Match</a>
-                <a href="#">Sleep Test</a>
-                <a href="#">Sleep Report</a>
-              </div>
-              <div class="tab_sub_panel" data-tab="visit">
-                <a href="#">Factorium</a>
-                <a href="#">Location</a>
-              </div>
-              <div class="tab_sub_panel" data-tab="community">
-                <a href="#">Notice</a>
-                <a href="../promo/promo.html">Event</a>
-                <a href="#">Customer Service</a>
-              </div>
-            </div>
-          </div>
-          <div class="sub_tab_bottom">
-            <div class="bt_top">
-              <p>CONTACT</p>
-              <div class="info">
-                <div class="con_left">
-                  <p>Customer Service: 1899-8182</p>
-                  <p>Mon-Fri, 9 AM-6 PM</p>
-                  <p>master@simmons.co.kr</p>
-                </div>
-                <div class="con_right">
-                  <a href="#" aria-label="Kakao">
-                    <img src="../icon/kakao.svg" alt="Kakao">
-                  </a>
-                  <a href="#" aria-label="Instagram">
-                    <img src="../icon/insta.svg" alt="Instagram">
-                  </a>
-                  <a href="#" aria-label="YouTube">
-                    <img src="../icon/youtube.svg" alt="YouTube">
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="bt_bottom">
-              <div class="bt_bottom_left">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Use</a>
-              </div>
-              <p class="bt_bottom_copy">&copy; 2025 Simmons</p>
-            </div>
-          </div>
-        </div>
-      </div>
     </header>
-    <!-- //header end -->
+    <div class="mobile_menu" id="mobile-menu" aria-hidden="true">
+        <div class="mobile_menu_top">
+            <a class="site_logo" href="../index.html"><img src="../img/common_logo_blue.png" alt="LUUP 홈"></a>
+            <button type="button" class="menu_button" data-menu-close aria-label="메뉴 닫기">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+        </div>
+        <nav aria-label="모바일 메뉴">
+            <a href="../today/today.html">TODAY</a>
+            <a href="../routine/routine.html">ROUTINE</a>
+            <a href="../sleep/sleep_main.html">RECORD</a>
+            <a href="../offline/offline.html">GROWTH</a>
+            <a href="../my/my.html">MY</a>
+        </nav>
+        <a class="btn btn_gradient" href="../sleep/sleep_main.html">루틴 유형 진단하기</a>
+    </div>
+<!-- header:end -->
+
     <main>
-      <section class="banner">
-        <div class="txt_all">
-          <p>FIND YOUR COMFORT</p>
-          <p>CHOICE</p>
-        </div>
-        <span class="shop_txt">SHOP</span>
-        <div class="img">
-          <img src="../img/list_mattress1.png" alt="Simmons Mattress Banner">
-        </div>
-      </section>
-
-      <!-- Slide 1: Banner to Signature -->
-      <section class="text_slide_banner top_banner">
-        <div class="txt_all">
-          <div class="txt">SIGNATURE MATTRESS</div>
-          <div class="txt">SIGNATURE MATTRESS</div>
-          <div class="txt">SIGNATURE MATTRESS</div>
-          <div class="txt">SIGNATURE MATTRESS</div>
-          <div class="txt">SIGNATURE MATTRESS</div>
-          <div class="txt">SIGNATURE MATTRESS</div>
-          <div class="txt">SIGNATURE MATTRESS</div>
-          <div class="txt">SIGNATURE MATTRESS</div>
-          <!-- Cloned for seamless loop -->
-          <div class="txt">SIGNATURE MATTRESS</div>
-          <div class="txt">SIGNATURE MATTRESS</div>
-          <div class="txt">SIGNATURE MATTRESS</div>
-          <div class="txt">SIGNATURE MATTRESS</div>
-          <div class="txt">SIGNATURE MATTRESS</div>
-          <div class="txt">SIGNATURE MATTRESS</div>
-          <div class="txt">SIGNATURE MATTRESS</div>
-          <div class="txt">SIGNATURE MATTRESS</div>
-        </div>
-      </section>
-
-      <section class="signature">
-        <div class="txt_all">
-          <div class="txt">
-            <p>Signature Mattress<br>Collection</p>
-          </div>
-          <p>Explore the most distinctive Simmons mattresses<br>thoughtfully crafted for different sleep preferences and
-            lifestyles.</p>
-        </div>
-        <div class="img_all">
-          <img src="../img/list_signature.png" alt="Signature Mattress Collection">
-        </div>
-      </section>
-
-      <!-- Slide 2: Signature to Best -->
-      <section class="text_slide_banner bottom_banner">
-        <div class="txt_all">
-          <div class="txt">SIGNATURE MATTRESS</div>
-          <div class="txt">SIGNATURE MATTRESS</div>
-          <div class="txt">SIGNATURE MATTRESS</div>
-          <div class="txt">SIGNATURE MATTRESS</div>
-          <div class="txt">SIGNATURE MATTRESS</div>
-          <div class="txt">SIGNATURE MATTRESS</div>
-          <div class="txt">SIGNATURE MATTRESS</div>
-          <div class="txt">SIGNATURE MATTRESS</div>
-          <!-- Cloned for seamless loop -->
-          <div class="txt">SIGNATURE MATTRESS</div>
-          <div class="txt">SIGNATURE MATTRESS</div>
-          <div class="txt">SIGNATURE MATTRESS</div>
-          <div class="txt">SIGNATURE MATTRESS</div>
-          <div class="txt">SIGNATURE MATTRESS</div>
-          <div class="txt">SIGNATURE MATTRESS</div>
-          <div class="txt">SIGNATURE MATTRESS</div>
-          <div class="txt">SIGNATURE MATTRESS</div>
-        </div>
-      </section>
-
-      <section class="product">
-        <div class="product_title_all">
-          <div class="product_title">BEST PRODUCT</div>
-        </div>
-        <div class="product_all">
-          <a href="../product/product.html" class="product_card" aria-label="Go to Beautyrest Black Black Lauren product detail">
-            <img src="../img/list_mattress2.png" alt="Beautyrest Black">
-            <div class="product_txt">
-              <p>Beautyrest Black</p>
-              <p>Black Lauren</p>
+        <section class="page_hero">
+            <div class="container">
+                <p class="eyebrow">ROUTINES</p>
+                <h1>어떤 루틴부터<br><em>시작해 볼까요?</em></h1>
+                <p>검증된 루틴 템플릿을 골라 오늘부터 바로 시작해 보세요. 마음에 드는 루틴은 상세 페이지에서 단계별로 확인할 수 있어요.</p>
             </div>
-          </a>
+        </section>
 
-          <a href="../product/product.html" class="product_card" aria-label="Go to Beautyrest Mattress Black Jasmine product detail">
-            <img src="../img/list_mattress3.png" alt="Beautyrest Mattress">
-            <div class="product_txt">
-              <p>Beautyrest Mattress</p>
-              <p>Black Jasmine</p>
-            </div>
-          </a>
-
-          <a href="../product/product.html" class="product_card" aria-label="Go to N32 Spring Mattress product detail">
-            <img src="../img/list_mattress4.png" alt="N32">
-            <div class="product_txt">
-              <p>N32</p>
-              <p>Spring Mattress</p>
-            </div>
-          </a>
-        </div>
-      </section>
-      <section class="more">
-        <div class="title">
-          <div class="title_all">
-            <p>Compare Other Mattresses</p>
-            <p>Explore Beautyrest Black at a Glance</p>
-          </div>
-        </div>
-        <div class="name_all">
-          <!-- 1: Beautyrest Black  -->
-          <div class="name active">
-            <div class="tab">
-              <div class="txt">Beautyrest Black</div>
-            </div>
-            <div class="card_content">
-              <div class="icon_all prev"><span class="icon"></span></div>
-              <div class="main_area">
-                <div class="slider_viewport">
-                  <div class="slider_track">
-                    <div class="slide">
-                      <a class="slide_link" href="../product/product.html" aria-label="Go to Beautyrest Black Black Eger product detail">
-                        <img src="../img/list_mattress5.png" alt="Black Eger">
-                        <div class="txt_all">
-                          <p class="brand_name">Beautyrest Black</p>
-                          <p class="model_name">Black Eger</p>
-                          <p class="price">$ 6,292</p>
-                        </div>
-                      </a>
+        <section class="section list_section">
+            <div class="container">
+                <div class="list_toolbar">
+                    <div class="chips" data-category-chips role="group" aria-label="카테고리">
+                        <button type="button" class="is-active" data-category="all" aria-pressed="true">전체</button>
+                        <button type="button" data-category="morning" aria-pressed="false">🌅 아침</button>
+                        <button type="button" data-category="health" aria-pressed="false">💪 건강</button>
+                        <button type="button" data-category="study" aria-pressed="false">📚 공부</button>
+                        <button type="button" data-category="mind" aria-pressed="false">🌿 마음</button>
+                        <button type="button" data-category="evening" aria-pressed="false">🌙 저녁</button>
                     </div>
-                    <div class="slide">
-                      <a class="slide_link" href="../product/product.html" aria-label="Go to Beautyrest Black Black Marion product detail">
-                        <img src="../img/list_mattress6.png" alt="Black Marion">
-                        <div class="txt_all">
-                          <p class="brand_name">Beautyrest Black</p>
-                          <p class="model_name">Black Marion</p>
-                          <p class="price">$ 8,934</p>
-                        </div>
-                      </a>
-                    </div>
-                    <div class="slide">
-                      <a class="slide_link" href="../product/product.html" aria-label="Go to Beautyrest Black Black Devola product detail">
-                        <img src="../img/list_mattress7.png" alt="Black Kelly">
-                        <div class="txt_all">
-                          <p class="brand_name">Beautyrest Black</p>
-                          <p class="model_name">Black Devola</p>
-                          <p class="price">$ 10,268</p>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
+                    <label class="list_search">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+                        <input type="search" placeholder="루틴 이름으로 찾기" aria-label="루틴 검색" data-search>
+                    </label>
                 </div>
-                <div class="bullet_all">
-                  <span class="bullet active"></span>
-                  <span class="bullet"></span>
-                  <span class="bullet"></span>
-                </div>
-              </div>
-              <div class="icon_all next"><span class="icon"></span></div>
-            </div>
-          </div>
 
-          <!-- 2: Beautyrest Mattress -->
-          <div class="name">
-            <div class="tab">
-              <div class="txt">Beautyrest Mattress</div>
-            </div>
-            <div class="card_content">
-              <div class="icon_all prev"><span class="icon"></span></div>
-              <div class="main_area">
-                <div class="slider_viewport">
-                  <div class="slider_track">
-                    <div class="slide">
-                      <a class="slide_link" href="../product/product.html" aria-label="Go to Beautyrest Mattress Beautyrest Marconi product detail">
-                        <img src="../img/list_mattress8.png" alt="Beautyrest Marconi">
-                        <div class="txt_all">
-                          <p class="brand_name">Beautyrest Mattress</p>
-                          <p class="model_name">Beautyrest Marconi</p>
-                          <p class="price">$ 1,938</p>
-                        </div>
-                      </a>
-                    </div>
-                    <div class="slide">
-                      <a class="slide_link" href="../product/product.html" aria-label="Go to Beautyrest Mattress Beautyrest Raven product detail">
-                        <img src="../img/list_mattress9.png" alt="Beautyrest Raven">
-                        <div class="txt_all">
-                          <p class="brand_name">Beautyrest Mattress</p>
-                          <p class="model_name">Beautyrest Raven</p>
-                          <p class="price">$ 1,606</p>
-                        </div>
-                      </a>
-                    </div>
-                    <div class="slide">
-                      <a class="slide_link" href="../product/product.html" aria-label="Go to Beautyrest Mattress Beautyrest Tangerine product detail">
-                        <img src="../img/list_mattress10.png" alt="Beautyrest Tangerine">
-                        <div class="txt_all">
-                          <p class="brand_name">Beautyrest Mattress</p>
-                          <p class="model_name">Beautyrest Tangerine</p>
-                          <p class="price">$ 1,334</p>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div class="bullet_all">
-                  <span class="bullet active"></span>
-                  <span class="bullet"></span>
-                  <span class="bullet"></span>
-                </div>
-              </div>
-              <div class="icon_all next"><span class="icon"></span></div>
-            </div>
-          </div>
+                <p class="list_count" aria-live="polite"><b data-count>12</b>개의 루틴</p>
 
-          <!-- 3: N32 -->
-          <div class="name">
-            <div class="tab">
-              <div class="txt">N32</div>
-            </div>
-            <div class="card_content">
-              <div class="icon_all prev"><span class="icon"></span></div>
-              <div class="main_area">
-                <div class="slider_viewport">
-                  <div class="slider_track">
-                    <div class="slide">
-                      <a class="slide_link" href="../product/product.html" aria-label="Go to N32 Form Mattress product detail">
-                        <img src="../img/list_mattress11.png" alt="Form Mattress">
-                        <div class="txt_all">
-                          <p class="brand_name">N32</p>
-                          <p class="model_name">Form Mattress</p>
-                          <p class="price">$ 2,044</p>
-                        </div>
-                      </a>
-                    </div>
-                    <div class="slide">
-                      <a class="slide_link" href="../product/product.html" aria-label="Go to N32 Pet Mattress product detail">
-                        <img src="../img/list_mattress12.png" alt="Pet Mattress">
-                        <div class="txt_all">
-                          <p class="brand_name">N32</p>
-                          <p class="model_name">Pet Mattress</p>
-                          <p class="price">$ 2,044</p>
-                        </div>
-                      </a>
-                    </div>
-                    <div class="slide">
-                      <a class="slide_link" href="../product/product.html" aria-label="Go to N32 Topper Mattress product detail">
-                        <img src="../img/list_mattress13.png" alt="Topper Mattress">
-                        <div class="txt_all">
-                          <p class="brand_name">N32</p>
-                          <p class="model_name">Topper Mattress</p>
-                          <p class="price">$ 491</p>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div class="bullet_all">
-                  <span class="bullet active"></span>
-                  <span class="bullet"></span>
-                  <span class="bullet"></span>
-                </div>
-              </div>
-              <div class="icon_all next"><span class="icon"></span></div>
-            </div>
-          </div>
-        </div>
-      </section>
+                <div class="routine_grid" data-routine-grid></div>
 
-      <div class="float_buttons">
-        <button type="button" class="float_button float_button_ai">
-          <img src="../icon/AI_button.svg" alt="AI button">
-        </button>
-        <button type="button" class="float_button float_button_top">
-          <img src="../icon/top_button.svg" alt="Top button">
-        </button>
-      </div>
+                <div class="list_empty" data-empty hidden>
+                    <span>🔍</span>
+                    <p>찾는 루틴이 없어요.<br>다른 이름으로 검색해 보세요.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section_soft list_cta">
+            <div class="container list_cta_inner reveal">
+                <div>
+                    <h2 class="section_title">어떤 루틴이 맞을지<br><em>고민된다면?</em></h2>
+                    <p class="section_desc">5개 질문에 답하면 나에게 맞는 루틴 유형과 추천 루틴을 알려드려요.</p>
+                </div>
+                <a class="btn" href="../sleep/sleep_main.html">루틴 유형 진단하기 <span class="arrow" aria-hidden="true">↗</span></a>
+            </div>
+        </section>
     </main>
-    <!-- footer start -->
-    <footer>
-      <div class="footer_inner">
-        <section class="info">
-          <ul class="sns_list">
-            <li>
-              <a href="#" aria-label="kakao">
-                <img src="../icon/kakao.svg" alt="kakao">
-              </a>
-            </li>
-            <li>
-              <a href="#" aria-label="instagram">
-                <img src="../icon/insta.svg" alt="instagram">
-              </a>
-            </li>
-            <li>
-              <a href="#" aria-label="youtube">
-                <img src="../icon/youtube.svg" alt="youtube">
-              </a>
-            </li>
-          </ul>
 
-          <p class="info_text">
-            Terms of Use | Privacy Policy<br>
-            SIMMONS Co., Ltd.<br>
-            CEOs: Minsoo Kim, Jeongho Ahn | Address: 1000 Sasil-ro, Moga-myeon, Icheon-si, Gyeonggi-do,
-            Republic of Korea | Customer Service: +82-1899-8182<br>
-            Business Registration No.: 126-81-24808 | Verify Business Information | Mail-Order Sales
-            Registration No.: 2014-Gyeonggi-Icheon-0135<br>
-            Chief Privacy Officer: Jonguk Jin | Hosting Service Provider: NHN Commerce Co., Ltd.<br>
-            Contact: master@simmons.co.kr<br>
-            For secure transactions, customers paying by cash may use the consumer damage compensation
-            insurance service covering the full payment amount through the purchase safety service
-            subscribed to by this shopping mall.
-          </p>
-        </section>
-
-        <section class="bottom">
-          <p class="brand_text">SIMMONS</p>
-          <p class="copy">
-            Copyright &copy; 2025 SIMMONS-K Co., Ltd. All Rights Reserved.
-          </p>
-        </section>
-      </div>
+<!-- footer:start -->
+    <footer class="site_footer">
+        <div class="site_footer_inner">
+            <div class="footer_top">
+                <div class="footer_brand">
+                    <img src="../img/common_logo_blue.png" alt="LUUP">
+                    <p>작은 반복이 만드는 큰 변화.<br>매일의 루틴을 함께 이어가요.</p>
+                </div>
+                <nav class="footer_links" aria-label="하단 메뉴">
+                    <a href="../story/story.html">서비스 소개</a>
+                    <a href="../list/list.html">루틴 둘러보기</a>
+                    <a href="../sleep/sleep_main.html">루틴 유형 진단</a>
+                    <a href="../offline/offline.html">함께하기</a>
+                    <a href="../promo/promo.html">소식</a>
+                    <a href="../promo/promo.html#faq">자주 묻는 질문</a>
+                </nav>
+            </div>
+            <div class="footer_bottom">
+                <p>&copy; 2026 LUUP. All rights reserved.</p>
+                <p>이용약관 · 개인정보처리방침</p>
+            </div>
+            <p class="footer_word" aria-hidden="true"><img src="../img/common_logo_blue.svg" alt="" width="130" height="47"></p>
+        </div>
     </footer>
-    <!-- //footer end -->
-  </div><!-- //.wrap -->
+<!-- footer:end -->
+    <script src="../js/routines.js"></script>
+    <script src="js/list.js"></script>
+    <script src="../js/studio_header.js"></script>
 </body>
 
 </html>

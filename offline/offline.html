@@ -1,485 +1,273 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
+<!-- head:start -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ruup</title>
+    <title>함께하기 | LUUP</title>
+    <meta name="description" content="작은 반복이 만드는 큰 변화. LUUP은 매일의 루틴을 만들고, 체크하고, 이어가도록 돕는 습관·루틴 관리 서비스예요.">
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="ruup" />
-    <meta property="og:description"
-        content="A refined sleep experience shaped by heritage, innovation, and lasting comfort." />
-    <meta property="og:url" content="https://iwantpppsssjjj01sssu.github.io/ruup/offline/offline.html" />
-    <meta property="og:image" content="https://iwantpppsssjjj01sssu.github.io/ruup/img/og.png" />
+    <meta property="og:title" content="함께하기 | LUUP" />
+    <meta property="og:description" content="작은 반복이 만드는 큰 변화. LUUP은 매일의 루틴을 만들고, 체크하고, 이어가도록 돕는 습관·루틴 관리 서비스예요." />
+    <meta property="og:url" content="https://iwantpppsssjjj01sssu.github.io/luup/offline/offline.html" />
+    <meta property="og:image" content="https://iwantpppsssjjj01sssu.github.io/luup/img/common_og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt"
-        content="We aimed to convey Simmons’ “unshakable comfort” through simple, impactful imagery." />
-    <meta property="og:site_name" content="ruup" />
-    <link rel="icon" href="../simmons_favicon_io/favicon.ico" />
-    <link rel="icon" type="image/png" sizes= "32x32" href="../simmons_favicon_io/favicon-32x32.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="../simmons_favicon_io/apple-touch-icon.png" />
-    <!-- 폰트4개  -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Roboto:ital,wght@0,100..900;1,100..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap">
-    <link rel="stylesheet" as="style" crossorigin
-        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+    <meta property="og:site_name" content="LUUP" />
+    <meta property="og:locale" content="ko_KR" />
+    <link rel="icon" type="image/svg+xml" href="../img/common_favicon.svg">
+    <!-- 폰트 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2.0.5/fonts/variable/woff2/SUIT-Variable.css">
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/common.css">
-    <link rel="stylesheet" href="css/style.css">
-
-    <!-- js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <!-- 나의 js -->
-    <script src="js/main.js"></script>
     <script src="../js/common.js"></script>
-
+<!-- head:end -->
+    <link rel="stylesheet" href="../css/studio_header.css">
+    <link rel="stylesheet" href="../css/studio_footer.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-    <div class="wrap main-shell">
-
-        <!-- header start -->
-        <header>
-            <div class="inner">
-                <div class="logo">
-                    <img src="../icon/logo.svg" alt="simmons">
-                </div>
-                <nav>
-                    <ul class="gnb">
-                        <li><a href="#">About Us</a>
-                        </li>
-                        <li><a href="#">Products</a>
-
-                        </li>
-                        <li><a href="#">Sleep Solution</a>
-
-                        </li>
-                        <li><a href="#">Visit</a>
-
-                        </li>
-                        <li><a href="../promo/promo.html">Community</a>
-                        </li>
-                    </ul><!-- //.gnb -->
-                </nav>
-                <div class="right">
-                    <ul>
-                        <li>
-                            <a href="#" class="search_link" aria-label="Search">
-                                <span class="search_hint" aria-hidden="true"></span>
-                                <img src="../icon/search.svg" alt="">
-                            </a>
-                        </li>
-                        <li><a href="#" class="menu_toggle" aria-label="Open menu"><img src="../icon/menu.svg"
-                                    alt=""></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="sub_tab_backdrop" aria-hidden="true"></div>
-            <div class="sub_tab" aria-hidden="true">
-                <div class="sub_tab_inner">
-                    <div class="sub_tab_btn">
-                        <div class="sub_tab_lang_box">
-                            <div class="sub_tab_lang" aria-label="Language options">
-                                <button type="button" class="sub_tab_lang_option is-active" data-lang="en">EN</button>
-                                <button type="button" class="sub_tab_lang_option" data-lang="kr">KR</button>
-                                <span class="sub_tab_lang_highlight" aria-hidden="true"></span>
-                            </div>
-                        </div>
-                        <button type="button" class="sub_tab_close" aria-label="Close menu"><img
-                                src="../icon/header_x.svg" alt="" aria-hidden="true"></button>
-                    </div>
-                    <div class="sub_tab_top">
-                        <div class="tab_gnb">
-                            <a href="#" class="tab_gnb_link is-default" data-tab="about">About Us</a>
-                            <a href="#" class="tab_gnb_link" data-tab="products">Products</a>
-                            <a href="#" class="tab_gnb_link" data-tab="sleep">Sleep Solution</a>
-                            <a href="#" class="tab_gnb_link" data-tab="visit">Visit</a>
-                            <a href="../promo/promo.html" class="tab_gnb_link" data-tab="community">Community</a>
-                        </div>
-                        <div class="tab_sub" aria-label="Sub menu">
-                            <div class="tab_sub_panel is-default" data-tab="about">
-                                <a href="#">Simmons</a>
-                                <a href="#">Hotel Story</a>
-                            </div>
-                            <div class="tab_sub_panel" data-tab="products">
-                                <a href="#">Mattresses</a>
-                                <a href="#">Bed Frames</a>
-                                <a href="#">Bedding</a>
-                                <a href="#">Living Collections</a>
-                            </div>
-                            <div class="tab_sub_panel" data-tab="sleep">
-                                <a href="#">Sleep Match</a>
-                                <a href="#">Sleep Test</a>
-                                <a href="#">Sleep Report</a>
-                            </div>
-                            <div class="tab_sub_panel" data-tab="visit">
-                                <a href="#">Factorium</a>
-                                <a href="#">Location</a>
-                            </div>
-                            <div class="tab_sub_panel" data-tab="community">
-                                <a href="#">Notice</a>
-                                <a href="../promo/promo.html">Event</a>
-                                <a href="#">Customer Service</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="sub_tab_bottom">
-                        <div class="bt_top">
-                            <p>CONTACT</p>
-                            <div class="info">
-                                <div class="con_left">
-                                    <p>Customer Service: 1899-8182</p>
-                                    <p>Mon-Fri, 9 AM-6 PM</p>
-                                    <p>master@simmons.co.kr</p>
-                                </div>
-                                <div class="con_right">
-                                    <a href="#" aria-label="Kakao">
-                                        <img src="../icon/kakao.svg" alt="Kakao">
-                                    </a>
-                                    <a href="#" aria-label="Instagram">
-                                        <img src="../icon/insta.svg" alt="Instagram">
-                                    </a>
-                                    <a href="#" aria-label="YouTube">
-                                        <img src="../icon/youtube.svg" alt="YouTube">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bt_bottom">
-                            <div class="bt_bottom_left">
-                                <a href="#">Privacy Policy</a>
-                                <a href="#">Terms of Use</a>
-                            </div>
-                            <p class="bt_bottom_copy">&copy; 2025 Simmons</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-        <!-- //header end -->
-
-        <!-- 헤더 제외한 모든 섹션 메인 안에서 시작 -->
-        <main>
-            <section class="offline_main_visual">
-                <div class="bg_slider">
-                    <div class="slide slide1"></div>
-                    <div class="slide slide2"></div>
-                    <div class="slide slide3"></div>
-                    <div class="slide slide4"></div>
-                    <div class="slide slide5"></div>
-                    <div class="slide slide6"></div>
-                    <div class="slide slide7"></div>
-                </div>
-                <div class="main_pagination" aria-label="Main visual pagination">
-                    <span class="pagination_line" aria-hidden="true"></span>
-                    <span class="pagination_highlight" aria-hidden="true"></span>
-                    <span class="pagination_item active" aria-hidden="true"></span>
-                    <span class="pagination_item" aria-hidden="true"></span>
-                    <span class="pagination_item" aria-hidden="true"></span>
-                    <span class="pagination_item" aria-hidden="true"></span>
-                    <span class="pagination_item" aria-hidden="true"></span>
-                    <span class="pagination_item" aria-hidden="true"></span>
-                    <span class="pagination_item" aria-hidden="true"></span>
-                </div>
-                <div class="inner">
-                    <h2 class="main_title">Experience<br>SIMMONS Offline</h2>
-                    <p class="sub_text">Discover SIMMONS through immersive offline experiences</p>
-                </div>
-            </section>
-            <section class="factory">
-                <!-- Part 1: Cards -->
-                <div class="part_cards">
-                    <div class="inner">
-                        <div class="left_content">
-                            <h3 class="program_title">PROGRAM<br>GUIDE</h3>
-                            <ul class="program_list">
-                                <li>Sleep Research R&D Center</li>
-                                <li>Production System</li>
-                                <li>Observation Tower</li>
-                                <li>Heritage Alley</li>
-                                <li>SIMMONS Terrace</li>
-                            </ul>
-                        </div>
-                        <div class="center_cards">
-                            <div class="card_wrap">
-                                <img src="../img/offline_card1.png" alt="Card 1" class="card card1">
-                                <img src="../img/offline_card2.png" alt="Card 2" class="card card2">
-                                <img src="../img/offline_card3.png" alt="Card 3" class="card card3">
-                            </div>
-                        </div>
-                        <div class="right_content">
-                            <h3 class="operating_title">OPERATING<br>HOURS</h3>
-                            <div class="operating_info">
-                                <p>Monday – Friday, 10:30 AM</p>
-                                <p>One Session Per Day (60 Minutes)</p>
-                            </div>
-                            <a href="#" class="btn_book offline_cta_button" aria-label="Book a Tour">
-                                <svg class="offline_cta_button_svg" viewBox="0 0 353.94 111.5" aria-hidden="true"
-                                    focusable="false">
-                                    <path class="offline_cta_button_shape"
-                                        d="M229.58,82.25c-2.74,2.08-6.49,4.88-12.09,6.65-4.25,1.34-7.98,1.6-10.51,1.59H54.86c-19.52,0-35.35-15.83-35.35-35.35h0c0-19.52,15.83-35.35,35.35-35.35h152.12c3.14-.18,7.38.04,11.98,1.7,4.29,1.54,7.19,3.72,8.83,4.98,2.66,2.03,2.91,2.78,7.1,6.88,4.58,4.48,6.88,6.72,9.73,8.44,2.26,1.37,6.16,3.66,11.7,4.09,5.72.44,10.06-1.36,12.11-2.24.93-.4,5.66-2.49,10.01-7.05,2.38-2.49,3.13-4.14,6.63-7.41,1.17-1.09,2.48-2.32,4.4-3.66,6.67-4.66,13.5-5.74,17.03-6,.71-.05,1.27-.08,1.64-.09,2.15-.08,8.57-.11,15.85,3.18,3.36,1.51,11.96,6.01,17.18,16.11,1.08,2.09,3.95,8.14,3.93,16.44,0,4.33-.81,12.73-6.61,20.79-1.1,1.53-8.24,11.12-21.47,13.92-.93.2-1.67.33-2.12.4-1.95.3-12.22,1.73-21.89-3.62-5.79-3.2-10.46-8.33-13.53-11.69-.79-.86-3.02-3.36-6.58-5.83-1.39-.97-3.12-2.15-5.68-3.13-1.23-.47-4.25-1.5-8.27-1.54-1.62-.02-4.53.11-7.9,1.22-3.02,1-5.36,2.43-8.39,4.74-7.28,5.52-7.18,7.37-13.08,11.85Z" />
-                                    <circle class="offline_cta_button_ring" cx="309.45" cy="55.02" r="27.81" />
-                                </svg>
-                                <span class="offline_cta_button_text">Book a Tour</span>
-                                <span class="offline_cta_button_icon" aria-hidden="true">
-                                    <svg viewBox="0 0 24 24" focusable="false">
-                                        <path d="M17 7L7 17" />
-                                        <path d="M8 7H17V16" />
-                                    </svg>
-                                </span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Part 2: Title Part -->
-                <div class="part_title">
-                    <div class="inner">
-                        <h2 class="main_title">FACTORY<br>TOUR</h2>
-                        <div class="description_box">
-                            <p class="desc_text">
-                                A Space Where SIMMONS' Technology, Research, And Craftsmanship Come Together, Offering
-                                The True Standard Of Unwavering Comfort Through Its Sleep Research R&D Center And
-                                Proprietary Production System.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Part 3: Image Part -->
-                <div class="part_image">
-                    <img src="../img/offline_factorium.png" alt="Factorium" class="full_img">
-                </div>
-            </section>
-
-            <!-- terrace section -->
-            <section class="terrace">
-                <!-- Part 1: Cards -->
-                <div class="part_cards">
-                    <div class="inner">
-                        <div class="left_content">
-                            <h3 class="program_title">PROGRAM<br>OVERVIEW</h3>
-                            <ul class="program_list">
-                                <li>Brand Museum</li>
-                                <li>Mattress Lab</li>
-                                <li>Terrace Showroom</li>
-                                <li>Docent Tour</li>
-                            </ul>
-                        </div>
-                        <div class="center_cards">
-                            <div class="card_wrap">
-                                <img src="../img/offline_card4.png" alt="Card 4" class="card card4">
-                                <img src="../img/offline_card5.png" alt="Card 5" class="card card5">
-                                <img src="../img/offline_card6.png" alt="Card 6" class="card card6">
-                            </div>
-                        </div>
-                        <div class="right_content">
-                            <h3 class="operating_title">OPERATING<br>INFORMATION</h3>
-                            <div class="operating_info">
-                                <p>Duration: Approx. 20 Minutes</p>
-                                <p>Closed On National Holidays</p>
-                                <p>Docent Tours Start At The Top<br>Of Every Hour</p>
-                            </div>
-                            <a href="#" class="btn_book offline_cta_button" aria-label="Learn More">
-                                <svg class="offline_cta_button_svg" viewBox="0 0 353.94 111.5" aria-hidden="true"
-                                    focusable="false">
-                                    <path class="offline_cta_button_shape"
-                                        d="M229.58,82.25c-2.74,2.08-6.49,4.88-12.09,6.65-4.25,1.34-7.98,1.6-10.51,1.59H54.86c-19.52,0-35.35-15.83-35.35-35.35h0c0-19.52,15.83-35.35,35.35-35.35h152.12c3.14-.18,7.38.04,11.98,1.7,4.29,1.54,7.19,3.72,8.83,4.98,2.66,2.03,2.91,2.78,7.1,6.88,4.58,4.48,6.88,6.72,9.73,8.44,2.26,1.37,6.16,3.66,11.7,4.09,5.72.44,10.06-1.36,12.11-2.24.93-.4,5.66-2.49,10.01-7.05,2.38-2.49,3.13-4.14,6.63-7.41,1.17-1.09,2.48-2.32,4.4-3.66,6.67-4.66,13.5-5.74,17.03-6,.71-.05,1.27-.08,1.64-.09,2.15-.08,8.57-.11,15.85,3.18,3.36,1.51,11.96,6.01,17.18,16.11,1.08,2.09,3.95,8.14,3.93,16.44,0,4.33-.81,12.73-6.61,20.79-1.1,1.53-8.24,11.12-21.47,13.92-.93.2-1.67.33-2.12.4-1.95.3-12.22,1.73-21.89-3.62-5.79-3.2-10.46-8.33-13.53-11.69-.79-.86-3.02-3.36-6.58-5.83-1.39-.97-3.12-2.15-5.68-3.13-1.23-.47-4.25-1.5-8.27-1.54-1.62-.02-4.53.11-7.9,1.22-3.02,1-5.36,2.43-8.39,4.74-7.28,5.52-7.18,7.37-13.08,11.85Z" />
-                                    <circle class="offline_cta_button_ring" cx="309.45" cy="55.02" r="27.81" />
-                                </svg>
-                                <span class="offline_cta_button_text">Learn More</span>
-                                <span class="offline_cta_button_icon" aria-hidden="true">
-                                    <svg viewBox="0 0 24 24" focusable="false">
-                                        <path d="M17 7L7 17" />
-                                        <path d="M8 7H17V16" />
-                                    </svg>
-                                </span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Part 2: Title Part (reversed: description left, h2 right) -->
-                <div class="part_title">
-                    <div class="inner">
-                        <div class="description_box">
-                            <p class="desc_text">
-                                A Cultural Space Where You Can Experience SIMMONS' Heritage, Philosophy, And The
-                                Refined
-                                Sensibility The Brand Has Cultivated Over Time Through Exhibitions And Curated Content.
-                            </p>
-                        </div>
-                        <h2 class="main_title">SIMMONS<br>TERRACE</h2>
-                    </div>
-                </div>
-
-                <!-- Part 3: Image Part -->
-                <div class="part_image">
-                    <img src="../img/offline_terrace.png" alt="Simmons Terrace" class="full_img">
-                </div>
-            </section>
-
-            <!-- Gallery Section -->
-            <section class="gallery">
-                <div class="gallery_inner">
-                    <div class="gal_title_wrap">
-                        <h2 class="gal_maintitle">SIMMONS GALLERY</h2>
-                        <p class="gal_subtext">
-                            A Space To Discover Your Perfect Sleep Sleep Lounge Experience<br>
-                            Mattress Testing In-Store Purchase Available
-                        </p>
-                        <a href="#" class="btn_book find_store offline_cta_button offline_cta_button_light"
-                            aria-label="Find a Store">
-                            <svg class="offline_cta_button_svg" viewBox="0 0 353.94 111.5" aria-hidden="true"
-                                focusable="false">
-                                <path class="offline_cta_button_shape"
-                                    d="M229.58,82.25c-2.74,2.08-6.49,4.88-12.09,6.65-4.25,1.34-7.98,1.6-10.51,1.59H54.86c-19.52,0-35.35-15.83-35.35-35.35h0c0-19.52,15.83-35.35,35.35-35.35h152.12c3.14-.18,7.38.04,11.98,1.7,4.29,1.54,7.19,3.72,8.83,4.98,2.66,2.03,2.91,2.78,7.1,6.88,4.58,4.48,6.88,6.72,9.73,8.44,2.26,1.37,6.16,3.66,11.7,4.09,5.72.44,10.06-1.36,12.11-2.24.93-.4,5.66-2.49,10.01-7.05,2.38-2.49,3.13-4.14,6.63-7.41,1.17-1.09,2.48-2.32,4.4-3.66,6.67-4.66,13.5-5.74,17.03-6,.71-.05,1.27-.08,1.64-.09,2.15-.08,8.57-.11,15.85,3.18,3.36,1.51,11.96,6.01,17.18,16.11,1.08,2.09,3.95,8.14,3.93,16.44,0,4.33-.81,12.73-6.61,20.79-1.1,1.53-8.24,11.12-21.47,13.92-.93.2-1.67.33-2.12.4-1.95.3-12.22,1.73-21.89-3.62-5.79-3.2-10.46-8.33-13.53-11.69-.79-.86-3.02-3.36-6.58-5.83-1.39-.97-3.12-2.15-5.68-3.13-1.23-.47-4.25-1.5-8.27-1.54-1.62-.02-4.53.11-7.9,1.22-3.02,1-5.36,2.43-8.39,4.74-7.28,5.52-7.18,7.37-13.08,11.85Z" />
-                                <circle class="offline_cta_button_ring" cx="309.45" cy="55.02" r="27.81" />
-                            </svg>
-                            <span class="offline_cta_button_text">Find a Store</span>
-                            <span class="offline_cta_button_icon" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" focusable="false">
-                                    <path d="M17 7L7 17" />
-                                    <path d="M8 7H17V16" />
-                                </svg>
-                            </span>
-                        </a>
-                    </div>
-
-                    <div class="gal_images">
-                        <article class="gal_img gal_img1">
-                            <div class="gal_card_inner">
-                                <div class="gal_face gal_front">
-                                    <img src="../img/offline_gal1.png" alt="Gallery 1" class="gal_photo">
-                                </div>
-                                <div class="gal_face gal_back">
-                                    <img src="../img/offline_gal1.png" alt="Gallery 1 Color" class="gal_photo">
-                                </div>
-                            </div>
-                        </article>
-                        <article class="gal_img gal_img2">
-                            <div class="gal_card_inner">
-                                <div class="gal_face gal_front">
-                                    <img src="../img/offline_gal2.png" alt="Gallery 2" class="gal_photo">
-                                </div>
-                                <div class="gal_face gal_back">
-                                    <img src="../img/offline_gal2.png" alt="Gallery 2 Color" class="gal_photo">
-                                </div>
-                            </div>
-                        </article>
-                        <article class="gal_img gal_img3">
-                            <div class="gal_card_inner">
-                                <div class="gal_face gal_front">
-                                    <img src="../img/offline_gal3.png" alt="Gallery 3" class="gal_photo">
-                                </div>
-                                <div class="gal_face gal_back">
-                                    <img src="../img/offline_gal3.png" alt="Gallery 3 Color" class="gal_photo">
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                </div>
-
-                <div class="ticker_wrap">
-                    <div class="ticker_top">
-                        <div class="ticker_track track_right">
-                            <span class="ticker_text_black">Today Experience Your Sleep, Today Experience Your Sleep,
-                                Today Experience Your Sleep, Today Experience Your Sleep, </span>
-                            <span class="ticker_text_black">Today Experience Your Sleep, Today Experience Your Sleep,
-                                Today Experience Your Sleep, Today Experience Your Sleep, </span>
-                        </div>
-                    </div>
-                    <div class="ticker_bottom">
-                        <div class="ticker_track track_left">
-                            <span class="ticker_text_regular">Today Experience Your Sleep, Today Experience Your Sleep,
-                                Today Experience Your Sleep, Today Experience Your Sleep, Today Experience Your Sleep,
-                                Today Experience Your Sleep, </span>
-                            <span class="ticker_text_regular">Today Experience Your Sleep, Today Experience Your Sleep,
-                                Today Experience Your Sleep, Today Experience Your Sleep, Today Experience Your Sleep,
-                                Today Experience Your Sleep, </span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Info Section -->
-            <section class="info_sec">
-                <div class="inner">
-                    <a href="#" class="rv_card rv_card1">
-                        <img src="../img/offline_rv1.png" alt="Simmons Gallery Info">
-                    </a>
-                    <a href="#" class="rv_card rv_card2">
-                        <img src="../img/offline_rv2.png" alt="Simmons Terrace Info">
-                    </a>
-                    <a href="#" class="rv_card rv_card3">
-                        <img src="../img/offline_rv3.png" alt="Simmons Factory Tour Info">
-                    </a>
-                </div>
-            </section>
-
-            <div class="float_buttons">
-                <button type="button" class="float_button float_button_ai">
-                    <img src="../icon/AI_button.svg" alt="AI button">
-                </button>
-                <button type="button" class="float_button float_button_top">
-                    <img src="../icon/top_button.svg" alt="Top button">
+<!-- header:start -->
+    <header class="site_header">
+        <div class="site_header_inner">
+            <a class="site_logo" href="../index.html"><img src="../img/common_logo_black.svg" alt="LUUP 홈"></a>
+            <nav class="site_nav" aria-label="주요 메뉴">
+                <ul>
+                    <li><a href="../today/today.html">TODAY</a></li>
+                    <li><a href="../routine/routine.html">ROUTINE</a></li>
+                    <li><a href="../sleep/sleep_main.html">RECORD</a></li>
+                    <li><a href="../offline/offline.html" aria-current="page">GROWTH</a></li>
+                    <li><a href="../my/my.html">MY</a></li>
+                </ul>
+            </nav>
+            <div class="site_actions">
+                <a class="btn btn_small btn_line" href="../sleep/sleep_main.html">진단 시작하기</a>
+                <button type="button" class="menu_button" data-menu-open aria-label="메뉴 열기" aria-expanded="false" aria-controls="mobile-menu">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
                 </button>
             </div>
-        </main>
-        <!-- //main end -->
-
-        <!-- footer start -->
-        <footer>
-            <div class="footer_inner">
-                <section class="info">
-                    <ul class="sns_list">
-                        <li>
-                            <a href="#" aria-label="Kakao">
-                                <img src="../icon/kakao.svg" alt="Kakao">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" aria-label="Instagram">
-                                <img src="../icon/insta.svg" alt="Instagram">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" aria-label="YouTube">
-                                <img src="../icon/youtube.svg" alt="YouTube">
-                            </a>
-                        </li>
-                    </ul>
-
-                    <p class="info_text">
-                        Terms of Use | Privacy Policy<br>
-                        SIMMONS Co., Ltd.<br>
-                        CEOs: Minsoo Kim, Jeongho Ahn | Address: 1000 Sasil-ro, Moga-myeon, Icheon-si, Gyeonggi-do,
-                        Republic of Korea | Customer Service: +82-1899-8182<br>
-                        Business Registration No.: 126-81-24808 | Verify Business Information | Mail-Order Sales
-                        Registration No.: 2014-Gyeonggi-Icheon-0135<br>
-                        Chief Privacy Officer: Jonguk Jin | Hosting Service Provider: NHN Commerce Co., Ltd.<br>
-                        Contact: master@simmons.co.kr<br>
-                        For secure transactions, customers paying by cash may use the consumer damage compensation
-                        insurance service covering the full payment amount through the purchase safety service
-                        subscribed to by this shopping mall.
-                    </p>
-                </section>
-
-                <section class="bottom">
-                    <p class="brand_text">SIMMONS</p>
-                    <p class="copy">
-                        Copyright &copy; 2025 SIMMONS-K Co., Ltd. All Rights Reserved.
-                    </p>
-                </section>
-            </div>
-        </footer>
-        <!-- //footer end -->
+        </div>
+    </header>
+    <div class="mobile_menu" id="mobile-menu" aria-hidden="true">
+        <div class="mobile_menu_top">
+            <a class="site_logo" href="../index.html"><img src="../img/common_logo_blue.png" alt="LUUP 홈"></a>
+            <button type="button" class="menu_button" data-menu-close aria-label="메뉴 닫기">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+        </div>
+        <nav aria-label="모바일 메뉴">
+            <a href="../today/today.html">TODAY</a>
+            <a href="../routine/routine.html">ROUTINE</a>
+            <a href="../sleep/sleep_main.html">RECORD</a>
+            <a href="../offline/offline.html" aria-current="page">GROWTH</a>
+            <a href="../my/my.html">MY</a>
+        </nav>
+        <a class="btn btn_gradient" href="../sleep/sleep_main.html">루틴 유형 진단하기</a>
     </div>
+<!-- header:end -->
+
+    <main>
+        <section class="page_hero">
+            <div class="container">
+                <p class="eyebrow">TOGETHER</p>
+                <h1>혼자 하면 작심삼일,<br><em>함께 하면 30일</em></h1>
+                <p>같은 목표를 가진 사람들과 챌린지에 참여해 보세요. 매일 인증하고 서로 응원하다 보면 어느새 습관이 되어 있을 거예요.</p>
+            </div>
+        </section>
+
+        <section class="section together_how">
+            <div class="container">
+                <div class="section_head reveal">
+                    <div>
+                        <p class="eyebrow">HOW IT WORKS</p>
+                        <h2 class="section_title">챌린지는<br><em>이렇게 진행돼요</em></h2>
+                    </div>
+                </div>
+                <ol class="how_steps">
+                    <li class="reveal"><span class="routine_icon" style="--icon-bg:#eaf6fe">🙋</span><b>01</b><h3>참여하기</h3><p>마음에 드는 챌린지를 골라 참여 버튼을 눌러요.</p></li>
+                    <li class="reveal"><span class="routine_icon" style="--icon-bg:#e6fbf5">📸</span><b>02</b><h3>매일 인증하기</h3><p>사진이나 한 줄 기록으로 오늘의 실천을 남겨요.</p></li>
+                    <li class="reveal"><span class="routine_icon" style="--icon-bg:#fff4e0">👏</span><b>03</b><h3>서로 응원하기</h3><p>다른 참여자의 인증에 응원을 보내며 함께 달려요.</p></li>
+                    <li class="reveal"><span class="routine_icon" style="--icon-bg:#f3ecff">🏅</span><b>04</b><h3>완주 배지 받기</h3><p>끝까지 해낸 나에게 완주 배지가 주어져요.</p></li>
+                </ol>
+            </div>
+        </section>
+
+        <section class="section section_soft">
+            <div class="container">
+                <div class="section_head">
+                    <div>
+                        <p class="eyebrow">CHALLENGES</p>
+                        <h2 class="section_title">지금 참여할 수 있는<br><em>챌린지</em></h2>
+                    </div>
+                    <div class="chips" data-status-chips role="group" aria-label="챌린지 상태">
+                        <button type="button" class="is-active" data-status="all" aria-pressed="true">전체</button>
+                        <button type="button" data-status="open" aria-pressed="false">모집 중</button>
+                        <button type="button" data-status="ongoing" aria-pressed="false">진행 중</button>
+                    </div>
+                </div>
+
+                <div class="challenge_grid">
+                    <article class="challenge_item" data-status="open">
+                        <div class="challenge_item_top">
+                            <span class="routine_icon" style="--icon-bg:#fff4e0">🌅</span>
+                            <span class="badge">모집 중</span>
+                        </div>
+                        <h3>아침 6시 기상 30일</h3>
+                        <p>매일 아침 6시에 일어나 창밖 사진으로 인증해요.</p>
+                        <ul class="challenge_info">
+                            <li><span>기간</span><b>11.4 – 12.3</b></li>
+                            <li><span>참여</span><b data-people="1284">1,284명</b></li>
+                        </ul>
+                        <button type="button" class="btn btn_small challenge_join" data-join aria-pressed="false">참여하기</button>
+                    </article>
+                    <article class="challenge_item" data-status="open">
+                        <div class="challenge_item_top">
+                            <span class="routine_icon" style="--icon-bg:#f3ecff">📚</span>
+                            <span class="badge">모집 중</span>
+                        </div>
+                        <h3>하루 20페이지 독서</h3>
+                        <p>한 달에 두 권, 읽은 페이지와 한 줄 감상을 남겨요.</p>
+                        <ul class="challenge_info">
+                            <li><span>기간</span><b>11.11 – 12.10</b></li>
+                            <li><span>참여</span><b data-people="862">862명</b></li>
+                        </ul>
+                        <button type="button" class="btn btn_small challenge_join" data-join aria-pressed="false">참여하기</button>
+                    </article>
+                    <article class="challenge_item" data-status="ongoing">
+                        <div class="challenge_item_top">
+                            <span class="routine_icon" style="--icon-bg:#e6fbf5">🏃</span>
+                            <span class="badge badge_mint">진행 중 · 18일째</span>
+                        </div>
+                        <h3>하루 30분 걷기</h3>
+                        <p>걸음 수 캡처나 산책길 사진으로 인증해요.</p>
+                        <div class="challenge_bar">
+                            <div class="challenge_bar_head"><span>평균 달성률</span><b>78%</b></div>
+                            <div class="progress"><span style="--value:78%"></span></div>
+                        </div>
+                        <ul class="challenge_info">
+                            <li><span>기간</span><b>10.15 – 11.13</b></li>
+                            <li><span>참여</span><b data-people="2031">2,031명</b></li>
+                        </ul>
+                    </article>
+                    <article class="challenge_item" data-status="ongoing">
+                        <div class="challenge_item_top">
+                            <span class="routine_icon" style="--icon-bg:#eaf6fe">💧</span>
+                            <span class="badge badge_mint">진행 중 · 9일째</span>
+                        </div>
+                        <h3>물 8잔 마시기 2주</h3>
+                        <p>하루에 마신 물의 양을 체크해서 인증해요.</p>
+                        <div class="challenge_bar">
+                            <div class="challenge_bar_head"><span>평균 달성률</span><b>85%</b></div>
+                            <div class="progress"><span style="--value:85%"></span></div>
+                        </div>
+                        <ul class="challenge_info">
+                            <li><span>기간</span><b>10.24 – 11.6</b></li>
+                            <li><span>참여</span><b data-people="3412">3,412명</b></li>
+                        </ul>
+                    </article>
+                    <article class="challenge_item" data-status="open">
+                        <div class="challenge_item_top">
+                            <span class="routine_icon" style="--icon-bg:#ffeef0">✍️</span>
+                            <span class="badge">모집 중</span>
+                        </div>
+                        <h3>감사 일기 21일</h3>
+                        <p>잠들기 전 감사한 일 세 가지를 적어 인증해요.</p>
+                        <ul class="challenge_info">
+                            <li><span>기간</span><b>11.18 – 12.8</b></li>
+                            <li><span>참여</span><b data-people="547">547명</b></li>
+                        </ul>
+                        <button type="button" class="btn btn_small challenge_join" data-join aria-pressed="false">참여하기</button>
+                    </article>
+                    <article class="challenge_item" data-status="ongoing">
+                        <div class="challenge_item_top">
+                            <span class="routine_icon" style="--icon-bg:#f3ecff">🌙</span>
+                            <span class="badge badge_mint">진행 중 · 4일째</span>
+                        </div>
+                        <h3>자정 전에 잠들기</h3>
+                        <p>잠들기 전 마지막 화면을 캡처해 시간을 인증해요.</p>
+                        <div class="challenge_bar">
+                            <div class="challenge_bar_head"><span>평균 달성률</span><b>62%</b></div>
+                            <div class="progress"><span style="--value:62%"></span></div>
+                        </div>
+                        <ul class="challenge_info">
+                            <li><span>기간</span><b>10.29 – 11.27</b></li>
+                            <li><span>참여</span><b data-people="1106">1,106명</b></li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section together_cta">
+            <div class="container together_cta_inner reveal">
+                <div>
+                    <h2 class="section_title">어떤 챌린지가 맞을지<br><em>모르겠다면?</em></h2>
+                    <p class="section_desc">루틴 유형 진단으로 나에게 맞는 루틴부터 찾아보세요.</p>
+                </div>
+                <a class="btn" href="../sleep/sleep_main.html">루틴 유형 진단하기 <span class="arrow" aria-hidden="true">↗</span></a>
+            </div>
+        </section>
+    </main>
+
+<!-- footer:start -->
+    <!-- 하단: 파란 바탕 + 기울어진 띠 2줄이 옆으로 흘러감, 아래에 안내 칸과 둥근 버튼 -->
+    <footer class="site_footer sf">
+        <div class="sf_ribbons">
+            <div class="sf_ribbon sf_ribbon_back" aria-hidden="true"><div class="sf_track"><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_blue.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_blue.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_blue.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_blue.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span></div></div>
+            <div class="sf_ribbon sf_ribbon_front" aria-hidden="true"><div class="sf_track"><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_blue.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_blue.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_blue.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_blue.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span></div></div>
+        </div>
+
+        <div class="sf_inner">
+            <div class="sf_info">
+                <div>
+                    <h2>Service</h2>
+                    <p>작은 실천이 모여 더 큰 성장으로.<br>LUUP과 함께 나만의 하루를 만들어가요.</p>
+                </div>
+                <div>
+                    <h2>Help</h2>
+                    <p>처음 시작하는 루틴도 어렵지 않도록,<br>LUUP이 하나씩 안내해 드릴게요.</p>
+                </div>
+            </div>
+
+            <div class="sf_cols">
+                <div class="sf_col">
+                    <h2>Start.</h2>
+                    <p>오늘의 루틴을<br>1분 만에 시작해요.</p>
+                    <div class="sf_btns">
+                        <a class="sf_btn sf_btn_wide" href="../sleep/sleep_main.html">루틴 유형 진단하기 <span aria-hidden="true">→</span></a>
+                    </div>
+                </div>
+                <div class="sf_col">
+                    <h2>Explore.</h2>
+                    <p>LUUP이 어떤 서비스인지<br>천천히 둘러보세요.</p>
+                    <div class="sf_btns">
+                        <a class="sf_btn" href="../story/story.html">서비스 소개 <span aria-hidden="true">↗</span></a>
+                        <a class="sf_btn" href="../list/list.html">루틴 둘러보기 <span aria-hidden="true">↗</span></a>
+                    </div>
+                </div>
+                <div class="sf_col">
+                    <h2>Help.</h2>
+                    <p>궁금한 점이 있다면<br>여기서 먼저 확인해요.</p>
+                    <div class="sf_btns">
+                        <a class="sf_btn" href="../promo/promo.html#faq">자주 묻는 질문 <span aria-hidden="true">↗</span></a>
+                        <a class="sf_btn" href="../promo/promo.html">소식 <span aria-hidden="true">↗</span></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sf_bottom">
+                <p>&copy; 2026 LUUP. All rights reserved.</p>
+                <p>이용약관 · 개인정보처리방침</p>
+                <p>Made with LUUP</p>
+            </div>
+        </div>
+    </footer>
+<!-- footer:end -->
+    <script src="js/together.js"></script>
+    <script src="../js/studio_header.js"></script>
 </body>
 
 </html>

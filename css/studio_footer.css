@@ -1,0 +1,290 @@
+@charset "utf-8";
+
+/* =========================================================
+   하단 (Today·Routine·Record·Growth·My 공용)
+   - 진한 파란 바탕 위에 기울어진 띠 2줄이 서로 반대로 옆으로 흘러감 (큰 글자 + 로고 스티커)
+   - 아래에는 안내 2칸, 버튼이 있는 3칸, 맨 아래 작은 글씨
+   ========================================================= */
+.sf {
+  --sf-bg: #4b4ff2;
+  --sf-band: #5a5ef7;
+  --sf-ink: #efeae0;
+  --sf-line: rgba(239, 234, 224, 0.28);
+  position: relative;
+  overflow: hidden;
+  padding: 0 0 22px;
+  background: var(--sf-bg);
+  color: var(--sf-ink);
+}
+
+.sf h2,
+.sf p {
+  margin: 0;
+}
+
+/* 기울어진 띠 */
+.sf_ribbons {
+  position: relative;
+  height: clamp(220px, 24vw, 380px);
+}
+
+.sf_ribbon {
+  position: absolute;
+  left: -6%;
+  right: -6%;
+  overflow: hidden;
+  border-top: 1px solid var(--sf-line);
+  border-bottom: 1px solid var(--sf-line);
+  background: var(--sf-band);
+  box-shadow: 0 18px 40px rgba(20, 20, 90, 0.25);
+}
+
+.sf_ribbon_back {
+  top: 8%;
+  rotate: -3.5deg;
+  opacity: 0.85;
+}
+
+.sf_ribbon_front {
+  top: 34%;
+  rotate: 2deg;
+}
+
+.sf_track {
+  display: flex;
+  width: max-content;
+  animation: sf-flow 38s linear infinite;
+}
+
+.sf_ribbon_back .sf_track {
+  animation-direction: reverse;
+  animation-duration: 46s;
+}
+
+.sf_unit {
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 2.6vw, 44px);
+  padding: clamp(10px, 1.2vw, 18px) clamp(20px, 2.6vw, 44px) clamp(10px, 1.2vw, 18px) 0;
+  font-size: clamp(54px, 8.4vw, 140px);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+}
+
+/* 로고 스티커: 크림색 사각형을 살짝 기울여 붙임 */
+.sf_sticker {
+  display: grid;
+  place-items: center;
+  padding: 0.12em 0.18em;
+  border-radius: 0.08em;
+  background: var(--sf-ink);
+  rotate: -8deg;
+  box-shadow: 0 6px 0 rgba(20, 20, 90, 0.25);
+}
+
+.sf_sticker img {
+  height: 0.62em;
+  width: auto;
+}
+
+.sf_note {
+  font-size: clamp(10px, 0.85vw, 13px);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+@keyframes sf-flow {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* 안내·버튼 칸 */
+.sf_inner {
+  padding: 0 clamp(20px, 2vw, 32px);
+}
+
+.sf_info {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  max-width: 720px;
+  margin: clamp(24px, 4vw, 60px) 0 clamp(48px, 7vw, 110px) 33.33%;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.sf_info h2 {
+  margin-bottom: 14px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.sf_info p {
+  color: rgba(239, 234, 224, 0.75);
+}
+
+.sf_cols {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--sf-line);
+}
+
+.sf_col {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  grid-template-rows: auto 1fr;
+  gap: 0 16px;
+  min-height: 170px;
+  padding: 16px 16px 20px 0;
+}
+
+.sf_col + .sf_col {
+  padding-left: 16px;
+  border-left: 1px solid var(--sf-line);
+}
+
+.sf_col h2 {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.sf_col p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(239, 234, 224, 0.75);
+}
+
+.sf_btns {
+  grid-column: 1 / -1;
+  align-self: end;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 28px;
+}
+
+/* 둥근 외곽선 버튼: hover하면 크림색으로 채워짐 */
+.sf_btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 9px 16px;
+  border: 1px solid var(--sf-line);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--sf-ink);
+  text-decoration: none;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.sf_btn_wide {
+  min-width: min(260px, 100%);
+}
+
+.sf_btn span {
+  transition: transform 0.25s ease;
+}
+
+.sf_btn:hover,
+.sf_btn:focus-visible {
+  border-color: var(--sf-ink);
+  background: var(--sf-ink);
+  color: var(--sf-bg);
+}
+
+.sf_btn:hover span {
+  transform: translate(2px, -2px);
+}
+
+.sf_bottom {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding-top: 18px;
+  border-top: 1px solid var(--sf-line);
+  font-size: 12px;
+  color: rgba(239, 234, 224, 0.7);
+}
+
+.sf_bottom p:nth-child(2) {
+  text-align: center;
+}
+
+.sf_bottom p:last-child {
+  text-align: right;
+}
+
+@media (max-width: 900px) {
+  .sf_ribbons {
+    height: 200px;
+  }
+
+  .sf_unit {
+    font-size: 48px;
+  }
+
+  .sf_info {
+    grid-template-columns: 1fr;
+    margin-left: 0;
+  }
+
+  .sf_cols {
+    grid-template-columns: 1fr;
+  }
+
+  .sf_col,
+  .sf_col + .sf_col {
+    min-height: 0;
+    padding: 16px 0 20px;
+    border-left: 0;
+  }
+
+  .sf_col + .sf_col {
+    border-top: 1px solid var(--sf-line);
+  }
+
+  .sf_bottom {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .sf_bottom p:nth-child(2),
+  .sf_bottom p:last-child {
+    text-align: left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sf_track {
+    animation: none;
+  }
+}
+
+/* 뒤 띠 윗부분이 잘리지 않게 띠 영역을 조금 키우고 아래로 */
+.sf_ribbons {
+  height: clamp(260px, 27vw, 430px);
+}
+
+.sf_ribbon_back {
+  top: 13%;
+}
+
+.sf_ribbon_front {
+  top: 40%;
+}
+
+.sf_info {
+  margin-top: clamp(16px, 2.4vw, 40px);
+}
+
+/* 양옆 여백: 공통 값 사용 */
+.sf_inner {
+  padding-left: var(--page-x, 28px);
+  padding-right: var(--page-x, 28px);
+}
