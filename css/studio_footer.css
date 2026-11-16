@@ -6,8 +6,8 @@
    - 아래에는 안내 2칸, 버튼이 있는 3칸, 맨 아래 작은 글씨
    ========================================================= */
 .sf {
-  --sf-bg: #4b4ff2;
-  --sf-band: #5a5ef7;
+  --sf-bg: #1e5fe6;
+  --sf-band: #2f6ef0;
   --sf-ink: #efeae0;
   --sf-line: rgba(239, 234, 224, 0.28);
   position: relative;
@@ -36,7 +36,7 @@
   border-top: 1px solid var(--sf-line);
   border-bottom: 1px solid var(--sf-line);
   background: var(--sf-band);
-  box-shadow: 0 18px 40px rgba(20, 20, 90, 0.25);
+  box-shadow: 0 18px 40px rgba(8, 32, 96, 0.25);
 }
 
 .sf_ribbon_back {
@@ -73,20 +73,22 @@
   white-space: nowrap;
 }
 
-/* 로고 스티커: 크림색 사각형을 살짝 기울여 붙임 */
+/* 로고: 박스 없이 띠 위에 바로, 연한 하늘색으로 살짝 기울여 붙임 */
 .sf_sticker {
   display: grid;
   place-items: center;
-  padding: 0.12em 0.18em;
-  border-radius: 0.08em;
-  background: var(--sf-ink);
   rotate: -8deg;
-  box-shadow: 0 6px 0 rgba(20, 20, 90, 0.25);
 }
 
 .sf_sticker img {
   height: 0.62em;
   width: auto;
+}
+
+/* 흘러가는 띠가 아주 넓어서, 브라우저가 일부 구간을 못 그려 글자가 비는 일이 없도록 띠를 따로 그리게 함 */
+.sf_track {
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .sf_note {

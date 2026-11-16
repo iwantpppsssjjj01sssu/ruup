@@ -950,68 +950,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // 웹폰트가 늦게 적용되면 카드 폭이 바뀌므로 한 번 더 맞춤
     window.addEventListener('load', () => centerOn(track.querySelector('.is-active, .is-clear'), true));
 
-    // ---------- 스플래시: 실제 로딩 진행에 맞춰 막대 3개가 차례로 차오름 ----------
-    const splash = $('[data-splash]');
-    if (!splash) {
-        return;
+    // 로딩 화면(막대 3개)은 없앰 → 바로 화면이 보임
+    // 마이페이지의 "리포트 보기"로 들어오면 진행 중인 루틴 리포트를 바로 열기
+    if (location.hash === '#report') {
+        const target = Math.max(routines.findIndex((routine) => routine.status === 'active'), 0);
+        setTimeout(() => openReport(target), prefersReducedMotion ? 0 : 400);
     }
-    const root = document.documentElement;
-    const bars = splash.querySelectorAll('.splash_bars span');
-    const MIN_DURATION = prefersReducedMotion ? 0 : 1200;
-    const startedAt = performance.now();
-    let loaded = 0.2;
-    let shown = 0;
-    root.classList.add('is-splash');
-
-    document.fonts?.ready.then(() => {
-        loaded = Math.max(loaded, 0.6);
-    });
-    const onLoad = () => {
-        loaded = 1;
-    };
-    if (document.readyState === 'complete') {
-        onLoad();
-    } else {
-        window.addEventListener('load', onLoad);
-        // 외부 폰트 서버가 느려도 스플래시가 4초 이상 붙잡지 않도록
-        setTimeout(onLoad, 4000);
-    }
-
-    const finishSplash = () => {
-        splash.classList.add('is-done');
-        // 커튼이 걷히기 전에 카드를 오른쪽에 대기시켰다가 함께 밀려 들어오게
-        if (isStrip() && !prefersReducedMotion) {
-            scroll.current = scroll.target + stage.clientWidth * 0.7;
-            track.style.transform = `translate3d(${-scroll.current}px, -50%, 0)`;
-            applyCurve();
-        }
-        setTimeout(() => {
-            splash.classList.add('is-leaving');
-            root.classList.remove('is-splash');
-            move();
-        }, prefersReducedMotion ? 0 : 350);
-        setTimeout(() => splash.remove(), prefersReducedMotion ? 0 : 1300);
-        // 마이페이지의 "리포트 보기"로 들어오면 진행 중인 루틴 리포트를 바로 열기
-        if (location.hash === '#report') {
-            const target = Math.max(routines.findIndex((routine) => routine.status === 'active'), 0);
-            setTimeout(() => openReport(target), prefersReducedMotion ? 0 : 1100);
-        }
-    };
-
-    const fillBars = () => {
-        const timeCap = MIN_DURATION ? (performance.now() - startedAt) / MIN_DURATION : 1;
-        shown += (Math.min(loaded, timeCap) - shown) * 0.12;
-        if (Math.min(loaded, timeCap) >= 1 && shown > 0.995) {
-            shown = 1;
-        }
-        bars.forEach((bar, index) => {
-            bar.style.setProperty('--fill', Math.min(Math.max(shown * bars.length - index, 0), 1));
-        });
-        if (shown >= 1) {
-            finishSplash();
-            return;
-        }
-        requestAnimationFrame(fillBars);
-    };
-    requestAnimationFrame(fillBars);
 });

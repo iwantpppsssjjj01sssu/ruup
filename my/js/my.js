@@ -159,3 +159,24 @@ document.addEventListener('DOMContentLoaded', () => {
         logoutDialog.returnValue = '';
     });
 });
+
+// 마이페이지 하단 소식 받기: 서버 연결 전이라 입력만 확인하고 안내 문구를 보여줌
+(() => {
+    const form = document.querySelector('[data-mf-news]');
+    if (!form) {
+        return;
+    }
+    const input = form.querySelector('input[type="email"]');
+    const msg = form.querySelector('.mf_news_msg');
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const ok = input.value.trim() !== '' && input.checkValidity();
+        msg.classList.toggle('is-error', !ok);
+        msg.textContent = ok ? '구독 신청이 완료됐어요. 새 소식을 메일로 보내드릴게요!' : '이메일 주소를 다시 확인해 주세요.';
+        if (ok) {
+            form.reset();
+        } else {
+            input.focus();
+        }
+    });
+})();

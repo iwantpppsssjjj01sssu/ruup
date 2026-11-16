@@ -61,7 +61,7 @@
 <!-- header:start -->
     <header class="site_header">
         <div class="site_header_inner">
-            <a class="site_logo" href="index.html"><img src="img/common_logo_black.svg" alt="LUUP 홈"></a>
+            <a class="site_logo" href="index.html"><img src="img/common_logo_navy.svg" alt="LUUP 홈"></a>
             <nav class="site_nav" aria-label="주요 메뉴">
                 <ul>
                     <li><a href="today/today.html">TODAY</a></li>
@@ -110,7 +110,7 @@
                         <div class="gg_view" aria-hidden="true">
                             <p class="gg_tags"><span class="gg_tags_main" data-scramble>TODAY</span><br><span class="gg_tags_sub">1분 만에 루틴 만들기</span></p>
                             <p class="gg_title">LET'S BEGIN<br>TODAY</p>
-                            <span class="gg_more">오늘의 루틴 보기 ↗</span>
+                            <span class="gg_more">오늘의 루틴 보기 <span aria-hidden="true">↗</span></span>
                         </div>
                     </div>
                     <div class="gg_half gg_r_half">
@@ -129,7 +129,7 @@
                         <div class="gg_view" aria-hidden="true">
                             <p class="gg_tags"><span class="gg_tags_main" data-scramble>RECORD</span><br><span class="gg_tags_sub">끊기지 않는 연속 기록</span></p>
                             <p class="gg_title">KEEP IT<br>GOING</p>
-                            <span class="gg_more">기록 보러 가기 ↗</span>
+                            <span class="gg_more">기록 보러 가기 <span aria-hidden="true">↗</span></span>
                         </div>
                     </div>
                     <div class="gg_half gg_r_half">
@@ -161,7 +161,7 @@
                         <p class="w2_lead">꾸준함은 의지만으로 만들어지지 않아요.<br>매일 이어갈 수 있는 작은 루틴이 필요해요.</p>
 
                         <ol class="w2_steps">
-                            <li><button type="button" class="w2_step is-active" data-w2-step="0" aria-current="step"><span class="w2_no">01</span><span class="w2_txt"><b>1분 만에 루틴 만들기</b><small>검증된 템플릿을 고르기만 하면 오늘부터 바로 시작해요.</small></span></button></li>
+                            <li><button type="button" class="w2_step is-active" data-w2-step="0" aria-current="step"><span class="w2_no">01</span><span class="w2_txt"><b>1분 만에 루틴 만들기</b><small>보호자가 아이에게 필요한 루틴을 직접 설정하고, 아이의 하루에 바로 적용할 수 있어요.</small></span></button></li>
                             <li><button type="button" class="w2_step" data-w2-step="1"><span class="w2_no">02</span><span class="w2_txt"><b>잊지 않게 알려주는 알림</b><small>하루 패턴에 맞춰 딱 필요한 순간에만 알려드려요.</small></span></button></li>
                             <li><button type="button" class="w2_step" data-w2-step="2"><span class="w2_no">03</span><span class="w2_txt"><b>끊기지 않는 연속 기록</b><small>쌓이는 연속 기록이 내일도 이어갈 이유가 돼요.</small></span></button></li>
                             <li><button type="button" class="w2_step" data-w2-step="3"><span class="w2_no">04</span><span class="w2_txt"><b>한눈에 보는 성장 리포트</b><small>주간·월간 리포트로 얼마나 달라졌는지 확인해요.</small></span></button></li>
@@ -181,6 +181,31 @@
         <!-- 4. 넘어가는 구간: SMALL STEPS → BIG GROWTH 로 글자가 바뀌고, 아래 문장이 한 단어씩 진해짐 -->
         <section class="gap" aria-label="작은 루틴이 큰 성장으로" data-gap>
             <div class="gap_sticky">
+                <!-- 뒤 배경: BIG GROWTH로 바뀔 때 왼쪽 아래 → 오른쪽 위로 그려지는 상승 그래프 -->
+                <svg class="gap_chart" viewBox="0 0 1440 720" preserveAspectRatio="none" aria-hidden="true">
+                    <defs>
+                        <linearGradient id="gapChartFill" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0" stop-color="#3b6fe8" stop-opacity="0.08"/>
+                            <stop offset="1" stop-color="#3b6fe8" stop-opacity="0"/>
+                        </linearGradient>
+                        <linearGradient id="gapChartStroke" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
+                            <stop offset="0" stop-color="#3b6fe8" stop-opacity="0.05"/>
+                            <stop offset="0.6" stop-color="#3b6fe8" stop-opacity="0.22"/>
+                            <stop offset="1" stop-color="#3b6fe8" stop-opacity="0.4"/>
+                        </linearGradient>
+                    </defs>
+                    <path class="gap_chart_area" d="M0 705C200 700 300 690 400 680S640 662 760 650S980 628 1060 610S1200 560 1280 430S1380 200 1410 110S1430 50 1440 30L1440 720L0 720Z" fill="url(#gapChartFill)"/>
+                    <path class="gap_chart_line gap_chart_echo" d="M0 712C200 708 300 702 400 696S640 684 760 676S980 660 1060 646S1210 604 1290 490S1404 230 1440 140" pathLength="1"/>
+                    <path class="gap_chart_line" d="M0 705C200 700 300 690 400 680S640 662 760 650S980 628 1060 610S1200 560 1280 430S1380 200 1410 110S1430 50 1440 30" pathLength="1"/>
+                </svg>
+                <!-- 그래프 위 점: 선이 지나가는 순서대로 톡톡 찍힘 (점이 늘어나지 않게 SVG 밖에 둠) -->
+                <div class="gap_dots" aria-hidden="true">
+                    <span class="gap_dot" style="left:27.78%; top:94.44%; --t:1.5s"></span>
+                    <span class="gap_dot" style="left:52.78%; top:90.28%; --t:2s"></span>
+                    <span class="gap_dot" style="left:73.61%; top:84.72%; --t:2.4s"></span>
+                    <span class="gap_dot" style="left:88.89%; top:59.72%; --t:2.75s"></span>
+                    <span class="gap_dot gap_dot_end" style="left:97.92%; top:15.28%; --t:3.15s"></span>
+                </div>
                 <!-- SMALL STEPS 가 작게 나왔다가 BIG GROWTH 로 바뀜 -->
                 <p class="gap_swap" aria-label="SMALL STEPS, BIG GROWTH">
                     <span class="gap_from" aria-hidden="true">SMALL STEPS</span>
@@ -201,7 +226,7 @@
                     <span class="arc_bubble arc_bubble_4" aria-hidden="true"><img src="img/common_character.svg" alt=""></span>
 
                     <h2 id="arc-heading" class="arc_title">작은 반복이 쌓여,<br>더 큰 성장으로, <em>LUUP</em></h2>
-                    <p class="arc_sub">아이와 함께 <b>매일의 루틴</b>을 쌓아 가며<br><b>스스로 자라는 힘</b>을 키워요</p>
+                    <p class="arc_sub">아이와 함께 <b>매일의 루틴</b>을 쌓아 가며 <b>스스로 자라는 힘</b>을 키워요</p>
                     <div class="arc_actions">
                         <a class="arc_btn" href="routine/routine.html">루틴 둘러보기 <span aria-hidden="true">→</span></a>
                         <a class="arc_more" href="today/today.html#report">성장 리포트 보기</a>
@@ -211,7 +236,7 @@
                     <li class="arc_card" style="--i:0">
                         <a class="arc_flip" href="today/today.html">
                             <div class="arc_face arc_front arc_front_today pp" aria-hidden="true">
-                                <div class="pp_meta"><span>LUUP · STORY</span><span>#01</span></div>
+                                <div class="pp_meta"><span>PAIN POINT</span><span>#01</span></div>
                                 <div class="pp_art">
                                     <img class="pp_char pp_char_girl" src="img/main_card_girl.png" alt="">
                                 </div>
@@ -220,134 +245,92 @@
                             </div>
                             <div class="arc_face arc_back">
                                 <span class="arc_no">01 TODAY</span>
-                                <strong>CHECK<br>TODAY</strong>
-                                <p>체크 한 번으로 오늘을 완성해요</p>
+                                <p>1분 루틴으로 오늘 할 일을 바로 끝내요</p>
                                 <span class="arc_go">오늘의 루틴 보기 →</span>
                             </div>
                         </a>
                     </li>
                     <li class="arc_card" style="--i:1">
-                        <a class="arc_flip" href="today/today.html">
-                            <div class="arc_face arc_front arc_front_streak pp" aria-hidden="true">
-                                <div class="pp_meta"><span>LUUP · STORY</span><span>#02</span></div>
-                                <div class="pp_art">
-                                    <img class="pp_char pp_char_boy2" src="img/main_card_boy2.png" alt="">
-                                </div>
-                                <p class="pp_title">늘 작심삼일이에요</p>
-                                <div class="pp_foot"><span>루틴으로 해결하기</span><i></i></div>
-                            </div>
-                            <div class="arc_face arc_back">
-                                <span class="arc_no">STREAK</span>
-                                <strong>UNBROKEN<br>STREAK</strong>
-                                <p>끊기지 않는 연속 기록이 다음 한 걸음의 힘이 돼요</p>
-                                <span class="arc_go">기록 이어가기 →</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="arc_card" style="--i:2">
                         <a class="arc_flip" href="today/today.html#report">
                             <div class="arc_face arc_front arc_front_report pp" aria-hidden="true">
-                                <div class="pp_meta"><span>LUUP · STORY</span><span>#03</span></div>
+                                <div class="pp_meta"><span>PAIN POINT</span><span>#02</span></div>
                                 <div class="pp_art">
-                                    <img class="pp_char pp_char_girl2" src="img/main_card_girl2.png" alt="">
+                                    <img class="pp_char pp_char_boy" src="img/main_card_boy.png" alt="">
                                 </div>
                                 <p class="pp_title">잘하고 있는 걸까요?</p>
                                 <div class="pp_foot"><span>루틴으로 해결하기</span><i></i></div>
                             </div>
                             <div class="arc_face arc_back">
                                 <span class="arc_no">02 REPORT</span>
-                                <strong>SEE THE<br>CHANGE</strong>
-                                <p>쌓인 기록이 변화를 보여줘요</p>
+                                <p>쌓인 기록이 성장 리포트로 보여요</p>
                                 <span class="arc_go">리포트 보기 →</span>
                             </div>
                         </a>
                     </li>
-                    <li class="arc_card" style="--i:3">
+                    <li class="arc_card" style="--i:2">
                         <a class="arc_flip" href="my/my.html">
                             <div class="arc_face arc_front arc_front_alarm pp" aria-hidden="true">
-                                <div class="pp_meta"><span>LUUP · STORY</span><span>#04</span></div>
+                                <div class="pp_meta"><span>PAIN POINT</span><span>#03</span></div>
                                 <div class="pp_art">
-                                    <img class="pp_char pp_char_boy" src="img/main_card_boy.png" alt="">
+                                    <img class="pp_char pp_char_girl3" src="img/main_card_girl3.png" alt="">
                                 </div>
                                 <p class="pp_title">시간을 자꾸 까먹어요</p>
                                 <div class="pp_foot"><span>루틴으로 해결하기</span><i></i></div>
                             </div>
                             <div class="arc_face arc_back">
                                 <span class="arc_no">REMINDER</span>
-                                <strong>GENTLE<br>REMINDER</strong>
-                                <p>딱 맞는 순간에 부드럽게 알려줘요</p>
+                                <p>해야 할 시간에 딱 맞춰 알려줘요</p>
                                 <span class="arc_go">알림 설정하기 →</span>
                             </div>
                         </a>
                     </li>
-                    <li class="arc_card" style="--i:4">
+                    <li class="arc_card" style="--i:3">
                         <a class="arc_flip" href="offline/offline.html">
                             <div class="arc_face arc_front arc_front_together pp" aria-hidden="true">
-                                <div class="pp_meta"><span>LUUP · STORY</span><span>#05</span></div>
+                                <div class="pp_meta"><span>PAIN POINT</span><span>#04</span></div>
                                 <div class="pp_art">
-                                    <img class="pp_char pp_char_girl2" src="img/main_card_girl2.png" alt="">
+                                    <img class="pp_char pp_char_boy3" src="img/main_card_boy3.png" alt="">
                                 </div>
                                 <p class="pp_title">혼자선 금방 지쳐요</p>
                                 <div class="pp_foot"><span>루틴으로 해결하기</span><i></i></div>
                             </div>
                             <div class="arc_face arc_back">
                                 <span class="arc_no">03 TOGETHER</span>
-                                <strong>BETTER<br>TOGETHER</strong>
-                                <p>혼자보다 함께라서 오래가요</p>
+                                <p>가족이 함께 응원하며 이어가요</p>
                                 <span class="arc_go">함께하기 →</span>
                             </div>
                         </a>
                     </li>
-                    <li class="arc_card" style="--i:5">
-                        <a class="arc_flip" href="routine/routine.html">
-                            <div class="arc_face arc_front arc_front_plan pp" aria-hidden="true">
-                                <div class="pp_meta"><span>LUUP · STORY</span><span>#06</span></div>
-                                <div class="pp_art">
-                                    <img class="pp_char pp_char_boy2" src="img/main_card_boy2.png" alt="">
-                                </div>
-                                <p class="pp_title">하루가 뒤죽박죽이에요</p>
-                                <div class="pp_foot"><span>루틴으로 해결하기</span><i></i></div>
-                            </div>
-                            <div class="arc_face arc_back">
-                                <span class="arc_no">DAY PLAN</span>
-                                <strong>SHAPE<br>YOUR DAY</strong>
-                                <p>하루를 시간대로 나눠 한눈에 계획해요</p>
-                                <span class="arc_go">나의 루틴 →</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="arc_card" style="--i:6">
+                    <li class="arc_card" style="--i:4">
                         <a class="arc_flip" href="promo/promo.html">
                             <div class="arc_face arc_front arc_front_review pp" aria-hidden="true">
-                                <div class="pp_meta"><span>LUUP · STORY</span><span>#07</span></div>
+                                <div class="pp_meta"><span>PAIN POINT</span><span>#05</span></div>
                                 <div class="pp_art">
-                                    <img class="pp_char pp_char_girl" src="img/main_card_girl.png" alt="">
+                                    <img class="pp_char pp_char_girl2" src="img/main_card_girl2.png" alt="">
                                 </div>
                                 <p class="pp_title">정말 효과가 있을까요?</p>
                                 <div class="pp_foot"><span>루틴으로 해결하기</span><i></i></div>
                             </div>
                             <div class="arc_face arc_back">
                                 <span class="arc_no">04 REVIEW</span>
-                                <strong>REAL<br>STORIES</strong>
-                                <p>작은 반복이 바꾼 하루들</p>
+                                <p>연속 기록으로 변화를 직접 확인해요</p>
                                 <span class="arc_go">이야기 더 보기 →</span>
                             </div>
                         </a>
                     </li>
-                    <li class="arc_card" style="--i:7">
+                    <li class="arc_card" style="--i:5">
                         <a class="arc_flip" href="sleep/sleep_main.html">
                             <div class="arc_face arc_front arc_front_buddy pp" aria-hidden="true">
-                                <div class="pp_meta"><span>LUUP · STORY</span><span>#08</span></div>
+                                <div class="pp_meta"><span>PAIN POINT</span><span>#06</span></div>
                                 <div class="pp_art">
-                                    <img class="pp_char pp_char_luupy" src="img/common_character.svg" alt="">
+                                    <img class="pp_char pp_char_boy2" src="img/main_card_boy2.png" alt="">
                                 </div>
                                 <p class="pp_title">내 루틴은 뭘까요?</p>
                                 <div class="pp_foot"><span>루틴으로 해결하기</span><i></i></div>
                             </div>
                             <div class="arc_face arc_back">
                                 <span class="arc_no">WITH LUUP</span>
-                                <strong>WITH<br>LUUPY</strong>
-                                <p>나에게 맞는 루틴 유형부터 알아볼까요?</p>
+                                <p>진단으로 나에게 맞는 루틴을 찾아요</p>
                                 <span class="arc_go">루틴 유형 진단 →</span>
                             </div>
                         </a>

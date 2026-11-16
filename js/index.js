@@ -224,11 +224,93 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         // 장면 글자 순서: 큰 제목 → 라벨 → 링크 (순서·시간은 CSS). 인트로가 끝나야(ggReady) 첫 장면부터 보여 줌
         let ggReady = !document.querySelector('[data-intro]');
+        // 자동 넘김: 장면 글자가 다 나온 뒤 잠시 머물고 → 글자가 모두 사라지고(is-out) → 스크롤 없이 다음 장면으로.
+        // 마지막 장면이 끝나면 아래 구역으로 자동으로 내려감(한 번만). 첫 화면이 맨 위에 있을 때만 돌고, 링크에 마우스가 있으면 잠시 멈춤
+        const GG_HOLD_MS = 3600;
+        const GG_OUT_MS = 700;
+        let ggAuto = 0;
+        let ggAutoDone = false;
+        let ggTimer = null;
+        const ggAtTop = () => gg.getBoundingClientRect().top > -window.innerHeight * 0.05;
+        // 첫 화면(고정 영역)이 아직 화면을 채우고 있는지: 스크롤로 마지막 장면에 온 경우도 포함
+        const ggInView = () => gg.getBoundingClientRect().bottom > window.innerHeight * 0.6;
+        const ggHovering = () => !!gg.querySelector('a.gg_more:hover');
+        // 자동으로 내려갈 때: 브라우저 기본 smooth보다 천천히, 처음과 끝이 부드러운 곡선으로 (약 1.8초)
+        // 사용자가 휠·터치·키보드로 직접 움직이면 바로 멈추고 사용자 조작을 따름
+        const glideTo = (targetY) => {
+            const startY = window.scrollY;
+            const distance = targetY - startY;
+            const duration = Math.min(2200, Math.max(1200, Math.abs(distance) * 0.9));
+            const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+            let cancelled = false;
+            const cancel = () => {
+                cancelled = true;
+            };
+            const stopEvents = ['wheel', 'touchstart', 'keydown', 'mousedown'];
+            stopEvents.forEach((type) => window.addEventListener(type, cancel, { passive: true, once: true }));
+            const startedAt = performance.now();
+            const step = (now) => {
+                if (cancelled) {
+                    return;
+                }
+                const t = Math.min((now - startedAt) / duration, 1);
+                // 사이트 전체에 걸린 scroll-behavior: smooth가 한 걸음마다 끼어들지 않도록 instant로
+                window.scrollTo({ top: startY + distance * ease(t), behavior: 'instant' });
+                if (t < 1) {
+                    requestAnimationFrame(step);
+                } else {
+                    stopEvents.forEach((type) => window.removeEventListener(type, cancel));
+                }
+            };
+            requestAnimationFrame(step);
+        };
+        // 마지막 장면은 나타난 뒤 3초(머묾 2.3초 + 글자 사라짐 0.7초) 만에 아래로 내려감
+        const GG_LAST_HOLD_MS = 3000 - GG_OUT_MS;
+        const scheduleAuto = (chapter) => {
+            clearTimeout(ggTimer);
+            if (prefersReducedMotion || ggAutoDone) {
+                return;
+            }
+            const index = chapters.indexOf(chapter);
+            const isLast = index === chapters.length - 1;
+            const fadeOut = () => {
+                if (!chapter.classList.contains('is-current')) {
+                    return;
+                }
+                // 앞 장면은 맨 위에 있을 때만 넘기고, 마지막 장면은 첫 화면이 보이고 있기만 하면 내려감
+                if (ggHovering() || !(isLast ? ggInView() : ggAtTop())) {
+                    ggTimer = setTimeout(fadeOut, 1200);
+                    return;
+                }
+                chapter.classList.add('is-out');
+                ggTimer = setTimeout(() => {
+                    if (index < chapters.length - 1) {
+                        ggAuto = index + 1;
+                        requestGg();
+                        return;
+                    }
+                    // 마지막 장면까지 끝나면 자동으로 다음 구역으로 부드럽게 내려감 (한 번만)
+                    ggAutoDone = true;
+                    const next = gg.nextElementSibling;
+                    const top = next ? next.getBoundingClientRect().top + window.scrollY : gg.offsetTop + gg.offsetHeight;
+                    glideTo(top);
+                    // 다시 올라왔을 때 글자가 보이도록 사라짐 상태는 풀어 둠
+                    setTimeout(() => chapter.classList.remove('is-out'), 1200);
+                }, GG_OUT_MS);
+            };
+            ggTimer = setTimeout(fadeOut, isLast ? GG_LAST_HOLD_MS : GG_HOLD_MS);
+        };
         const showChapter = (chapter) => {
             if (!chapter || !ggReady || chapter.classList.contains('is-shown')) {
                 return;
             }
+            chapter.classList.remove('is-out');
             chapter.classList.add('is-shown');
+            scheduleAuto(chapter);
+        };
+        // 화면에서 빠진 장면은 글자 상태를 처음으로 돌려 둠 → 다시 돌아오면 글자가 처음부터 다시 나옴
+        const resetChapter = (chapter) => {
+            chapter.classList.remove('is-shown', 'is-out');
         };
         document.addEventListener('luup:intro-done', () => {
             ggReady = true;
@@ -245,7 +327,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     current = i;
                 }
             });
-            chapters.forEach((chapter, i) => chapter.classList.toggle('is-current', i === current));
+            chapters.forEach((chapter, i) => {
+                chapter.classList.toggle('is-current', i === current);
+                if (i !== current && chapter.classList.contains('is-shown')) {
+                    resetChapter(chapter);
+                }
+            });
             count.textContent = String(current + 1).padStart(2, '0');
             if (ggReady) {
                 showChapter(chapters[current]);
@@ -257,7 +344,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const scrollable = gg.offsetHeight - window.innerHeight;
             const progress = Math.min(Math.max(-gg.getBoundingClientRect().top / Math.max(scrollable, 1), 0), 1);
             // 마지막 장면이 다 들어온 뒤 조금 머무르도록 0.9까지에서 장면 전환을 끝냄
-            const target = Math.min(progress / 0.9, 1) * (chapters.length - 1);
+            const scrollTarget = Math.min(progress / 0.9, 1) * (chapters.length - 1);
+            // 스크롤 위치와 자동 넘김 중 더 앞선 장면을 보여 줌 (사용자가 스크롤하면 그대로 따라감)
+            const target = Math.max(scrollTarget, ggAuto);
             ggShown = ggShown === null || prefersReducedMotion ? target : ggShown + (target - ggShown) * 0.14;
             if (Math.abs(target - ggShown) < 0.001) {
                 ggShown = target;
@@ -312,8 +401,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (gap) {
         const playGap = () => {
             gap.classList.add('is-open');
-            setTimeout(() => gap.classList.add('is-swap'), 2300);
-            setTimeout(() => gap.classList.add('is-done'), 3700);
+            setTimeout(() => gap.classList.add('is-swap'), 550);
+            setTimeout(() => gap.classList.add('is-done'), 1350);
         };
         if (prefersReducedMotion || !('IntersectionObserver' in window)) {
             gap.classList.add('is-open', 'is-swap', 'is-done');
@@ -323,7 +412,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     gapObserver.disconnect();
                     playGap();
                 }
-            }, { threshold: 0.45 });
+            }, { threshold: 0.25 });
             gapObserver.observe(gap);
         }
     }
@@ -331,6 +420,21 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. 특별한 이유: 사진과 번호(01~04)가 자동으로 넘어감 — 새 사진이 오른쪽에서 밀려와 이전 사진을 덮음
     // 화면에 보일 때만 넘어가고, 번호를 누르면 그 사진으로 바로 가면서 시간을 처음부터 다시 셈
     const w2 = document.querySelector('[data-w2]');
+    // 특별한 이유 제목: 섹션이 화면을 거의 다 채우면(1번 단계에서 멈췄을 때) "LUUP"이 왼쪽부터 파랗게 채워짐 (한 번만)
+    const w2Title = w2?.querySelector('.w2_title');
+    if (w2Title) {
+        if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+            w2Title.classList.add('is-fill');
+        } else {
+            const fillObserver = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    w2Title.classList.add('is-fill');
+                    fillObserver.disconnect();
+                }
+            }, { threshold: 0.75 });
+            fillObserver.observe(w2.querySelector('.w2_sticky') || w2);
+        }
+    }
     if (w2) {
         const slides = [...w2.querySelectorAll('[data-w2-slide]')];
         const steps = [...w2.querySelectorAll('[data-w2-step]')];

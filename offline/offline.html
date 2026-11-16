@@ -5,10 +5,10 @@
 <!-- head:start -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>함께하기 | LUUP</title>
+    <title>성장 리포트 | LUUP</title>
     <meta name="description" content="작은 반복이 만드는 큰 변화. LUUP은 매일의 루틴을 만들고, 체크하고, 이어가도록 돕는 습관·루틴 관리 서비스예요.">
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="함께하기 | LUUP" />
+    <meta property="og:title" content="성장 리포트 | LUUP" />
     <meta property="og:description" content="작은 반복이 만드는 큰 변화. LUUP은 매일의 루틴을 만들고, 체크하고, 이어가도록 돕는 습관·루틴 관리 서비스예요." />
     <meta property="og:url" content="https://iwantpppsssjjj01sssu.github.io/luup/offline/offline.html" />
     <meta property="og:image" content="https://iwantpppsssjjj01sssu.github.io/luup/img/common_og.png" />
@@ -32,7 +32,7 @@
 <!-- header:start -->
     <header class="site_header">
         <div class="site_header_inner">
-            <a class="site_logo" href="../index.html"><img src="../img/common_logo_black.svg" alt="LUUP 홈"></a>
+            <a class="site_logo" href="../index.html"><img src="../img/common_logo_navy.svg" alt="LUUP 홈"></a>
             <nav class="site_nav" aria-label="주요 메뉴">
                 <ul>
                     <li><a href="../today/today.html">TODAY</a></li>
@@ -68,146 +68,239 @@
     </div>
 <!-- header:end -->
 
-    <main>
-        <section class="page_hero">
-            <div class="container">
-                <p class="eyebrow">TOGETHER</p>
-                <h1>혼자 하면 작심삼일,<br><em>함께 하면 30일</em></h1>
-                <p>같은 목표를 가진 사람들과 챌린지에 참여해 보세요. 매일 인증하고 서로 응원하다 보면 어느새 습관이 되어 있을 거예요.</p>
+    <main class="gr">
+        <!-- 1. 첫 화면: 아주 큰 대문자 문장 사이에 둥근 사진 -->
+        <section class="gr_hero" aria-labelledby="gr-title">
+            <!-- 오른쪽 위: 오늘 날짜 (JS가 오늘 날짜로 채움) -->
+            <p class="gr_today"><span class="gr_today_label">TODAY</span><time data-today-date>2026.11.16 (월)</time></p>
+            <h1 id="gr-title" class="gr_title" aria-label="우리 아이의 성장 리포트">
+                <span class="gr_line" aria-hidden="true"><span class="gr_swap" data-title-swap><span class="gr_swap_from">나의</span><span class="gr_swap_to">우리 아이의</span></span> 성장</span>
+                <span class="gr_line" aria-hidden="true">리포트 <span class="gr_pill"><img src="../img/main_photo_tablet_quiz.png" alt=""></span> <span class="gr_arrow" aria-hidden="true">↗</span></span>
+            </h1>
+            <div class="gr_hero_foot">
+                <p class="gr_label" data-scramble-label>GROWTH REPORT · NOV 2026</p>
+                <div class="gr_hero_copy">
+                    <p class="gr_lead">작은 체크가 쌓인 <em>8주의 기록</em></p>
+                    <p>지난 8주 동안의 실천을 한눈에 모았어요. 얼마나 꾸준했는지, 무엇을 해냈는지 확인해 보세요.</p>
+                </div>
             </div>
         </section>
 
-        <section class="section together_how">
-            <div class="container">
-                <div class="section_head reveal">
-                    <div>
-                        <p class="eyebrow">HOW IT WORKS</p>
-                        <h2 class="section_title">챌린지는<br><em>이렇게 진행돼요</em></h2>
-                    </div>
-                </div>
-                <ol class="how_steps">
-                    <li class="reveal"><span class="routine_icon" style="--icon-bg:#eaf6fe">🙋</span><b>01</b><h3>참여하기</h3><p>마음에 드는 챌린지를 골라 참여 버튼을 눌러요.</p></li>
-                    <li class="reveal"><span class="routine_icon" style="--icon-bg:#e6fbf5">📸</span><b>02</b><h3>매일 인증하기</h3><p>사진이나 한 줄 기록으로 오늘의 실천을 남겨요.</p></li>
-                    <li class="reveal"><span class="routine_icon" style="--icon-bg:#fff4e0">👏</span><b>03</b><h3>서로 응원하기</h3><p>다른 참여자의 인증에 응원을 보내며 함께 달려요.</p></li>
-                    <li class="reveal"><span class="routine_icon" style="--icon-bg:#f3ecff">🏅</span><b>04</b><h3>완주 배지 받기</h3><p>끝까지 해낸 나에게 완주 배지가 주어져요.</p></li>
+        <!-- 2. 핵심 숫자 4개: 화면에 들어오면 0부터 올라감 -->
+        <section class="gr_stats" aria-label="이번 달 성장 요약">
+            <div class="gr_stat reveal">
+                <p class="gr_label" data-scramble-label>GROWTH RATE</p>
+                <p class="gr_num"><span>+</span><b data-count="43">43</b><span>%</span></p>
+                <p class="gr_stat_desc">지난 4주보다 실천율이 올랐어요</p>
+            </div>
+            <div class="gr_stat reveal">
+                <p class="gr_label" data-scramble-label>STREAK</p>
+                <p class="gr_num"><b data-count="18">18</b><span>일</span></p>
+                <p class="gr_stat_desc">하루도 빠짐없이 이어가는 중</p>
+            </div>
+            <div class="gr_stat reveal">
+                <p class="gr_label" data-scramble-label>COMPLETED</p>
+                <p class="gr_num"><b data-count="126">126</b><span>개</span></p>
+                <p class="gr_stat_desc">지금까지 완료한 할 일</p>
+            </div>
+            <div class="gr_stat reveal">
+                <p class="gr_label" data-scramble-label>GOALS</p>
+                <p class="gr_num"><b data-count="7">7</b><span>개</span></p>
+                <p class="gr_stat_desc">끝까지 해낸 목표</p>
+            </div>
+        </section>
+
+        <!-- 3. 성장률: 주별 실천율 그래프 -->
+        <section class="gr_block" aria-labelledby="gr-rate-title">
+            <div class="gr_block_head">
+                <h2 id="gr-rate-title" class="gr_label" data-scramble-label>WEEKLY PROGRESS</h2>
+                <p class="gr_block_title gr_rate" data-rate aria-label="실천율 42%에서 81%로"><span class="gr_rate_part" aria-hidden="true">실천율 <b>42%</b></span> <span class="gr_rate_arrow" aria-hidden="true">→</span> <b class="is-up gr_rate_up" aria-hidden="true"><span data-rate-num data-from="42" data-to="81">81</span>%</b></p>
+            </div>
+            <div class="gr_chart" data-chart>
+                <svg viewBox="0 0 800 300" role="img" aria-label="주별 실천율: 1주 42%, 2주 48%, 3주 51%, 4주 58%, 5주 63%, 6주 67%, 7주 74%, 8주 81%">
+                    <defs>
+                        <linearGradient id="grFill" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0" stop-color="#0b74d1" stop-opacity="0.16"/>
+                            <stop offset="1" stop-color="#0b74d1" stop-opacity="0"/>
+                        </linearGradient>
+                    </defs>
+                    <g class="gr_chart_grid">
+                        <line x1="0" x2="800" y1="270" y2="270"/>
+                        <line x1="0" x2="800" y1="190" y2="190"/>
+                        <line x1="0" x2="800" y1="110" y2="110"/>
+                        <line x1="0" x2="800" y1="30" y2="30"/>
+                    </g>
+                    <path class="gr_chart_area" d="M40 222 L142 198 L245 186 L348 158 L451 138 L554 122 L657 94 L760 66 L760 270 L40 270 Z" fill="url(#grFill)"/>
+                    <path class="gr_chart_line" d="M40 222 L142 198 L245 186 L348 158 L451 138 L554 122 L657 94 L760 66" pathLength="1"/>
+                        <circle class="gr_chart_dot" style="--d:0" cx="40" cy="222" r="6"/>
+                        <circle class="gr_chart_dot" style="--d:1" cx="142" cy="198" r="6"/>
+                        <circle class="gr_chart_dot" style="--d:2" cx="245" cy="186" r="6"/>
+                        <circle class="gr_chart_dot" style="--d:3" cx="348" cy="158" r="6"/>
+                        <circle class="gr_chart_dot" style="--d:4" cx="451" cy="138" r="6"/>
+                        <circle class="gr_chart_dot" style="--d:5" cx="554" cy="122" r="6"/>
+                        <circle class="gr_chart_dot" style="--d:6" cx="657" cy="94" r="6"/>
+                        <circle class="gr_chart_dot" style="--d:7" cx="760" cy="66" r="6"/>
+                    <g class="gr_chart_x">
+                        <text x="40" y="296">1주</text>
+                        <text x="142" y="296">2주</text>
+                        <text x="245" y="296">3주</text>
+                        <text x="348" y="296">4주</text>
+                        <text x="451" y="296">5주</text>
+                        <text x="554" y="296">6주</text>
+                        <text x="657" y="296">7주</text>
+                        <text x="760" y="296">8주</text>
+                    </g>
+                </svg>
+            </div>
+        </section>
+
+        <!-- 4. 연속 실천: 최근 5주 달력 -->
+        <section class="gr_block" aria-labelledby="gr-streak-title">
+            <div class="gr_block_head">
+                <h2 id="gr-streak-title" class="gr_label" data-scramble-label>STREAK CALENDAR</h2>
+                <p class="gr_block_title">최근 5주 · 최장 연속 <b>18일</b></p>
+            </div>
+            <div class="gr_cal">
+                <ol class="gr_cal_days" aria-hidden="true"><li>월</li><li>화</li><li>수</li><li>목</li><li>금</li><li>토</li><li>일</li></ol>
+                <ol class="gr_heat" aria-label="최근 35일 실천 기록">
+                        <li class="gr_day lv1" style="--d:0" title="일부 완료"></li>
+                        <li class="gr_day lv0" style="--d:1" title="기록 없음"></li>
+                        <li class="gr_day lv2" style="--d:2" title="대부분 완료"></li>
+                        <li class="gr_day lv1" style="--d:3" title="일부 완료"></li>
+                        <li class="gr_day lv3" style="--d:4" title="모두 완료"></li>
+                        <li class="gr_day lv0" style="--d:5" title="기록 없음"></li>
+                        <li class="gr_day lv2" style="--d:6" title="대부분 완료"></li>
+                        <li class="gr_day lv2" style="--d:7" title="대부분 완료"></li>
+                        <li class="gr_day lv1" style="--d:8" title="일부 완료"></li>
+                        <li class="gr_day lv0" style="--d:9" title="기록 없음"></li>
+                        <li class="gr_day lv3" style="--d:10" title="모두 완료"></li>
+                        <li class="gr_day lv2" style="--d:11" title="대부분 완료"></li>
+                        <li class="gr_day lv1" style="--d:12" title="일부 완료"></li>
+                        <li class="gr_day lv2" style="--d:13" title="대부분 완료"></li>
+                        <li class="gr_day lv3" style="--d:14" title="모두 완료"></li>
+                        <li class="gr_day lv0" style="--d:15" title="기록 없음"></li>
+                        <li class="gr_day lv2" style="--d:16" title="대부분 완료"></li>
+                        <li class="gr_day lv2" style="--d:17" title="대부분 완료"></li>
+                        <li class="gr_day lv3" style="--d:18" title="모두 완료"></li>
+                        <li class="gr_day lv3" style="--d:19" title="모두 완료"></li>
+                        <li class="gr_day lv2" style="--d:20" title="대부분 완료"></li>
+                        <li class="gr_day lv3" style="--d:21" title="모두 완료"></li>
+                        <li class="gr_day lv3" style="--d:22" title="모두 완료"></li>
+                        <li class="gr_day lv3" style="--d:23" title="모두 완료"></li>
+                        <li class="gr_day lv2" style="--d:24" title="대부분 완료"></li>
+                        <li class="gr_day lv3" style="--d:25" title="모두 완료"></li>
+                        <li class="gr_day lv3" style="--d:26" title="모두 완료"></li>
+                        <li class="gr_day lv3" style="--d:27" title="모두 완료"></li>
+                        <li class="gr_day lv2" style="--d:28" title="대부분 완료"></li>
+                        <li class="gr_day lv3" style="--d:29" title="모두 완료"></li>
+                        <li class="gr_day lv3" style="--d:30" title="모두 완료"></li>
+                        <li class="gr_day lv3" style="--d:31" title="모두 완료"></li>
+                        <li class="gr_day lv3" style="--d:32" title="모두 완료"></li>
+                        <li class="gr_day lv3" style="--d:33" title="모두 완료"></li>
+                        <li class="gr_day lv3" style="--d:34" title="모두 완료"></li>
                 </ol>
+                <ul class="gr_legend" aria-hidden="true">
+                    <li>적게</li><li class="gr_day lv0"></li><li class="gr_day lv1"></li><li class="gr_day lv2"></li><li class="gr_day lv3"></li><li>많이</li>
+                </ul>
             </div>
         </section>
 
-        <section class="section section_soft">
-            <div class="container">
-                <div class="section_head">
-                    <div>
-                        <p class="eyebrow">CHALLENGES</p>
-                        <h2 class="section_title">지금 참여할 수 있는<br><em>챌린지</em></h2>
+        <!-- 5. 완료한 일: 기간 탭(이번 주·이번 달·전체)을 누르면 제목·기간·분야별 숫자와 막대가 바뀜 -->
+        <section class="gr_block" aria-labelledby="gr-done-title" data-done>
+            <div class="gr_block_head">
+                <h2 id="gr-done-title" class="gr_label" data-scramble-label>COMPLETED TASKS</h2>
+                <div class="gr_done_head">
+                    <p class="gr_block_title" aria-live="polite"><span data-done-period>이번 주</span> 완료한 일 <b data-done-total>24개</b></p>
+                    <div class="gr_tabs" role="group" aria-label="기간 선택" data-done-tabs>
+                        <button type="button" class="is-active" aria-pressed="true" data-period="week" data-label="이번 주" data-range="11.10 (월) – 11.16 (일)">이번 주</button>
+                        <button type="button" aria-pressed="false" data-period="month" data-label="이번 달" data-range="11.1 – 11.16">이번 달</button>
+                        <button type="button" aria-pressed="false" data-period="all" data-label="최근 8주" data-range="9.22 – 11.16 · 최근 8주 전체">전체</button>
                     </div>
-                    <div class="chips" data-status-chips role="group" aria-label="챌린지 상태">
-                        <button type="button" class="is-active" data-status="all" aria-pressed="true">전체</button>
-                        <button type="button" data-status="open" aria-pressed="false">모집 중</button>
-                        <button type="button" data-status="ongoing" aria-pressed="false">진행 중</button>
-                    </div>
+                    <p class="gr_tabs_note">기간 <span data-done-range>11.10 (월) – 11.16 (일)</span></p>
                 </div>
+            </div>
+            <ul class="gr_cats">
+                <li class="reveal" data-week="9" data-month="22" data-all="48" style="--v:1.00"><span>생활 습관</span><b data-count="9">9</b><i aria-hidden="true"></i></li>
+                <li class="reveal" data-week="7" data-month="17" data-all="36" style="--v:0.78"><span>공부</span><b data-count="7">7</b><i aria-hidden="true"></i></li>
+                <li class="reveal" data-week="5" data-month="11" data-all="24" style="--v:0.56"><span>운동</span><b data-count="5">5</b><i aria-hidden="true"></i></li>
+                <li class="reveal" data-week="3" data-month="8" data-all="18" style="--v:0.33"><span>독서</span><b data-count="3">3</b><i aria-hidden="true"></i></li>
+            </ul>
+        </section>
 
-                <div class="challenge_grid">
-                    <article class="challenge_item" data-status="open">
-                        <div class="challenge_item_top">
-                            <span class="routine_icon" style="--icon-bg:#fff4e0">🌅</span>
-                            <span class="badge">모집 중</span>
-                        </div>
-                        <h3>아침 6시 기상 30일</h3>
-                        <p>매일 아침 6시에 일어나 창밖 사진으로 인증해요.</p>
-                        <ul class="challenge_info">
-                            <li><span>기간</span><b>11.4 – 12.3</b></li>
-                            <li><span>참여</span><b data-people="1284">1,284명</b></li>
-                        </ul>
-                        <button type="button" class="btn btn_small challenge_join" data-join aria-pressed="false">참여하기</button>
-                    </article>
-                    <article class="challenge_item" data-status="open">
-                        <div class="challenge_item_top">
-                            <span class="routine_icon" style="--icon-bg:#f3ecff">📚</span>
-                            <span class="badge">모집 중</span>
-                        </div>
-                        <h3>하루 20페이지 독서</h3>
-                        <p>한 달에 두 권, 읽은 페이지와 한 줄 감상을 남겨요.</p>
-                        <ul class="challenge_info">
-                            <li><span>기간</span><b>11.11 – 12.10</b></li>
-                            <li><span>참여</span><b data-people="862">862명</b></li>
-                        </ul>
-                        <button type="button" class="btn btn_small challenge_join" data-join aria-pressed="false">참여하기</button>
-                    </article>
-                    <article class="challenge_item" data-status="ongoing">
-                        <div class="challenge_item_top">
-                            <span class="routine_icon" style="--icon-bg:#e6fbf5">🏃</span>
-                            <span class="badge badge_mint">진행 중 · 18일째</span>
-                        </div>
-                        <h3>하루 30분 걷기</h3>
-                        <p>걸음 수 캡처나 산책길 사진으로 인증해요.</p>
-                        <div class="challenge_bar">
-                            <div class="challenge_bar_head"><span>평균 달성률</span><b>78%</b></div>
-                            <div class="progress"><span style="--value:78%"></span></div>
-                        </div>
-                        <ul class="challenge_info">
-                            <li><span>기간</span><b>10.15 – 11.13</b></li>
-                            <li><span>참여</span><b data-people="2031">2,031명</b></li>
-                        </ul>
-                    </article>
-                    <article class="challenge_item" data-status="ongoing">
-                        <div class="challenge_item_top">
-                            <span class="routine_icon" style="--icon-bg:#eaf6fe">💧</span>
-                            <span class="badge badge_mint">진행 중 · 9일째</span>
-                        </div>
-                        <h3>물 8잔 마시기 2주</h3>
-                        <p>하루에 마신 물의 양을 체크해서 인증해요.</p>
-                        <div class="challenge_bar">
-                            <div class="challenge_bar_head"><span>평균 달성률</span><b>85%</b></div>
-                            <div class="progress"><span style="--value:85%"></span></div>
-                        </div>
-                        <ul class="challenge_info">
-                            <li><span>기간</span><b>10.24 – 11.6</b></li>
-                            <li><span>참여</span><b data-people="3412">3,412명</b></li>
-                        </ul>
-                    </article>
-                    <article class="challenge_item" data-status="open">
-                        <div class="challenge_item_top">
-                            <span class="routine_icon" style="--icon-bg:#ffeef0">✍️</span>
-                            <span class="badge">모집 중</span>
-                        </div>
-                        <h3>감사 일기 21일</h3>
-                        <p>잠들기 전 감사한 일 세 가지를 적어 인증해요.</p>
-                        <ul class="challenge_info">
-                            <li><span>기간</span><b>11.18 – 12.8</b></li>
-                            <li><span>참여</span><b data-people="547">547명</b></li>
-                        </ul>
-                        <button type="button" class="btn btn_small challenge_join" data-join aria-pressed="false">참여하기</button>
-                    </article>
-                    <article class="challenge_item" data-status="ongoing">
-                        <div class="challenge_item_top">
-                            <span class="routine_icon" style="--icon-bg:#f3ecff">🌙</span>
-                            <span class="badge badge_mint">진행 중 · 4일째</span>
-                        </div>
-                        <h3>자정 전에 잠들기</h3>
-                        <p>잠들기 전 마지막 화면을 캡처해 시간을 인증해요.</p>
-                        <div class="challenge_bar">
-                            <div class="challenge_bar_head"><span>평균 달성률</span><b>62%</b></div>
-                            <div class="progress"><span style="--value:62%"></span></div>
-                        </div>
-                        <ul class="challenge_info">
-                            <li><span>기간</span><b>10.29 – 11.27</b></li>
-                            <li><span>참여</span><b data-people="1106">1,106명</b></li>
-                        </ul>
-                    </article>
+        <!-- 6. 달성한 목표: 같은 모양 블록 반복 (라벨 · 큰 이름 · 정보 | 사진) -->
+        <section class="gr_list" aria-labelledby="gr-goal-title">
+            <div class="gr_list_head">
+                <h2 id="gr-goal-title" class="gr_label" data-scramble-label>ACHIEVED GOALS (07)</h2>
+                <p class="gr_list_note">최근 달성한 목표 4개</p>
+            </div>
+            <!-- 버튼을 누르면 아래 목표 블록이 펼쳐짐 -->
+            <button type="button" class="gr_reveal_btn" aria-expanded="false" aria-controls="gr-goals" data-goals-toggle>
+                <span class="gr_reveal_text">
+                    <small>눌러서 펼쳐 보기</small>
+                    <span data-goals-label>이번 주 목표 현황 확인하기</span>
+                </span>
+                <i class="gr_reveal_icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></svg></i>
+            </button>
+            <!-- 닫혀 있을 땐 높이 0, 열면 높이가 부드럽게 늘어나며 아래로 쭉 펼쳐짐 (화면은 움직이지 않음) -->
+            <div id="gr-goals" class="gr_goals" data-goals inert>
+                <div class="gr_goals_inner">
+                <article class="gr_item reveal">
+                    <div class="gr_item_text">
+                        <p class="gr_label" data-scramble-label>GOAL 01 · 달성</p>
+                        <h3 class="gr_name">아침 8시 기상 21일</h3>
+                        <dl class="gr_meta">
+                            <div><dt>달성일</dt><dd>11.12</dd></div>
+                            <div><dt>실천</dt><dd>21일 중 21일</dd></div>
+                            <div><dt>실천율</dt><dd><b>100%</b><span class="gr_bar"><i style="--value:100%"></i></span></dd></div>
+                        </dl>
+                    </div>
+                    <figure class="gr_item_pic"><img src="../img/growth_1.png" alt="아침 햇살 속 침대에서 일어나 기지개를 켜는 아이" loading="lazy"></figure>
+                </article>
+                <article class="gr_item reveal">
+                    <div class="gr_item_text">
+                        <p class="gr_label" data-scramble-label>GOAL 02 · 달성</p>
+                        <h3 class="gr_name">하루 20페이지 독서</h3>
+                        <dl class="gr_meta">
+                            <div><dt>달성일</dt><dd>11.05</dd></div>
+                            <div><dt>실천</dt><dd>30일 중 28일</dd></div>
+                            <div><dt>실천율</dt><dd><b>93%</b><span class="gr_bar"><i style="--value:93%"></i></span></dd></div>
+                        </dl>
+                    </div>
+                    <figure class="gr_item_pic"><img src="../img/main_photo_girl_desk.png" alt="책상에 앉아 책을 읽는 아이" loading="lazy"></figure>
+                </article>
+                <article class="gr_item reveal">
+                    <div class="gr_item_text">
+                        <p class="gr_label" data-scramble-label>GOAL 03 · 달성</p>
+                        <h3 class="gr_name">하루 30분 걷기</h3>
+                        <dl class="gr_meta">
+                            <div><dt>달성일</dt><dd>10.28</dd></div>
+                            <div><dt>실천</dt><dd>14일 중 13일</dd></div>
+                            <div><dt>실천율</dt><dd><b>93%</b><span class="gr_bar"><i style="--value:93%"></i></span></dd></div>
+                        </dl>
+                    </div>
+                    <figure class="gr_item_pic"><img src="../img/growth_2.png" alt="단풍길에서 아빠 손을 잡고 걷는 아이" loading="lazy"></figure>
+                </article>
+                <article class="gr_item reveal">
+                    <div class="gr_item_text">
+                        <p class="gr_label" data-scramble-label>GOAL 04 · 달성</p>
+                        <h3 class="gr_name">물 8잔 마시기 2주</h3>
+                        <dl class="gr_meta">
+                            <div><dt>달성일</dt><dd>10.20</dd></div>
+                            <div><dt>실천</dt><dd>14일 중 14일</dd></div>
+                            <div><dt>실천율</dt><dd><b>100%</b><span class="gr_bar"><i style="--value:100%"></i></span></dd></div>
+                        </dl>
+                    </div>
+                    <figure class="gr_item_pic"><img src="../img/main_photo_dad_kitchen.png" alt="부엌에서 물을 따르는 아빠" loading="lazy"></figure>
+                </article>
                 </div>
             </div>
         </section>
 
-        <section class="section together_cta">
-            <div class="container together_cta_inner reveal">
-                <div>
-                    <h2 class="section_title">어떤 챌린지가 맞을지<br><em>모르겠다면?</em></h2>
-                    <p class="section_desc">루틴 유형 진단으로 나에게 맞는 루틴부터 찾아보세요.</p>
-                </div>
-                <a class="btn" href="../sleep/sleep_main.html">루틴 유형 진단하기 <span class="arrow" aria-hidden="true">↗</span></a>
-            </div>
+        <!-- 7. 마무리: 큰 문장 + 링크 -->
+        <section class="gr_end" aria-labelledby="gr-end-title">
+            <p class="gr_label" data-scramble-label>WHAT'S NEXT?</p>
+            <h2 id="gr-end-title" class="gr_end_title">다음 목표를 세워 볼까요</h2>
+            <a class="gr_biglink" href="../routine/routine.html"><span>새 루틴 만들기</span> <i aria-hidden="true">↗</i></a>
         </section>
     </main>
 
@@ -215,8 +308,8 @@
     <!-- 하단: 파란 바탕 + 기울어진 띠 2줄이 옆으로 흘러감, 아래에 안내 칸과 둥근 버튼 -->
     <footer class="site_footer sf">
         <div class="sf_ribbons">
-            <div class="sf_ribbon sf_ribbon_back" aria-hidden="true"><div class="sf_track"><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_blue.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_blue.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_blue.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_blue.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span></div></div>
-            <div class="sf_ribbon sf_ribbon_front" aria-hidden="true"><div class="sf_track"><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_blue.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_blue.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_blue.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_blue.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span></div></div>
+            <div class="sf_ribbon sf_ribbon_back" aria-hidden="true"><div class="sf_track"><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_sky.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_sky.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_sky.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_sky.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span></div></div>
+            <div class="sf_ribbon sf_ribbon_front" aria-hidden="true"><div class="sf_track"><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_sky.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_sky.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_sky.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_sky.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span></div></div>
         </div>
 
         <div class="sf_inner">
@@ -226,7 +319,7 @@
                     <p>작은 실천이 모여 더 큰 성장으로.<br>LUUP과 함께 나만의 하루를 만들어가요.</p>
                 </div>
                 <div>
-                    <h2>Help</h2>
+                    <h2>Guide</h2>
                     <p>처음 시작하는 루틴도 어렵지 않도록,<br>LUUP이 하나씩 안내해 드릴게요.</p>
                 </div>
             </div>

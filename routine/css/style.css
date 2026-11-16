@@ -5,16 +5,16 @@
    - 어두운 바탕, 왼쪽 단계(01~04) · 세로선 · 오른쪽 영수증 요약
    ========================================================= */
 .pl_page {
-  --bg: #1f1f1f;
-  --line: rgba(255, 255, 255, 0.22);
-  --row: #444;
-  --row-line: #555;
+  --bg: #ffffff;
+  --line: rgba(17, 19, 24, 0.12);
+  --row: #f6f7f9;
+  --row-line: #e7eaf0;
   --blue: #0b74d1;
-  --gray: #9a9a9a;
+  --gray: #69707a;
   --mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Courier New', monospace;
   padding-top: var(--luup-header-h);
   background: var(--bg);
-  color: #fff;
+  color: #111318;
   letter-spacing: -0.03em;
 }
 
@@ -247,13 +247,13 @@
   background: transparent;
   font-family: inherit;
   font-size: 15px;
-  color: #1f1f1f;
+  color: #111318;
   cursor: pointer;
   transition: background 0.2s ease;
 }
 
 .pl_day:hover {
-  background: #e6e6e6;
+  background: #edf2ff;
 }
 
 .pl_day.is-today {
@@ -1019,4 +1019,877 @@
 
 .pl_aside {
   padding-right: var(--page-x, 28px);
+}
+
+/* =========================================================
+   나의 루틴 (캘린더 먼저)
+   - 왼쪽: 이번 달 캘린더 (날짜마다 시간대별 루틴 점: 완료하면 채워짐, 완료 수)
+   - 오른쪽 흰 패널: 날짜를 누르면 그날 할 일 목록 → 할 일을 누르면 단계별 체크
+   ========================================================= */
+.rc {
+  --rc-x: clamp(20px, 4vw, 64px);
+  --rc-blue: #4f6bff;
+  --rc-card: #f5f6f9;
+  --rc-ink: #111318;
+  --rc-muted: #667085;
+  background: #fff;
+  color: #111318;
+  padding-bottom: clamp(80px, 9vw, 140px);
+}
+
+.rc h1,
+.rc h2,
+.rc p,
+.rc ol,
+.rc ul {
+  margin: 0;
+}
+
+.rc ol,
+.rc ul {
+  padding: 0;
+  list-style: none;
+}
+
+.rc_label {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--rc-muted);
+}
+
+.rc_head {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: clamp(56px, 7vw, 110px) var(--rc-x) clamp(32px, 4vw, 56px);
+}
+
+.rc_title {
+  margin-top: 14px !important;
+  font-family: 'Paperlogy', var(--luup-font);
+  font-size: clamp(44px, 6vw, 104px);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.rc_lead {
+  max-width: 640px;
+  margin-top: 20px !important;
+  font-size: clamp(16px, 1.3vw, 20px);
+  line-height: 1.6;
+  color: #404856;
+}
+
+.rc_lead b {
+  font-weight: 600;
+  color: #111318;
+}
+
+/* ---------- 판: 캘린더 | 패널 ---------- */
+.rc_board {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(340px, 1fr);
+  align-items: start;
+  gap: clamp(20px, 2.4vw, 36px);
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--rc-x);
+}
+
+/* ---------- 캘린더 ---------- */
+.rc_cal {
+  padding: clamp(20px, 2.2vw, 32px);
+  border: 1px solid rgba(17, 19, 24, 0.08);
+  border-radius: 28px;
+  background: #fff;
+}
+
+.rc_cal_head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.rc_month {
+  font-family: 'Paperlogy', var(--luup-font);
+  font-size: clamp(24px, 2.2vw, 36px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+.rc_cal_nav {
+  display: flex;
+  gap: 6px;
+}
+
+.rc_nav_btn,
+.rc_today_btn {
+  height: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 99px;
+  background: transparent;
+  font: inherit;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.rc_nav_btn {
+  width: 40px;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.rc_today_btn {
+  padding: 0 16px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.rc_nav_btn:hover,
+.rc_today_btn:hover {
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.rc_dow,
+.rc_grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: clamp(4px, 0.6vw, 8px);
+}
+
+.rc_dow {
+  margin-bottom: 8px !important;
+}
+
+.rc_dow li {
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  color: var(--rc-muted);
+}
+
+.rc_dow li:first-child {
+  color: #e5484d;
+}
+
+.rc_dow li:last-child {
+  color: #3b6fe8;
+}
+
+/* 날짜 칸: 숫자 · 아래 시간대 점 5개 · 오른쪽 아래 완료 수 */
+.rc_day {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  aspect-ratio: 1 / 0.92;
+  min-width: 0;
+  padding: clamp(6px, 0.8vw, 12px);
+  border: 1px solid transparent;
+  border-radius: clamp(10px, 1.1vw, 16px);
+  background: var(--rc-card);
+  font: inherit;
+  text-align: left;
+  color: #111318;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.rc_day:hover {
+  background: #edf2ff;
+  transform: translateY(-2px);
+}
+
+.rc_day b {
+  font-size: clamp(13px, 1.25vw, 19px);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.rc_day.is-past b {
+  color: #a3a7af;
+}
+
+.rc_day.is-sun b {
+  color: #e5484d;
+}
+
+.rc_day.is-sat b {
+  color: #3b6fe8;
+}
+
+.rc_dots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+}
+
+.rc_dots i {
+  width: clamp(5px, 0.55vw, 8px);
+  aspect-ratio: 1;
+  border: 1.5px solid var(--c);
+  border-radius: 50%;
+  opacity: 0.55;
+}
+
+.rc_dots i.is-done {
+  background: var(--c);
+  opacity: 1;
+}
+
+.rc_day small {
+  position: absolute;
+  top: clamp(6px, 0.8vw, 12px);
+  right: clamp(6px, 0.8vw, 12px);
+  font-size: clamp(9px, 0.75vw, 12px);
+  font-weight: 600;
+  color: var(--rc-muted);
+}
+
+.rc_day.is-all {
+  border-color: rgba(166, 236, 223, 0.5);
+  box-shadow: inset 0 0 0 1px rgba(166, 236, 223, 0.25);
+}
+
+.rc_day.is-all small {
+  color: #0f8f72;
+}
+
+.rc_day.is-today {
+  border-color: var(--rc-blue);
+}
+
+.rc_day.is-today::after {
+  content: '오늘';
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  padding: 1px 7px;
+  border-radius: 99px;
+  background: var(--rc-blue);
+  font-size: 10px;
+  font-weight: 700;
+  color: #fff;
+  transform: translateX(-50%);
+}
+
+.rc_day.is-selected {
+  background: #fff;
+  color: var(--rc-ink);
+  border-color: #dfe7ff;
+}
+
+.rc_day.is-selected b {
+  color: var(--rc-ink);
+}
+
+.rc_day.is-selected .rc_dots i {
+  opacity: 1;
+}
+
+.rc_day.is-selected .rc_dots i:not(.is-done) {
+  border-color: #bec5d3;
+}
+
+.rc_day:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.rc_legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin-top: 22px !important;
+  font-size: 13px;
+  color: #b9bdc6;
+}
+
+.rc_legend li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.rc_legend i {
+  width: 10px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--c);
+}
+
+.rc_legend i.is-empty {
+  border: 1.5px solid #8d929c;
+  background: transparent;
+}
+
+.rc_legend_note {
+  margin-left: auto;
+}
+
+/* ---------- 오른쪽 흰 패널 ---------- */
+.rc_panel {
+  position: sticky;
+  top: calc(var(--luup-header-h) + 20px);
+  padding: clamp(22px, 2.2vw, 32px);
+  border: 1px solid rgba(17, 19, 24, 0.08);
+  border-radius: 28px;
+  background: #fff;
+  color: var(--rc-ink);
+  box-shadow: 0 12px 28px rgba(17, 19, 24, 0.04);
+}
+
+.rc_panel_head {
+  margin-bottom: 20px;
+}
+
+.rc_panel_title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px !important;
+  font-family: 'Paperlogy', var(--luup-font);
+  font-size: clamp(24px, 2vw, 32px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+.rc_panel_title:focus {
+  outline: none;
+}
+
+.rc_badge {
+  padding: 4px 10px;
+  border-radius: 99px;
+  background: var(--rc-blue);
+  font-family: var(--luup-font);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: #fff;
+}
+
+.rc_panel_meta {
+  margin-top: 8px !important;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #6b7280;
+}
+
+.rc_panel_meta b {
+  color: var(--rc-ink);
+}
+
+/* 그날 할 일 목록 */
+.rc_list {
+  display: grid;
+  gap: 10px;
+}
+
+.rc_item {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) auto 20px;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 16px 16px 16px 20px;
+  border: 0;
+  border-radius: 18px;
+  background: #f5f7fb;
+  box-shadow: inset 5px 0 0 var(--c);
+  font: inherit;
+  text-align: left;
+  color: inherit;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.rc_item:hover,
+.rc_item:focus-visible {
+  background: #edf3ff;
+  transform: translateX(4px);
+}
+
+.rc_item_time {
+  display: grid;
+  font-size: 17px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.rc_item_time small {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--rc-muted);
+}
+
+.rc_item_body {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.rc_item_body b {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.rc_item_body em {
+  padding: 2px 8px;
+  border-radius: 99px;
+  background: #ddf7ef;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+  color: #0f8f72;
+}
+
+.rc_item_body small {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.rc_item_bar,
+.rc_progress {
+  display: block;
+  height: 4px;
+  overflow: hidden;
+  border-radius: 99px;
+  background: #e2e5eb;
+}
+
+.rc_item_bar i,
+.rc_progress i {
+  display: block;
+  width: var(--value);
+  height: 100%;
+  border-radius: inherit;
+  background: var(--rc-blue);
+  transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.rc_item_count {
+  font-size: 14px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: #4b5160;
+}
+
+.rc_item_arrow svg {
+  display: block;
+  width: 20px;
+  fill: none;
+  stroke: #9aa0ab;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.rc_add {
+  width: 100%;
+  margin-top: 14px;
+  padding: 14px;
+  border: 1.5px dashed #c9cdd6;
+  border-radius: 16px;
+  background: transparent;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  color: #4b5160;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.rc_add:hover {
+  border-color: var(--rc-blue);
+  color: var(--rc-blue);
+}
+
+/* 단계 화면 */
+.rc_back {
+  margin-bottom: 18px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: #6b7280;
+  cursor: pointer;
+}
+
+.rc_back:hover {
+  color: var(--rc-ink);
+}
+
+.rc_swatch {
+  width: 14px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--c);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--c) 35%, transparent);
+}
+
+.rc_routine_head .rc_progress {
+  height: 6px;
+  margin-top: 16px;
+}
+
+.rc_tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 12px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.rc_tools b {
+  color: var(--rc-ink);
+}
+
+.rc_tools span {
+  display: flex;
+  gap: 6px;
+}
+
+.rc_text_btn {
+  padding: 7px 14px;
+  border: 1px solid #d5d9e0;
+  border-radius: 99px;
+  background: #fff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--rc-ink);
+  cursor: pointer;
+}
+
+.rc_text_btn:hover,
+.rc_text_btn[aria-pressed="true"] {
+  border-color: var(--rc-ink);
+  background: var(--rc-ink);
+  color: #fff;
+}
+
+/* 단계 목록: 번호 동그라미가 세로선으로 이어짐 */
+.rc_steps {
+  display: grid;
+}
+
+.rc_step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 0;
+}
+
+.rc_step + .rc_step::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 17px;
+  height: 24px;
+  border-left: 2px dotted #d4d9e2;
+}
+
+.rc_step_no {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  aspect-ratio: 1;
+  border: 2px solid #d5d9e0;
+  border-radius: 50%;
+  background: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  color: #4b5160;
+}
+
+.rc_step.is-done .rc_step_no {
+  border-color: var(--rc-blue);
+  background: var(--rc-blue);
+}
+
+.rc_step_body {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.rc_step_body b {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.rc_step.is-done .rc_step_body b {
+  color: #9aa0ab;
+  text-decoration: line-through;
+}
+
+.rc_step_body small {
+  font-size: 13px;
+  color: var(--rc-muted);
+}
+
+.rc_check {
+  min-width: 64px;
+  padding: 8px 14px;
+  border: 1.5px solid #d5d9e0;
+  border-radius: 99px;
+  background: #fff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  color: #4b5160;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.rc_check:hover {
+  border-color: var(--rc-blue);
+  color: var(--rc-blue);
+}
+
+.rc_check[aria-pressed="true"] {
+  border-color: var(--rc-blue);
+  background: var(--rc-blue);
+  color: #fff;
+}
+
+.rc_check:active {
+  transform: scale(0.95);
+}
+
+.rc_rename {
+  width: 100%;
+  padding: 6px 10px;
+  border: 1px solid #d5d9e0;
+  border-radius: 10px;
+  font: inherit;
+  font-size: 15px;
+}
+
+.rc_rename:focus {
+  border-color: var(--rc-blue);
+  outline: none;
+}
+
+.rc_step.is-edit {
+  grid-template-columns: 36px minmax(0, 1fr) auto auto;
+}
+
+.rc_counter {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.rc_counter button {
+  width: 28px;
+  aspect-ratio: 1;
+  border: 1px solid #d5d9e0;
+  border-radius: 50%;
+  background: #fff;
+  font: inherit;
+  cursor: pointer;
+}
+
+.rc_counter output {
+  min-width: 40px;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.rc_delete {
+  padding: 6px 10px;
+  border: 0;
+  border-radius: 99px;
+  background: #fdecee;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  color: #d93a42;
+  cursor: pointer;
+}
+
+.rc_empty {
+  padding: 20px 0;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.rc_next {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  margin-top: 10px;
+  padding: 15px;
+  border: 0;
+  border-radius: 16px;
+  background: var(--rc-ink);
+  font: inherit;
+  font-size: 15px;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.rc_next:hover {
+  background: var(--rc-blue);
+}
+
+/* ---------- 좁은 화면: 위아래로 쌓기 ---------- */
+@media (max-width: 900px) {
+  .rc_board {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .rc_panel {
+    position: static;
+    scroll-margin-top: calc(var(--luup-header-h) + 12px);
+  }
+
+  .rc_day small {
+    display: none;
+  }
+
+  .rc_legend_note {
+    margin-left: 0;
+  }
+
+  .rc_item {
+    grid-template-columns: 54px minmax(0, 1fr) auto;
+  }
+
+  .rc_item_arrow {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rc_day,
+  .rc_item,
+  .rc_item_bar i,
+  .rc_progress i {
+    transition: none;
+  }
+}
+
+/* =========================================================
+   나의 루틴: 검은 바탕 → 흰 바탕 (밝은 테마)
+   - 페이지 흰색, 캘린더 판은 아주 연한 회색, 날짜 칸은 흰색 + 연한 테두리
+   - 오른쪽 패널은 흰색 + 테두리·그림자로 구분
+   ========================================================= */
+.pl_page.rc {
+  --rc-card: #ffffff;
+  --rc-muted: #7a808c;
+  background: #fff;
+  color: var(--rc-ink);
+}
+
+.rc_lead {
+  color: #5b616d;
+}
+
+.rc_lead b {
+  color: var(--rc-ink);
+}
+
+.rc_cal {
+  border-color: #e6e8ee;
+  background: #f6f7fa;
+}
+
+.rc_nav_btn,
+.rc_today_btn {
+  border-color: #d5d9e0;
+  color: var(--rc-ink);
+}
+
+.rc_nav_btn:hover,
+.rc_today_btn:hover {
+  border-color: var(--rc-ink);
+  background: #fff;
+}
+
+.rc_day {
+  border-color: #e6e8ee;
+  color: var(--rc-ink);
+}
+
+.rc_day:hover {
+  background: #eef2ff;
+}
+
+.rc_day.is-past b {
+  color: #9aa0ab;
+}
+
+.rc_day.is-sun b {
+  color: #e5484d;
+}
+
+.rc_day.is-sat b {
+  color: #3b6fe8;
+}
+
+.rc_dow li:first-child {
+  color: #e5484d;
+}
+
+.rc_dow li:last-child {
+  color: #3b6fe8;
+}
+
+/* 고른 날짜: 흰 바탕에서 눈에 띄게 진한 칸으로 */
+.rc_day.is-selected {
+  border-color: var(--rc-ink);
+  background: var(--rc-ink);
+  color: #fff;
+}
+
+.rc_day.is-selected b,
+.rc_day.is-selected small {
+  color: #fff;
+}
+
+.rc_day.is-selected .rc_dots i:not(.is-done) {
+  border-color: rgba(255, 255, 255, 0.55);
+}
+
+.rc_day.is-all {
+  border-color: #6fd6bf;
+  box-shadow: inset 0 0 0 1px rgba(111, 214, 191, 0.35);
+}
+
+.rc_day.is-all small {
+  color: #0f8f72;
+}
+
+.rc_day:focus-visible {
+  outline-color: var(--rc-blue);
+}
+
+.rc_legend {
+  color: #5b616d;
+}
+
+.rc_panel {
+  border: 1px solid #e6e8ee;
+  box-shadow: 0 20px 40px -24px rgba(17, 19, 24, 0.18);
 }

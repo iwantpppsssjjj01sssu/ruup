@@ -32,7 +32,7 @@
 <!-- header:start -->
     <header class="site_header">
         <div class="site_header_inner">
-            <a class="site_logo" href="../index.html"><img src="../img/common_logo_black.svg" alt="LUUP 홈"></a>
+            <a class="site_logo" href="../index.html"><img src="../img/common_logo_navy.svg" alt="LUUP 홈"></a>
             <nav class="site_nav" aria-label="주요 메뉴">
                 <ul>
                     <li><a href="../today/today.html">TODAY</a></li>
@@ -68,104 +68,32 @@
     </div>
 <!-- header:end -->
 
-    <main class="pl_page" data-routine-page>
-        <div class="pl_layout">
-            <div class="pl_main">
-                <!-- 01 생활계획표: 맨 위, 천천히 돌아감 -->
-                <section class="pl_step pl_step_top" id="step-plan" aria-labelledby="step-wheel">
-                    <h2 id="step-wheel" class="pl_step_title"><span class="pl_no">01</span>DAY PLAN<small>생활계획표 · 영역을 누르면 그 시간대가 맨 위로 와요</small></h2>
-                    <div class="pl_wheel_box" data-wheel-box>
-                        <span class="pl_pointer" aria-hidden="true"></span>
-                        <svg class="rt_wheel" viewBox="-110 -110 220 220" role="group" aria-label="오늘의 생활계획표" data-wheel></svg>
-                        <p class="pl_wheel_now" data-wheel-now>지금 맨 위: 숙제하기 · 16:00</p>
+    <main class="pl_page rc" data-routine-page>
+        <!-- 1. 제목: 이번 달 캘린더 → 날짜를 누르면 그날 할 일 → 할 일을 누르면 단계 -->
+        <section class="rc_head">
+            <p class="rc_label">MY ROUTINE</p>
+            <h1 class="rc_title">이번 달 루틴</h1>
+            <p class="rc_lead">날짜를 누르면 그날 <b>해야 할 일</b>이, 할 일을 누르면 <b>어떤 순서로 하면 되는지</b>가 나와요.</p>
+        </section>
+
+        <div class="rc_board">
+            <!-- 2. 이번 달 캘린더: 날짜마다 시간대별 루틴 점(완료하면 채워짐)과 완료 수 -->
+            <section class="rc_cal" aria-labelledby="rc-month">
+                <div class="rc_cal_head">
+                    <h2 id="rc-month" class="rc_month" data-month-label>2026년 11월</h2>
+                    <div class="rc_cal_nav">
+                        <button type="button" class="rc_nav_btn" data-month="-1" aria-label="이전 달">‹</button>
+                        <button type="button" class="rc_today_btn" data-go-today>오늘</button>
+                        <button type="button" class="rc_nav_btn" data-month="1" aria-label="다음 달">›</button>
                     </div>
-                </section>
-
-                <!-- 큰 제목 + 소개 -->
-                <section class="pl_hero">
-                    <h1>Shape<br>Your Day</h1>
-                    <p class="pl_lead">나의 하루 한눈에! 날짜를 고르고, 시간대마다 할 일을 정해 나만의 루틴을 만들어요.</p>
-                    <div class="pl_feature">
-                        <div class="pl_feature_art" aria-hidden="true">
-                            <p class="pl_feature_tag">SMALL STEPS, EVERY DAY</p>
-                            <svg class="pl_clipboard" viewBox="0 0 120 140">
-                                <rect x="8" y="16" width="104" height="120" rx="16" fill="#2f6bff"/>
-                                <rect x="18" y="26" width="84" height="102" rx="10" fill="#fff"/>
-                                <rect x="40" y="6" width="40" height="22" rx="8" fill="#ffc83d"/>
-                                <circle cx="60" cy="14" r="5" fill="#fff"/>
-                                <rect x="28" y="44" width="20" height="20" rx="5" fill="#2fd17d"/>
-                                <path d="m32 54 4 4 8-9" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                <rect x="56" y="48" width="36" height="7" rx="3.5" fill="#cfd6e4"/>
-                                <rect x="28" y="72" width="20" height="20" rx="5" fill="#ffc83d"/>
-                                <path d="m32 82 4 4 8-9" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                <rect x="56" y="76" width="36" height="7" rx="3.5" fill="#cfd6e4"/>
-                                <rect x="28" y="100" width="20" height="20" rx="5" fill="#ff6b7a"/>
-                                <path d="m32 110 4 4 8-9" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                <rect x="56" y="104" width="36" height="7" rx="3.5" fill="#cfd6e4"/>
-                            </svg>
-                            <img class="pl_buddy" src="../img/common_character.svg" alt="">
-                            <p class="pl_feature_title">MY<br>ROUTINE</p>
-                        </div>
-                        <div class="pl_feature_text">
-                            <p>작은 반복이 모여 큰 변화가 돼요. 하루를 다섯 개의 시간대로 나누고, 시간대마다 해야 할 일을 작은 단계로 쪼개 보세요. 한 단계씩 체크하다 보면 어느새 하루가 완성돼요.</p>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 02 날짜 + 시간대 -->
-                <section class="pl_step" aria-labelledby="step-date">
-                    <h2 id="step-date" class="pl_step_title"><span class="pl_no">02</span>SELECT DATE<small>날짜와 시간대 고르기</small></h2>
-                    <div class="pl_cal_box">
-                        <div class="pl_cal" data-cal="0"></div>
-                        <div class="pl_cal" data-cal="1"></div>
-                    </div>
-                    <p class="pl_date_label"><span data-date>11월 1일 일요일</span><span class="pl_today" data-today-badge>오늘</span></p>
-                    <div class="pl_slots" role="radiogroup" aria-label="시간대" data-slots></div>
-                    <div class="pl_links">
-                        <a href="#step-plan">생활계획표로 가기</a>
-                        <a href="../list/list.html">루틴 둘러보기</a>
-                        <a href="../promo/promo.html#faq">도움말</a>
-                    </div>
-                </section>
-
-                <!-- 03 선택한 시간대의 단계 -->
-                <section class="pl_step" aria-labelledby="step-steps">
-                    <h2 id="step-steps" class="pl_step_title"><span class="pl_no">03</span>MY STEPS<small data-steps-sub>숙제하기 · 오늘의 학습 루틴 일정을 확인해요</small></h2>
-                    <div class="pl_steps_bar">
-                        <p data-steps-meta>할 일 5개 · 약 40분</p>
-                        <div>
-                            <button type="button" class="pl_text_btn" data-all-done>✓ 전체 완료하기</button>
-                            <button type="button" class="pl_text_btn" aria-pressed="false" data-edit>수정하기</button>
-                        </div>
-                    </div>
-                    <ol class="pl_rows" data-steps></ol>
-                </section>
-
-
-                <!-- 04 모든 루틴 -->
-                <section class="pl_step" aria-labelledby="step-all">
-                    <h2 id="step-all" class="pl_step_title"><span class="pl_no">04</span>ALL ROUTINES<small>시간대별 모든 할 일</small></h2>
-                    <ul class="pl_all" data-routine-list></ul>
-                </section>
-            </div>
-
-            <!-- 오른쪽: 영수증 같은 요약 -->
-            <aside class="pl_aside" aria-label="선택한 루틴 요약">
-                <div class="pl_summary" data-summary>
-                    <span class="pl_summary_tab" aria-hidden="true"></span>
-                    <h2>Summary</h2>
-                    <p class="pl_summary_sub">나의 루틴</p>
-                    <img class="pl_summary_img" src="../img/common_character.svg" alt="">
-                    <p class="pl_summary_name" data-sum-name>숙제하기:<br>오늘의 학습 루틴</p>
-                    <p class="pl_mono" data-sum-date>11월 01 · 2026 · 16:00</p>
-                    <p class="pl_mono" data-sum-tasks>할 일 5개 · 약 40분</p>
-                    <div class="pl_sum_progress" aria-hidden="true"><span data-sum-bar></span></div>
-                    <p class="pl_mono pl_mono_small" data-sum-progress>진행 0/5단계</p>
-                    <p class="pl_mono pl_mono_tiny" data-sum-next>다음 시간대: 씻기 · 20:00</p>
-                    <a class="pl_continue" href="../today/today.html">CONTINUE TO TODAY <span aria-hidden="true">→</span></a>
-                    <button type="button" class="pl_add" data-add>+ 계획 추가하기</button>
                 </div>
-            </aside>
+                <ol class="rc_dow" aria-hidden="true"><li>일</li><li>월</li><li>화</li><li>수</li><li>목</li><li>금</li><li>토</li></ol>
+                <div class="rc_grid" data-cal-grid></div>
+                <ul class="rc_legend" data-legend aria-label="시간대 색"></ul>
+            </section>
+
+            <!-- 3. 오른쪽 패널: 고른 날의 할 일 목록 ↔ 고른 할 일의 단계 -->
+            <section class="rc_panel" aria-live="polite" data-panel></section>
         </div>
 
         <!-- 계획 추가 -->
@@ -195,8 +123,8 @@
     <!-- 하단: 파란 바탕 + 기울어진 띠 2줄이 옆으로 흘러감, 아래에 안내 칸과 둥근 버튼 -->
     <footer class="site_footer sf">
         <div class="sf_ribbons">
-            <div class="sf_ribbon sf_ribbon_back" aria-hidden="true"><div class="sf_track"><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_blue.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_blue.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_blue.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_blue.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span></div></div>
-            <div class="sf_ribbon sf_ribbon_front" aria-hidden="true"><div class="sf_track"><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_blue.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_blue.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_blue.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_blue.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span></div></div>
+            <div class="sf_ribbon sf_ribbon_back" aria-hidden="true"><div class="sf_track"><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_sky.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_sky.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_sky.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_sky.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span></div></div>
+            <div class="sf_ribbon sf_ribbon_front" aria-hidden="true"><div class="sf_track"><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_sky.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_sky.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_sky.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span><span class="sf_unit"><span>EVERY DAY</span><span class="sf_sticker"><img src="../img/common_logo_sky.svg" alt=""></span><span>ONE STEP UP</span><span class="sf_note">LUUP®<br>KIDS ROUTINE<br>FOR EVERY DAY.</span></span></div></div>
         </div>
 
         <div class="sf_inner">
@@ -206,7 +134,7 @@
                     <p>작은 실천이 모여 더 큰 성장으로.<br>LUUP과 함께 나만의 하루를 만들어가요.</p>
                 </div>
                 <div>
-                    <h2>Help</h2>
+                    <h2>Guide</h2>
                     <p>처음 시작하는 루틴도 어렵지 않도록,<br>LUUP이 하나씩 안내해 드릴게요.</p>
                 </div>
             </div>
