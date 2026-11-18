@@ -7976,3 +7976,382 @@ a.gg_more:hover {
   word-break: keep-all;
   opacity: 1;
 }
+
+/* =========================================================
+   BIG GROWTH 꺾은선 그래프 (배경)
+   - 직선으로 이어진 8개 점(주별 실천율) + 옅은 가로 격자 + 점마다 아래로 떨어지는 점선
+   - BIG GROWTH로 바뀔 때(is-swap): 선이 왼쪽→오른쪽으로 일정한 속도로 그려지고,
+     선이 닿는 순간 점이 톡 찍히며 물결이 퍼지고 값 라벨이 튀어오름
+   - 마지막 점은 크게 "81%" 배지 + 은은한 빛이 계속 퍼짐
+   ========================================================= */
+.gap_grid {
+  stroke: rgba(59, 111, 232, 0.08);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.gap .gap_chart_line {
+  fill: none;
+  stroke: url(#gapChartStroke);
+  stroke-width: 3;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  clip-path: inset(-10% 100% -10% 0);
+  transition: clip-path 2.8s linear;
+}
+
+.gap.is-swap .gap_chart_line {
+  clip-path: inset(-10% 0 -10% 0);
+}
+
+.gap .gap_chart_area {
+  opacity: 0;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 2.8s linear, opacity 1.2s ease 0.4s;
+}
+
+.gap.is-swap .gap_chart_area {
+  opacity: 1;
+  clip-path: inset(0 0 0 0);
+}
+
+/* 점에서 아래로 떨어지는 점선: 점이 찍힐 때 위에서 아래로 그어짐 */
+.gap_drop {
+  stroke: rgba(59, 111, 232, 0.25);
+  stroke-width: 1;
+  stroke-dasharray: 3 5;
+  vector-effect: non-scaling-stroke;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  transition-delay: var(--t);
+}
+
+.gap.is-swap .gap_drop {
+  opacity: 1;
+}
+
+/* 점 */
+.gap .gap_dot {
+  width: 12px;
+  border: 2.5px solid #3b6fe8;
+  background: #fff;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0);
+  transition: opacity 0.2s ease, transform 0.55s cubic-bezier(0.34, 1.8, 0.5, 1);
+  transition-delay: var(--t);
+}
+
+.gap.is-swap .gap_dot {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* 점이 찍힐 때 한 번 퍼지는 물결 */
+.gap .gap_dot::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border: 2px solid rgba(59, 111, 232, 0.6);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.gap.is-swap .gap_dot::before {
+  animation: gap-dot-ripple 0.9s ease-out var(--t) 1 both;
+}
+
+@keyframes gap-dot-ripple {
+  0% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(3.4);
+  }
+}
+
+/* 값 라벨: 점 위로 튀어오름 */
+.gap .gap_dot::after {
+  content: attr(data-v);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 8px);
+  padding: 3px 8px;
+  border-radius: 99px;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(59, 111, 232, 0.18);
+  font-family: var(--luup-font);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  color: #3b6fe8;
+  opacity: 0;
+  transform: translate(-50%, 8px) scale(0.8);
+  transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.34, 1.7, 0.5, 1);
+  transition-delay: calc(var(--t) + 0.12s);
+}
+
+.gap.is-swap .gap_dot::after {
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1);
+}
+
+/* 마지막 점: 크게, 파랗게 채움 + 큰 배지 + 계속 은은하게 빛남 */
+.gap .gap_dot_end {
+  width: 18px;
+  border-color: #fff;
+  background: #3b6fe8;
+  box-shadow: 0 0 0 0 rgba(59, 111, 232, 0.45);
+}
+
+.gap .gap_dot_end::after {
+  padding: 6px 12px;
+  background: #3b6fe8;
+  font-size: 15px;
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(59, 111, 232, 0.35);
+}
+
+.gap.is-swap .gap_dot_end {
+  animation: gap-end-glow 2.2s ease-in-out calc(var(--t) + 0.6s) infinite;
+}
+
+@keyframes gap-end-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(59, 111, 232, 0.45);
+  }
+
+  50% {
+    box-shadow: 0 0 0 14px rgba(59, 111, 232, 0);
+  }
+}
+
+@media (max-width: 760px) {
+  .gap .gap_dot:not(.gap_dot_end)::after {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gap .gap_chart_line,
+  .gap .gap_chart_area,
+  .gap_drop,
+  .gap .gap_dot,
+  .gap .gap_dot::after {
+    transition: none;
+  }
+
+  .gap.is-swap .gap_dot::before,
+  .gap.is-swap .gap_dot_end {
+    animation: none;
+  }
+}
+
+/* BIG GROWTH 그래프: 점 위 숫자 라벨은 표시하지 않음 */
+.gap .gap_dot::after,
+.gap .gap_dot_end::after {
+  content: none;
+  display: none;
+}
+
+/* BIG GROWTH 꺾은선: 더 과감하게 — 굵은 선, 진한 색, 진한 면 */
+.gap .gap_chart_line {
+  stroke-width: 5;
+}
+
+#gapChartStroke stop:nth-child(1) { stop-opacity: 0.4; }
+#gapChartStroke stop:nth-child(2) { stop-opacity: 0.75; }
+#gapChartStroke stop:nth-child(3) { stop-opacity: 1; }
+#gapChartFill stop:nth-child(1) { stop-opacity: 0.24; }
+
+.gap .gap_dot {
+  width: 14px;
+  border-width: 3px;
+}
+
+.gap .gap_dot_end {
+  width: 22px;
+}
+
+/* "작은 반복이 쌓여, 더 큰 성장으로, LUUP"의 LUUP: 보라 → 위 "LUUP이 특별한 이유"와 같은 파란색 */
+.arc_title em,
+.arc_head .arc_title em {
+  color: #2563eb;
+}
+
+/* 보라 뒷면 위 안내 라벨(어느 페이지에서 해결하는지): 자간을 넓히지 않음 */
+.arc_no {
+  letter-spacing: 0;
+}
+
+/* 카드 등장: 위에 숨어 있다가(is-up) 왼쪽부터 한 장씩 내려와 자리 잡음 — 살짝 튕기며 착지 */
+/* 출발: 화면 위 끝이 아니라 조금 위(약 38vh)에서, 왼쪽으로 비켜 기울어진 채 시작 → 곡선을 그리며 떨어짐 */
+.arc_card.is-up .arc_flip {
+  --lift: -30vh;
+  opacity: 0;
+  translate: -50px 0;
+  rotate: -10deg;
+}
+
+/* 느린 착지 움직임은 등장하는 동안에만 (스크롤로 카드가 뒤집힐 때는 원래처럼 빠르게) */
+.arc_cards.is-dealing .arc_flip {
+  /* 위아래·옆·기울기를 서로 다른 속도로 움직여 일직선이 아닌 휘어진 길로 떨어지고, 착지할 때 살짝 흔들림 */
+  /* 더 빠르게 + 과하게 튕기지 않고 부드럽게 내려앉음 */
+  transition:
+    transform 0.55s cubic-bezier(0.25, 1.12, 0.45, 1),
+    translate 0.45s cubic-bezier(0.22, 0.9, 0.3, 1),
+    rotate 0.6s cubic-bezier(0.3, 1.25, 0.45, 1),
+    opacity 0.2s ease;
+}
+
+/* 등장 중 맨 앞에 뜬 카드는 그림자를 진하게 해 또렷하게 */
+.arc_card.is-front .arc_front {
+  box-shadow: 0 30px 60px -20px rgba(30, 30, 60, 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arc_card.is-up .arc_flip {
+    --lift: 0px;
+    opacity: 1;
+  }
+}
+
+/* =========================================================
+   카드 등장 다시: 덜컹거림 없애기
+   - 원인: 뒤집히는 3D 카드(arc_flip)에 투명도·튕기는 움직임을 줘서, 등장 중 카드가 납작해지며
+     뒷면 글자가 거꾸로 비치고 위아래로 튕김
+   - 이제 3D 카드는 건드리지 않고, 바깥 카드 칸(arc_card)이 위에서 스르륵 내려옴 (튕김 없이 부드럽게 감속)
+   ========================================================= */
+.arc_card.is-up .arc_flip {
+  --lift: 0px;
+  opacity: 1;
+  translate: none;
+  rotate: none;
+}
+
+.arc_cards.is-dealing .arc_flip {
+  transition: transform 0.25s ease-out;
+}
+
+.arc_card.is-up {
+  opacity: 0;
+  translate: -36px -26vh;
+  rotate: -7deg;
+}
+
+.arc_cards.is-dealing .arc_card {
+  transition:
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    translate 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    rotate 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.45s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arc_card.is-up {
+    opacity: 1;
+    translate: none;
+    rotate: none;
+  }
+}
+
+/* =========================================================
+   특별한 이유 사진 넘김: 부드럽게 얹히기
+   - 화면 밖에서 확 밀려 들어오던 것 → 아주 조금 오른쪽(6%)에서 서서히 나타나며 살포시 얹힘
+   - 이전 사진은 어두워지지 않고 거의 그대로, 새 사진 안의 그림은 살짝 커졌다가 천천히 제자리로
+   ========================================================= */
+.w2 .w2_slide,
+.w2 .w2_slide:first-child {
+  opacity: 0;
+  transform: translateX(6%);
+}
+
+.w2 .w2_slide.is-prev {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+.w2 .w2_slide.is-ready {
+  opacity: 0;
+  transform: translateX(6%);
+  transition: none;
+}
+
+.w2 .w2_slide.is-current {
+  opacity: 1;
+  transform: none;
+  transition:
+    transform 1.3s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 1s ease;
+}
+
+.w2 .w2_slide.is-prev::after {
+  opacity: 0.12;
+}
+
+.w2 .w2_slide::after {
+  transition: opacity 1s ease;
+}
+
+.w2 .w2_slide > img.w2_pic {
+  transform: scale(1.06);
+  transition: transform 2.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .w2 .w2_slide.is-current {
+    transition: none;
+  }
+}
+
+/* 보라 뒷면 해결 문장: 세 줄 안에 들어오도록 조금 작게 + 최대 3줄 */
+.arc .arc_back p {
+  max-width: 82%;
+  font-size: clamp(14px, calc(var(--w) * 0.075), 20px);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* "꾸준함은 의지만으로…" 소개 문장: 글씨 조금 크게, 줄 간격·자간은 촘촘하게 */
+.w2 .w2_lead {
+  font-size: clamp(18px, 1.45vw, 22px);
+  line-height: 1.45;
+  letter-spacing: -0.035em;
+}
+
+/* 특별한 이유 01~04 단계 바뀜: 사진 넘김(1.3초)에 맞춰 더 천천히, 부드럽게
+   - 번호 동그라미는 색이 서서히 차오르며 살짝 커졌다 돌아오고, 바깥 고리는 퍼지듯 나타남
+   - 앞 단계는 서서히 옅어지고 다음 단계 글씨가 천천히 진해짐 */
+.w2 .w2_no {
+  transition:
+    background 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 1.1s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.w2 .w2_step.is-active .w2_no {
+  transform: scale(1.06);
+  box-shadow: 0 0 0 7px rgba(37, 99, 235, 0.13);
+}
+
+.w2 .w2_txt b,
+.w2 .w2_txt small {
+  transition: color 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .w2 .w2_no,
+  .w2 .w2_txt b,
+  .w2 .w2_txt small {
+    transition: none;
+  }
+}

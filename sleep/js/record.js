@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let current = 0;
     let timer = null;
 
-    // 지금 기록 기준 위치: -1(위) 0(가운데) 1(아래), 나머지는 아래 밖(2)에 숨김
+    // 지금 기록 기준 위치: -1(왼쪽) 0(가운데) 1(오른쪽), 나머지는 오른쪽 밖(2)에 숨김
     const offsetOf = (i) => ((i - current + n + 1) % n) - 1;
 
     const show = (index) => {
@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
         items.forEach((item, i) => {
             const o = offsetOf(i);
             const before = Number(item.style.getPropertyValue('--o') || o);
-            // 아래 밖에서 위로 한 번에 건너가는 카드는 움직임 없이 자리만 옮김
+            // 오른쪽 밖에서 왼쪽으로 한 번에 건너가는 카드는 움직임 없이 자리만 옮김
             item.classList.toggle('no-anim', Math.abs(o - before) > 1);
             item.style.setProperty('--o', o);
             item.classList.toggle('is-current', o === 0);
@@ -162,6 +162,14 @@ document.addEventListener('DOMContentLoaded', () => {
         show(i);
         start();
     }));
+
+    // 사진 위에 마우스를 올리거나 키보드로 고르는 동안은 멈춤, 벗어나면 다시 넘어감
+    const stage = ro.querySelector('.ro_stage');
+    const pause = () => clearInterval(timer);
+    stage?.addEventListener('pointerenter', pause);
+    stage?.addEventListener('pointerleave', start);
+    stage?.addEventListener('focusin', pause);
+    stage?.addEventListener('focusout', start);
 
     show(0);
     start();
@@ -421,4 +429,62 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, { threshold: 0.6 });
     observer.observe(title);
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 기록 화면 오른쪽 아래 "상세 기록 OFF/ON": 켜면 카드마다 최근 기록 목록이 펼쳐짐
+    const detail = document.querySelector('[data-cx-detail]');
+    const stage = document.querySelector('.cx_stage');
+    if (!detail || !stage) {
+        return;
+    }
+    detail.addEventListener('click', () => {
+        const on = detail.getAttribute('aria-pressed') !== 'true';
+        detail.setAttribute('aria-pressed', String(on));
+        stage.classList.toggle('is-detail', on);
+    });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 진단 흐름: 세로로 스크롤하면 패널 줄이 가로로 흘러감 (데스크톱). 좁은 화면은 손가락으로 옆으로 넘김
+    const fl = document.querySelector('[data-fl]');
+    const track = fl?.querySelector('[data-fl-track]');
+    if (!fl || !track) {
+        return;
+    }
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const wide = window.matchMedia('(min-width: 1025px)');
+    let distance = 0;
+    let ticking = false;
+
+    const setup = () => {
+        if (!wide.matches || reduce) {
+            fl.style.height = '';
+            track.style.transform = '';
+            fl.classList.remove('is-flow');
+            return;
+        }
+        fl.classList.add('is-flow');
+        distance = Math.max(track.scrollWidth - window.innerWidth, 0);
+        fl.style.height = `${window.innerHeight + distance}px`;
+        update();
+    };
+    const update = () => {
+        ticking = false;
+        if (!fl.classList.contains('is-flow')) {
+            return;
+        }
+        const progress = Math.min(Math.max(-fl.getBoundingClientRect().top / Math.max(distance, 1), 0), 1);
+        track.style.transform = `translate3d(${(-progress * distance).toFixed(1)}px, 0, 0)`;
+        fl.style.setProperty('--p', progress.toFixed(4));
+    };
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(update);
+        }
+    }, { passive: true });
+    window.addEventListener('resize', setup);
+    window.addEventListener('load', setup);
+    setup();
 });

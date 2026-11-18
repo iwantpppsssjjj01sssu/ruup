@@ -1893,3 +1893,71 @@
   border: 1px solid #e6e8ee;
   box-shadow: 0 20px 40px -24px rgba(17, 19, 24, 0.18);
 }
+
+/* 캘린더 상자와 오른쪽 패널의 아래 끝을 똑같이: 둘 다 같은 높이로 늘리고, 캘린더 범례는 상자 맨 아래로 */
+@media (min-width: 901px) {
+  .rc_board {
+    align-items: stretch;
+  }
+
+  .rc_cal {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .rc_legend {
+    margin-top: auto !important;
+    padding-top: 22px;
+  }
+
+  .rc_panel {
+    position: relative;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* 패널이 캘린더보다 짧을 때는 아래 버튼이 패널 맨 아래에 붙도록 */
+  .rc_panel > .rc_add:last-child,
+  .rc_panel > .rc_next:last-child {
+    margin-top: auto;
+  }
+}
+
+/* 첫 부분 위 간격: 다른 페이지와 같게 (헤더 아래 --page-top) */
+.pl_page.rc {
+  padding-top: var(--luup-header-h);
+}
+
+.rc .rc_head {
+  padding-top: var(--page-top);
+}
+
+/* 제목 위치를 Growth와 같게: 제목이 맨 위, "MY ROUTINE" 라벨은 제목 아래 */
+.rc .rc_head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: var(--title-x);
+  padding-right: var(--title-x);
+}
+
+.rc .rc_title {
+  order: 0;
+  margin-top: 0 !important;
+}
+
+.rc .rc_head .rc_label {
+  order: 1;
+  margin-top: 18px !important;
+}
+
+.rc .rc_lead {
+  order: 2;
+  margin-top: 10px !important;
+}
+
+.rc .rc_board {
+  padding-left: var(--title-x);
+  padding-right: var(--title-x);
+}

@@ -72,7 +72,7 @@
         <!-- 기록 첫 화면: 검정 바탕 + 큰 RECORD 글자 + 흰 띠, 가운데 세로 사진 줄(지금 기록이 크게), 가로줄에 기록 목록 -->
         <section class="ro" aria-labelledby="ro-title" data-ro>
             <h1 id="ro-title" class="ro_word">
-                <svg viewBox="0 0 1000 158" aria-hidden="true"><text x="0" y="148" textLength="1000" lengthAdjust="spacingAndGlyphs">RECORD</text></svg>
+                <span class="ro_word_text" aria-hidden="true">RECORD</span>
                 <span class="sr_only">LUUP 기록</span>
             </h1>
 
@@ -86,10 +86,10 @@
                 <span class="ro_rule" aria-hidden="true"></span>
 
                 <ul class="ro_strip" aria-hidden="true" data-ro-strip>
-                    <li class="ro_item"><img src="../img/main_photo_girl_desk.png" alt=""><span class="ro_mark">✅</span></li>
-                    <li class="ro_item"><img src="../img/main_photo_family_living.png" alt=""><span class="ro_mark">😊</span></li>
-                    <li class="ro_item"><img src="../img/main_photo_boy_homework.png" alt=""><span class="ro_mark">🎯</span></li>
-                    <li class="ro_item"><img src="../img/main_photo_mom_drawing.png" alt=""><span class="ro_mark">📝</span></li>
+                    <li class="ro_item"><img src="../img/main_photo_girl_desk.png" alt=""></li>
+                    <li class="ro_item"><img src="../img/main_photo_family_living.png" alt=""></li>
+                    <li class="ro_item"><img src="../img/main_photo_boy_homework.png" alt=""></li>
+                    <li class="ro_item"><img src="../img/main_photo_mom_drawing.png" alt=""></li>
                 </ul>
 
                 <p class="ro_no" data-ro-no>1</p>
@@ -111,9 +111,12 @@
         </section>
 
         <!-- 우리 아이 기록: 지금까지 쌓인 기록(최근 4주)을 먼저 보여 주고, 기록 남기기는 버튼 → 팝업에서 -->
-        <section class="cx" aria-labelledby="rec-title" data-rec>
+        <section class="cx cx_stage" aria-labelledby="rec-title" data-rec>
+            <!-- 배경: 어두운 사진 + 필름 노이즈. 가운데 큰 글자와 버튼, 둘레에 기록 카드 4장이 떠 있음 -->
+            <div class="cx_scene" aria-hidden="true"></div>
             <div class="cx_head">
                 <div>
+                    <p class="cx_display" aria-hidden="true">DAILY RECORD_<br>THIS WEEK_</p>
                     <p class="cx_tag">THIS WEEK VS LAST WEEK</p>
                     <p class="cx_date" data-rec-date></p>
                 </div>
@@ -136,6 +139,7 @@
                             <h3>루틴 수행 기록</h3>
                             <button type="button" class="cx_btn" data-rec-open="routine">기록하기</button>
                         </div>
+                        <figure class="cx_pic" aria-hidden="true"><img src="../img/main_photo_girl_desk.png" alt="" loading="lazy"></figure>
                         <p class="cx_now">오늘 <span data-rec-sum="routine"></span></p>
                         <p class="cx_big"><b data-h="routine-big"></b><span data-h="routine-label"></span></p>
                         <div class="cx_viz cx_bars" data-h="routine-viz" aria-hidden="true"></div>
@@ -147,6 +151,7 @@
                             <h3>감정 기록</h3>
                             <button type="button" class="cx_btn" data-rec-open="mood">기록하기</button>
                         </div>
+                        <figure class="cx_pic" aria-hidden="true"><img src="../img/main_photo_family_living.png" alt="" loading="lazy"></figure>
                         <p class="cx_now"><span data-rec-sum="mood"></span></p>
                         <p class="cx_big"><b data-h="mood-big"></b><span data-h="mood-label"></span></p>
                         <div class="cx_viz cx_emojis" data-h="mood-viz" aria-hidden="true"></div>
@@ -158,6 +163,7 @@
                             <h3>집중도 기록</h3>
                             <button type="button" class="cx_btn" data-rec-open="focus">기록하기</button>
                         </div>
+                        <figure class="cx_pic" aria-hidden="true"><img src="../img/main_photo_boy_homework.png" alt="" loading="lazy"></figure>
                         <p class="cx_now">오늘 집중도 <span data-rec-sum="focus"></span></p>
                         <p class="cx_big"><b data-h="focus-big"></b><span data-h="focus-label"></span></p>
                         <div class="cx_viz cx_bars cx_bars_focus" data-h="focus-viz" aria-hidden="true"></div>
@@ -169,6 +175,7 @@
                             <h3>기타메모</h3>
                             <button type="button" class="cx_btn" data-rec-open="memo">기록하기</button>
                         </div>
+                        <figure class="cx_pic" aria-hidden="true"><img src="../img/main_photo_mom_drawing.png" alt="" loading="lazy"></figure>
                         <p class="cx_now">오늘 메모 <span data-rec-sum="memo"></span></p>
                         <p class="cx_big"><b data-h="memo-big"></b><span data-h="memo-label"></span></p>
                         <div class="cx_viz cx_memos" data-h="memo-viz"></div>
@@ -183,6 +190,14 @@
                     <img src="../img/main_photo_mom_drawing.png" alt="">
                 </div>
             </div>
+
+            <!-- 왼쪽 아래 작은 표시 · 오른쪽 아래 상세 기록 켜고 끄기 -->
+            <p class="cx_corner"><span class="cx_corner_icon" aria-hidden="true"></span>매일 1분<br>아이의 하루<br>RECORD_ 2026</p>
+            <button type="button" class="cx_detail" aria-pressed="false" data-cx-detail>
+                <span class="cx_detail_label">상세 기록</span>
+                <span class="cx_detail_track" aria-hidden="true"><i></i></span>
+                <span class="cx_detail_states" aria-hidden="true"><span>OFF</span><span>ON</span></span>
+            </button>
 
             <!-- 기록 남기기 팝업: 고르거나 적으면 바로 저장됨 -->
             <dialog class="cx_dialog" aria-labelledby="rec-dialog-title" data-rec-dialog>
@@ -220,51 +235,57 @@
             </dialog>
         </section>
 
-        <!-- 루틴 유형 진단 소개 (진행 방법 바로 위) -->
-        <section class="page_hero test_intro_hero">
-            <div class="container test_intro_inner">
-                <div>
-                    <p class="eyebrow">Routine <b>Test</b></p>
-                    <h2 class="test_title">나에게 꼭 맞는<br><em>루틴 유형 찾기</em></h2>
-                    <p>5개의 질문에 O, X로 답하면 나의 생활 패턴에 맞는 루틴 유형과 지금 바로 시작할 루틴을 추천해 드려요.</p>
-                    <a class="btn btn_gradient test_start" href="sleep_name.html">진단 시작하기 <span class="arrow" aria-hidden="true">↗</span></a>
-                    <p class="test_note">약 1분 · 회원가입 없이 바로 시작해요</p>
-                </div>
-                <div class="test_preview" aria-hidden="true">
-                    <div class="test_preview_card">
-                        <span class="badge badge_soft">질문 1 / 5</span>
-                        <p>아침에 알람 없이도<br>일찍 일어나는 편이다</p>
-                        <div class="test_preview_answers"><span>O</span><span>X</span></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 진행 방법: 큰 사진 위에 흰 제목, 사진 아래쪽에 흰 카드 3장(굵은 도형 아이콘 + 제목 + 설명) -->
-        <section class="cw" aria-labelledby="cw-title">
-            <div class="cw_panel">
-                <img class="cw_bg" src="../img/main_photo_kids_rug.png" alt="">
-                <h2 id="cw-title" class="cw_title">이렇게<br>진행돼요</h2>
-                <ol class="cw_cards">
-                    <li class="cw_card reveal">
-                        <svg class="cw_icon" viewBox="0 0 56 56" aria-hidden="true"><path d="M2 4h14l18 24-18 24H2l18-24z"/><path d="M24 4h14l18 24-18 24H24l18-24z"/></svg>
-                        <h3><span>01</span>이름 입력</h3>
-                        <p>결과에서 불러드릴 이름이나 닉네임을 알려주세요.</p>
-                        <ul class="cw_more"><li>닉네임도 괜찮아요</li><li>최대 10자까지 입력해요</li><li>결과 화면에서 이름으로 불러 드려요</li></ul>
+        <!-- 루틴 유형 진단: 왼쪽 큰 글자 소개 → 세로 스크롤에 맞춰 단계 패널이 가로로 흘러감 -->
+        <section class="fl" aria-labelledby="fl-title" data-fl>
+            <div class="fl_sticky">
+                <ol class="fl_track" data-fl-track>
+                    <li class="fl_panel fl_intro">
+                        <p class="fl_kicker">{ ROUTINE TEST }</p>
+                        <div class="fl_intro_main">
+                            <h2 id="fl-title" class="fl_title">나에게 꼭 맞는<br>루틴 유형 찾기_</h2>
+                            <a class="fl_cta" href="sleep_name.html"><span aria-hidden="true">↗</span> 진단 시작하기_</a>
+                            <p class="fl_note">약 1분 · 회원가입 없이 O, X 질문 5개</p>
+                        </div>
+                        <figure class="fl_polaroid" aria-hidden="true"><img src="../img/main_photo_boy_homework.png" alt=""></figure>
                     </li>
-                    <li class="cw_card reveal">
-                        <svg class="cw_icon" viewBox="0 0 88 56" aria-hidden="true"><circle cx="28" cy="28" r="26" fill="none" stroke-width="2.5"/><circle cx="58" cy="28" r="28"/></svg>
-                        <h3><span>02</span>O, X 질문 5개</h3>
-                        <p>평소 생활과 가까운 쪽을 편하게 골라 주세요.</p>
-                        <ul class="cw_more"><li>아침·학교·숙제·저녁·잠 습관 질문</li><li>정답은 없어요, 솔직하게 골라요</li><li>모두 합쳐 약 1분이면 끝나요</li></ul>
+                    <li class="fl_panel">
+                        <div class="fl_icons" aria-hidden="true"><span>01</span><span>↗</span></div>
+                        <figure class="fl_card">
+                            <img class="fl_card_bg" src="../img/main_photo_mom_drawing.png" alt="" loading="lazy">
+                            <span class="fl_disc" style="background-image:url('../img/main_photo_mom_drawing.png')" aria-hidden="true"></span>
+                            <figcaption class="fl_label"><span>STEP 01. NAME_</span><span>이름 입력</span></figcaption>
+                        </figure>
+                        <p class="fl_desc">결과에서 불러드릴 이름이나 닉네임을 알려주세요.</p>
                     </li>
-                    <li class="cw_card reveal">
-                        <svg class="cw_icon" viewBox="0 0 56 56" aria-hidden="true"><rect x="0" y="0" width="56" height="24" rx="12"/><rect x="0" y="32" width="56" height="24" rx="12"/><rect x="10" y="20" width="36" height="16" rx="8"/></svg>
-                        <h3><span>03</span>유형과 추천 루틴</h3>
-                        <p>나의 루틴 유형과 바로 시작할 루틴 3개를 알려드려요.</p>
-                        <ul class="cw_more"><li>4가지 루틴 유형 중 하나를 알려 줘요</li><li>오늘 바로 시작할 루틴 3개 추천</li><li>결과는 언제든 다시 볼 수 있어요</li></ul>
+                    <li class="fl_panel">
+                        <div class="fl_icons" aria-hidden="true"><span>02</span><span>↗</span></div>
+                        <figure class="fl_card">
+                            <img class="fl_card_bg" src="../img/main_photo_tablet_quiz.png" alt="" loading="lazy">
+                            <span class="fl_disc" style="background-image:url('../img/main_photo_tablet_quiz.png')" aria-hidden="true"></span>
+                            <figcaption class="fl_label"><span>STEP 02. QUIZ_</span><span>O, X 질문 5개</span></figcaption>
+                        </figure>
+                        <p class="fl_desc">평소 생활과 가까운 쪽을 편하게 골라 주세요. 약 1분이면 끝나요.</p>
+                    </li>
+                    <li class="fl_panel">
+                        <div class="fl_icons" aria-hidden="true"><span>03</span><span>↗</span></div>
+                        <figure class="fl_card">
+                            <img class="fl_card_bg" src="../img/main_photo_girl_desk.png" alt="" loading="lazy">
+                            <span class="fl_disc" style="background-image:url('../img/main_photo_girl_desk.png')" aria-hidden="true"></span>
+                            <figcaption class="fl_label"><span>STEP 03. RESULT_</span><span>유형과 추천 루틴</span></figcaption>
+                        </figure>
+                        <p class="fl_desc">나의 루틴 유형과 지금 바로 시작할 루틴 3개를 알려드려요.</p>
+                    </li>
+                    <li class="fl_panel">
+                        <div class="fl_icons" aria-hidden="true"><span>04</span><span>↗</span></div>
+                        <figure class="fl_card">
+                            <img class="fl_card_bg" src="../img/main_photo_kids_rug.png" alt="" loading="lazy">
+                            <span class="fl_disc" style="background-image:url('../img/main_photo_kids_rug.png')" aria-hidden="true"></span>
+                            <figcaption class="fl_label"><span>STEP 04. START_</span><span>오늘부터 시작</span></figcaption>
+                        </figure>
+                        <p class="fl_desc">추천 루틴을 그대로 담아 오늘의 루틴으로 바로 이어가요.</p>
                     </li>
                 </ol>
+                <p class="fl_hint" aria-hidden="true">SCROLL →</p>
             </div>
         </section>
     </main>

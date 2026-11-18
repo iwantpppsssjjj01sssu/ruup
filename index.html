@@ -185,26 +185,37 @@
                 <svg class="gap_chart" viewBox="0 0 1440 720" preserveAspectRatio="none" aria-hidden="true">
                     <defs>
                         <linearGradient id="gapChartFill" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0" stop-color="#3b6fe8" stop-opacity="0.08"/>
+                            <stop offset="0" stop-color="#3b6fe8" stop-opacity="0.14"/>
                             <stop offset="1" stop-color="#3b6fe8" stop-opacity="0"/>
                         </linearGradient>
                         <linearGradient id="gapChartStroke" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
-                            <stop offset="0" stop-color="#3b6fe8" stop-opacity="0.05"/>
-                            <stop offset="0.6" stop-color="#3b6fe8" stop-opacity="0.22"/>
-                            <stop offset="1" stop-color="#3b6fe8" stop-opacity="0.4"/>
+                            <stop offset="0" stop-color="#3b6fe8" stop-opacity="0.18"/>
+                            <stop offset="0.6" stop-color="#3b6fe8" stop-opacity="0.45"/>
+                            <stop offset="1" stop-color="#3b6fe8" stop-opacity="0.8"/>
                         </linearGradient>
                     </defs>
-                    <path class="gap_chart_area" d="M0 705C200 700 300 690 400 680S640 662 760 650S980 628 1060 610S1200 560 1280 430S1380 200 1410 110S1430 50 1440 30L1440 720L0 720Z" fill="url(#gapChartFill)"/>
-                    <path class="gap_chart_line gap_chart_echo" d="M0 712C200 708 300 702 400 696S640 684 760 676S980 660 1060 646S1210 604 1290 490S1404 230 1440 140" pathLength="1"/>
-                    <path class="gap_chart_line" d="M0 705C200 700 300 690 400 680S640 662 760 650S980 628 1060 610S1200 560 1280 430S1380 200 1410 110S1430 50 1440 30" pathLength="1"/>
+                    <line class="gap_grid" x1="0" x2="1440" y1="180" y2="180"/>
+                    <line class="gap_grid" x1="0" x2="1440" y1="360" y2="360"/>
+                    <line class="gap_grid" x1="0" x2="1440" y1="540" y2="540"/>
+                    <path class="gap_chart_area" d="M0 712 L100 690 L307 610 L513 650 L720 560 L927 600 L1133 500 L1340 420 L1440 381 L1440 720 L0 720 Z" fill="url(#gapChartFill)"/>
+                    <line class="gap_drop" x1="100" x2="100" y1="690" y2="720" style="--t:0.29s"/>
+                    <line class="gap_drop" x1="307" x2="307" y1="610" y2="720" style="--t:0.70s"/>
+                    <line class="gap_drop" x1="513" x2="513" y1="650" y2="720" style="--t:1.10s"/>
+                    <line class="gap_drop" x1="720" x2="720" y1="560" y2="720" style="--t:1.50s"/>
+                    <line class="gap_drop" x1="927" x2="927" y1="600" y2="720" style="--t:1.90s"/>
+                    <line class="gap_drop" x1="1133" x2="1133" y1="500" y2="720" style="--t:2.30s"/>
+                    <line class="gap_drop" x1="1340" x2="1340" y1="420" y2="720" style="--t:2.71s"/>
+                    <path class="gap_chart_line" d="M0 712 L100 690 L307 610 L513 650 L720 560 L927 600 L1133 500 L1340 420 L1440 381"/>
                 </svg>
-                <!-- 그래프 위 점: 선이 지나가는 순서대로 톡톡 찍힘 (점이 늘어나지 않게 SVG 밖에 둠) -->
+                <!-- 꺾은선 위 점: 선이 지나가는 순간 톡 찍히며 물결이 퍼지고, 위에 값 라벨이 튀어오름 (점이 늘어나지 않게 SVG 밖에 둠) -->
                 <div class="gap_dots" aria-hidden="true">
-                    <span class="gap_dot" style="left:27.78%; top:94.44%; --t:1.5s"></span>
-                    <span class="gap_dot" style="left:52.78%; top:90.28%; --t:2s"></span>
-                    <span class="gap_dot" style="left:73.61%; top:84.72%; --t:2.4s"></span>
-                    <span class="gap_dot" style="left:88.89%; top:59.72%; --t:2.75s"></span>
-                    <span class="gap_dot gap_dot_end" style="left:97.92%; top:15.28%; --t:3.15s"></span>
+                    <span class="gap_dot" style="left:6.94%; top:95.83%; --t:0.24s"></span>
+                    <span class="gap_dot" style="left:21.32%; top:84.72%; --t:0.65s"></span>
+                    <span class="gap_dot" style="left:35.62%; top:90.28%; --t:1.05s"></span>
+                    <span class="gap_dot" style="left:50.00%; top:77.78%; --t:1.45s"></span>
+                    <span class="gap_dot" style="left:64.38%; top:83.33%; --t:1.85s"></span>
+                    <span class="gap_dot" style="left:78.68%; top:69.44%; --t:2.25s"></span>
+                    <span class="gap_dot gap_dot_end" style="left:93.06%; top:58.33%; --t:2.66s"></span>
                 </div>
                 <!-- SMALL STEPS 가 작게 나왔다가 BIG GROWTH 로 바뀜 -->
                 <p class="gap_swap" aria-label="SMALL STEPS, BIG GROWTH">
@@ -220,10 +231,10 @@
             <div class="arc_sticky">
                 <!-- 가운데 제목 + 양옆에 떠 있는 동그란 사진 -->
                 <div class="arc_head">
-                    <span class="arc_bubble arc_bubble_1" aria-hidden="true"><img src="img/common_character.svg" alt=""></span>
-                    <span class="arc_bubble arc_bubble_2" aria-hidden="true"><img src="img/common_character_book.png" alt=""></span>
-                    <span class="arc_bubble arc_bubble_3" aria-hidden="true"><img src="img/common_character_book.png" alt=""></span>
-                    <span class="arc_bubble arc_bubble_4" aria-hidden="true"><img src="img/common_character.svg" alt=""></span>
+                    <span class="arc_bubble arc_bubble_1" aria-hidden="true"><img src="img/common_character_towel.png" alt=""></span>
+                    <span class="arc_bubble arc_bubble_2" aria-hidden="true"><img src="img/common_character_study.png" alt=""></span>
+                    <span class="arc_bubble arc_bubble_3" aria-hidden="true"><img src="img/common_character_exercise.png" alt=""></span>
+                    <span class="arc_bubble arc_bubble_4" aria-hidden="true"><img src="img/common_character_book.png" alt=""></span>
 
                     <h2 id="arc-heading" class="arc_title">작은 반복이 쌓여,<br>더 큰 성장으로, <em>LUUP</em></h2>
                     <p class="arc_sub">아이와 함께 <b>매일의 루틴</b>을 쌓아 가며 <b>스스로 자라는 힘</b>을 키워요</p>
@@ -244,14 +255,14 @@
                                 <div class="pp_foot"><span>루틴으로 해결하기</span><i></i></div>
                             </div>
                             <div class="arc_face arc_back">
-                                <span class="arc_no">01 TODAY</span>
-                                <p>1분 루틴으로 오늘 할 일을 바로 끝내요</p>
-                                <span class="arc_go">오늘의 루틴 보기 →</span>
+                                <span class="arc_no">TODAY 페이지</span>
+                                <p>오늘 할 일을 하나씩 체크해 바로 끝내요</p>
+                                <span class="arc_go">TODAY 바로가기 →</span>
                             </div>
                         </a>
                     </li>
                     <li class="arc_card" style="--i:1">
-                        <a class="arc_flip" href="today/today.html#report">
+                        <a class="arc_flip" href="sleep/sleep_main.html">
                             <div class="arc_face arc_front arc_front_report pp" aria-hidden="true">
                                 <div class="pp_meta"><span>PAIN POINT</span><span>#02</span></div>
                                 <div class="pp_art">
@@ -261,9 +272,9 @@
                                 <div class="pp_foot"><span>루틴으로 해결하기</span><i></i></div>
                             </div>
                             <div class="arc_face arc_back">
-                                <span class="arc_no">02 REPORT</span>
-                                <p>쌓인 기록이 성장 리포트로 보여요</p>
-                                <span class="arc_go">리포트 보기 →</span>
+                                <span class="arc_no">RECORD 페이지</span>
+                                <p>지난주와 비교해 잘하고 있는지 보여줘요</p>
+                                <span class="arc_go">RECORD 바로가기 →</span>
                             </div>
                         </a>
                     </li>
@@ -278,14 +289,14 @@
                                 <div class="pp_foot"><span>루틴으로 해결하기</span><i></i></div>
                             </div>
                             <div class="arc_face arc_back">
-                                <span class="arc_no">REMINDER</span>
-                                <p>해야 할 시간에 딱 맞춰 알려줘요</p>
-                                <span class="arc_go">알림 설정하기 →</span>
+                                <span class="arc_no">MY 페이지 · 알림 설정</span>
+                                <p>루틴 시간마다 알림으로 알려줘요</p>
+                                <span class="arc_go">알림 설정하러 가기 →</span>
                             </div>
                         </a>
                     </li>
                     <li class="arc_card" style="--i:3">
-                        <a class="arc_flip" href="offline/offline.html">
+                        <a class="arc_flip" href="routine/routine.html">
                             <div class="arc_face arc_front arc_front_together pp" aria-hidden="true">
                                 <div class="pp_meta"><span>PAIN POINT</span><span>#04</span></div>
                                 <div class="pp_art">
@@ -295,14 +306,14 @@
                                 <div class="pp_foot"><span>루틴으로 해결하기</span><i></i></div>
                             </div>
                             <div class="arc_face arc_back">
-                                <span class="arc_no">03 TOGETHER</span>
-                                <p>가족이 함께 응원하며 이어가요</p>
-                                <span class="arc_go">함께하기 →</span>
+                                <span class="arc_no">ROUTINE 페이지</span>
+                                <p>작은 단계로 나눠 지치지 않게 이어가요</p>
+                                <span class="arc_go">ROUTINE 바로가기 →</span>
                             </div>
                         </a>
                     </li>
                     <li class="arc_card" style="--i:4">
-                        <a class="arc_flip" href="promo/promo.html">
+                        <a class="arc_flip" href="offline/offline.html">
                             <div class="arc_face arc_front arc_front_review pp" aria-hidden="true">
                                 <div class="pp_meta"><span>PAIN POINT</span><span>#05</span></div>
                                 <div class="pp_art">
@@ -312,14 +323,14 @@
                                 <div class="pp_foot"><span>루틴으로 해결하기</span><i></i></div>
                             </div>
                             <div class="arc_face arc_back">
-                                <span class="arc_no">04 REVIEW</span>
-                                <p>연속 기록으로 변화를 직접 확인해요</p>
-                                <span class="arc_go">이야기 더 보기 →</span>
+                                <span class="arc_no">GROWTH 페이지</span>
+                                <p>성장률과 달성한 목표로 효과를 확인해요</p>
+                                <span class="arc_go">GROWTH 바로가기 →</span>
                             </div>
                         </a>
                     </li>
                     <li class="arc_card" style="--i:5">
-                        <a class="arc_flip" href="sleep/sleep_main.html">
+                        <a class="arc_flip" href="sleep/sleep_name.html">
                             <div class="arc_face arc_front arc_front_buddy pp" aria-hidden="true">
                                 <div class="pp_meta"><span>PAIN POINT</span><span>#06</span></div>
                                 <div class="pp_art">
@@ -329,9 +340,9 @@
                                 <div class="pp_foot"><span>루틴으로 해결하기</span><i></i></div>
                             </div>
                             <div class="arc_face arc_back">
-                                <span class="arc_no">WITH LUUP</span>
-                                <p>진단으로 나에게 맞는 루틴을 찾아요</p>
-                                <span class="arc_go">루틴 유형 진단 →</span>
+                                <span class="arc_no">루틴 유형 진단</span>
+                                <p>O, X 질문 5개로 맞는 루틴을 찾아줘요</p>
+                                <span class="arc_go">진단 시작하기 →</span>
                             </div>
                         </a>
                     </li>

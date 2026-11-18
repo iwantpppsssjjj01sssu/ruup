@@ -1,6 +1,46 @@
 document.addEventListener('DOMContentLoaded', () => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    // 자동으로 내려갈 때 쓰는 부드러운 스크롤: 브라우저 기본 smooth보다 천천히, 처음과 끝이 부드러운 곡선
+    // 사용자가 휠·터치·키보드·클릭으로 직접 움직이면 바로 멈추고 사용자 조작을 따름
+    // 구역이 화면을 거의 다 채우고 있는지 (자동으로 넘어가기 전 확인)
+    const sectionSettled = (el) => {
+        const r = el.getBoundingClientRect();
+        return r.top < window.innerHeight * 0.15 && r.bottom > window.innerHeight * 0.85;
+    };
+
+    const glideTo = (targetY, customDuration) => {
+        const startY = window.scrollY;
+        const distance = targetY - startY;
+        if (prefersReducedMotion) {
+            window.scrollTo({ top: targetY, behavior: 'instant' });
+            return;
+        }
+        const duration = customDuration || Math.min(2200, Math.max(1200, Math.abs(distance) * 0.9));
+        const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+        let cancelled = false;
+        const cancel = () => {
+            cancelled = true;
+        };
+        const stopEvents = ['wheel', 'touchstart', 'keydown', 'mousedown'];
+        stopEvents.forEach((type) => window.addEventListener(type, cancel, { passive: true, once: true }));
+        const startedAt = performance.now();
+        const step = (now) => {
+            if (cancelled) {
+                return;
+            }
+            const t = Math.min((now - startedAt) / duration, 1);
+            // 사이트 전체에 걸린 scroll-behavior: smooth가 한 걸음마다 끼어들지 않도록 instant로
+            window.scrollTo({ top: startY + distance * ease(t), behavior: 'instant' });
+            if (t < 1) {
+                requestAnimationFrame(step);
+            } else {
+                stopEvents.forEach((type) => window.removeEventListener(type, cancel));
+            }
+        };
+        requestAnimationFrame(step);
+    };
+
     // 0. 인트로: 찢어진 종이 가장자리 만들기 → 끝나면(또는 건너뛰기) 지움
     const opening = document.querySelector('[data-intro]');
     if (opening) {
@@ -235,35 +275,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // 첫 화면(고정 영역)이 아직 화면을 채우고 있는지: 스크롤로 마지막 장면에 온 경우도 포함
         const ggInView = () => gg.getBoundingClientRect().bottom > window.innerHeight * 0.6;
         const ggHovering = () => !!gg.querySelector('a.gg_more:hover');
-        // 자동으로 내려갈 때: 브라우저 기본 smooth보다 천천히, 처음과 끝이 부드러운 곡선으로 (약 1.8초)
-        // 사용자가 휠·터치·키보드로 직접 움직이면 바로 멈추고 사용자 조작을 따름
-        const glideTo = (targetY) => {
-            const startY = window.scrollY;
-            const distance = targetY - startY;
-            const duration = Math.min(2200, Math.max(1200, Math.abs(distance) * 0.9));
-            const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-            let cancelled = false;
-            const cancel = () => {
-                cancelled = true;
-            };
-            const stopEvents = ['wheel', 'touchstart', 'keydown', 'mousedown'];
-            stopEvents.forEach((type) => window.addEventListener(type, cancel, { passive: true, once: true }));
-            const startedAt = performance.now();
-            const step = (now) => {
-                if (cancelled) {
-                    return;
-                }
-                const t = Math.min((now - startedAt) / duration, 1);
-                // 사이트 전체에 걸린 scroll-behavior: smooth가 한 걸음마다 끼어들지 않도록 instant로
-                window.scrollTo({ top: startY + distance * ease(t), behavior: 'instant' });
-                if (t < 1) {
-                    requestAnimationFrame(step);
-                } else {
-                    stopEvents.forEach((type) => window.removeEventListener(type, cancel));
-                }
-            };
-            requestAnimationFrame(step);
-        };
         // 마지막 장면은 나타난 뒤 3초(머묾 2.3초 + 글자 사라짐 0.7초) 만에 아래로 내려감
         const GG_LAST_HOLD_MS = 3000 - GG_OUT_MS;
         const scheduleAuto = (chapter) => {
@@ -282,18 +293,25 @@ document.addEventListener('DOMContentLoaded', () => {
                     ggTimer = setTimeout(fadeOut, 1200);
                     return;
                 }
+                // 앞 장면 → 다음 장면: 글자를 먼저 지우지 않고, 지금 화면 그대로 멈춘 상태에서 바로 다음 장면이 밀려 들어옴
+                if (index < chapters.length - 1) {
+                    ggAuto = index + 1;
+                    requestGg();
+                    return;
+                }
+                // 마지막 장면만 글자가 사라진 뒤 아래 구역으로 내려감
                 chapter.classList.add('is-out');
                 ggTimer = setTimeout(() => {
-                    if (index < chapters.length - 1) {
-                        ggAuto = index + 1;
-                        requestGg();
-                        return;
-                    }
                     // 마지막 장면까지 끝나면 자동으로 다음 구역으로 부드럽게 내려감 (한 번만)
                     ggAutoDone = true;
                     const next = gg.nextElementSibling;
                     const top = next ? next.getBoundingClientRect().top + window.scrollY : gg.offsetTop + gg.offsetHeight;
-                    glideTo(top);
+                    // 첫 화면은 화면에 고정된 채 길게 스크롤되는 구간이라, 처음부터 내려가면 한참 화면이 안 움직이다가
+                    // 마지막에 몰아서 휙 넘어가 버벅여 보임 → 지금 화면과 똑같이 보이는 고정 구간 끝으로 먼저 조용히 옮긴 뒤,
+                    // 다음 구역이 보이는 한 화면 거리만 천천히(1.8초) 부드럽게 올라오게 함
+                    const stickyEnd = Math.max(top - window.innerHeight, window.scrollY);
+                    window.scrollTo({ top: stickyEnd, behavior: 'instant' });
+                    requestAnimationFrame(() => glideTo(top, 1800));
                     // 다시 올라왔을 때 글자가 보이도록 사라짐 상태는 풀어 둠
                     setTimeout(() => chapter.classList.remove('is-out'), 1200);
                 }, GG_OUT_MS);
@@ -399,10 +417,40 @@ document.addEventListener('DOMContentLoaded', () => {
     //    ① SMALL STEPS 등장(is-open) → ② BIG GROWTH 로 바뀜(is-swap) → ③ 문장이 한 단어씩 진해지고 형광펜(is-done)
     const gap = document.querySelector('[data-gap]');
     if (gap) {
+        // BIG GROWTH가 다 나온 뒤(그래프 그려지는 시간까지) 아래 카드 구역으로 자동으로 내려감
+        // - 애니메이션이 시작된 뒤 4.2초가 지났고, 이 구역이 화면에 자리 잡은 지 3초가 지나면 내려감
+        // - 구역을 벗어났다가 다시 와도 또 작동
+        const GAP_PLAY_MS = 4200;
+        const GAP_STAY_MS = 3000;
+        const gapAutoNext = () => {
+            if (prefersReducedMotion) {
+                return;
+            }
+            const playedAt = performance.now();
+            let arrivedAt = null;
+            setInterval(() => {
+                const next = gap.nextElementSibling;
+                if (!next) {
+                    return;
+                }
+                if (!sectionSettled(gap)) {
+                    arrivedAt = null;
+                    return;
+                }
+                const now = performance.now();
+                arrivedAt = arrivedAt ?? now;
+                if (now - playedAt >= GAP_PLAY_MS && now - arrivedAt >= GAP_STAY_MS) {
+                    arrivedAt = Infinity;
+                    glideTo(next.getBoundingClientRect().top + window.scrollY);
+                    document.dispatchEvent(new Event('luup:arc-arrive'));
+                }
+            }, 400);
+        };
         const playGap = () => {
             gap.classList.add('is-open');
             setTimeout(() => gap.classList.add('is-swap'), 550);
             setTimeout(() => gap.classList.add('is-done'), 1350);
+            gapAutoNext();
         };
         if (prefersReducedMotion || !('IntersectionObserver' in window)) {
             gap.classList.add('is-open', 'is-swap', 'is-done');
@@ -438,7 +486,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (w2) {
         const slides = [...w2.querySelectorAll('[data-w2-slide]')];
         const steps = [...w2.querySelectorAll('[data-w2-step]')];
-        const AUTO_MS = 1600;
+        const AUTO_MS = 2600;
         let current = 0;
         let autoTimer = null;
         let inView = false;
@@ -477,12 +525,33 @@ document.addEventListener('DOMContentLoaded', () => {
             clearInterval(autoTimer);
             autoTimer = null;
         };
+        // 자동으로 아래로 내려가는 건 이 구역이 화면을 거의 다 채우고 있을 때만 (구역을 벗어났다 다시 오면 또 작동)
+        let w2AutoDone = false;
+        const w2Settled = () => sectionSettled(w2);
         const startAuto = () => {
             stopAuto();
             if (prefersReducedMotion || !inView) {
                 return;
             }
-            autoTimer = setInterval(() => show((current + 1) % slides.length), AUTO_MS);
+            autoTimer = setInterval(() => {
+                // 마지막(04) 단계 차례가 끝나면 아래 SMALL STEPS 구역으로 부드럽게 내려감 (한 번만)
+                // (마우스가 화면 위에 있는 건 보통이라, 마우스 위치로는 막지 않음)
+                if (current === slides.length - 1 && !w2AutoDone && w2Settled()) {
+                    w2AutoDone = true;
+                    stopAuto();
+                    const next = w2.nextElementSibling;
+                    if (next) {
+                        glideTo(next.getBoundingClientRect().top + window.scrollY);
+                    }
+                    // 돌아왔을 때 다시 01부터 보이도록
+                    setTimeout(() => {
+                        show(0);
+                        startAuto();
+                    }, 2400);
+                    return;
+                }
+                show((current + 1) % slides.length);
+            }, AUTO_MS);
         };
 
         slides[0].classList.add('is-current');
@@ -502,6 +571,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     startAuto();
                 } else {
                     stopAuto();
+                    // 구역을 완전히 벗어나면 다음에 다시 왔을 때 또 자동으로 넘어가도록
+                    w2AutoDone = false;
                 }
             }, { threshold: 0.35 }).observe(w2);
         }
@@ -579,6 +650,63 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 5. 아치형 카드: 섹션을 지나는 동안(0~1) 카드가 왼쪽부터 한 장씩 뒤집힘
     const arc = document.querySelector('[data-arc]');
+    // 위 구역에서 자동으로 내려와 카드 구역에 도착하면: 잠시 멈춘 뒤 천천히 스크롤하며 카드가 한 장씩 뒤집히고 초대장까지 감
+    if (arc && !prefersReducedMotion) {
+        // 카드 등장: 처음엔 카드가 모두 위에 숨어 있다가, 구역이 보이면 왼쪽 카드부터 한 장씩 위에서 내려와 자리 잡음
+        // 내려온 카드는 잠깐 맨 앞에 떠서 글(고민 문장)이 가려지지 않고 다 읽히고, 그다음 카드가 내려옴
+        const dealCards = [...arc.querySelectorAll('.arc_card')];
+        const DEAL_MS = 780;
+        let arcDealt = false;
+        const arcDealtWaiters = [];
+        const whenDealt = (fn) => (arcDealt ? fn() : arcDealtWaiters.push(fn));
+        if ('IntersectionObserver' in window && dealCards.length) {
+            dealCards.forEach((card) => card.classList.add('is-up'));
+            arc.querySelector('.arc_cards')?.classList.add('is-dealing');
+            const dealObserver = new IntersectionObserver((entries) => {
+                if (!entries[0].isIntersecting) {
+                    return;
+                }
+                dealObserver.disconnect();
+                dealCards.forEach((card, i) => {
+                    setTimeout(() => {
+                        dealCards.forEach((c) => {
+                            c.classList.remove('is-front');
+                            c.style.removeProperty('--rise');
+                        });
+                        card.classList.remove('is-up');
+                        card.classList.add('is-front');
+                        card.style.setProperty('--rise', '-18px');
+                    }, 300 + i * DEAL_MS);
+                });
+                // 마지막 카드까지 읽을 시간을 준 뒤 모두 제자리로
+                setTimeout(() => {
+                    dealCards.forEach((c) => {
+                        c.classList.remove('is-front');
+                        c.style.removeProperty('--rise');
+                    });
+                    arcDealt = true;
+                    setTimeout(() => arc.querySelector('.arc_cards')?.classList.remove('is-dealing'), 1200);
+                    arcDealtWaiters.splice(0).forEach((fn) => fn());
+                }, 300 + dealCards.length * DEAL_MS + 400);
+            }, { threshold: 0.3 });
+            dealObserver.observe(arc.querySelector('.arc_cards') || arc);
+        } else {
+            arcDealt = true;
+        }
+
+        document.addEventListener('luup:arc-arrive', () => {
+            // 카드가 다 내려와 읽힌 뒤에 천천히 스크롤하며 뒤집기 시작
+            setTimeout(() => whenDealt(() => setTimeout(() => {
+                const r = arc.getBoundingClientRect();
+                // 카드 구역 맨 위 근처에 있을 때만 (사용자가 다른 곳으로 움직였으면 하지 않음)
+                if (Math.abs(r.top) > window.innerHeight * 0.2) {
+                    return;
+                }
+                const scrollable = arc.offsetHeight - window.innerHeight;
+                glideTo(r.top + window.scrollY + scrollable * 0.83, 5200);
+            }, 1200)), 1800);
+        });
+    }
     if (arc && !prefersReducedMotion) {
         const cards = arc.querySelectorAll('.arc_card');
         const arcCta = arc.querySelector('[data-arc-cta]');
@@ -637,8 +765,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
             cards.forEach((card, index) => {
-                const start = 0.08 + index * 0.08;
-                const flip = clamp((progress - start) / 0.28);
+                // 한 장이 뒤집히는 구간을 줄여(0.28 → 0.2) 조금 더 빨리 뒤집힘
+                const start = 0.08 + index * 0.075;
+                const flip = clamp((progress - start) / 0.2);
                 card.style.setProperty('--flip', `${(flip * 180).toFixed(1)}deg`);
             });
         };

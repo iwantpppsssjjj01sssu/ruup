@@ -2496,3 +2496,191 @@ html.is-splash .stage_floor {
 .stage_br {
   right: var(--page-x, 28px);
 }
+
+/* =========================================================
+   오늘의 루틴: 검은 무대 → 흰 무대 (밝은 테마)
+   - 바탕은 흰색 + 아주 연한 하늘빛, 바닥 격자는 연한 파란 선
+   - 모서리 글자·목록 보기 글자는 진한 남색 / 회색
+   ========================================================= */
+.today_stage {
+  --stage-bg: #ffffff;
+  background:
+    radial-gradient(ellipse at 50% 45%, rgba(92, 200, 247, 0.12), transparent 60%),
+    linear-gradient(180deg, #ffffff 0%, #f4f8fd 100%);
+  color: var(--luup-ink);
+}
+
+.stage_floor {
+  background-image:
+    linear-gradient(rgba(11, 116, 209, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(11, 116, 209, 0.12) 1px, transparent 1px);
+}
+
+.stage_label,
+.stage_count,
+.stage_meta dd,
+.stage_toggle,
+.stage_counter {
+  color: #7a8597;
+}
+
+.stage_hint {
+  color: #9aa3b2;
+}
+
+.stage_tl h1,
+.stage_count b,
+.stage_cheer,
+.stage_meta dt,
+.stage_counter b,
+.stage_toggle button[aria-pressed="true"],
+.stage_toggle button:hover {
+  color: var(--luup-ink);
+}
+
+.stage_tl h1 em {
+  color: var(--luup-primary);
+}
+
+.stage_bar {
+  background: #e3e9f2;
+}
+
+/* 목록 보기 */
+.stage_index li + li {
+  border-top-color: #e3e9f2;
+}
+
+.stage_index .index_no,
+.stage_index .index_state {
+  color: #9aa3b2;
+}
+
+.stage_index b {
+  color: var(--luup-ink);
+}
+
+.stage_index .is-done b {
+  color: #9aa3b2;
+}
+
+.stage_index .is-done .index_state {
+  color: var(--luup-teal);
+}
+
+/* 첫 부분 위 간격: 다른 페이지와 같게 (헤더 아래 --page-top) */
+.today_stage .stage_tl,
+.today_stage .stage_tr {
+  top: calc(var(--luup-header-h) + var(--page-top));
+}
+
+@media (max-width: 1024px) {
+  .today_stage {
+    padding-top: calc(var(--luup-header-h) + var(--page-top));
+  }
+}
+
+/* 제목 위치를 Growth와 같게: 왼쪽 시작점 --title-x, 제목이 맨 위 · 날짜 라벨은 제목 아래 */
+.today_stage .stage_tl {
+  left: var(--title-x);
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.today_stage .stage_tl h1 {
+  margin: 0;
+}
+
+.today_stage .stage_tr {
+  right: var(--title-x);
+}
+
+/* 위쪽 제목·날짜(왼쪽)와 진행 수·막대(오른쪽)가 카드와 겹쳐도 잘 보이게:
+   카드보다 위에 두고, 반투명 흰 판(살짝 흐림)을 깔아 글씨를 또렷하게 */
+.today_stage .stage_tl,
+.today_stage .stage_tr {
+  z-index: 6;
+  padding: 12px 18px 14px;
+  margin: -12px -18px 0;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.82);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px -18px rgba(17, 19, 24, 0.25);
+}
+
+.today_stage .stage_tl .stage_label {
+  color: #5b6474;
+}
+
+.today_stage .stage_count {
+  color: #5b6474;
+}
+
+/* =========================================================
+   카드: 반투명 유리 카드 (참고: 형광빛 그라데이션 + 서리 낀 유리)
+   - 카드마다 선명한 2색 그라데이션(연두·노랑 / 하늘·보라 / 분홍·주황 …)에 흰 빛이 비스듬히 번짐
+   - 테두리는 얇은 흰 빛, 안쪽 아래는 서리 낀 유리 판 위에 글씨
+   - 가운데 정사각형 이모지 칸은 없앰 (그 자리는 비워 그라데이션이 보이게)
+   ========================================================= */
+.stage_card:not(.is-active):not(.is-clear) {
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 38%),
+    radial-gradient(120% 80% at 100% 0%, var(--g1) 0%, transparent 65%),
+    radial-gradient(110% 90% at 0% 100%, var(--g2) 0%, transparent 70%),
+    linear-gradient(160deg, #f6f8fc 0%, var(--g3) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.35),
+    0 30px 60px -28px color-mix(in srgb, var(--g2) 70%, #1a1a40);
+}
+
+.stage_card:nth-child(5n + 1) { --g1: #ffd1e8; --g2: #ff9fc8; --g3: #ffe3ef; }
+.stage_card:nth-child(5n + 2) { --g1: #c9d2ff; --g2: #9aa8ff; --g3: #e3e7ff; }
+.stage_card:nth-child(5n + 3) { --g1: #f4ff9a; --g2: #9ff0a8; --g3: #e9fbd8; }
+.stage_card:nth-child(5n + 4) { --g1: #b9f3ff; --g2: #7fc8ff; --g3: #dff3ff; }
+.stage_card:nth-child(5n + 5) { --g1: #e8ecf5; --g2: #b9c2d6; --g3: #eef1f7; }
+
+/* 이모지 칸 없애기 (빈 칸으로 그라데이션이 보이게) */
+.stage_card .card_visual {
+  background: none;
+  box-shadow: none;
+}
+
+.stage_card .card_emoji {
+  display: none !important;
+}
+
+/* 아래 띠: 흰 띠 대신 서리 낀 유리 판 */
+.stage_card:not(.is-active):not(.is-clear) .card_bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.42);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+
+.stage_card:not(.is-active) .card_title {
+  color: #12233a;
+}
+
+.stage_card:not(.is-active) .card_no,
+.stage_card:not(.is-active) .card_meta {
+  color: rgba(18, 35, 58, 0.62);
+}
+
+/* 지금 하는 카드: 같은 유리 느낌의 밝은 연두·하늘 그라데이션 */
+.stage_card.is-active {
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 40%),
+    radial-gradient(120% 80% at 100% 0%, #f4ff9a 0%, transparent 60%),
+    radial-gradient(110% 90% at 0% 100%, #8fe6c8 0%, transparent 70%),
+    linear-gradient(160deg, #fbfff0 0%, #e2f8ee 100%);
+  box-shadow:
+    inset 0 1px 0 #fff,
+    inset 0 0 0 1px rgba(255, 255, 255, 0.4),
+    0 34px 70px -30px rgba(40, 140, 110, 0.55);
+}

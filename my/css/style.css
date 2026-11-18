@@ -887,3 +887,14 @@
   }
 }
 
+
+/* 첫 부분 위 간격: 다른 페이지와 같게 (헤더 아래 --page-top) */
+.my_page {
+  padding-top: calc(var(--luup-header-h) + var(--page-top));
+}
+
+/* 제목 위치를 Growth와 같게: 왼쪽 시작점 --title-x */
+.my_page {
+  padding-left: var(--title-x);
+  padding-right: var(--title-x);
+}

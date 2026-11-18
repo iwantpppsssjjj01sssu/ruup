@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return `
         <li class="stage_card is-${routine.status}${isNext ? ' is-next' : ''}" data-card="${index}">
             <div class="card_top"><span class="card_no">${pad(index + 1)}</span><span class="card_state">${state}</span></div>
-            <div class="card_visual"><span class="card_emoji" aria-hidden="true">${routine.icon}</span></div>
+            <div class="card_visual" aria-hidden="true"></div>
             <div class="card_preview" aria-hidden="true">
                 <p class="preview_dots">${dots}<span>최근 6일</span></p>
                 <p class="preview_sum">해낸 날 <b>${doneDays}/${past.length}일</b> · 평균 <b>${average}분</b></p>

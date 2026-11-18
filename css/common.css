@@ -96,6 +96,10 @@
   --luup-radius: 24px;
   --luup-shadow: 0 24px 60px rgba(12, 26, 46, 0.12);
   --luup-header-h: 76px;
+  /* Today·Routine·Record·Growth·My 첫 부분: 헤더 아래 ~ 첫 글자까지 간격을 모두 같게 */
+  --page-top: clamp(36px, 4vw, 64px);
+  /* 같은 페이지들의 큰 제목 왼쪽 시작점 (Growth 제목과 같은 위치) */
+  --title-x: clamp(20px, 4vw, 64px);
 }
 
 html {

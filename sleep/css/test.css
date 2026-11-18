@@ -3893,3 +3893,1126 @@ main:has(> .ro) .test_preview_card {
     opacity: 0;
   }
 }
+
+/* =========================================================
+   기록 첫 화면: 검정 → 흰 바탕
+   - 큰 RECORD 글자는 진한 남색, 좌우 여백을 넉넉히
+   - 띠는 반대로 진한 바탕 + 흰 글씨
+   - 사진 줄이 위아래 대신 좌우로 넘어감 (--o: -1 왼쪽, 0 가운데, 1 오른쪽)
+   ========================================================= */
+.ro {
+  background: #fff;
+  color: #111318;
+}
+
+.ro_word {
+  padding: 0 clamp(28px, 5vw, 96px);
+}
+
+.ro_word text {
+  fill: #111318;
+}
+
+.ro_bar {
+  background: #111318;
+  color: #fff;
+}
+
+.ro_rule {
+  background: rgba(17, 19, 24, 0.18);
+}
+
+.ro_item {
+  background: #eef1f5;
+  opacity: 0.22;
+  filter: grayscale(1) brightness(1.1);
+  transform: translate(calc(-50% + var(--o) * (var(--big-w) / 2 + var(--small-w) / 2 + 16px)), -50%);
+}
+
+.ro_item.is-current {
+  opacity: 1;
+  filter: none;
+  box-shadow: 0 24px 50px -24px rgba(17, 19, 24, 0.35);
+}
+
+.ro_mark {
+  box-shadow: 0 8px 20px rgba(17, 19, 24, 0.12);
+}
+
+.ro_names button {
+  color: rgba(17, 19, 24, 0.35);
+}
+
+.ro_names button:hover,
+.ro_names button[aria-current="true"] {
+  color: #111318;
+}
+
+.ro_foot {
+  color: #7a808c;
+}
+
+.ro_foot p {
+  color: #111318;
+}
+
+/* 큰 RECORD 글자: 메인 페이지와 같은 Paperlogy 서체 */
+.ro_word text {
+  font-family: 'Paperlogy', var(--luup-font);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+/* =========================================================
+   기록 화면(오늘의 기록): 어두운 무대 + 떠 있는 카드
+   - 화면 가득 어두운 사진 + 필름 노이즈, 가운데 고정폭(모노) 큰 글자 + 흰 버튼
+   - 기록 카드 4장이 둘레에 떠 있음: 흰 테두리 사진 + 제목 + 오른쪽 위 흰 ↗ 탭
+   - 왼쪽 아래 작은 표시, 오른쪽 아래 상세 기록 OFF/ON 스위치
+   ========================================================= */
+main:has(> .cx_stage) {
+  --st-mono: ui-monospace, 'SFMono-Regular', 'JetBrains Mono', Menlo, Consolas, monospace;
+  --st-bg: #05060a;
+  --st-panel: rgba(18, 22, 38, 0.62);
+  --st-line: rgba(255, 255, 255, 0.14);
+  --st-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+
+.cx.cx_stage {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: max(100svh, 1120px);
+  padding: 0;
+  background: var(--st-bg);
+  color: #fff;
+}
+
+.cx_scene {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 60% 45% at 50% 22%, rgba(60, 120, 255, 0.35), transparent 70%),
+    linear-gradient(180deg, rgba(4, 6, 12, 0.55) 0%, rgba(4, 6, 12, 0.35) 40%, rgba(4, 6, 12, 0.9) 100%),
+    url('../../img/main_photo_kids_sofa.png') center / cover no-repeat;
+  filter: saturate(0.6) hue-rotate(185deg) brightness(0.55);
+}
+
+.cx_scene::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--st-noise);
+  mix-blend-mode: overlay;
+  opacity: 0.35;
+}
+
+/* 가운데 큰 글자 + 흰 버튼 */
+.cx_stage .cx_head {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 3;
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+  width: min(520px, 40vw);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+
+.cx_stage .cx_head > div {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+}
+
+.cx_display {
+  margin: 0 0 6px;
+  font-family: var(--st-mono);
+  font-size: clamp(30px, 3.4vw, 56px);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: 0.06em;
+  color: rgba(225, 235, 255, 0.92);
+  text-shadow: 0 0 18px rgba(120, 170, 255, 0.55);
+}
+
+.cx_stage .cx_tag,
+.cx_stage .cx_date {
+  margin: 0;
+  font-family: var(--st-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.cx_stage .cx_title {
+  margin: 0;
+  font-size: clamp(15px, 1.1vw, 18px);
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: -0.02em;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.cx_stage .cx_title .cx_main {
+  font-style: normal;
+  color: #fff;
+}
+
+.cx_stage .cx_actions {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  margin: 0;
+}
+
+.cx_stage .cx_write {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 4px;
+  background: #fff;
+  font-family: var(--st-mono);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #0b0d14;
+  box-shadow: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.25s ease;
+}
+
+.cx_stage .cx_write:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.18), 0 12px 30px rgba(80, 140, 255, 0.35);
+}
+
+.cx_stage .cx_chips {
+  display: flex;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cx_stage .cx_chips li {
+  padding: 6px 10px;
+  border: 1px solid var(--st-line);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  font-family: var(--st-mono);
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.cx_stage .cx_chips b {
+  color: #fff;
+}
+
+/* 둘레에 떠 있는 카드 4장 */
+.cx_stage .cx_body,
+.cx_stage .cx_cards {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.cx_stage .cx_media {
+  display: none;
+}
+
+.cx_stage .cx_card {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: clamp(280px, 24vw, 400px);
+  margin: 0;
+  padding: 18px 18px 20px;
+  border: 0;
+  border-radius: 0;
+  background: var(--st-panel);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  box-shadow: none;
+  color: #fff;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), background 0.3s ease;
+}
+
+.cx_stage .cx_card:hover {
+  background: rgba(24, 30, 52, 0.78);
+  transform: translateY(-6px) rotate(var(--tilt, 0deg));
+}
+
+.cx_stage .cx_card:nth-child(1) { left: 1.5%; top: 14%; }
+.cx_stage .cx_card:nth-child(2) { --tilt: -3deg; right: 4%; top: 5%; transform: rotate(-3deg); }
+.cx_stage .cx_card:nth-child(3) { left: 4%; bottom: 7%; }
+.cx_stage .cx_card:nth-child(4) { right: 1.5%; bottom: 10%; }
+
+.cx_stage .cx_card_top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0;
+  order: 2;
+}
+
+.cx_stage .cx_card h3 {
+  margin: 0;
+  font-family: var(--st-mono);
+  font-size: clamp(17px, 1.35vw, 22px);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+  color: #fff;
+}
+
+.cx_stage .cx_btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: #fff;
+  font-size: 0;
+  color: #0b0d14;
+  clip-path: polygon(0 0, 100% 0, 100% 78%, 78% 100%, 0 100%);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.cx_stage .cx_btn::before {
+  content: '↗';
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.cx_stage .cx_btn:hover {
+  background: #cfe0ff;
+}
+
+.cx_stage .cx_btn:focus-visible {
+  outline: 2px solid #8fb4ff;
+  outline-offset: 2px;
+}
+
+.cx_pic {
+  order: 1;
+  margin: 26px 0 0;
+  border: 3px solid #fff;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #111;
+}
+
+.cx_pic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cx_stage .cx_card:hover .cx_pic img {
+  transform: scale(1.05);
+}
+
+.cx_stage .cx_now {
+  order: 3;
+  margin: 0;
+  font-family: var(--st-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.cx_stage .cx_big {
+  order: 4;
+  display: grid;
+  gap: 4px;
+  margin: 0;
+}
+
+.cx_stage .cx_big b {
+  font-family: var(--st-mono);
+  font-size: clamp(26px, 2.2vw, 36px);
+  font-weight: 500;
+  line-height: 1;
+  color: #fff;
+}
+
+.cx_stage .cx_big span {
+  font-size: 13px;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.cx_stage .cx_viz {
+  order: 5;
+}
+
+.cx_stage .cx_day .cx_prev {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.cx_stage .cx_day .cx_now_bar,
+.cx_stage .cx_bars_focus .cx_day .cx_now_bar {
+  background: #8fb4ff;
+}
+
+.cx_stage .cx_day.is-today .cx_now_bar {
+  background: #fff;
+}
+
+.cx_stage .cx_day,
+.cx_stage .cx_mood_day,
+.cx_stage .cx_memos,
+.cx_stage .cx_memos p,
+.cx_stage .cx_memos small {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.cx_stage .cx_memos p {
+  border-color: var(--st-line);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* 상세 기록 목록: 평소엔 접어 두고, 오른쪽 아래 스위치를 켜면 펼침 */
+.cx_stage .cx_list {
+  order: 6;
+  display: none;
+  margin: 0;
+  padding: 10px 0 0;
+  border-top: 1px solid var(--st-line);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.cx_stage.is-detail .cx_list {
+  display: grid;
+}
+
+.cx_stage .cx_list * {
+  border-color: var(--st-line);
+  color: inherit;
+}
+
+/* 왼쪽 아래 · 오른쪽 아래 */
+.cx_corner {
+  position: absolute;
+  left: 2%;
+  bottom: 3%;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 14px;
+  margin: 0;
+  font-family: var(--st-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.cx_corner_icon {
+  grid-row: 1 / 4;
+  align-self: center;
+  width: 30px;
+  height: 30px;
+  border: 3px solid #b9a6ff;
+  border-radius: 50%;
+  background: linear-gradient(transparent 44%, #b9a6ff 44% 56%, transparent 56%);
+}
+
+.cx_detail {
+  position: absolute;
+  right: 2%;
+  bottom: 3%;
+  z-index: 3;
+  display: grid;
+  justify-items: end;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: var(--st-mono);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: #fff;
+  cursor: pointer;
+}
+
+.cx_detail_track {
+  position: relative;
+  width: 104px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.cx_detail_track i {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: #fff;
+  transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.cx_detail[aria-pressed="true"] .cx_detail_track i {
+  transform: translateX(100%);
+}
+
+.cx_detail_states {
+  display: flex;
+  justify-content: space-between;
+  width: 104px;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.cx_detail[aria-pressed="false"] .cx_detail_states span:first-child,
+.cx_detail[aria-pressed="true"] .cx_detail_states span:last-child {
+  color: #fff;
+}
+
+.cx_detail:focus-visible {
+  outline: 2px solid #8fb4ff;
+  outline-offset: 6px;
+}
+
+@media (max-width: 1024px) {
+  .cx.cx_stage {
+    min-height: 0;
+    padding: 96px 20px 120px;
+  }
+
+  .cx_stage .cx_head {
+    position: static;
+    width: 100%;
+    margin-bottom: 48px;
+    transform: none;
+  }
+
+  .cx_stage .cx_cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .cx_stage .cx_card {
+    position: relative;
+    inset: auto !important;
+    width: auto;
+    transform: none !important;
+  }
+
+  .cx_corner,
+  .cx_detail {
+    bottom: 32px;
+  }
+}
+
+@media (max-width: 640px) {
+  .cx_stage .cx_cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cx_corner {
+    display: none;
+  }
+}
+
+/* =========================================================
+   루틴 유형 진단 흐름: 왼쪽 소개 패널 + 단계 패널들이 가로로 흘러감
+   - 패널 사이 가는 세로선, 오른쪽 위 작은 둥근 아이콘 2개
+   - 둥근 사각 사진 카드 안에 원판(사진을 원으로 잘라 겹침) + 흰 상자 라벨
+   ========================================================= */
+.fl {
+  position: relative;
+  background: var(--st-bg);
+  color: #fff;
+}
+
+.fl_sticky {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.fl.is-flow .fl_sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+}
+
+.fl_sticky::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  background: var(--st-noise);
+  mix-blend-mode: overlay;
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+.fl_track {
+  display: flex;
+  width: max-content;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  will-change: transform;
+}
+
+.fl_panel {
+  position: relative;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 22px;
+  width: 50vw;
+  min-height: 100svh;
+  padding: calc(var(--luup-header-h) + 40px) clamp(24px, 4vw, 64px) 56px;
+  border-left: 1px solid var(--st-line);
+}
+
+/* 왼쪽 소개 패널 */
+.fl_intro {
+  border-left: 0;
+}
+
+.fl_kicker {
+  position: absolute;
+  top: calc(var(--luup-header-h) + 16px);
+  left: clamp(20px, 2vw, 32px);
+  margin: 0;
+  font-family: var(--st-mono);
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.fl_intro_main {
+  display: grid;
+  justify-items: center;
+  gap: 22px;
+  text-align: center;
+}
+
+.fl_title {
+  margin: 0;
+  font-family: var(--st-mono);
+  font-size: clamp(34px, 3.9vw, 66px);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  color: #fff;
+}
+
+.fl_cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 2px 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+  font-family: var(--st-mono);
+  font-size: clamp(15px, 1.2vw, 19px);
+  letter-spacing: 0.06em;
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+.fl_cta:hover,
+.fl_cta:focus-visible {
+  border-color: #b9a6ff;
+  color: #b9a6ff;
+}
+
+.fl_note {
+  margin: 0;
+  font-family: var(--st-mono);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.fl_polaroid {
+  position: absolute;
+  left: clamp(20px, 2vw, 32px);
+  bottom: 40px;
+  width: clamp(140px, 13vw, 220px);
+  aspect-ratio: 1;
+  margin: 0;
+  padding: 8px;
+  background: #fff;
+  transform: rotate(-3deg);
+}
+
+.fl_polaroid img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.9) hue-rotate(-10deg);
+}
+
+/* 단계 패널 */
+.fl_icons {
+  position: absolute;
+  top: calc(var(--luup-header-h) + 16px);
+  right: clamp(20px, 2vw, 32px);
+  display: flex;
+  gap: 10px;
+}
+
+.fl_icons span {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border: 1px solid var(--st-line);
+  border-radius: 12px;
+  background: #0d0f16;
+  font-family: var(--st-mono);
+  font-size: 14px;
+  color: #fff;
+}
+
+.fl_card {
+  position: relative;
+  width: min(32vw, 62svh, 560px);
+  aspect-ratio: 1;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 28px;
+  background: #3b2a8a;
+}
+
+.fl_card_bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(0.4) brightness(0.55);
+  mix-blend-mode: luminosity;
+  opacity: 0.55;
+}
+
+.fl_card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(160deg, rgba(110, 80, 230, 0.55), rgba(40, 30, 110, 0.75));
+  mix-blend-mode: multiply;
+}
+
+/* 원판: 사진을 원으로 잘라 가운데 구멍을 낸 디스크, 천천히 돌아감 */
+.fl_disc {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  z-index: 2;
+  width: 82%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background-position: center;
+  background-size: cover;
+  box-shadow: 0 20px 50px rgba(10, 6, 40, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+  -webkit-mask: radial-gradient(circle, transparent 0 11%, #000 11.5%);
+  mask: radial-gradient(circle, transparent 0 11%, #000 11.5%);
+  filter: saturate(1.1) hue-rotate(-15deg);
+  transform: translate(-50%, -50%) rotate(calc(var(--p, 0) * 220deg));
+}
+
+.fl_disc::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, transparent 0 20%, rgba(255, 255, 255, 0.28) 20.5% 22%, transparent 22.5%),
+    linear-gradient(120deg, rgba(255, 255, 255, 0.35), transparent 40%, rgba(160, 120, 255, 0.35));
+  mix-blend-mode: screen;
+}
+
+/* 흰 상자 라벨 */
+.fl_label {
+  position: absolute;
+  left: 8%;
+  bottom: 7%;
+  z-index: 3;
+  display: grid;
+  justify-items: start;
+  font-family: var(--st-mono);
+  font-size: clamp(22px, 2.3vw, 40px);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+  color: #0b0d14;
+}
+
+.fl_label span {
+  padding: 2px 6px;
+  background: #fff;
+}
+
+.fl_label span:first-child {
+  font-size: 0.42em;
+  letter-spacing: 0.1em;
+}
+
+.fl_desc {
+  max-width: min(32vw, 560px);
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.fl_hint {
+  position: absolute;
+  right: clamp(20px, 2vw, 32px);
+  bottom: 24px;
+  z-index: 6;
+  margin: 0;
+  font-family: var(--st-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.5);
+  opacity: calc(1 - var(--p, 0) * 3);
+}
+
+/* 좁은 화면: 손가락으로 옆으로 넘기는 줄 */
+@media (max-width: 1024px) {
+  .fl_sticky {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+
+  .fl_panel {
+    width: 86vw;
+    min-height: 0;
+    padding: 96px 20px 48px;
+    scroll-snap-align: start;
+  }
+
+  .fl_card {
+    width: min(70vw, 420px);
+  }
+
+  .fl_desc {
+    max-width: 70vw;
+  }
+
+  .fl_polaroid {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fl_disc {
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* 기록 무대 다듬기: 예전 메모지·태그 꾸밈 걷어내기, 가운데는 세로로, 떠 있는 카드는 간단히 */
+.cx_stage .cx_head {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.cx_stage .cx_tag {
+  padding: 0;
+  border-radius: 0;
+  background: none;
+}
+
+.cx_stage .cx_title {
+  max-width: none;
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  rotate: none;
+  font-size: clamp(15px, 1.1vw, 18px);
+  line-height: 1.6;
+}
+
+.cx_stage .cx_title::before,
+.cx_stage .cx_title::after {
+  display: none;
+}
+
+.cx_stage .cx_title .cx_main,
+.cx_stage .cx_title b {
+  color: #fff;
+}
+
+.cx_stage .cx_title span[data-h="total-diff"] {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* 떠 있을 때는 그래프 숨김 (상세 기록 ON에서 보임) */
+.cx_stage:not(.is-detail) .cx_viz {
+  display: none;
+}
+
+/* 상세 기록 ON: 카드가 가운데 글자 아래 2×2 격자로 정렬되며 그래프·목록이 펼쳐짐 */
+.cx_stage.is-detail {
+  min-height: 0;
+  padding: calc(var(--luup-header-h) + 60px) clamp(20px, 3vw, 48px) 140px;
+}
+
+.cx_stage.is-detail .cx_head {
+  position: static;
+  width: min(640px, 100%);
+  margin: 0 auto 56px;
+  transform: none;
+}
+
+.cx_stage.is-detail .cx_cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cx_stage.is-detail .cx_card {
+  position: relative;
+  inset: auto !important;
+  width: auto;
+  transform: none !important;
+}
+
+/* 첫 부분 위 간격: 다른 페이지와 같게 (헤더 아래 --page-top) */
+.ro {
+  padding-top: calc(var(--luup-header-h) + var(--page-top));
+}
+
+/* 제목 위치를 Growth와 같게: RECORD 글자 왼쪽 시작점 --title-x (바깥 여백 12px 포함) */
+.ro_word {
+  padding-left: max(0px, calc(var(--title-x) - 12px));
+  padding-right: max(0px, calc(var(--title-x) - 12px));
+}
+
+/* RECORD 제목: 화면 가득 늘린 글자 대신 Growth 제목과 같은 크기·서체·위치로 (왼쪽 정렬) */
+.ro_word {
+  line-height: 1;
+}
+
+.ro_word_text {
+  display: block;
+  font-family: 'Paperlogy', var(--luup-font);
+  font-size: clamp(44px, 9.2vw, 168px);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.05em;
+  color: #111318;
+}
+
+/* =========================================================
+   기록 첫 화면 정리: 사진 위에 겹치던 글자·가로줄을 걷어내고
+   사진 줄 아래 한 줄에 [번호·분류] · [기록 4개 탭] · [태그]를 깔끔하게 정렬
+   ========================================================= */
+.ro_rule {
+  display: none;
+}
+
+.ro_stage {
+  --info-h: 56px;
+}
+
+/* 사진: 아래 정보 줄 자리만큼 위로, 모서리 둥글게 */
+.ro_item {
+  top: calc(50% - var(--info-h) / 2);
+  border-radius: 18px;
+}
+
+.ro_item.is-current {
+  border-radius: 22px;
+}
+
+/* 아래 정보 줄 */
+.ro_no,
+.ro_cat,
+.ro_names,
+.ro_tag {
+  top: auto;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  font-size: clamp(14px, 1.05vw, 16px);
+}
+
+.ro_no {
+  left: 0;
+  min-width: 36px;
+  justify-content: center;
+  border-radius: 99px;
+  background: #111318;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.ro_cat {
+  left: 48px;
+  font-weight: 600;
+  color: #111318;
+}
+
+/* 기록 4개: 가운데 가로 탭 */
+.ro_names {
+  left: 50%;
+  gap: 6px;
+  line-height: 1;
+  transform: translateX(-50%);
+}
+
+.ro_names li {
+  display: flex;
+}
+
+.ro_names button {
+  padding: 10px 16px;
+  border: 1px solid #e3e6ec;
+  border-radius: 99px;
+  background: #fff;
+  font-size: inherit;
+  font-weight: 600;
+  white-space: nowrap;
+  color: #7a808c;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.ro_names button:hover {
+  border-color: #111318;
+  color: #111318;
+}
+
+.ro_names button[aria-current="true"] {
+  border-color: #111318;
+  background: #111318;
+  color: #fff;
+}
+
+.ro_tag {
+  right: 0;
+  font-weight: 600;
+  color: #7a808c;
+}
+
+.ro_tag::before {
+  content: '#';
+  margin-right: 2px;
+  color: #b6bcc6;
+}
+
+@media (max-width: 900px) {
+  .ro_cat,
+  .ro_tag {
+    display: none;
+  }
+
+  .ro_names {
+    display: flex;
+  }
+
+  .ro_names button {
+    padding: 8px 12px;
+  }
+}
+
+@media (max-width: 560px) {
+  .ro_names {
+    left: 48px;
+    right: 0;
+    overflow-x: auto;
+    transform: none;
+  }
+}
+
+/* 띠·사진 줄·아래 글까지 RECORD 제목과 같은 좌우 여백으로 맞추고, 탭 줄과 아래 글 사이 간격 */
+.ro {
+  padding-left: var(--title-x);
+  padding-right: var(--title-x);
+}
+
+.ro_word {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.ro_stage {
+  margin-bottom: 28px;
+}
+
+/* =========================================================
+   기록 사진 줄: 사건 파일처럼
+   - 사진마다 흰 종이 테두리 + 그림자, 양옆 파일은 살짝 기울고 뒤로 물러나 있음
+   - 넘어갈 때 한 장씩 책상 위에서 밀어 넘기듯 천천히 미끄러지며 기울기가 바로 섬
+   ========================================================= */
+.ro_item {
+  border: clamp(6px, 0.7vw, 10px) solid #fff;
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: 0 18px 40px -18px rgba(17, 19, 24, 0.35), 0 2px 6px rgba(17, 19, 24, 0.08);
+  rotate: calc(var(--o) * 4deg);
+  transition:
+    transform 1.15s cubic-bezier(0.45, 0, 0.2, 1),
+    width 1.15s cubic-bezier(0.45, 0, 0.2, 1),
+    height 1.15s cubic-bezier(0.45, 0, 0.2, 1),
+    rotate 1.15s cubic-bezier(0.45, 0, 0.2, 1),
+    opacity 0.8s ease,
+    filter 0.8s ease;
+}
+
+.ro_item.is-current {
+  border-radius: 6px;
+  rotate: -1deg;
+  box-shadow: 0 30px 60px -24px rgba(17, 19, 24, 0.45), 0 2px 8px rgba(17, 19, 24, 0.1);
+}
+
+.ro_item img {
+  border-radius: 2px;
+}
+
+/* 양옆 파일: 흑백으로 바래 보이게, 너무 흐리지 않게 */
+.ro_item:not(.is-current) {
+  opacity: 0.5;
+  filter: grayscale(1) sepia(0.15) brightness(1.05);
+}
+
+.ro_item.is-hidden {
+  opacity: 0;
+}
+
+/* 멈춤 표시: 마우스를 올리면 지금 파일이 살짝 들림 */
+.ro_stage:hover .ro_item.is-current {
+  transform: translate(-50%, calc(-50% - 6px));
+  rotate: 0deg;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ro_item {
+    transition: none;
+  }
+}
