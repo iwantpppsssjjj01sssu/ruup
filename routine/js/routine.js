@@ -116,6 +116,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     ${count}
                 </button>`);
         }
+        // 마지막 줄 뒤 빈칸도 채워 격자가 반듯하게 끝나도록
+        while (cells.length % 7) {
+            cells.push('<span class="rc_blank" aria-hidden="true"></span>');
+        }
         $('[data-cal-grid]').innerHTML = cells.join('');
     };
 
@@ -239,11 +243,23 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // 좁은 화면에서는 캘린더 아래 패널이 보이도록 내려 줌
+    // 넓은 화면: 달력이 화면을 꽉 채우고, 날짜를 누르면 오른쪽에서 할 일 창이 미끄러져 나옴
+    // 좁은 화면: 달력 아래 할 일 창으로 내려감
+    const board = $('.rc_board');
+    const openPanel = () => board.classList.add('is-panel');
+    const closePanel = () => board.classList.remove('is-panel');
     const showPanelOnMobile = () => {
+        openPanel();
         if (window.matchMedia('(max-width: 900px)').matches) {
             $('[data-panel]').scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
         }
     };
+    $('[data-close]').addEventListener('click', closePanel);
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && board.classList.contains('is-panel')) {
+            closePanel();
+        }
+    });
 
     // ---------- 클릭 처리 ----------
     page.addEventListener('click', (event) => {
@@ -259,6 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
             state.view = 'day';
             state.editing = false;
             refresh();
+            openPanel();
             return;
         }
         const pick = event.target.closest('[data-pick]');
@@ -407,5 +424,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     renderLegend();
+
+    // 왼쪽 탭: 시간대를 고르면 달력 막대에서 그 시간대만 진하게 보임 (다시 누르거나 '전체'를 누르면 모두)
+    const cal = $('.rc_cal');
+    const filters = $('[data-filters]');
+    const renderFilters = () => {
+        const active = cal.dataset.filter ?? 'all';
+        const rows = [{ key: 'all', name: '모든 루틴', time: '', color: '' }]
+            .concat(blocks.map((block, i) => ({ key: String(i), name: block.name, time: block.start, color: block.color })));
+        filters.innerHTML = rows.map((row) => `
+            <button type="button" class="rc_side_tag" data-filter="${row.key}" aria-pressed="${active === row.key}">
+                <i class="${row.key === 'all' ? 'is-all' : ''}" style="--c:${row.color}" aria-hidden="true"></i>
+                <span>${escapeHtml(row.name)}</span>
+                ${row.time ? `<small>${row.time}</small>` : ''}
+            </button>`).join('');
+    };
+    filters.addEventListener('click', (event) => {
+        const button = event.target.closest('[data-filter]');
+        if (!button) {
+            return;
+        }
+        const key = button.dataset.filter;
+        cal.dataset.filter = key === 'all' || cal.dataset.filter === key ? 'all' : key;
+        renderFilters();
+    });
+    cal.dataset.filter = 'all';
+    renderFilters();
     refresh();
 });

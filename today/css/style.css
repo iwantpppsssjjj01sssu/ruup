@@ -2684,3 +2684,146 @@ html.is-splash .stage_floor {
     inset 0 0 0 1px rgba(255, 255, 255, 0.4),
     0 34px 70px -30px rgba(40, 140, 110, 0.55);
 }
+
+/* =========================================================
+   1) 아직 안 한 카드(예정 · 다음 할 일): 회색으로 바래게 → 끝낸 카드·하는 카드와 확실히 구분
+      - 다음 할 일은 회색이지만 점선 테두리 + 진한 배지로 "곧 할 차례" 표시
+   ========================================================= */
+.stage_card.is-todo:not(.is-active) {
+  border: 1.5px dashed rgba(120, 128, 142, 0.45);
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 40%),
+    linear-gradient(160deg, #f4f5f7 0%, #dfe2e7 100%);
+  box-shadow: 0 24px 50px -30px rgba(17, 19, 24, 0.3);
+  filter: saturate(0.4);
+}
+
+.stage_card.is-todo:not(.is-active) .card_title,
+.stage_card.is-todo:not(.is-active) .card_meta,
+.stage_card.is-todo:not(.is-active) .card_no {
+  color: #8a919c;
+}
+
+.stage_card.is-todo:not(.is-active) .card_bottom {
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.stage_card.is-todo.is-next {
+  border-color: rgba(70, 80, 100, 0.55);
+  filter: saturate(0.6);
+}
+
+.stage_card.is-todo.is-next .card_title {
+  color: #4b5563;
+}
+
+/* =========================================================
+   2) 지금 하는 카드 앞면: 타이머·캐릭터 말풍선 빼고 루틴 이름만 아주 심플하게 (Pretendard Light)
+   ========================================================= */
+.stage_card.is-active .focus_left {
+  display: none !important;
+}
+
+.stage_card.is-active .focus_title {
+  margin-top: auto;
+  font-family: 'Pretendard Variable', 'Pretendard', var(--luup-font);
+  font-size: clamp(30px, 2.8vw, 44px);
+  font-weight: 300;
+  line-height: 1.25;
+  letter-spacing: -0.04em;
+  color: #12233a;
+}
+
+.stage_card.is-active .focus_title > span[aria-hidden="true"] {
+  display: none;
+}
+
+/* 이름을 카드 가운데 아래쪽에 두기: 위 번호줄 · 아래 여백 사이에서 */
+.stage_card.is-active {
+  display: flex;
+  flex-direction: column;
+}
+
+.stage_card.is-active .focus_grid {
+  margin-top: 0;
+}
+
+.stage_card.is-active:not(:is(:hover, :focus-within, .is-paused, .is-help, .is-timeup)) .focus_grid {
+  flex: 0 0 0;
+}
+
+/* =========================================================
+   카드 위 상태 배지 · 화살표 버튼: 깔끔하게
+   - 배지: 작고 얇은 흰 알약 + 왼쪽 작은 색 점 (완료 초록 · 진행 중 파랑 · 다음 할 일 회색)
+   - 화살표: 작은 흰 동그라미 + 가는 테두리, 가리키면 진하게
+   ========================================================= */
+.stage_card .card_state {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 28px;
+  padding: 0 11px 0 10px;
+  border: 1px solid rgba(17, 19, 24, 0.08);
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.85);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  box-shadow: none;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #2b3445;
+}
+
+.stage_card .card_state::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  flex: none;
+  border-radius: 50%;
+  background: #9aa1ab;
+}
+
+.stage_card.is-done .card_state::before {
+  background: #1fae86;
+}
+
+.stage_card.is-active .card_state::before {
+  background: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);
+}
+
+.stage_card.is-next .card_state {
+  border-color: rgba(17, 19, 24, 0.14);
+  background: rgba(255, 255, 255, 0.7);
+  color: #4b5563;
+}
+
+/* 진행 중 배지 안 원래 점 표시는 숨김 (위 색 점으로 대신) */
+.stage_card.is-active .card_state > *:not(:last-child),
+.stage_card.is-active .card_state i {
+  display: none;
+}
+
+.stage_card .card_go {
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(17, 19, 24, 0.1);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: none;
+  font-size: 15px;
+  color: #12233a;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+
+.stage_card .card_go:hover,
+.stage_card .card_go:focus-visible {
+  border-color: #12233a;
+  background: #12233a;
+  color: #fff;
+  transform: translateX(2px);
+}
+
+.stage_card .card_top_end {
+  gap: 8px;
+}

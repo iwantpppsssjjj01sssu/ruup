@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const start = () => {
         clearInterval(timer);
         if (!reduce) {
-            timer = setInterval(() => show((current + 1) % n), 3200);
+            timer = setInterval(() => show((current + 1) % n), 3600);
         }
     };
 

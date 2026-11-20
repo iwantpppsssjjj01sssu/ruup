@@ -8355,3 +8355,9 @@ a.gg_more:hover {
     transition: none;
   }
 }
+
+/* 카드가 내려오며 잠깐 맨 앞에 뜰 때(is-front)는 제목 형광펜을 칠하지 않음 — 마우스를 올렸을 때만 칠해짐 */
+.arc_card.is-front:not(:hover):not(:focus-within) .pp_title {
+  background-size: 0% 100%;
+  transition: none;
+}

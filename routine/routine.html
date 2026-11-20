@@ -79,6 +79,16 @@
         <div class="rc_board">
             <!-- 2. 이번 달 캘린더: 날짜마다 시간대별 루틴 점(완료하면 채워짐)과 완료 수 -->
             <section class="rc_cal" aria-labelledby="rc-month">
+                <!-- 왼쪽 탭: 바로가기 · 시간대별로 달력 보기 -->
+                <aside class="rc_side" aria-label="달력 메뉴">
+                    <p class="rc_side_label">바로가기</p>
+                    <button type="button" class="rc_side_btn rc_side_main" data-go-today>오늘 할 일 보기</button>
+                    <button type="button" class="rc_side_btn" data-add>+ 할 일 추가하기</button>
+                    <p class="rc_side_label">루틴별로 보기</p>
+                    <p class="rc_side_hint">고른 루틴만 달력 막대에 진하게 표시돼요</p>
+                    <div class="rc_side_tags" role="group" aria-label="시간대 골라 보기" data-filters></div>
+                </aside>
+                <div class="rc_cal_main">
                 <div class="rc_cal_head">
                     <h2 id="rc-month" class="rc_month" data-month-label>2026년 11월</h2>
                     <div class="rc_cal_nav">
@@ -90,10 +100,12 @@
                 <ol class="rc_dow" aria-hidden="true"><li>일</li><li>월</li><li>화</li><li>수</li><li>목</li><li>금</li><li>토</li></ol>
                 <div class="rc_grid" data-cal-grid></div>
                 <ul class="rc_legend" data-legend aria-label="시간대 색"></ul>
+                </div>
             </section>
 
             <!-- 3. 오른쪽 패널: 고른 날의 할 일 목록 ↔ 고른 할 일의 단계 -->
             <section class="rc_panel" aria-live="polite" data-panel></section>
+            <button type="button" class="rc_close" data-close aria-label="할 일 창 닫기">×</button>
         </div>
 
         <!-- 계획 추가 -->

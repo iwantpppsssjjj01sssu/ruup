@@ -1961,3 +1961,617 @@
   padding-left: var(--title-x);
   padding-right: var(--title-x);
 }
+
+/* =========================================================
+   달력 다듬기: 더 가볍고 깔끔하게
+   - 흰 판 위에 테두리 없는 날짜 칸 (가리키면 연한 회색)
+   - 날짜 아래 작은 점 5개 → 가는 막대 5칸 (끝낸 시간대만 색으로 채워짐)
+   - 고른 날: 파란 칸 + 흰 글씨 / 오늘: 파란 테두리 + 아래 작은 점
+   - 하루를 다 끝낸 날: 연한 민트 바탕
+   ========================================================= */
+.rc .rc_cal {
+  border: 1px solid #eceef2;
+  background: #fff;
+  box-shadow: 0 24px 50px -36px rgba(17, 19, 24, 0.25);
+}
+
+.rc .rc_month {
+  font-size: clamp(26px, 2.3vw, 38px);
+  font-weight: 700;
+}
+
+.rc .rc_nav_btn,
+.rc .rc_today_btn {
+  height: 38px;
+  border-color: #e6e8ee;
+  background: #f6f7f9;
+}
+
+.rc .rc_nav_btn {
+  width: 38px;
+}
+
+.rc .rc_nav_btn:hover,
+.rc .rc_today_btn:hover {
+  border-color: #2563eb;
+  background: #2563eb;
+  color: #fff;
+}
+
+.rc .rc_dow li {
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: #9aa1ab;
+}
+
+.rc .rc_dow li:first-child {
+  color: #ef6a6f;
+}
+
+.rc .rc_dow li:last-child {
+  color: #5b8cff;
+}
+
+.rc .rc_grid {
+  gap: 6px;
+}
+
+/* 날짜 칸 */
+.rc .rc_day {
+  aspect-ratio: 1 / 0.86;
+  border: 1px solid transparent;
+  border-radius: 16px;
+  background: transparent;
+  box-shadow: none;
+}
+
+.rc .rc_day:hover {
+  background: #f3f5f8;
+  transform: none;
+}
+
+.rc .rc_day b {
+  font-size: clamp(14px, 1.2vw, 18px);
+  font-weight: 600;
+  color: #1f2633;
+}
+
+.rc .rc_day.is-past b {
+  color: #b3b8c1;
+}
+
+.rc .rc_day.is-sun b {
+  color: #ef6a6f;
+}
+
+.rc .rc_day.is-sat b {
+  color: #5b8cff;
+}
+
+.rc .rc_day.is-past.is-sun b {
+  color: #f3a6a9;
+}
+
+.rc .rc_day.is-past.is-sat b {
+  color: #a9c1ff;
+}
+
+/* 완료 수 숫자는 숨기고 막대로 보여 줌 */
+.rc .rc_day small {
+  display: none;
+}
+
+/* 점 5개 → 가는 막대 5칸 */
+.rc .rc_dots {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 3px;
+  width: 100%;
+}
+
+.rc .rc_dots i {
+  width: auto;
+  height: 4px;
+  aspect-ratio: auto;
+  border: 0;
+  border-radius: 99px;
+  background: #e8ebf0;
+  opacity: 1;
+}
+
+.rc .rc_dots i.is-done {
+  background: var(--c);
+  filter: saturate(1.3) brightness(0.95);
+}
+
+/* 하루를 다 끝낸 날 */
+.rc .rc_day.is-all {
+  border-color: transparent;
+  background: #e9f9f3;
+  box-shadow: none;
+}
+
+/* 오늘: 파란 테두리 + 아래 작은 점 (배지 대신) */
+.rc .rc_day.is-today {
+  border-color: #2563eb;
+}
+
+.rc .rc_day.is-today b {
+  color: #2563eb;
+}
+
+.rc .rc_day.is-today::after {
+  content: '';
+  left: auto;
+  right: clamp(8px, 0.9vw, 12px);
+  top: clamp(10px, 1vw, 14px);
+  bottom: auto;
+  width: 6px;
+  height: 6px;
+  padding: 0;
+  border-radius: 50%;
+  background: #2563eb;
+  transform: none;
+}
+
+/* 고른 날: 파란 칸 */
+.rc .rc_day.is-selected {
+  border-color: #2563eb;
+  background: #2563eb;
+  box-shadow: 0 12px 24px -12px rgba(37, 99, 235, 0.6);
+}
+
+.rc .rc_day.is-selected b {
+  color: #fff;
+}
+
+.rc .rc_day.is-selected .rc_dots i {
+  background: rgba(255, 255, 255, 0.3);
+  filter: none;
+}
+
+.rc .rc_day.is-selected .rc_dots i.is-done {
+  background: #fff;
+}
+
+.rc .rc_day.is-selected.is-today::after {
+  background: #fff;
+}
+
+.rc .rc_day:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+/* 범례: 막대 모양으로 맞춤 */
+.rc .rc_legend {
+  padding-top: 18px;
+  border-top: 1px solid #eef0f3;
+  color: #6b7280;
+}
+
+.rc .rc_legend i {
+  width: 14px;
+  height: 4px;
+  aspect-ratio: auto;
+  border-radius: 99px;
+}
+
+.rc .rc_legend i.is-empty {
+  border: 0;
+  background: #e8ebf0;
+}
+
+/* =========================================================
+   달력이 화면에 꽉 차게 (참고: 가는 선으로 된 표 같은 격자)
+   - 상자·둥근 모서리 없이, 좌우 여백 안을 가득 채운 가는 회색 격자
+   - 칸 안: 왼쪽 위 날짜, 아래 가는 막대 / 고른 날은 칸 전체가 파랗게
+   - 넓은 화면: 날짜를 누르면 할 일 창이 오른쪽에서 미끄러져 나옴 (× 또는 Esc로 닫기)
+   ========================================================= */
+@media (min-width: 901px) {
+  .rc .rc_board {
+    display: block;
+    max-width: none;
+  }
+
+  .rc .rc_head {
+    max-width: none;
+  }
+
+  .rc .rc_cal {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  /* 할 일 창: 오른쪽 서랍 */
+  .rc .rc_panel {
+    position: fixed;
+    top: calc(var(--luup-header-h) + 16px);
+    right: 16px;
+    bottom: 16px;
+    z-index: 40;
+    width: min(420px, 34vw);
+    overflow-y: auto;
+    border: 1px solid #e6e8ee;
+    border-radius: 24px;
+    box-shadow: 0 30px 80px -30px rgba(17, 19, 24, 0.35);
+    transform: translateX(calc(100% + 32px));
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .rc .rc_board.is-panel .rc_panel {
+    transform: none;
+  }
+
+  .rc_close {
+    position: fixed;
+    top: calc(var(--luup-header-h) + 30px);
+    right: 30px;
+    z-index: 41;
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border: 1px solid #e6e8ee;
+    border-radius: 50%;
+    background: #fff;
+    font-size: 20px;
+    line-height: 1;
+    color: #12233a;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .rc .rc_board.is-panel .rc_close {
+    opacity: 1;
+    pointer-events: auto;
+    transition-delay: 0.25s;
+  }
+
+  .rc_close:hover {
+    background: #12233a;
+    color: #fff;
+  }
+}
+
+@media (max-width: 900px) {
+  .rc_close {
+    display: none;
+  }
+}
+
+/* 격자 */
+.rc .rc_dow,
+.rc .rc_grid {
+  gap: 0;
+  border-left: 1px solid #d9dde4;
+}
+
+.rc .rc_dow {
+  margin-bottom: 0 !important;
+  border-top: 1px solid #d9dde4;
+}
+
+.rc .rc_dow li {
+  padding: 10px 12px;
+  border-right: 1px solid #d9dde4;
+  border-bottom: 1px solid #d9dde4;
+  background: #f6f7f9;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.rc .rc_blank,
+.rc .rc_day {
+  border: 0;
+  border-right: 1px solid #d9dde4;
+  border-bottom: 1px solid #d9dde4;
+  border-radius: 0;
+}
+
+.rc .rc_blank {
+  background:
+    repeating-linear-gradient(135deg, transparent 0 8px, rgba(17, 19, 24, 0.035) 8px 9px);
+}
+
+.rc .rc_day {
+  aspect-ratio: auto;
+  min-height: clamp(84px, 8.5vw, 132px);
+  padding: 12px 12px 14px;
+  background: #fff;
+}
+
+.rc .rc_day:hover {
+  background: #f3f6fb;
+}
+
+.rc .rc_day.is-all {
+  background: #e9f9f3;
+}
+
+.rc .rc_day b {
+  font-size: clamp(14px, 1.1vw, 17px);
+}
+
+/* 오늘: 칸 테두리 대신 날짜 숫자에 파란 동그라미 */
+.rc .rc_day.is-today {
+  border-color: #d9dde4;
+}
+
+.rc .rc_day.is-today b {
+  display: inline-grid;
+  place-items: center;
+  width: 1.9em;
+  height: 1.9em;
+  margin: -0.35em 0 0 -0.35em;
+  border-radius: 50%;
+  background: #2563eb;
+  color: #fff;
+}
+
+.rc .rc_day.is-today::after {
+  display: none;
+}
+
+/* 고른 날: 칸 전체 파랑 */
+.rc .rc_day.is-selected {
+  border-color: #d9dde4;
+  border-radius: 0;
+  background: #2563eb;
+  box-shadow: none;
+}
+
+.rc .rc_day.is-selected.is-today b {
+  background: #fff;
+  color: #2563eb;
+}
+
+.rc .rc_dots {
+  max-width: 140px;
+}
+
+.rc .rc_legend {
+  margin-top: 0 !important;
+  padding-top: 16px;
+  border-top: 0;
+}
+
+@media (min-width: 901px) {
+  /* 닫혀 있을 때는 그림자까지 완전히 화면 밖으로 */
+  .rc .rc_panel {
+    visibility: hidden;
+    transform: translateX(calc(100% + 120px));
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s linear 0.55s;
+  }
+
+  .rc .rc_board.is-panel .rc_panel {
+    visibility: visible;
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s;
+  }
+}
+
+
+/* =========================================================
+   달력 왼쪽 탭 (참고: 작은 라벨 + 테두리만 있는 네모 버튼들)
+   - 바로가기: 오늘 할 일 보기 / 할 일 추가하기
+   - 시간대별로 보기: 전체 · 일어나기 … 를 누르면 달력 막대에서 그 시간대만 진하게
+   ========================================================= */
+.rc_cal_main {
+  min-width: 0;
+}
+
+.rc_side {
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  gap: 8px;
+}
+
+.rc_side_label {
+  margin: 14px 0 2px !important;
+  font-size: 12px;
+  font-weight: 600;
+  color: #8a919c;
+}
+
+.rc_side_label:first-child {
+  margin-top: 0 !important;
+}
+
+.rc_side_btn,
+.rc_side_tag {
+  padding: 7px 12px;
+  border: 1px solid #c9ced6;
+  border-radius: 2px;
+  background: #fff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: #2b3445;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.rc_side_btn {
+  width: 100%;
+}
+
+.rc_side_main {
+  border-color: #2563eb;
+  color: #2563eb;
+}
+
+.rc_side_tags {
+  display: grid;
+  justify-items: start;
+  gap: 6px;
+  padding-left: 10px;
+}
+
+.rc_side_btn:hover,
+.rc_side_tag:hover {
+  border-color: #12233a;
+}
+
+.rc_side_main:hover {
+  background: #2563eb;
+  color: #fff;
+}
+
+.rc_side_tag[aria-pressed="true"] {
+  border-color: #2563eb;
+  background: #2563eb;
+  color: #fff;
+}
+
+.rc_side_btn:focus-visible,
+.rc_side_tag:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+/* 시간대 골라 보기: 고른 시간대 막대만 진하게, 나머지는 흐리게 */
+.rc_cal[data-filter="0"] .rc_dots i:not(:nth-child(1)) { opacity: 0.15; }
+.rc_cal[data-filter="1"] .rc_dots i:not(:nth-child(2)) { opacity: 0.15; }
+.rc_cal[data-filter="2"] .rc_dots i:not(:nth-child(3)) { opacity: 0.15; }
+.rc_cal[data-filter="3"] .rc_dots i:not(:nth-child(4)) { opacity: 0.15; }
+.rc_cal[data-filter="4"] .rc_dots i:not(:nth-child(5)) { opacity: 0.15; }
+
+.rc_cal:not([data-filter="all"]) .rc_dots i {
+  transition: opacity 0.3s ease;
+}
+
+@media (min-width: 901px) {
+  .rc .rc_cal {
+    display: grid;
+    grid-template-columns: clamp(160px, 13vw, 210px) minmax(0, 1fr);
+    gap: clamp(20px, 2.4vw, 40px);
+    align-items: start;
+  }
+
+  .rc_side {
+    position: sticky;
+    top: calc(var(--luup-header-h) + 24px);
+    padding-top: 74px;
+  }
+}
+
+@media (max-width: 900px) {
+  .rc_side {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .rc_side_label {
+    width: 100%;
+  }
+
+  .rc_side_btn {
+    width: auto;
+  }
+
+  .rc_side_tags {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+  }
+}
+
+/* 오른쪽 할 일 창이 열리면 달력이 그만큼 왼쪽으로 줄어들어 가려지지 않게 (부드럽게) */
+@media (min-width: 901px) {
+  .rc .rc_board {
+    transition: padding-right 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .rc .rc_board.is-panel {
+    padding-right: calc(min(420px, 34vw) + 40px);
+  }
+
+  /* 칸이 좁아져도 막대·날짜가 넘치지 않게 */
+  .rc .rc_day {
+    min-width: 0;
+    overflow: hidden;
+  }
+}
+
+/* 왼쪽 탭 루틴 목록: 모두 같은 폭의 한 줄 목록 (색 점 · 이름 · 시작 시간) */
+.rc_side_hint {
+  margin: -2px 0 4px !important;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #9aa1ab;
+}
+
+.rc_side_tags {
+  width: 100%;
+  gap: 0;
+  padding-left: 0;
+  border-top: 1px solid #e3e6eb;
+}
+
+.rc_side_tag {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 8px;
+  border: 0;
+  border-bottom: 1px solid #e3e6eb;
+  border-radius: 0;
+  background: transparent;
+}
+
+.rc_side_tag i {
+  width: 10px;
+  height: 10px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--c);
+}
+
+.rc_side_tag i.is-all {
+  background: conic-gradient(#d6dcfb 0 20%, #a8b4fb 0 40%, #4f6bff 0 60%, #a6ecdf 0 80%, #d2f5ec 0);
+}
+
+.rc_side_tag span {
+  flex: 1;
+}
+
+.rc_side_tag small {
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: #9aa1ab;
+}
+
+.rc_side_tag:hover {
+  border-color: #e3e6eb;
+  background: #f4f6f9;
+}
+
+.rc_side_tag[aria-pressed="true"] {
+  border-color: #e3e6eb;
+  background: #eef3ff;
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.rc_side_tag[aria-pressed="true"] small {
+  color: #2563eb;
+}
+
+@media (max-width: 900px) {
+  .rc_side_tags {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

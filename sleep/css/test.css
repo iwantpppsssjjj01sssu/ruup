@@ -5016,3 +5016,132 @@ main:has(> .cx_stage) {
     transition: none;
   }
 }
+
+/* 기록 무대 · 진단 흐름: 고정폭(모노) 글씨 → 큰 제목은 Paperlogy, 나머지는 Pretendard */
+main:has(> .cx_stage) {
+  --st-mono: 'Pretendard Variable', 'Pretendard', var(--luup-font);
+}
+
+.cx_display,
+.fl_title,
+.fl_label,
+.cx_stage .cx_big b {
+  font-family: 'Paperlogy', var(--luup-font);
+}
+
+.cx_display {
+  font-size: clamp(34px, 3.6vw, 60px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.fl_title {
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.fl_label {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.fl_label span:first-child {
+  letter-spacing: 0;
+}
+
+.cx_stage .cx_tag,
+.cx_stage .cx_date,
+.cx_stage .cx_chips li,
+.cx_corner,
+.cx_detail,
+.fl_kicker,
+.fl_note,
+.fl_hint {
+  letter-spacing: 0;
+}
+
+.cx_stage .cx_card h3 {
+  font-family: 'Pretendard Variable', 'Pretendard', var(--luup-font);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.cx_stage .cx_write,
+.fl_cta {
+  letter-spacing: -0.01em;
+}
+
+/* =========================================================
+   기록 사진 줄: 영화 예고편처럼 (회전 없음)
+   - 사진은 기울지 않고 반듯하게, 종이 테두리 대신 둥근 모서리 사진
+   - 일정한 리듬으로 옆으로 쓱 미끄러지듯 넘어감 (천천히 출발 → 가운데서 빠르게 → 천천히 멈춤)
+   - 가운데 사진은 머무는 동안 아주 천천히 확대(켄번즈), 양옆은 흐리게
+   ========================================================= */
+.ro_item,
+.ro_item.is-current,
+.ro_stage:hover .ro_item.is-current {
+  rotate: none;
+}
+
+.ro_item {
+  border: 0;
+  border-radius: 16px;
+  background: #e9ecf1;
+  box-shadow: 0 20px 44px -26px rgba(17, 19, 24, 0.4);
+  transition:
+    transform 1.25s cubic-bezier(0.65, 0, 0.35, 1),
+    width 1.25s cubic-bezier(0.65, 0, 0.35, 1),
+    height 1.25s cubic-bezier(0.65, 0, 0.35, 1),
+    opacity 1s ease,
+    filter 1s ease;
+}
+
+.ro_item.is-current {
+  border-radius: 20px;
+  box-shadow: 0 34px 70px -30px rgba(17, 19, 24, 0.5);
+}
+
+.ro_item:not(.is-current) {
+  opacity: 0.38;
+  filter: grayscale(1) brightness(1.08);
+}
+
+.ro_item.is-hidden {
+  opacity: 0;
+}
+
+/* 머무는 동안 가운데 사진이 천천히 확대 */
+.ro_item img {
+  border-radius: 0;
+  transform: scale(1);
+  transition: transform 1.25s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.ro_item.is-current img {
+  animation: ro-kenburns 4.6s linear forwards;
+}
+
+@keyframes ro-kenburns {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.08);
+  }
+}
+
+/* 마우스를 올려 멈출 때는 들리지 않고 그대로 (멈춤만) */
+.ro_stage:hover .ro_item.is-current {
+  transform: translate(-50%, -50%);
+}
+
+.ro_stage:hover .ro_item.is-current img {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ro_item.is-current img {
+    animation: none;
+  }
+}
