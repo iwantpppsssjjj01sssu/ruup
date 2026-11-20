@@ -8361,3 +8361,270 @@ a.gg_more:hover {
   background-size: 0% 100%;
   transition: none;
 }
+
+/* 카드 아래 줄: 글씨 없이 오른쪽 화살표 동그라미만 */
+.pp_foot {
+  justify-content: flex-end;
+}
+
+/* =========================================================
+   보라 뒷면 아래 링크: 글씨 링크 대신 글라스모피즘 버튼
+   - 평소엔 숨어 있다가, 뒤집힌 카드에 마우스를 올리면 카드가 위로 떠오르며 버튼이 아래에서 스르륵 나타남
+   ========================================================= */
+.arc .arc_go {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  margin-top: 6px;
+  padding: 10px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.18);
+  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+  backdrop-filter: blur(12px) saturate(1.4);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), 0 10px 24px -10px rgba(20, 10, 80, 0.45);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #fff;
+  text-decoration: none;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), background 0.25s ease;
+}
+
+.arc .arc_go > span {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #fff;
+  font-size: 12px;
+  color: #5a4fe0;
+}
+
+/* 뒤집힌 카드에 마우스를 올리거나 키보드로 고르면: 카드가 떠오르고 버튼이 나타남 */
+.arc_card:is(:hover, :focus-within) .arc_flip {
+  --lift: -22px;
+}
+
+.arc_card:is(:hover, :focus-within) .arc_go {
+  opacity: 1;
+  transform: none;
+}
+
+.arc_card .arc_go:hover,
+.arc_flip:hover .arc_go {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+/* 터치 화면은 마우스가 없으니 처음부터 버튼을 보여 줌 */
+@media (hover: none) {
+  .arc .arc_go {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arc .arc_go {
+    transition: none;
+  }
+}
+
+/* 마우스를 올려도 카드를 반대로 뒤집지 않음 → 지금 보이는 면 그대로 위로 떠오름 (뒷면이면 버튼이 나타남) */
+@media (hover: hover) and (pointer: fine) {
+  .arc_card:hover .arc_flip {
+    transform: translateY(-22px) rotateY(var(--flip));
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+
+/* GO 버튼: 카드 안 글 흐름에서 빼서, 카드 가운데 위에 떠 있는 글래스 버튼으로 */
+.arc .arc_go {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 3;
+  margin: 0;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  transform: translate(-50%, calc(-50% + 14px)) scale(0.9);
+}
+
+.arc_card:is(:hover, :focus-within) .arc_go {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+@media (hover: none) {
+  .arc .arc_go {
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* GO 버튼: 카드 안이 아니라 보라 카드 위쪽 바깥에 떠 있는 글래스 버튼
+   - 뒤집힌(뒷면) 카드에 마우스를 올리면 카드 위로 스르륵 떠오름 */
+.arc .arc_back .arc_go {
+  display: none;
+}
+
+.arc_go_btn {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 34px);
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 99px;
+  background: rgba(120, 105, 240, 0.22);
+  -webkit-backdrop-filter: blur(14px) saturate(1.5);
+  backdrop-filter: blur(14px) saturate(1.5);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 14px 30px -12px rgba(70, 50, 200, 0.5);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #4a3fd6;
+  text-decoration: none;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 12px) scale(0.92);
+  transition: opacity 0.3s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), background 0.25s ease;
+}
+
+.arc_go_btn span {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #5a4fe0;
+  font-size: 12px;
+  color: #fff;
+}
+
+.arc_card.is-back:hover .arc_go_btn {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0) scale(1);
+}
+
+.arc_go_btn:hover {
+  background: rgba(120, 105, 240, 0.35);
+}
+
+@media (hover: none) {
+  .arc_card.is-back .arc_go_btn {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arc_go_btn {
+    transition: none;
+  }
+}
+
+/* 카드에서 버튼까지 마우스를 옮기는 사이 빈 틈에서도 버튼이 사라지지 않게 보이지 않는 다리 */
+.arc_go_btn::after {
+  content: '';
+  position: absolute;
+  left: -24px;
+  right: -24px;
+  top: 100%;
+  height: 46px;
+}
+
+/* 카드가 내려오는 동안(is-dealing)은 마우스를 올리거나 스크롤해도 절대 뒤집히지 않고 앞면 그대로 */
+.arc_cards.is-dealing .arc_card .arc_flip,
+.arc_cards.is-dealing .arc_card:hover .arc_flip,
+.arc_cards.is-dealing .arc_card:focus-within .arc_flip {
+  transform: translateY(var(--lift)) rotateY(0deg) !important;
+}
+
+.arc_cards.is-dealing .arc_go_btn {
+  display: none;
+}
+
+/* 카드 내려오기: 뚝뚝 떨어지지 않게 더 천천히, 더 길게 감속하며 사뿐히 + 서서히 나타남 */
+.arc_card.is-up {
+  opacity: 0;
+  translate: -24px -18vh;
+  rotate: -5deg;
+}
+
+.arc_cards.is-dealing .arc_card {
+  transition:
+    transform 1s cubic-bezier(0.16, 1, 0.3, 1),
+    translate 1.15s cubic-bezier(0.16, 1, 0.3, 1),
+    rotate 1.25s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.8s ease;
+}
+
+/* GO 버튼이 마우스를 옮기는 사이 사라지지 않게
+   - 카드에서 마우스가 벗어나도 0.8초 동안은 그대로 남아 있다가 사라짐
+   - 버튼 위에 마우스가 있으면 계속 보임, 카드와 버튼 사이 다리도 넓게 */
+.arc_go_btn {
+  visibility: hidden;
+  pointer-events: auto;
+  transition:
+    opacity 0.3s ease 0.6s,
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.6s,
+    visibility 0s linear 0.9s,
+    background 0.25s ease;
+}
+
+.arc_card.is-back:hover .arc_go_btn,
+.arc_card.is-back .arc_go_btn:hover,
+.arc_card.is-back .arc_go_btn:focus-visible {
+  visibility: visible;
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1);
+  transition:
+    opacity 0.3s ease,
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s,
+    background 0.25s ease;
+}
+
+.arc_go_btn::after {
+  left: -40px;
+  right: -40px;
+  height: 70px;
+}
+
+@media (hover: none) {
+  .arc_card.is-back .arc_go_btn {
+    visibility: visible;
+  }
+}
+
+/* GO 버튼: 한 번 나타나면 사라지지 않고 계속 보임 (다른 뒷면 카드를 가리킬 때만 그쪽으로 옮겨 감) */
+.arc_card.is-back.show-go .arc_go_btn {
+  visibility: visible;
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1);
+  transition:
+    opacity 0.3s ease,
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s,
+    background 0.25s ease;
+}
+
+/* GO 버튼 위치: 카드 위 바깥에 두면 스크롤로 카드 줄이 위로 올라갈 때 구역 위쪽에 잘려 사라짐
+   → 카드 윗변에 반쯤 걸쳐 떠 있게 (카드 위에 겹쳐 보이므로 항상 화면 안에 있음) */
+.arc_go_btn {
+  bottom: calc(100% - 22px);
+}
+
+.arc_go_btn::after {
+  display: none;
+}

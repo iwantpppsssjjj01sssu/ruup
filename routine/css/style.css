@@ -2575,3 +2575,126 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+/* 왼쪽 탭 맨 위 오늘 날짜: 라벨보다 조금 크고 진하게 */
+.rc_side_today {
+  font-size: 14px;
+  font-weight: 700;
+  color: #12233a;
+}
+
+/* 할 일 추가 창: 누른 버튼 바로 아래에 작고 간단하게 스르륵 (배경은 아주 옅게) */
+.rt_dialog.is-anchored {
+  position: fixed;
+  inset: auto;
+  top: var(--dlg-top);
+  left: var(--dlg-left);
+  width: min(380px, calc(100vw - 32px));
+  margin: 0;
+  padding: 22px 20px 20px;
+  border: 1px solid #e6e8ee;
+  border-radius: 18px;
+  box-shadow: 0 24px 60px -24px rgba(17, 19, 24, 0.35);
+}
+
+.rt_dialog.is-anchored[open] {
+  animation: rt-dialog-in 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.rt_dialog.is-anchored::backdrop {
+  background: rgba(17, 19, 24, 0.08);
+}
+
+.rt_dialog.is-anchored h2 {
+  margin-bottom: 14px;
+  font-size: 18px;
+}
+
+.rt_dialog.is-anchored label {
+  font-size: 13px;
+}
+
+.rt_dialog.is-anchored input,
+.rt_dialog.is-anchored select {
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+.rt_dialog.is-anchored .rt_dialog_actions .btn {
+  padding: 10px 18px;
+  font-size: 14px;
+}
+
+@keyframes rt-dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rt_dialog.is-anchored[open] {
+    animation: none;
+  }
+}
+
+/* 작은 라벨(TODAY'S PLAN · STEP BY STEP · MY ROUTINE): Pretendard로 */
+.rc .rc_label {
+  font-family: 'Pretendard Variable', 'Pretendard', var(--luup-font) !important;
+}
+
+/* 오늘 할 일 간단 목록 (버튼 바로 아래 1. 2. …) */
+.rc_side_list {
+  display: grid;
+  gap: 2px;
+  width: 100%;
+  margin: 0 0 4px !important;
+  padding: 4px 2px !important;
+  list-style: none;
+  animation: rc-list-in 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.rc_side_list[hidden] {
+  display: none;
+}
+
+.rc_side_list li {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 6px 4px;
+  border-bottom: 1px solid #eef0f3;
+  font-size: 13px;
+  color: #2b3445;
+}
+
+.rc_side_list li span {
+  width: 16px;
+  color: #9aa1ab;
+}
+
+.rc_side_list li b {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: #2563eb;
+}
+
+.rc_side_list li em {
+  margin-left: auto;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+  color: #0f8f72;
+}
+
+.rc_side_list li.is-done {
+  color: #9aa1ab;
+}
+
+@keyframes rc-list-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}

@@ -81,8 +81,9 @@
             <section class="rc_cal" aria-labelledby="rc-month">
                 <!-- 왼쪽 탭: 바로가기 · 시간대별로 달력 보기 -->
                 <aside class="rc_side" aria-label="달력 메뉴">
-                    <p class="rc_side_label">바로가기</p>
-                    <button type="button" class="rc_side_btn rc_side_main" data-go-today>오늘 할 일 보기</button>
+                    <p class="rc_side_label rc_side_today" data-side-today>11월 21일 토요일</p>
+                    <button type="button" class="rc_side_btn rc_side_main" aria-expanded="false" aria-controls="rc-today-list" data-today-toggle>오늘 할 일 보기</button>
+                    <ol id="rc-today-list" class="rc_side_list" data-today-list hidden></ol>
                     <button type="button" class="rc_side_btn" data-add>+ 할 일 추가하기</button>
                     <p class="rc_side_label">루틴별로 보기</p>
                     <p class="rc_side_hint">고른 루틴만 달력 막대에 진하게 표시돼요</p>

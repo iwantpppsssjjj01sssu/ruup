@@ -35,7 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    const blocks = load(STORE_KEY, DEFAULT_BLOCKS);
     const doneByDate = load(DONE_KEY, {});
     const today = new Date();
     const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
@@ -56,8 +55,61 @@ document.addEventListener('DOMContentLoaded', () => {
     const toTime = (minutes) => `${pad(Math.floor(minutes / 60) % 24)}:${pad(minutes % 60)}`;
     const doneSet = (date = state.date) => new Set(doneByDate[dateKey(date)] || []);
     const totalOf = (block) => block.tasks.reduce((sum, task) => sum + Number(task.minutes), 0);
-    const blockDone = (done, b) => blocks[b].tasks.filter((_, i) => done.has(`${b}-${i}`)).length;
-    const isBlockComplete = (done, b) => blocks[b].tasks.length > 0 && blockDone(done, b) === blocks[b].tasks.length;
+
+    // ---------- 날짜마다 다른 하루 계획 ----------
+    // 요일별 오후 활동이 다르고(학원·운동·독서·주말 나들이…), 날짜에 따라 시간·할 일도 조금씩 달라짐
+    // 사용자가 고친 계획은 그 날짜에만 저장됨
+    const PLAN_KEY = 'luup-routine-plans-v3';
+    const plans = load(PLAN_KEY, {});
+    const AFTERNOON = {
+        1: { name: '숙제하기', desc: '월요일 학습 루틴으로 한 주를 시작해요', start: '16:00', tasks: [['책상 정리하기', 5], ['수학 익힘책 풀기', 20], ['쉬는 시간', 5], ['받아쓰기 연습', 10]] },
+        2: { name: '피아노 학원', desc: '학원 다녀와서 연습까지 해요', start: '15:30', tasks: [['학원 가방 챙기기', 5], ['피아노 학원', 50], ['집에서 10분 복습', 10]] },
+        3: { name: '태권도', desc: '몸을 움직이며 에너지를 써요', start: '16:30', tasks: [['도복 챙기기', 5], ['태권도 수업', 50], ['물 마시고 쉬기', 5]] },
+        4: { name: '영어 공부', desc: '영어 단어와 듣기를 해요', start: '16:00', tasks: [['단어 10개 외우기', 15], ['영어 동화 듣기', 15], ['단어 시험 보기', 10]] },
+        5: { name: '독서 시간', desc: '좋아하는 책을 골라 읽어요', start: '16:30', tasks: [['읽을 책 고르기', 5], ['책 20분 읽기', 20], ['독서 기록 한 줄 쓰기', 5]] },
+        6: { name: '주말 나들이', desc: '가족과 바깥 공기를 쐬어요', start: '13:00', tasks: [['나갈 준비하기', 15], ['공원 산책하기', 60], ['오늘 본 것 그려 보기', 20]] },
+        0: { name: '다음 주 준비', desc: '한 주를 미리 준비해요', start: '17:00', tasks: [['시간표 확인하기', 10], ['준비물 챙기기', 15], ['필통 정리하기', 10]] }
+    };
+    const pick = (list, seed) => list[seed % list.length];
+    const makePlan = (date) => {
+        const dow = date.getDay();
+        const weekend = dow === 0 || dow === 6;
+        const seed = date.getDate() + date.getMonth() * 31;
+        const wake = weekend ? 8 * 60 + (seed % 3) * 10 : 6 * 60 + 50 + (seed % 3) * 10;
+        const after = AFTERNOON[dow];
+        const make = (name, desc, start, color, tasks) => {
+            const list = tasks.map(([title, minutes]) => ({ title, minutes }));
+            const total = list.reduce((sum, t) => sum + t.minutes, 0);
+            return { name, desc, start: toTime(start), end: toTime(start + total), color, tasks: list };
+        };
+        const breakfast = weekend
+            ? [['아침 식사하기', 25], [pick(['가족과 대화하기', '아침 산책하기', '식탁 정리 돕기'], seed), 15]]
+            : [['아침 식사하기', 20], ['등교 준비하기', 15], ['양치하기', 5]];
+        const wash = [['샤워하기', 15], ['양치하기', 5], [weekend ? pick(['내일 입을 옷 고르기', '방 정리하기'], seed) : '내일 가방 챙기기', 10]];
+        const sleep = [[pick(['책 10분 읽기', '오늘 일기 한 줄 쓰기', '감사한 일 말하기'], seed), 10], ['불 끄고 잠자리에 들기', 5]];
+        const washStart = (weekend ? 20 * 60 + 30 : 19 * 60 + 50) + ((seed * 7) % 3) * 10;
+        const plan = [
+            make('일어나기', weekend ? '여유로운 주말 아침이에요' : '상쾌한 아침을 여는 루틴이에요', wake, '#d6dcfb', [['일어나서 물 한 잔', 5], ['이불 정리하기', 5], [pick(['세수하기', '스트레칭하기', '창문 열고 환기하기'], seed), 10]]),
+            make('아침먹기', weekend ? '천천히 아침을 즐겨요' : '든든하게 먹고 학교 갈 준비를 해요', wake + 20, '#a8b4fb', breakfast),
+            make(after.name, after.desc, toMinutes(after.start), '#4f6bff', after.tasks),
+            make('씻기', '하루를 깨끗하게 마무리해요', washStart, '#a6ecdf', wash),
+            make('잠자기', '푹 자야 내일도 힘이 나요', washStart + 50, '#d2f5ec', sleep)
+        ];
+        plan[4].end = toTime(wake + (weekend ? 0 : 0));
+        return plan;
+    };
+    const blocksFor = (date) => plans[dateKey(date)] || makePlan(date);
+    let blocks = blocksFor(state.date);
+    const setDate = (date) => {
+        state.date = date;
+        blocks = blocksFor(date);
+    };
+    const savePlan = () => {
+        plans[dateKey(state.date)] = blocks;
+        save(PLAN_KEY, plans);
+    };
+    const blockDone = (done, b, list = blocks) => list[b].tasks.filter((_, i) => done.has(`${b}-${i}`)).length;
+    const isBlockComplete = (done, b, list = blocks) => list[b].tasks.length > 0 && blockDone(done, b, list) === list[b].tasks.length;
     const escapeHtml = (text) => String(text).replace(/[&<>"]/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
     const dayLabel = new Intl.DateTimeFormat('ko-KR', { month: 'long', day: 'numeric', weekday: 'long' });
     const monthLabel = new Intl.DateTimeFormat('ko-KR', { year: 'numeric', month: 'long' });
@@ -86,6 +138,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const todayKey = dateKey(todayDate);
         const selectedKey = dateKey(state.date);
         $('[data-month-label]').textContent = monthLabel.format(first);
+        // '오늘' 버튼 자리: 이번 달 이름으로 (누르면 이번 달 오늘로 돌아감)
+        const todayMonthBtn = page.querySelector('.rc_today_btn');
+        if (todayMonthBtn) {
+            // 지금 보고 있는 달을 표시 (‹ › 로 넘기면 함께 바뀜), 누르면 이번 달 오늘로 돌아감
+            todayMonthBtn.textContent = `${first.getMonth() + 1}월`;
+            todayMonthBtn.setAttribute('aria-label', `지금 ${first.getMonth() + 1}월 보는 중 · 누르면 이번 달(${todayDate.getMonth() + 1}월)로 돌아가기`);
+        }
 
         const cells = [];
         for (let i = 0; i < first.getDay(); i += 1) {
@@ -95,22 +154,23 @@ document.addEventListener('DOMContentLoaded', () => {
             const date = new Date(first.getFullYear(), first.getMonth(), d);
             const key = dateKey(date);
             const done = doneSet(date);
-            const completeCount = blocks.filter((_, b) => isBlockComplete(done, b)).length;
+            const dayBlocks = blocksFor(date);
+            const completeCount = dayBlocks.filter((_, b) => isBlockComplete(done, b, dayBlocks)).length;
             const isPast = date < todayDate;
             const classes = [
                 'rc_day',
                 key === todayKey && 'is-today',
                 key === selectedKey && 'is-selected',
                 isPast && 'is-past',
-                completeCount === blocks.length && blocks.length && 'is-all',
+                completeCount === dayBlocks.length && dayBlocks.length && 'is-all',
                 date.getDay() === 0 && 'is-sun',
                 date.getDay() === 6 && 'is-sat'
             ].filter(Boolean).join(' ');
-            const dots = blocks.map((block, b) => `<i class="${isBlockComplete(done, b) ? 'is-done' : ''}" style="--c:${block.color}"></i>`).join('');
-            const count = completeCount || key === todayKey || isPast ? `<small>${completeCount}/${blocks.length}</small>` : '';
+            const dots = dayBlocks.map((block, b) => `<i class="${isBlockComplete(done, b, dayBlocks) ? 'is-done' : ''}" style="--c:${block.color}"></i>`).join('');
+            const count = completeCount || key === todayKey || isPast ? `<small>${completeCount}/${dayBlocks.length}</small>` : '';
             cells.push(`
                 <button type="button" class="${classes}" data-pick="${key}" aria-pressed="${key === selectedKey}"
-                    aria-label="${dayLabel.format(date)}${key === todayKey ? ' (오늘)' : ''}, 루틴 ${blocks.length}개 중 ${completeCount}개 완료">
+                    aria-label="${dayLabel.format(date)}${key === todayKey ? ' (오늘)' : ''}, 루틴 ${dayBlocks.length}개 중 ${completeCount}개 완료">
                     <b>${d}</b>
                     <span class="rc_dots" aria-hidden="true">${dots}</span>
                     ${count}
@@ -271,7 +331,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (event.target.closest('[data-go-today]')) {
             state.month = new Date(todayDate.getFullYear(), todayDate.getMonth(), 1);
-            state.date = todayDate;
+            setDate(todayDate);
             state.view = 'day';
             state.editing = false;
             refresh();
@@ -281,7 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const pick = event.target.closest('[data-pick]');
         if (pick) {
             const [y, m, d] = pick.dataset.pick.split('-').map(Number);
-            state.date = new Date(y, m - 1, d);
+            setDate(new Date(y, m - 1, d));
             state.view = 'day';
             state.editing = false;
             refresh();
@@ -305,7 +365,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         if (event.target.closest('[data-add]')) {
-            openAdd();
+            openAdd(event.target.closest('[data-add]'));
             return;
         }
 
@@ -358,7 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const i = Number((minus || plus).dataset[minus ? 'minus' : 'plus']);
             const task = block.tasks[i];
             task.minutes = Math.min(Math.max(Number(task.minutes) + (plus ? MINUTE_STEP : -MINUTE_STEP), 1), 180);
-            save(STORE_KEY, blocks);
+            savePlan();
             renderPanel();
             $(`[data-${minus ? 'minus' : 'plus'}="${i}"]`)?.focus();
             return;
@@ -366,7 +426,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const remove = event.target.closest('[data-delete]');
         if (remove) {
             const [task] = block.tasks.splice(Number(remove.dataset.delete), 1);
-            save(STORE_KEY, blocks);
+            savePlan();
             refresh();
             toast(`"${task.title}"을(를) 지웠어요`);
         }
@@ -376,7 +436,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const input = event.target.closest('[data-rename]');
         if (input && input.value.trim()) {
             blocks[state.selected].tasks[Number(input.dataset.rename)].title = input.value.trim();
-            save(STORE_KEY, blocks);
+            savePlan();
         }
     });
 
@@ -399,7 +459,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // ---------- 할 일·단계 추가 ----------
     const addDialog = $('[data-add-dialog]');
     const addForm = $('[data-add-form]');
-    const openAdd = () => {
+    const openAdd = (trigger) => {
+        // 누른 버튼 바로 아래에 뜨도록 위치 계산 (화면 밖으로 넘치면 안쪽으로 당김)
+        if (trigger && window.matchMedia('(min-width: 601px)').matches) {
+            const r = trigger.getBoundingClientRect();
+            const width = Math.min(380, window.innerWidth - 32);
+            const left = Math.min(Math.max(16, r.left), window.innerWidth - width - 16);
+            const top = Math.min(r.bottom + 10, window.innerHeight - 440);
+            addDialog.style.setProperty('--dlg-left', `${left}px`);
+            addDialog.style.setProperty('--dlg-top', `${Math.max(16, top)}px`);
+            addDialog.classList.add('is-anchored');
+        } else {
+            addDialog.classList.remove('is-anchored');
+        }
         $('[data-add-block]').innerHTML = blocks.map((block, i) => `<option value="${i}">${escapeHtml(block.name)} (${block.start} ~ ${block.end})</option>`).join('');
         addForm.reset();
         $('[data-add-block]').value = String(state.selected);
@@ -416,7 +488,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         blocks[index].tasks.push({ title, minutes: Number(data.get('minutes')) || 10 });
-        save(STORE_KEY, blocks);
+        savePlan();
         state.selected = index;
         state.view = 'routine';
         refresh();
@@ -424,6 +496,33 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     renderLegend();
+
+    // 왼쪽 탭 '오늘 할 일 보기': 오른쪽 창 대신 버튼 바로 아래에 1. 2. … 간단한 목록으로 펼침 (다시 누르면 접힘)
+    const todayToggle = $('[data-today-toggle]');
+    const todayList = $('[data-today-list]');
+    const renderTodayList = () => {
+        const list = blocksFor(todayDate);
+        const done = doneSet(todayDate);
+        todayList.innerHTML = list.map((block, b) => {
+            const complete = isBlockComplete(done, b, list);
+            return `<li class="${complete ? 'is-done' : ''}"><span>${b + 1}.</span><b>${block.start}</b> ${escapeHtml(block.name)}${complete ? ' <em>완료</em>' : ''}</li>`;
+        }).join('');
+    };
+    todayToggle?.addEventListener('click', () => {
+        const open = todayList.hidden;
+        if (open) {
+            renderTodayList();
+        }
+        todayList.hidden = !open;
+        todayToggle.setAttribute('aria-expanded', String(open));
+        todayToggle.textContent = open ? '오늘 할 일 접기' : '오늘 할 일 보기';
+    });
+
+    // 왼쪽 탭 맨 위: 오늘 날짜
+    const sideToday = $('[data-side-today]');
+    if (sideToday) {
+        sideToday.textContent = dayLabel.format(todayDate);
+    }
 
     // 왼쪽 탭: 시간대를 고르면 달력 막대에서 그 시간대만 진하게 보임 (다시 누르거나 '전체'를 누르면 모두)
     const cal = $('.rc_cal');

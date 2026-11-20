@@ -655,7 +655,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // 카드 등장: 처음엔 카드가 모두 위에 숨어 있다가, 구역이 보이면 왼쪽 카드부터 한 장씩 위에서 내려와 자리 잡음
         // 내려온 카드는 잠깐 맨 앞에 떠서 글(고민 문장)이 가려지지 않고 다 읽히고, 그다음 카드가 내려옴
         const dealCards = [...arc.querySelectorAll('.arc_card')];
-        const DEAL_MS = 780;
+        const DEAL_MS = 1000;
         let arcDealt = false;
         const arcDealtWaiters = [];
         const whenDealt = (fn) => (arcDealt ? fn() : arcDealtWaiters.push(fn));
@@ -694,18 +694,29 @@ document.addEventListener('DOMContentLoaded', () => {
             arcDealt = true;
         }
 
-        document.addEventListener('luup:arc-arrive', () => {
-            // 카드가 다 내려와 읽힌 뒤에 천천히 스크롤하며 뒤집기 시작
-            setTimeout(() => whenDealt(() => setTimeout(() => {
-                const r = arc.getBoundingClientRect();
-                // 카드 구역 맨 위 근처에 있을 때만 (사용자가 다른 곳으로 움직였으면 하지 않음)
-                if (Math.abs(r.top) > window.innerHeight * 0.2) {
-                    return;
-                }
-                const scrollable = arc.offsetHeight - window.innerHeight;
-                glideTo(r.top + window.scrollY + scrollable * 0.83, 5200);
-            }, 1200)), 1800);
-        });
+        // 카드가 다 내려와 읽힌 뒤 → 자동으로 천천히 스크롤하며 카드가 앞면 → 뒷면으로 한 장씩 뒤집힘
+        // (위에서 자동으로 내려왔든 직접 스크롤해 왔든 똑같이, 카드 구역이 화면을 채우고 있을 때만)
+        let arcFlipStarted = false;
+        const autoFlip = () => {
+            if (arcFlipStarted) {
+                return;
+            }
+            const r = arc.getBoundingClientRect();
+            if (r.top > window.innerHeight * 0.25 || r.top < -window.innerHeight * 0.3) {
+                return;
+            }
+            arcFlipStarted = true;
+            const scrollable = arc.offsetHeight - window.innerHeight;
+            glideTo(arc.getBoundingClientRect().top + window.scrollY + scrollable * 0.83, 5200);
+        };
+        whenDealt(() => setTimeout(autoFlip, 1200));
+        // 카드가 다 내려온 뒤 조금 늦게 구역에 들어온 경우에도 한 번 시도
+        window.addEventListener('scroll', () => {
+            if (arcDealt && !arcFlipStarted) {
+                clearTimeout(arc.flipWait);
+                arc.flipWait = setTimeout(autoFlip, 900);
+            }
+        }, { passive: true });
     }
     if (arc && !prefersReducedMotion) {
         const cards = arc.querySelectorAll('.arc_card');
@@ -769,6 +780,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const start = 0.08 + index * 0.075;
                 const flip = clamp((progress - start) / 0.2);
                 card.style.setProperty('--flip', `${(flip * 180).toFixed(1)}deg`);
+                // 뒷면이 보이는 카드 표시 (GO 버튼은 뒷면일 때만)
+                card.classList.toggle('is-back', flip > 0.5);
+                if (flip <= 0.5) {
+                    card.classList.remove('show-go');
+                }
             });
         };
 
@@ -861,6 +877,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { threshold: 0.35 });
         charObserver.observe(arcSection.querySelector('.arc_sticky') || arcSection);
     }
+
+    // GO 버튼: 뒷면 카드에 한 번 마우스를 올리면 버튼이 계속 떠 있음 (다른 카드를 가리키면 그 카드로 옮겨 감)
+    document.querySelectorAll('.arc_card').forEach((card, _, all) => {
+        card.addEventListener('pointerenter', () => {
+            if (!card.classList.contains('is-back')) {
+                return;
+            }
+            all.forEach((other) => other.classList.toggle('show-go', other === card));
+        });
+    });
 
     // 5-2. 아치 카드 뒤적이기: 가리킨 카드가 맨 앞으로, 양옆 카드는 가까울수록 크게 벌어짐
     const arcList = document.querySelector('.arc_cards');
