@@ -1301,3 +1301,25 @@ body.has-dark-hero.is-at-top .site_actions .btn_line {
   width: 38px;
   height: 38px;
 }
+
+/* =========================================================
+   화면을 줄여도 가로 스크롤이 생기지 않게 (모든 페이지 공통)
+   - clip은 스크롤 영역을 만들지 않아 sticky 등은 그대로 동작
+   ========================================================= */
+html,
+body {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+/* 기록 · 성장 페이지: 섹션이 화면에 들어오면 아래에서 살짝 떠오름 (js/smooth_scroll.js) */
+.sr_hide {
+  opacity: 0;
+  transform: translateY(48px);
+}
+
+.sr_hide.sr_show {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.9s ease, transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+}

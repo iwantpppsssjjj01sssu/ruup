@@ -151,6 +151,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (todayMonthBtn) {
             // 지금 보고 있는 달을 표시 (‹ › 로 넘기면 함께 바뀜), 누르면 이번 달 오늘로 돌아감
             todayMonthBtn.textContent = `${first.getMonth() + 1}월`;
+            const sideMonth = document.querySelector('[data-side-month]');
+            if (sideMonth) sideMonth.textContent = first.getMonth() + 1;
             todayMonthBtn.setAttribute('aria-label', `지금 ${first.getMonth() + 1}월 보는 중 · 누르면 이번 달(${todayDate.getMonth() + 1}월)로 돌아가기`);
         }
 

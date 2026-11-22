@@ -5151,3 +5151,906 @@ main:has(> .cx_stage) {
   font-size: clamp(55px, 11.5vw, 210px);
   line-height: 1;
 }
+
+/* =========================================================
+   기록 첫 화면: 완전 심플하게
+   - 검정 띠·가운데 선·자동 넘김·확대·흑백 모두 없앰
+   - 사진 4장을 같은 크기로 나란히, 아래에 기록 이름만
+   ========================================================= */
+.ro_grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(12px, 1.6vw, 24px);
+  margin: clamp(24px, 3vw, 40px) 0 clamp(32px, 4vw, 56px);
+  padding: 0;
+  list-style: none;
+}
+
+.ro_grid li {
+  display: grid;
+  gap: 14px;
+}
+
+.ro_grid img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.ro_grid p {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+}
+
+.ro_grid b {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #111318;
+}
+
+.ro_grid span {
+  font-size: 14px;
+  color: #8a919c;
+}
+
+@media (max-width: 760px) {
+  .ro_grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* =========================================================
+   "이번 주 우리 아이 기록": 스크롤 없이 한 화면에 다 보이게 (넓은 화면)
+   - 섹션 높이 = 화면 높이 (헤더 제외), 카드 4장을 작게 네 귀퉁이에
+   - 사진은 짧게, 카드 안 간격도 줄임 · 가운데 글씨도 화면 높이에 맞춰 작게
+   ========================================================= */
+@media (min-width: 1025px) {
+  .cx.cx_stage:not(.is-detail) {
+    height: calc(100svh - var(--luup-header-h, 0px));
+    min-height: 620px;
+  }
+
+  .cx_stage:not(.is-detail) .cx_card {
+    gap: 6px;
+    width: clamp(220px, 19vw, 300px);
+    padding: 12px 14px 14px;
+  }
+
+  .cx_stage:not(.is-detail) .cx_pic {
+    margin-top: 18px;
+    aspect-ratio: 16 / 8;
+  }
+
+  .cx_stage:not(.is-detail) .cx_card h3 {
+    font-size: clamp(14px, 1.1vw, 17px);
+  }
+
+  .cx_stage:not(.is-detail) .cx_now {
+    font-size: 12px;
+  }
+
+  .cx_stage:not(.is-detail) .cx_big b {
+    font-size: clamp(22px, 2vw, 32px);
+  }
+
+  .cx_stage:not(.is-detail) .cx_big span {
+    font-size: 12px;
+  }
+
+  .cx_stage:not(.is-detail) .cx_card:nth-child(1) { left: 2%; top: 5%; bottom: auto; right: auto; }
+  .cx_stage:not(.is-detail) .cx_card:nth-child(2) { right: 2%; top: 4%; bottom: auto; left: auto; }
+  .cx_stage:not(.is-detail) .cx_card:nth-child(3) { left: 2%; bottom: 5%; top: auto; right: auto; }
+  .cx_stage:not(.is-detail) .cx_card:nth-child(4) { right: 2%; bottom: 5%; top: auto; left: auto; }
+
+  .cx_stage:not(.is-detail) .cx_head {
+    gap: 12px;
+    width: min(460px, 36vw);
+  }
+
+  .cx_stage:not(.is-detail) .cx_display {
+    font-size: clamp(28px, min(3vw, 5.4svh), 52px);
+  }
+
+  .cx_stage:not(.is-detail) .cx_title {
+    font-size: clamp(13px, 1vw, 15px);
+  }
+}
+
+@media (min-width: 1025px) {
+  /* 카드 높이를 내용만큼만 (고정 최소 높이 해제) */
+  .cx_stage:not(.is-detail) .cx_card {
+    min-height: 0;
+    height: auto;
+  }
+
+  .cx_stage:not(.is-detail) .cx_big {
+    gap: 2px;
+    margin-top: 6px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .cx.cx_stage:not(.is-detail) {
+    height: 100svh;
+    min-height: 680px;
+  }
+
+  /* 위 카드는 헤더 아래부터, 아래 카드는 귀퉁이 글씨·스위치 위까지 */
+  .cx_stage:not(.is-detail) .cx_card:nth-child(1),
+  .cx_stage:not(.is-detail) .cx_card:nth-child(2) {
+    top: calc(var(--luup-header-h, 76px) + 20px);
+  }
+
+  .cx_stage:not(.is-detail) .cx_card:nth-child(3),
+  .cx_stage:not(.is-detail) .cx_card:nth-child(4) {
+    bottom: 96px;
+  }
+
+  .cx_stage:not(.is-detail) .cx_pic {
+    margin-top: 14px;
+    aspect-ratio: 16 / 7;
+  }
+
+  .cx_stage:not(.is-detail) .cx_big {
+    margin-top: 2px;
+  }
+
+  /* 가운데 글씨는 헤더 높이만큼 아래로 보정해 화면 가운데에 */
+  .cx_stage:not(.is-detail) .cx_head {
+    top: calc(50% + var(--luup-header-h, 76px) / 2 - 24px);
+  }
+}
+
+/* 페이지 제목 한글 "이번 주 기록": ROUTINE의 "이번 달 루틴"과 같은 서체·크기·자리 */
+.ro_word .ro_word_text {
+  font-family: 'Paperlogy', var(--luup-font);
+  font-size: clamp(44px, 9.2vw, 168px);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.05em;
+  margin-left: calc(-0.059em + 1.8px);
+  white-space: nowrap;
+}
+
+/* =========================================================
+   "이번 주 우리 아이 기록" 섹션: 세로 조금 짧게 + 위로 당기기
+   - 윗 섹션(사진 4장)이 화면 높이를 꽉 채우던 것을 내용만큼으로 → 아래 섹션이 위로 올라옴
+   - 기록 섹션 높이: 화면 100% → 약 86%
+   ========================================================= */
+.ro {
+  height: auto !important;
+  min-height: 0 !important;
+  padding-bottom: clamp(28px, 4vw, 56px);
+}
+
+@media (min-width: 1025px) {
+  .cx.cx_stage:not(.is-detail) {
+    height: 86svh;
+    min-height: 600px;
+  }
+
+  .cx_stage:not(.is-detail) .cx_card:nth-child(1),
+  .cx_stage:not(.is-detail) .cx_card:nth-child(2) {
+    top: 40px;
+  }
+
+  .cx_stage:not(.is-detail) .cx_card:nth-child(3),
+  .cx_stage:not(.is-detail) .cx_card:nth-child(4) {
+    bottom: 84px;
+  }
+
+  .cx_stage:not(.is-detail) .cx_head {
+    top: 50%;
+  }
+
+  .cx_stage:not(.is-detail) .cx_pic {
+    aspect-ratio: 16 / 6.5;
+  }
+}
+
+/* =========================================================
+   "이번 주 우리 아이 기록" 카드 4장: 사건 일지처럼
+   - 실사 사진 없음 (카드 사진 · 배경 사진 모두 뺌)
+   - 줄 노트 종이 + 왼쪽 빨간 여백선 + 위에 붙인 테이프
+   - 맨 위 "LUUP 기록 일지 · No.01" 머리줄, 타자기 느낌 글씨
+   - 큰 숫자 옆에 빨간 "기록" 도장
+   ========================================================= */
+.cx_stage {
+  counter-reset: cxlog;
+}
+
+/* 배경: 사진 대신 어두운 책상 느낌의 단색 + 은은한 빛 */
+.cx_stage .cx_scene {
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 45%, rgba(255, 236, 200, 0.10), transparent 70%),
+    linear-gradient(180deg, #1b1d22 0%, #121317 100%);
+  filter: none;
+}
+
+.cx_stage .cx_pic {
+  display: none !important;
+}
+
+.cx_stage .cx_card {
+  counter-increment: cxlog;
+  padding: 44px 22px 22px 46px;
+  border-radius: 2px;
+  color: #23201a;
+  background:
+    linear-gradient(90deg, transparent 32px, rgba(214, 69, 69, 0.55) 32px 33px, transparent 33px),
+    repeating-linear-gradient(180deg, transparent 0 27px, rgba(60, 80, 120, 0.12) 27px 28px),
+    #f5f1e6;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.6) inset,
+    0 18px 40px -16px rgba(0, 0, 0, 0.6),
+    0 2px 4px rgba(0, 0, 0, 0.25);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.cx_stage .cx_card:hover {
+  background:
+    linear-gradient(90deg, transparent 32px, rgba(214, 69, 69, 0.55) 32px 33px, transparent 33px),
+    repeating-linear-gradient(180deg, transparent 0 27px, rgba(60, 80, 120, 0.12) 27px 28px),
+    #f8f4ea;
+}
+
+/* 머리줄: LUUP 기록 일지 · No.01 */
+.cx_stage .cx_card::before {
+  content: 'LUUP 기록 일지 · No.0' counter(cxlog);
+  position: absolute;
+  top: 14px;
+  left: 46px;
+  font-family: 'Courier New', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: rgba(35, 32, 26, 0.55);
+}
+
+/* 위에 붙인 테이프 */
+.cx_stage .cx_card::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  width: 84px;
+  height: 22px;
+  background: rgba(236, 222, 180, 0.75);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  transform: translateX(-50%) rotate(-3deg);
+}
+
+/* 제목 */
+.cx_stage .cx_card h3 {
+  padding-bottom: 6px;
+  border-bottom: 2px solid #23201a;
+  font-family: 'Pretendard Variable', 'Pretendard', var(--luup-font);
+  font-size: clamp(16px, 1.2vw, 19px);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: #23201a;
+}
+
+.cx_stage .cx_card_top {
+  display: block;
+}
+
+/* ↗ 버튼: 종이 위 작은 검정 꼬리표 */
+.cx_stage .cx_btn {
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 2px;
+  background: #23201a;
+  color: #f5f1e6;
+  clip-path: none;
+}
+
+.cx_stage .cx_btn::before {
+  font-size: 14px;
+}
+
+.cx_stage .cx_btn:hover {
+  background: #d64545;
+}
+
+/* 오늘 현황: 일지 한 줄 */
+.cx_stage .cx_now {
+  margin-top: 6px;
+  font-family: 'Courier New', ui-monospace, monospace;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: rgba(35, 32, 26, 0.75);
+}
+
+.cx_stage .cx_now::before {
+  content: '▸ ';
+  color: #d64545;
+}
+
+/* 이번 주 숫자 + 도장 */
+.cx_stage .cx_big {
+  position: relative;
+  margin-top: 10px;
+  padding-right: 64px;
+}
+
+.cx_stage .cx_big b {
+  font-family: 'Courier New', ui-monospace, monospace;
+  font-size: clamp(26px, 2.2vw, 34px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #23201a;
+}
+
+.cx_stage .cx_big span {
+  font-size: 12px;
+  color: rgba(35, 32, 26, 0.65);
+}
+
+.cx_stage .cx_big::after {
+  content: '기록';
+  position: absolute;
+  top: -4px;
+  right: 2px;
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  border: 2px solid rgba(214, 69, 69, 0.8);
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: rgba(214, 69, 69, 0.85);
+  transform: rotate(-14deg);
+  box-shadow: inset 0 0 0 3px rgba(245, 241, 230, 1), inset 0 0 0 4px rgba(214, 69, 69, 0.5);
+}
+
+/* 상세 기록 목록도 종이 위 글씨 색으로 */
+.cx_stage .cx_list,
+.cx_stage .cx_list * {
+  color: rgba(35, 32, 26, 0.8);
+  border-color: rgba(35, 32, 26, 0.15);
+}
+
+@media (min-width: 1025px) {
+  .cx_stage:not(.is-detail) .cx_card {
+    padding: 40px 18px 18px 46px;
+  }
+}
+
+/* 사건 일지 카드: 한글이 벌어져 보이지 않게 글씨는 Pretendard로 (숫자는 고정폭 숫자) */
+.cx_stage .cx_card::before,
+.cx_stage .cx_now,
+.cx_stage .cx_big b {
+  font-family: 'Pretendard Variable', 'Pretendard', var(--luup-font);
+  font-variant-numeric: tabular-nums;
+}
+
+.cx_stage .cx_card::before {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.cx_stage .cx_now {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.cx_stage .cx_big b {
+  font-size: clamp(26px, 2.2vw, 34px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+/* 진단 시작하기 페이지(sleep_start.html): 기록 페이지에서 옮겨 온 진단 흐름 섹션의 어두운 테마 변수 */
+main.ds_page,
+main:has(> .fl) {
+  --st-mono: 'Pretendard Variable', 'Pretendard', var(--luup-font);
+  --st-bg: #05060a;
+  --st-panel: rgba(18, 22, 38, 0.62);
+  --st-line: rgba(255, 255, 255, 0.14);
+  --st-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+
+main.ds_page {
+  background: var(--st-bg);
+}
+
+/* =========================================================
+   기록 사진 4장: 누르면 아래로 이번 주 기록이 펼쳐짐
+   ========================================================= */
+.ro_grid button {
+  display: grid;
+  gap: 14px;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  text-align: left;
+  color: inherit;
+  cursor: pointer;
+}
+
+.ro_grid img {
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease, outline-color 0.3s ease;
+  outline: 3px solid transparent;
+  outline-offset: 3px;
+}
+
+.ro_grid button:hover img {
+  transform: translateY(-4px);
+}
+
+.ro_grid button[aria-expanded="true"] img {
+  outline-color: #2563eb;
+}
+
+.ro_grid button[aria-expanded="true"] b {
+  color: #2563eb;
+}
+
+.ro_grid button:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 4px;
+  border-radius: 16px;
+}
+
+/* 펼쳐지는 칸: 높이가 0 → 내용만큼 부드럽게 */
+.ro_detail {
+  display: grid;
+  grid-template-rows: 0fr;
+  margin-top: 0;
+  transition: grid-template-rows 0.5s cubic-bezier(0.22, 1, 0.36, 1), margin 0.5s ease;
+}
+
+.ro_detail.is-open {
+  grid-template-rows: 1fr;
+  margin: -8px 0 clamp(32px, 4vw, 56px);
+}
+
+.ro_detail_inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.ro_detail_inner > * {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ro_detail.is-open .ro_detail_inner > * {
+  opacity: 1;
+  transform: none;
+  transition-delay: 0.15s;
+}
+
+.ro_detail_inner {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.8fr) minmax(0, 2fr);
+  gap: 24px 48px;
+  padding: 0;
+}
+
+.ro_detail.is-open .ro_detail_inner {
+  padding: 36px 0;
+  border-top: 1px solid #e6e9ee;
+  border-bottom: 1px solid #e6e9ee;
+}
+
+.rd_head h2 {
+  margin: 6px 0 12px;
+  font-family: 'Paperlogy', var(--luup-font);
+  font-size: clamp(24px, 2.2vw, 34px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #111318;
+}
+
+.rd_kicker {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #2563eb;
+}
+
+.rd_lead {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #5b6472;
+  word-break: keep-all;
+}
+
+.rd_lead b {
+  font-weight: 700;
+  color: #111318;
+}
+
+.rd_body {
+  display: grid;
+  gap: 24px;
+  min-width: 0;
+}
+
+.rd_bars,
+.rd_moods {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rd_bars li,
+.rd_moods li {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #5b6472;
+}
+
+.rd_bar {
+  position: relative;
+  width: 100%;
+  max-width: 44px;
+  height: 140px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #f1f3f6;
+}
+
+.rd_bar i {
+  position: absolute;
+  inset: auto 0 0;
+  height: calc(var(--v) * 100%);
+  border-radius: inherit;
+  background: #2563eb;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.25s;
+}
+
+.ro_detail.is-open .rd_bar i {
+  transform: scaleY(1);
+}
+
+.rd_bars_focus .rd_bar i {
+  background: #3fb98f;
+}
+
+.rd_bars b,
+.rd_moods b {
+  font-size: 14px;
+  font-weight: 700;
+  color: #111318;
+}
+
+.rd_bars small,
+.rd_moods small {
+  font-size: 12px;
+  color: #8a919c;
+}
+
+.rd_moods span {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #f5f6f8;
+  font-size: 28px;
+}
+
+.rd_moods b {
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.rd_list,
+.rd_memos {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rd_list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #eef0f3;
+  font-size: 15px;
+  color: #111318;
+}
+
+.rd_list b {
+  font-weight: 600;
+  color: #2563eb;
+}
+
+.rd_memos {
+  gap: 10px;
+}
+
+.rd_memos li {
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: #f5f6f8;
+}
+
+.rd_memos small {
+  font-size: 12px;
+  color: #8a919c;
+}
+
+.rd_memos p,
+.rd_empty {
+  margin: 4px 0 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #111318;
+}
+
+.rd_close {
+  grid-column: 1 / -1;
+  justify-self: center;
+  padding: 10px 20px;
+  border: 1px solid #dfe3e8;
+  border-radius: 999px;
+  background: #fff;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: #4b5563;
+  cursor: pointer;
+}
+
+.rd_close:hover {
+  border-color: #111318;
+  color: #111318;
+}
+
+@media (max-width: 760px) {
+  .ro_detail_inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .rd_bar {
+    height: 100px;
+  }
+
+  .rd_moods span {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ro_detail,
+  .ro_detail_inner > *,
+  .rd_bar i {
+    transition: none;
+  }
+}
+
+/* =========================================================
+   기록 사진 누르면 펼쳐지는 칸: 움직임
+   1) 칸 높이가 0 → 내용만큼 부드럽게 늘어남 (0.6초)
+   2) 왼쪽 제목·설명이 아래에서 떠오름
+   3) 오른쪽 막대·이모지·목록이 왼쪽부터 하나씩 차례로 (0.06초 간격)
+      - 막대는 아래에서 위로 차오르고, 이모지는 톡 튀어나옴
+   4) 다른 사진을 누르면 칸은 그대로, 내용만 다시 차례로 떠오름
+   ========================================================= */
+.ro_detail {
+  transition: grid-template-rows 0.6s cubic-bezier(0.22, 1, 0.36, 1), margin 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ro_detail_inner {
+  transition: padding 0.6s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.4s ease;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+}
+
+.ro_detail.is-open .ro_detail_inner {
+  border-top-color: #e6e9ee;
+  border-bottom-color: #e6e9ee;
+}
+
+.ro_detail_inner > * {
+  opacity: 0;
+  transform: none;
+  transition: none;
+}
+
+.ro_detail.is-open .rd_head {
+  animation: rd-rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+}
+
+.ro_detail.is-open .rd_body {
+  opacity: 1;
+}
+
+.ro_detail.is-open .rd_close {
+  animation: rd-rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.6s both;
+}
+
+.ro_detail.is-open .rd_body li,
+.ro_detail.is-open .rd_empty {
+  animation: rd-rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(0.3s + var(--i, 0) * 0.06s);
+}
+
+.ro_detail.is-open .rd_bar i {
+  transform: none;
+  transition: none;
+  animation: rd-fill 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(0.4s + var(--i, 0) * 0.06s);
+}
+
+.rd_bars li .rd_bar i {
+  animation-delay: inherit;
+}
+
+.ro_detail.is-open .rd_moods span {
+  animation: rd-pop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation-delay: calc(0.35s + var(--i, 0) * 0.07s);
+}
+
+.rd_moods li {
+  --d: calc(0.35s + var(--i, 0) * 0.07s);
+}
+
+/* 다른 사진으로 바꿀 때 애니메이션을 처음부터 다시 */
+.ro_detail.is-swap .rd_head,
+.ro_detail.is-swap .rd_body li,
+.ro_detail.is-swap .rd_bar i,
+.ro_detail.is-swap .rd_moods span,
+.ro_detail.is-swap .rd_close {
+  animation-name: rd-rise-b;
+}
+
+.ro_detail.is-swap .rd_bar i {
+  animation-name: rd-fill-b;
+}
+
+.ro_detail.is-swap .rd_moods span {
+  animation-name: rd-pop-b;
+}
+
+@keyframes rd-rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes rd-rise-b {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes rd-fill {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+@keyframes rd-fill-b {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+@keyframes rd-pop {
+  from { opacity: 0; transform: scale(0.4); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes rd-pop-b {
+  from { opacity: 0; transform: scale(0.4); }
+  to { opacity: 1; transform: none; }
+}
+
+/* 고른 사진: 살짝 떠오르고 나머지는 흐려짐 */
+.ro_grid:has(button[aria-expanded="true"]) button:not([aria-expanded="true"]) img {
+  opacity: 0.55;
+  filter: grayscale(0.4);
+}
+
+.ro_grid button[aria-expanded="true"] img {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 30px -18px rgba(37, 99, 235, 0.6);
+}
+
+.ro_grid img {
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease, outline-color 0.3s ease, opacity 0.3s ease, filter 0.3s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ro_detail.is-open .rd_head,
+  .ro_detail.is-open .rd_body li,
+  .ro_detail.is-open .rd_bar i,
+  .ro_detail.is-open .rd_moods span,
+  .ro_detail.is-open .rd_close {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+/* 기록 펼친 칸 글씨 크게 */
+.rd_kicker { font-size: 15px; }
+.rd_head h2 { font-size: clamp(28px, 2.6vw, 40px); }
+.rd_lead { font-size: 18px; }
+
+.rd_bars b,
+.rd_moods b { font-size: 17px; }
+.rd_bars small,
+.rd_moods small { font-size: 15px; }
+
+.rd_moods span {
+  width: 68px;
+  height: 68px;
+  font-size: 34px;
+}
+
+.rd_list li { font-size: 17px; }
+.rd_memos small { font-size: 14px; }
+.rd_memos p,
+.rd_empty { font-size: 17px; }
+.rd_close { font-size: 15px; }
+
+@media (max-width: 760px) {
+  .rd_lead { font-size: 16px; }
+  .rd_bars b,
+  .rd_moods b { font-size: 13px; }
+  .rd_bars small,
+  .rd_moods small { font-size: 12px; }
+  .rd_moods span { width: 44px; height: 44px; font-size: 22px; }
+}
+
+/* 펼친 칸 왼쪽 글씨 확 크게 */
+.ro_detail_inner {
+  grid-template-columns: minmax(300px, 1fr) minmax(0, 1.8fr);
+}
+
+.rd_kicker {
+  font-size: 18px;
+}
+
+.rd_head h2 {
+  margin: 10px 0 18px;
+  font-size: clamp(36px, 3.6vw, 56px);
+  line-height: 1.1;
+}
+
+.rd_lead {
+  font-size: clamp(19px, 1.6vw, 23px);
+  line-height: 1.65;
+}
+
+@media (max-width: 760px) {
+  .ro_detail_inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .rd_head h2 {
+    font-size: 32px;
+  }
+
+  .rd_lead {
+    font-size: 18px;
+  }
+}

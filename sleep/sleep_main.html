@@ -43,7 +43,7 @@
                 </ul>
             </nav>
             <div class="site_actions">
-                <a class="btn btn_small btn_line" href="../sleep/sleep_main.html">진단 시작하기</a>
+                <a class="btn btn_small btn_line" href="../sleep/sleep_start.html">진단 시작하기</a>
                 <button type="button" class="menu_button" data-menu-open aria-label="메뉴 열기" aria-expanded="false" aria-controls="mobile-menu">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
                 </button>
@@ -64,7 +64,7 @@
             <a href="../offline/offline.html">GROWTH</a>
             <a href="../my/my.html">MY</a>
         </nav>
-        <a class="btn btn_gradient" href="../sleep/sleep_main.html">루틴 유형 진단하기</a>
+        <a class="btn btn_gradient" href="../sleep/sleep_start.html">루틴 유형 진단하기</a>
     </div>
 <!-- header:end -->
 
@@ -72,35 +72,20 @@
         <!-- 기록 첫 화면: 검정 바탕 + 큰 RECORD 글자 + 흰 띠, 가운데 세로 사진 줄(지금 기록이 크게), 가로줄에 기록 목록 -->
         <section class="ro" aria-labelledby="ro-title" data-ro>
             <h1 id="ro-title" class="ro_word">
-                <span class="ro_word_text" aria-hidden="true">RECORD</span>
+                <span class="ro_word_text" aria-hidden="true">이번 주 기록</span>
                 <span class="sr_only">LUUP 기록</span>
             </h1>
 
-            <div class="ro_bar">
-                <span>Daily Record Studio</span>
-                <span><a href="#rec-title">기록하기,</a> <a href="../today/today.html#report">리포트</a></span>
-                <a href="sleep_name.html">유형 진단</a>
-            </div>
+            <ul class="ro_grid" aria-label="기록 종류" data-ro-grid>
+                <li><button type="button" aria-expanded="false" aria-controls="ro-detail" data-ro-open="routine"><img src="../img/main_photo_girl_desk.png" alt=""><p><b>루틴 수행 기록</b><span>루틴, 성취</span></p></button></li>
+                <li><button type="button" aria-expanded="false" aria-controls="ro-detail" data-ro-open="mood"><img src="../img/main_photo_family_living.png" alt=""><p><b>감정 기록</b><span>감정, 마음</span></p></button></li>
+                <li><button type="button" aria-expanded="false" aria-controls="ro-detail" data-ro-open="focus"><img src="../img/main_photo_boy_homework.png" alt=""><p><b>집중도 기록</b><span>집중, 공부</span></p></button></li>
+                <li><button type="button" aria-expanded="false" aria-controls="ro-detail" data-ro-open="memo"><img src="../img/main_photo_mom_drawing.png" alt=""><p><b>기타메모</b><span>메모, 일기</span></p></button></li>
+            </ul>
 
-            <div class="ro_stage">
-                <span class="ro_rule" aria-hidden="true"></span>
-
-                <ul class="ro_strip" aria-hidden="true" data-ro-strip>
-                    <li class="ro_item"><img src="../img/main_photo_girl_desk.png" alt=""></li>
-                    <li class="ro_item"><img src="../img/main_photo_family_living.png" alt=""></li>
-                    <li class="ro_item"><img src="../img/main_photo_boy_homework.png" alt=""></li>
-                    <li class="ro_item"><img src="../img/main_photo_mom_drawing.png" alt=""></li>
-                </ul>
-
-                <p class="ro_no" data-ro-no>1</p>
-                <p class="ro_cat" data-ro-cat>루틴, 성취</p>
-                <ul class="ro_names" data-ro-names>
-                    <li><button type="button" data-cat="루틴, 성취" data-tag="오늘의 성취">루틴 수행 기록</button></li>
-                    <li><button type="button" data-cat="감정, 마음" data-tag="오늘의 기분">감정 기록</button></li>
-                    <li><button type="button" data-cat="집중, 공부" data-tag="오늘의 집중">집중도 기록</button></li>
-                    <li><button type="button" data-cat="메모, 일기" data-tag="하고 싶은 말">기타메모</button></li>
-                </ul>
-                <p class="ro_tag" data-ro-tag>오늘의 성취</p>
+            <!-- 사진을 누르면 아래로 펼쳐지는 이번 주 기록 -->
+            <div class="ro_detail" id="ro-detail" data-ro-detail hidden>
+                <div class="ro_detail_inner" data-ro-detail-body></div>
             </div>
 
             <div class="ro_foot">
@@ -111,183 +96,6 @@
         </section>
 
         <!-- 우리 아이 기록: 지금까지 쌓인 기록(최근 4주)을 먼저 보여 주고, 기록 남기기는 버튼 → 팝업에서 -->
-        <section class="cx cx_stage" aria-labelledby="rec-title" data-rec>
-            <!-- 배경: 어두운 사진 + 필름 노이즈. 가운데 큰 글자와 버튼, 둘레에 기록 카드 4장이 떠 있음 -->
-            <div class="cx_scene" aria-hidden="true"></div>
-            <div class="cx_head">
-                <div>
-                    <p class="cx_display" aria-hidden="true">이번 주<br>우리 아이 기록</p>
-                    <p class="cx_tag">이번 주와 지난주 비교</p>
-                    <p class="cx_date" data-rec-date></p>
-                </div>
-                <div>
-                    <h2 id="rec-title" class="cx_title"><i class="cx_main" data-h="today-line"></i> <span data-h="total-diff"></span></h2>
-                    <div class="cx_actions">
-                        <button type="button" class="cx_write" data-rec-open="routine">오늘 기록하기 <span aria-hidden="true">+</span></button>
-                        <ul class="cx_chips">
-                            <li>이번 주 기록한 날 <b data-h="days"></b></li>
-                            <li>연속 <b data-h="streak"></b></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="cx_body">
-                <ul class="cx_cards">
-                    <li class="cx_card" data-cx-card>
-                        <div class="cx_card_top">
-                            <h3>루틴 수행 기록</h3>
-                            <button type="button" class="cx_btn" data-rec-open="routine">기록하기</button>
-                        </div>
-                        <figure class="cx_pic" aria-hidden="true"><img src="../img/main_photo_girl_desk.png" alt="" loading="lazy"></figure>
-                        <p class="cx_now">오늘 <span data-rec-sum="routine"></span></p>
-                        <p class="cx_big"><b data-h="routine-big"></b><span data-h="routine-label"></span></p>
-                        <div class="cx_viz cx_bars" data-h="routine-viz" aria-hidden="true"></div>
-                        <ul class="cx_list" data-h="routine-list"></ul>
-                    </li>
-
-                    <li class="cx_card" data-cx-card>
-                        <div class="cx_card_top">
-                            <h3>감정 기록</h3>
-                            <button type="button" class="cx_btn" data-rec-open="mood">기록하기</button>
-                        </div>
-                        <figure class="cx_pic" aria-hidden="true"><img src="../img/main_photo_family_living.png" alt="" loading="lazy"></figure>
-                        <p class="cx_now"><span data-rec-sum="mood"></span></p>
-                        <p class="cx_big"><b data-h="mood-big"></b><span data-h="mood-label"></span></p>
-                        <div class="cx_viz cx_emojis" data-h="mood-viz" aria-hidden="true"></div>
-                        <ul class="cx_list" data-h="mood-list"></ul>
-                    </li>
-
-                    <li class="cx_card" data-cx-card>
-                        <div class="cx_card_top">
-                            <h3>집중도 기록</h3>
-                            <button type="button" class="cx_btn" data-rec-open="focus">기록하기</button>
-                        </div>
-                        <figure class="cx_pic" aria-hidden="true"><img src="../img/main_photo_boy_homework.png" alt="" loading="lazy"></figure>
-                        <p class="cx_now">오늘 집중도 <span data-rec-sum="focus"></span></p>
-                        <p class="cx_big"><b data-h="focus-big"></b><span data-h="focus-label"></span></p>
-                        <div class="cx_viz cx_bars cx_bars_focus" data-h="focus-viz" aria-hidden="true"></div>
-                        <ul class="cx_list" data-h="focus-list"></ul>
-                    </li>
-
-                    <li class="cx_card" data-cx-card>
-                        <div class="cx_card_top">
-                            <h3>기타메모</h3>
-                            <button type="button" class="cx_btn" data-rec-open="memo">기록하기</button>
-                        </div>
-                        <figure class="cx_pic" aria-hidden="true"><img src="../img/main_photo_mom_drawing.png" alt="" loading="lazy"></figure>
-                        <p class="cx_now">오늘 메모 <span data-rec-sum="memo"></span></p>
-                        <p class="cx_big"><b data-h="memo-big"></b><span data-h="memo-label"></span></p>
-                        <div class="cx_viz cx_memos" data-h="memo-viz"></div>
-                        <ul class="cx_list" data-h="memo-list"></ul>
-                    </li>
-                </ul>
-
-                <div class="cx_media" aria-hidden="true" data-cx-media>
-                    <img class="is-on" src="../img/main_photo_girl_desk.png" alt="">
-                    <img src="../img/main_photo_family_living.png" alt="">
-                    <img src="../img/main_photo_boy_homework.png" alt="">
-                    <img src="../img/main_photo_mom_drawing.png" alt="">
-                </div>
-            </div>
-
-            <!-- 왼쪽 아래 작은 표시 · 오른쪽 아래 상세 기록 켜고 끄기 -->
-            <p class="cx_corner"><span class="cx_corner_icon" aria-hidden="true"></span>매일 1분<br>아이의 하루<br>기록 2026</p>
-            <button type="button" class="cx_detail" aria-pressed="false" data-cx-detail>
-                <span class="cx_detail_label">상세 기록</span>
-                <span class="cx_detail_track" aria-hidden="true"><i></i></span>
-                <span class="cx_detail_states" aria-hidden="true"><span>끄기</span><span>켜기</span></span>
-            </button>
-
-            <!-- 기록 남기기 팝업: 고르거나 적으면 바로 저장됨 -->
-            <dialog class="cx_dialog" aria-labelledby="rec-dialog-title" data-rec-dialog>
-                <form method="dialog">
-                    <div class="cx_dialog_head">
-                        <div>
-                            <p class="cx_tag">WRITE</p>
-                            <h3 id="rec-dialog-title">오늘의 기록 <small data-rec-dialog-date></small></h3>
-                        </div>
-                        <button class="cx_x" value="close" aria-label="닫기">×</button>
-                    </div>
-                    <div class="cx_parts">
-                        <section class="cx_part" id="rec-routine" aria-label="루틴 수행 기록">
-                            <h4>루틴 수행 <small>끝낸 루틴을 체크해요</small></h4>
-                            <ul class="rec_checks" data-rec-routines></ul>
-                        </section>
-                        <section class="cx_part" id="rec-mood" aria-label="감정 기록">
-                            <h4>오늘의 기분</h4>
-                            <div class="rec_moods" role="radiogroup" aria-label="오늘의 기분" data-rec-moods></div>
-                        </section>
-                        <section class="cx_part" id="rec-focus" aria-label="집중도 기록">
-                            <h4>집중도 <small>1은 자꾸 딴생각이 났어요, 5는 끝까지 집중했어요</small></h4>
-                            <div class="rec_focus" role="radiogroup" aria-label="오늘의 집중도 (1~5)" data-rec-focus></div>
-                        </section>
-                        <section class="cx_part" id="rec-memo" aria-label="기타메모">
-                            <h4><label for="rec-memo-text">기타메모</label></h4>
-                            <textarea id="rec-memo-text" class="rec_memo" rows="3" maxlength="300" placeholder="예) 받아쓰기를 끝까지 혼자 해냈어요!" data-rec-memo></textarea>
-                        </section>
-                    </div>
-                    <div class="cx_dialog_foot">
-                        <p>고르거나 적으면 바로 저장돼요</p>
-                        <button class="cx_save" value="save">저장하고 닫기</button>
-                    </div>
-                </form>
-            </dialog>
-        </section>
-
-        <!-- 루틴 유형 진단: 왼쪽 큰 글자 소개 → 세로 스크롤에 맞춰 단계 패널이 가로로 흘러감 -->
-        <section class="fl" aria-labelledby="fl-title" data-fl>
-            <div class="fl_sticky">
-                <ol class="fl_track" data-fl-track>
-                    <li class="fl_panel fl_intro">
-                        <p class="fl_kicker">루틴 유형 진단</p>
-                        <div class="fl_intro_main">
-                            <h2 id="fl-title" class="fl_title">나에게 꼭 맞는<br>루틴 유형 찾기</h2>
-                            <a class="fl_cta" href="sleep_name.html"><span aria-hidden="true">↗</span> 진단 시작하기</a>
-                            <p class="fl_note">약 1분 · 회원가입 없이 O, X 질문 5개</p>
-                        </div>
-                        <figure class="fl_polaroid" aria-hidden="true"><img src="../img/main_photo_boy_homework.png" alt=""></figure>
-                    </li>
-                    <li class="fl_panel">
-                        <div class="fl_icons" aria-hidden="true"><span>01</span><span>↗</span></div>
-                        <figure class="fl_card">
-                            <img class="fl_card_bg" src="../img/main_photo_mom_drawing.png" alt="" loading="lazy">
-                            <span class="fl_disc" style="background-image:url('../img/main_photo_mom_drawing.png')" aria-hidden="true"></span>
-                            <figcaption class="fl_label"><span>1단계</span><span>이름 입력</span></figcaption>
-                        </figure>
-                        <p class="fl_desc">결과에서 불러드릴 이름이나 닉네임을 알려주세요.</p>
-                    </li>
-                    <li class="fl_panel">
-                        <div class="fl_icons" aria-hidden="true"><span>02</span><span>↗</span></div>
-                        <figure class="fl_card">
-                            <img class="fl_card_bg" src="../img/main_photo_tablet_quiz.png" alt="" loading="lazy">
-                            <span class="fl_disc" style="background-image:url('../img/main_photo_tablet_quiz.png')" aria-hidden="true"></span>
-                            <figcaption class="fl_label"><span>2단계</span><span>O, X 질문 5개</span></figcaption>
-                        </figure>
-                        <p class="fl_desc">평소 생활과 가까운 쪽을 편하게 골라 주세요. 약 1분이면 끝나요.</p>
-                    </li>
-                    <li class="fl_panel">
-                        <div class="fl_icons" aria-hidden="true"><span>03</span><span>↗</span></div>
-                        <figure class="fl_card">
-                            <img class="fl_card_bg" src="../img/main_photo_girl_desk.png" alt="" loading="lazy">
-                            <span class="fl_disc" style="background-image:url('../img/main_photo_girl_desk.png')" aria-hidden="true"></span>
-                            <figcaption class="fl_label"><span>3단계</span><span>유형과 추천 루틴</span></figcaption>
-                        </figure>
-                        <p class="fl_desc">나의 루틴 유형과 지금 바로 시작할 루틴 3개를 알려드려요.</p>
-                    </li>
-                    <li class="fl_panel">
-                        <div class="fl_icons" aria-hidden="true"><span>04</span><span>↗</span></div>
-                        <figure class="fl_card">
-                            <img class="fl_card_bg" src="../img/main_photo_kids_rug.png" alt="" loading="lazy">
-                            <span class="fl_disc" style="background-image:url('../img/main_photo_kids_rug.png')" aria-hidden="true"></span>
-                            <figcaption class="fl_label"><span>4단계</span><span>오늘부터 시작</span></figcaption>
-                        </figure>
-                        <p class="fl_desc">추천 루틴을 그대로 담아 오늘의 루틴으로 바로 이어가요.</p>
-                    </li>
-                </ol>
-                <p class="fl_hint" aria-hidden="true">스크롤 →</p>
-            </div>
-        </section>
     </main>
 
 <!-- footer:start -->
@@ -315,7 +123,7 @@
                     <h2>Start.</h2>
                     <p>오늘의 루틴을<br>1분 만에 시작해요.</p>
                     <div class="sf_btns">
-                        <a class="sf_btn sf_btn_wide" href="../sleep/sleep_main.html">루틴 유형 진단하기 <span aria-hidden="true">→</span></a>
+                        <a class="sf_btn sf_btn_wide" href="../sleep/sleep_start.html">루틴 유형 진단하기 <span aria-hidden="true">→</span></a>
                     </div>
                 </div>
                 <div class="sf_col">
@@ -346,6 +154,7 @@
 <!-- footer:end -->
     <script src="../js/studio_header.js"></script>
     <script src="js/record.js"></script>
+    <script src="../js/smooth_scroll.js"></script>
 </body>
 
 </html>

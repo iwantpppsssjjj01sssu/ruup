@@ -214,3 +214,143 @@ document.addEventListener('DOMContentLoaded', () => {
         tick();
     }, 0.6);
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 성장 일지 카드 4장: 누르면 가운데에 큰 일지가 펼쳐지며 자세한 기록(실천율 · 최장 연속 등)이 나옴
+    const board = document.querySelector('.gr_log');
+    const detail = board?.querySelector('[data-gl-detail]');
+    const body = detail?.querySelector('[data-gl-body]');
+    if (!board || !detail || !body) {
+        return;
+    }
+    const cards = [...board.querySelectorAll('[data-gl-open]')];
+    const rates = [42, 48, 51, 58, 63, 67, 74, 81];
+    const heat = [...document.querySelectorAll('.gr_heat .gr_day')].map((day) => (day.className.match(/lv(\d)/) || [0, 0])[1]);
+    const goals = [...document.querySelectorAll('.gr_item')].map((item) => ({
+        name: item.querySelector('.gr_name')?.textContent || '',
+        rate: item.querySelector('.gr_meta b')?.textContent || '',
+        date: item.querySelector('.gr_meta dd')?.textContent || ''
+    }));
+
+    const views = {
+        rate: {
+            no: '01', title: '성장률', big: '+43%',
+            lead: `8주 전 <b>${rates[0]}%</b>였던 실천율이 이번 주 <b>${rates[rates.length - 1]}%</b>까지 올랐어요. 한 주도 빠짐없이 조금씩 올라간 것이 가장 큰 변화예요.`,
+            html: () => {
+                const xs = rates.map((_, i) => 20 + i * (460 / (rates.length - 1)));
+                const ys = rates.map((r) => 180 - (r / 100) * 160);
+                const line = xs.map((x, i) => `${i ? 'L' : 'M'}${x} ${ys[i]}`).join(' ');
+                return `<svg class="gld_line" viewBox="0 0 500 210" role="img" aria-label="주별 실천율 ${rates.join('%, ')}%">
+                    <path class="gld_area" d="${line} L${xs[xs.length - 1]} 180 L${xs[0]} 180 Z"/>
+                    <path class="gld_stroke" d="${line}" pathLength="1"/>
+                    ${xs.map((x, i) => `<circle cx="${x}" cy="${ys[i]}" r="${i === xs.length - 1 ? 6 : 4}"/><text x="${x}" y="${ys[i] - 12}">${rates[i]}%</text><text class="gld_x" x="${x}" y="204">${i + 1}주</text>`).join('')}
+                </svg>`;
+            }
+        },
+        streak: {
+            no: '02', title: '연속 기록', big: '최장 18일',
+            lead: '최근 5주 동안 가장 길게 이어간 기록은 <b>18일 연속</b>이에요. 마지막 2주는 하루도 빠지지 않았어요.',
+            html: () => `<ol class="gld_heat">${heat.map((lv) => `<li class="lv${lv}"></li>`).join('')}</ol>
+                <p class="gld_legend"><span class="lv0"></span>기록 없음 <span class="lv1"></span>일부 <span class="lv2"></span>대부분 <span class="lv3"></span>모두 완료</p>`
+        },
+        done: {
+            no: '03', title: '완료한 할 일', big: '126개',
+            lead: '최근 8주 동안 완료한 할 일은 모두 <b>126개</b>예요. <b>생활 습관</b>이 가장 많고, 그다음은 <b>공부</b>예요.',
+            html: () => {
+                const cats = [['생활 습관', 48], ['공부', 36], ['운동', 24], ['독서', 18]];
+                return `<ul class="gld_cats">${cats.map(([name, n]) => `<li><span>${name}</span><i style="--v:${n / 48}"></i><b>${n}개</b></li>`).join('')}</ul>`;
+            }
+        },
+        goals: {
+            no: '04', title: '해낸 목표', big: '7개',
+            lead: '지금까지 끝까지 해낸 목표는 <b>7개</b>예요. 최근에 달성한 목표 4개를 모았어요.',
+            html: () => `<ul class="gld_goals">${goals.map((g) => `<li><span>${g.name}</span><small>${g.date} 달성</small><b>${g.rate}</b></li>`).join('')}</ul>`
+        }
+    };
+
+    let openKey = null;
+    const close = () => {
+        detail.classList.remove('is-open');
+        board.classList.remove('is-detail');
+        cards.forEach((c) => c.setAttribute('aria-expanded', 'false'));
+        const last = cards.find((c) => c.dataset.glOpen === openKey);
+        openKey = null;
+        setTimeout(() => {
+            if (!openKey) detail.hidden = true;
+        }, 400);
+        last?.focus();
+    };
+    const open = (card) => {
+        const key = card.dataset.glOpen;
+        if (openKey === key) {
+            close();
+            return;
+        }
+        const v = views[key];
+        body.innerHTML = `
+            <p class="gld_head">No.${v.no} · 자세히 보기</p>
+            <h3 id="gl-detail-title" class="gld_title">${v.title}</h3>
+            <p class="gld_big">${v.big}</p>
+            <p class="gld_lead">${v.lead}</p>
+            <div class="gld_body">${v.html()}</div>`;
+        cards.forEach((c) => c.setAttribute('aria-expanded', String(c === card)));
+        detail.hidden = false;
+        board.classList.add('is-detail');
+        requestAnimationFrame(() => detail.classList.add('is-open'));
+        openKey = key;
+    };
+    // 카드를 누르면 아래에 있는 해당 섹션(주별 실천율 · 연속 달력 · 완료한 일 · 달성한 목표)으로 부드럽게 내려감
+    const targets = { rate: '#gr-rate-title', streak: '#gr-streak-title', done: '#gr-done-title', goals: '#gr-goal-title' };
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const goTo = (card) => {
+        const section = document.querySelector(targets[card.dataset.glOpen])?.closest('section');
+        if (!section) {
+            open(card);
+            return;
+        }
+        const header = document.querySelector('.site_header');
+        const offset = (header ? header.getBoundingClientRect().height : 0) + 24;
+        const start = window.scrollY;
+        const end = section.getBoundingClientRect().top + start - offset;
+        const root = document.documentElement;
+        const finish = () => {
+            root.style.scrollBehavior = '';
+            section.classList.remove('gl_flash');
+            void section.offsetWidth;
+            section.classList.add('gl_flash');
+            if (card.dataset.glOpen === 'goals') {
+                const toggle = section.querySelector('[data-goals-toggle]');
+                if (toggle && toggle.getAttribute('aria-expanded') !== 'true') toggle.click();
+            }
+        };
+        if (reduceMotion) {
+            window.scrollTo(0, end);
+            finish();
+            return;
+        }
+        root.style.scrollBehavior = 'auto';
+        const duration = 1000;
+        const t0 = performance.now();
+        const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+        const step = (now) => {
+            const t = Math.min((now - t0) / duration, 1);
+            window.scrollTo(0, start + (end - start) * ease(t));
+            if (t < 1) requestAnimationFrame(step);
+            else finish();
+        };
+        requestAnimationFrame(step);
+    };
+    cards.forEach((card) => {
+        card.addEventListener('click', () => open(card));
+        card.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                open(card);
+            }
+        });
+    });
+    detail.querySelector('[data-gl-close]').addEventListener('click', close);
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && openKey) close();
+    });
+});

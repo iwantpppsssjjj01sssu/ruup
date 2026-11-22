@@ -97,11 +97,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const next = nextRoutine();
         $('[data-done-count]').textContent = done.length;
         $('[data-total-count]').textContent = routines.length;
-        $('[data-progress-bar]').style.setProperty('--value', `${percent}%`);
+        $('[data-step-count]').textContent = routines.length;
         $('[data-progress]').setAttribute('aria-valuenow', percent);
-        $('[data-cheer]').textContent = CHEERS[Math.min(done.length, CHEERS.length - 1)];
-        $('[data-next]').textContent = next ? `${next.title} · 약 ${next.minutes}분` : '남은 할 일이 없어요';
-        $('[data-done-summary]').textContent = done.length ? done.map((routine) => `${routine.title} ${routine.doneAt}`).join(' · ') : '아직 없어요';
+        // 진행 막대: 루틴마다 한 칸씩 (끝냄 = 꽉 참, 하는 중 = 진행만큼, 예정 = 빈 칸)
+        // 칸이 왼쪽부터 차례로 차오르는 움직임을 일정 간격으로 반복
+        const bar = $('[data-progress]');
+        bar.classList.add('seg_bar');
+        bar.innerHTML = routines.map((routine, i) => {
+            const fill = routine.status === 'done' ? 1
+                : routine.status === 'active' ? (routine.steps ? routine.stepsDone / routine.steps : 0.5) : 0;
+            return `<span class="seg is-${routine.status}" style="--i:${i};--fill:${fill}"><i></i></span>`;
+        }).join('');
         $('[data-counter-total]').textContent = pad(track.children.length);
     };
 
@@ -115,7 +121,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     <button type="button" class="card_go" data-go="${index}" aria-label="${routine.title} 리포트 보기"><span aria-hidden="true">→</span></button>
                 </span>
             </div>
-            <h2 class="card_title focus_title"><span aria-hidden="true">${routine.icon}</span> ${routine.title}</h2>
+            <h2 class="card_title focus_title">${splitTitle(routine.title)}</h2>
+            <p class="card_meta focus_meta">${routine.steps ? `${routine.steps}${routine.unit} 중 ${routine.stepsDone}${routine.unit} 했어요` : '지금 하고 있어요'}</p>
+            <div class="card_visual focus_art" aria-hidden="true">${cardArt(index)}</div>
+            <div class="card_bottom focus_more">
+                <button type="button" class="card_go" data-go="${index}" aria-label="${routine.title} 리포트 보기"><i aria-hidden="true">↗</i><span aria-hidden="true">리포트 보기</span></button>
+            </div>
             <div class="focus_grid">
                 <div class="focus_left">
                     <div class="focus_timer">
@@ -160,6 +171,90 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         </li>`;
 
+
+    // 카드 그림: 루틴마다 입체감 있는 물건 하나 (밥그릇 · 가방 · 연필 · 단어 블록 · 책)
+    const CARD_ART = [
+        `<svg viewBox="0 0 200 200"><defs>
+            <linearGradient id="ca-bowl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#cfd8ee"/></linearGradient>
+            <linearGradient id="ca-bowl-band" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5b8cff"/><stop offset="1" stop-color="#2f5fe0"/></linearGradient>
+            <radialGradient id="ca-rice" cx=".4" cy=".3" r=".8"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e9edf5"/></radialGradient>
+        </defs>
+            <ellipse cx="100" cy="176" rx="62" ry="9" fill="#0b1a3a" opacity=".12"/>
+            <path d="M52 50 L132 96" stroke="#c9894a" stroke-width="7" stroke-linecap="round"/>
+            <path d="M64 42 L140 92" stroke="#e0a565" stroke-width="7" stroke-linecap="round"/>
+            <path d="M40 100 Q100 92 160 100 Q160 160 100 166 Q40 160 40 100Z" fill="url(#ca-bowl)"/>
+            <path d="M44 122 Q100 132 156 122 L152 134 Q100 144 48 134Z" fill="url(#ca-bowl-band)"/>
+            <ellipse cx="100" cy="100" rx="60" ry="14" fill="#dfe5f2"/>
+            <path d="M46 100 Q60 70 100 68 Q140 70 154 100 Q100 112 46 100Z" fill="url(#ca-rice)"/>
+            <circle cx="84" cy="84" r="3" fill="#fff"/><circle cx="110" cy="80" r="3" fill="#fff"/><circle cx="124" cy="90" r="2.5" fill="#fff"/>
+            <path d="M58 112 Q62 140 82 152" stroke="#fff" stroke-width="5" stroke-linecap="round" fill="none" opacity=".8"/>
+        </svg>`,
+        `<svg viewBox="0 0 200 200"><defs>
+            <linearGradient id="ca-bag" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffb36b"/><stop offset="1" stop-color="#f26b3a"/></linearGradient>
+            <linearGradient id="ca-pocket" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd27a"/><stop offset="1" stop-color="#ffaa3b"/></linearGradient>
+        </defs>
+            <ellipse cx="100" cy="180" rx="58" ry="8" fill="#0b1a3a" opacity=".12"/>
+            <path d="M76 52 Q76 28 100 28 Q124 28 124 52" stroke="#b8481f" stroke-width="9" fill="none" stroke-linecap="round"/>
+            <rect x="46" y="48" width="108" height="128" rx="34" fill="url(#ca-bag)"/>
+            <path d="M58 60 Q60 52 72 52" stroke="#fff" stroke-width="5" stroke-linecap="round" fill="none" opacity=".7"/>
+            <rect x="62" y="104" width="76" height="58" rx="18" fill="url(#ca-pocket)"/>
+            <path d="M62 120 H138" stroke="#e58a22" stroke-width="3"/>
+            <rect x="94" y="114" width="12" height="14" rx="4" fill="#5b8cff"/>
+            <path d="M58 84 Q100 96 142 84" stroke="#d9562a" stroke-width="3" fill="none"/>
+        </svg>`,
+        `<svg viewBox="0 0 200 200"><defs>
+            <linearGradient id="ca-pen" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffe066"/><stop offset=".5" stop-color="#ffc83d"/><stop offset="1" stop-color="#f2a516"/></linearGradient>
+            <linearGradient id="ca-paper" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#dfe7f7"/></linearGradient>
+        </defs>
+            <ellipse cx="100" cy="182" rx="64" ry="8" fill="#0b1a3a" opacity=".12"/>
+            <g transform="rotate(-8 100 110)">
+                <rect x="40" y="52" width="110" height="124" rx="12" fill="url(#ca-paper)"/>
+                <path d="M56 84 H134 M56 104 H134 M56 124 H120 M56 144 H110" stroke="#b9c7ea" stroke-width="3" stroke-linecap="round"/>
+                <path d="M58 82 l6 6 l12 -14" stroke="#3fd8b0" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+            <g transform="rotate(38 130 90)">
+                <rect x="118" y="20" width="26" height="112" rx="4" fill="url(#ca-pen)"/>
+                <rect x="118" y="14" width="26" height="16" rx="5" fill="#ff8fb8"/>
+                <rect x="118" y="28" width="26" height="6" fill="#c9d2e6"/>
+                <path d="M118 132 L131 160 L144 132Z" fill="#f6d7a8"/>
+                <path d="M127 152 L131 160 L135 152Z" fill="#33384a"/>
+                <path d="M124 40 V124" stroke="#fff" stroke-width="3" opacity=".6"/>
+            </g>
+        </svg>`,
+        `<svg viewBox="0 0 200 200"><defs>
+            <linearGradient id="ca-blk1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8fb0ff"/><stop offset="1" stop-color="#4a74f0"/></linearGradient>
+            <linearGradient id="ca-blk2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff9fc8"/><stop offset="1" stop-color="#f0609c"/></linearGradient>
+            <linearGradient id="ca-blk3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7ff0d0"/><stop offset="1" stop-color="#22b892"/></linearGradient>
+        </defs>
+            <ellipse cx="100" cy="182" rx="70" ry="8" fill="#0b1a3a" opacity=".12"/>
+            <g transform="rotate(-6 70 140)"><rect x="34" y="108" width="68" height="68" rx="16" fill="url(#ca-blk1)"/><text x="68" y="157" text-anchor="middle" font-family="Paperlogy, sans-serif" font-weight="700" font-size="40" fill="#fff">A</text></g>
+            <g transform="rotate(5 132 142)"><rect x="98" y="110" width="68" height="68" rx="16" fill="url(#ca-blk2)"/><text x="132" y="159" text-anchor="middle" font-family="Paperlogy, sans-serif" font-weight="700" font-size="40" fill="#fff">B</text></g>
+            <g transform="rotate(-10 100 76)"><rect x="66" y="42" width="68" height="68" rx="16" fill="url(#ca-blk3)"/><text x="100" y="91" text-anchor="middle" font-family="Paperlogy, sans-serif" font-weight="700" font-size="40" fill="#fff">C</text></g>
+            <path d="M44 120 Q46 114 54 114" stroke="#fff" stroke-width="4" stroke-linecap="round" fill="none" opacity=".7"/>
+            <path d="M76 54 Q78 48 86 48" stroke="#fff" stroke-width="4" stroke-linecap="round" fill="none" opacity=".7"/>
+        </svg>`,
+        `<svg viewBox="0 0 200 200"><defs>
+            <linearGradient id="ca-cover" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b79bff"/><stop offset="1" stop-color="#7a52f0"/></linearGradient>
+            <linearGradient id="ca-page" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e6e9f5"/></linearGradient>
+        </defs>
+            <ellipse cx="100" cy="176" rx="74" ry="9" fill="#0b1a3a" opacity=".12"/>
+            <path d="M22 70 Q60 58 100 76 Q140 58 178 70 V160 Q140 148 100 166 Q60 148 22 160Z" fill="url(#ca-cover)"/>
+            <path d="M30 62 Q64 50 100 68 V154 Q64 138 30 150Z" fill="url(#ca-page)"/>
+            <path d="M170 62 Q136 50 100 68 V154 Q136 138 170 150Z" fill="url(#ca-page)"/>
+            <path d="M100 68 V154" stroke="#c9cfe3" stroke-width="2"/>
+            <path d="M44 80 Q66 72 88 82 M44 96 Q66 88 88 98 M44 112 Q66 104 88 114" stroke="#c4cbe4" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M112 82 Q134 72 156 80 M112 98 Q134 88 156 96 M112 114 Q134 104 156 112" stroke="#c4cbe4" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M128 66 V40 l10 8 l10 -8 V62" fill="#ff8fb8"/>
+            <circle cx="60" cy="34" r="5" fill="#ffc94a"/><circle cx="150" cy="24" r="3.5" fill="#ffc94a"/><circle cx="40" cy="48" r="3" fill="#fff"/>
+        </svg>`
+    ];
+    // 카드 제목 두 줄: 앞부분은 진하게, 마지막 낱말은 연하게 (예: 아침 / 식사하기)
+    const splitTitle = (title) => {
+        const cut = title.lastIndexOf(' ');
+        return cut < 0 ? `<b>${title}</b>` : `<b>${title.slice(0, cut)}</b><span>${title.slice(cut + 1)}</span>`;
+    };
+    const cardArt = (index) => `<div class="card_art">${CARD_ART[index % CARD_ART.length]}</div>`;
+
     const cardHTML = (routine, index) => {
         if (routine.status === 'active') {
             return focusCardHTML(routine, index);
@@ -178,16 +273,16 @@ document.addEventListener('DOMContentLoaded', () => {
         return `
         <li class="stage_card is-${routine.status}${isNext ? ' is-next' : ''}" data-card="${index}">
             <div class="card_top"><span class="card_no">${pad(index + 1)}</span><span class="card_state">${state}</span></div>
-            <div class="card_visual" aria-hidden="true"></div>
+            <h2 class="card_title">${splitTitle(routine.title)}</h2>
+            <p class="card_meta">${meta}</p>
+            <div class="card_visual" aria-hidden="true">${cardArt(index)}</div>
             <div class="card_preview" aria-hidden="true">
                 <p class="preview_dots">${dots}<span>최근 6일</span></p>
                 <p class="preview_sum">해낸 날 <b>${doneDays}/${past.length}일</b> · 평균 <b>${average}분</b></p>
                 <p class="preview_note">${note}</p>
             </div>
-            <p class="card_meta">${meta}</p>
             <div class="card_bottom">
-                <h2 class="card_title">${routine.title}</h2>
-                <button type="button" class="card_go" data-go="${index}" aria-label="${routine.title} 리포트 보기"><span aria-hidden="true">→</span></button>
+                <button type="button" class="card_go" data-go="${index}" aria-label="${routine.title} 리포트 보기"><i aria-hidden="true">↗</i><span aria-hidden="true">리포트 보기</span></button>
             </div>
         </li>`;
     };
@@ -706,6 +801,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const tipAttrs = (text) => `tabindex="0" data-tip="${text}" aria-label="${text}"`;
 
+    const openSection = (key) => {
+        $('[data-report-panels]').querySelectorAll('.rp_item').forEach((item) => {
+            const open = item.dataset.acc === key;
+            item.classList.toggle('is-open', open);
+            item.querySelector('.rp_tab').setAttribute('aria-expanded', String(open));
+        });
+    };
+    $('[data-report-panels]').addEventListener('click', (event) => {
+        const tab = event.target.closest('[data-acc-open]');
+        if (tab) {
+            openSection(tab.dataset.accOpen);
+        }
+    });
+
     const renderReport = (index) => {
         const routine = routines[index];
         const data = REPORTS[index];
@@ -792,49 +901,98 @@ document.addEventListener('DOMContentLoaded', () => {
             </dl>`
             : '<p class="issue_empty" style="background:#f1f4f8">아직 시작 전이에요.</p>';
 
-        // 첫 화면: 프로젝트 스크린샷처럼 루틴을 크게 보여주는 대표 이미지
-        const heroDots = week.map((day) => `<li class="tone_${STATUS[day.status].tone}${day.today ? ' is-today' : ''}"><i aria-hidden="true">${STATUS[day.status].icon}</i><span>${day.day}</span></li>`).join('');
-        const hero = `
-            <section class="report_panel report_hero tone_${verdictKey}" aria-label="${routine.title} 한눈에 보기">
-                <p class="hero_tag">LUUP · ${routine.title}</p>
-                <div class="hero_body">
-                    <div class="hero_info">
-                        <p class="hero_score"><span>최근 ${past.length}일 중 해낸 날</span><b>${doneDays}<small>/${past.length}일</small></b></p>
-                        <p class="hero_pill"><i aria-hidden="true">${verdict.icon}</i>${verdict.title}</p>
-                    </div>
-                    <div class="hero_stage" aria-hidden="true">
-                        <img class="hero_buddy" src="../img/common_character.svg" alt="">
-                    </div>
-                </div>
-                <div class="hero_glass">
-                    <ul class="hero_week" aria-label="최근 7일 상태">${heroDots}</ul>
-                </div>
-            </section>`;
+        // 오른쪽: 세로로 길쭉한 알약들 = 리포트 항목들 (요약 · 최근 7일 · 문제점 · 문제별 시간 · 오늘 · 잘한 점)
+        // 하나만 크게 펼쳐지고, 다른 알약을 누르면 그 항목이 펼쳐짐
+        // 해요체 → 합니다체 (소견서 말투로)
+        const formal = (text) => text
+            .replace(/이에요/g, '입니다').replace(/예요/g, '입니다')
+            .replace(/했어요/g, '했습니다').replace(/였어요/g, '였습니다').replace(/졌어요/g, '졌습니다')
+            .replace(/었어요/g, '었습니다').replace(/았어요/g, '았습니다').replace(/겼어요/g, '겼습니다')
+            .replace(/돼요/g, '됩니다').replace(/해요/g, '합니다').replace(/져요/g, '집니다')
+            .replace(/려요/g, '립니다').replace(/늘어요/g, '늘어납니다').replace(/어요/g, '습니다');
+        // 권고 문장: "~해 보세요" → "~해 보는 것을", "~하기" → "~하기를"
+        const recommend = (fix) => {
+            const f = fix.trim().replace(/[.!]$/, '');
+            if (/보세요$/.test(f)) {
+                return `${f.replace(/보세요$/, '보는 것')}을`;
+            }
+            const last = f.charCodeAt(f.length - 1);
+            const hasBatchim = last >= 0xac00 && last <= 0xd7a3 && (last - 0xac00) % 28 !== 0;
+            return `${f}${hasBatchim ? '을' : '를'}`;
+        };
+        // 요약 소견: 의사 소견서처럼 한 덩어리 글로 (관찰된 경향 → 원인 추정 → 권고)
+        const pastDays = week.filter((day) => !day.today);
+        const timed = pastDays.filter((day) => day.min);
+        const slowest = [...timed].sort((x, y) => y.min - x.min)[0];
+        const fastest = [...timed].sort((x, y) => x.min - y.min)[0];
+        const half = Math.floor(timed.length / 2);
+        const avgOf = (list) => list.length ? Math.round(list.reduce((sum, day) => sum + day.min, 0) / list.length) : 0;
+        const early = avgOf(timed.slice(0, half));
+        const late = avgOf(timed.slice(half));
+        const missDays = past.length - doneDays;
+        const spread = slowest && fastest ? slowest.min - fastest.min : 0;
+        const trend = late < early - 1 ? `후반으로 갈수록 평균 ${early}분에서 ${late}분으로 줄어드는 <b>개선 경향</b>을 보였습니다`
+            : late > early + 1 ? `후반으로 갈수록 평균 ${early}분에서 ${late}분으로 늘어나는 <b>지연 경향</b>을 보였습니다`
+            : `기간 내내 평균 ${average}분 안팎으로 <b>비교적 일정한 경향</b>을 보였습니다`;
+        const consistency = missDays === 0 ? '하루도 거르지 않고 수행하여 루틴이 생활 속에 안정적으로 자리 잡은 것으로 보입니다'
+            : missDays === 1 ? `${missDays}일을 제외하고 꾸준히 수행하여 습관 형성이 진행 중인 단계로 판단됩니다`
+            : `${missDays}일을 수행하지 못해 아직 습관으로 자리 잡는 과정에 있는 것으로 판단됩니다`;
+        const variability = spread >= routine.minutes * 0.5
+            ? `다만 가장 빨리 끝낸 날(${fastest.day}요일, ${fastest.min}분)과 가장 오래 걸린 날(${slowest.day}요일, ${slowest.min}분)의 차이가 ${spread}분으로 커서, 그날의 컨디션이나 주변 환경의 영향을 크게 받는 편입니다.`
+            : spread ? `날마다의 편차도 ${spread}분 이내로 크지 않아 수행 리듬이 안정적입니다.` : '';
+        const cause = data.issues.length
+            ? `특히 다음과 같은 양상이 관찰되었습니다. ${formal(data.issues[0].detail)}`
+            : `기록상 눈에 띄는 어려움은 관찰되지 않았으며, ${data.good[0].replace(/요\.?$/, '').replace(/[.!]$/, '')}는 점이 긍정적입니다.`;
+        const advice = data.issues.length
+            ? `따라서 ${recommend(data.issues[0].fix)} 권장합니다. ${verdictKey === 'good' ? '현재의 흐름은 좋으므로 해낸 날을 구체적으로 칭찬해 주시면 유지에 도움이 됩니다.' : '한 번에 여러 가지를 바꾸기보다 한 가지부터 일주일간 적용해 보시길 권합니다.'}`
+            : '지금의 방식을 유지하되, 해낸 날을 구체적으로 칭찬해 주시면 동기 유지에 도움이 됩니다.';
+        const today = new Intl.DateTimeFormat('ko-KR', { month: 'long', day: 'numeric' }).format(new Date());
+        const summaryDetail = `
+            <p class="sum_label">LUUP 소견</p>
+            <p>최근 ${past.length}일간 ‘${routine.title}’ 루틴을 관찰한 결과, ${doneDays}일을 수행했고 그중 ${okDays}일은 목표 시간(${routine.minutes}분) 안에 마쳤습니다. ${consistency}. 소요 시간은 ${trend}. ${variability}</p>
+            <p>${cause}</p>
+            <p>${advice}</p>
+            <p class="sum_sign">${today} · LUUP 루틴 분석</p>`;
 
-        $('[data-report-panels]').innerHTML = `
-            ${hero}
-            <section class="report_panel">
+        const sections = [
+            { key: 'summary', label: '요약', icon: verdict.icon, tone: verdictKey, html: `
+                <p class="hero_tag">LUUP · ${routine.title}</p>
+                <div class="sum_main">
+                    <p class="hero_score"><span>최근 ${past.length}일 중 해낸 날</span><b>${doneDays}<small>/${past.length}일</small></b></p>
+                    <p class="hero_pill"><i aria-hidden="true">${verdict.icon}</i>${verdict.title}</p>
+                    <div class="sum_detail">${summaryDetail}</div>
+                </div>` },
+            { key: 'week', label: '최근 7일 기록', icon: '7', tone: 'blue', html: `
                 <h3>최근 7일 기록 <small>막대 = 걸린 시간 · 점선 = 목표</small></h3>
                 <ul class="week_row">${weekRow}</ul>
                 <div class="bar_chart" style="--bars:7">
                     <span class="goal" style="--goal:${(routine.minutes / max) * 100}%"><span>목표 ${routine.minutes}분</span></span>
                     ${weekBars}
                 </div>
-                <div class="bar_axis" style="--bars:7" aria-hidden="true">${week.map((day) => `<span>${day.day}</span>`).join('')}</div>
-            </section>
-            <section class="report_panel" data-report-issues>
+                <div class="bar_axis" style="--bars:7" aria-hidden="true">${week.map((day) => `<span>${day.day}</span>`).join('')}</div>` },
+            { key: 'issues', label: '무엇이 문제일까요', icon: data.issues.length ? '!' : '✓', tone: data.issues.length ? 'warn' : 'good', html: `
                 <h3>무엇이 문제일까요? <small>${data.issues.length}가지</small></h3>
-                ${issues}
-            </section>
-            ${stepPanel}
-            <section class="report_panel">
+                ${issues}` },
+            ...(stepPanel ? [{ key: 'steps', label: `${routine.unit}별 걸린 시간`, icon: '⏱', tone: 'purple', html: stepPanel.replace(/<\/?section[^>]*>/g, '') }] : []),
+            { key: 'today', label: '오늘 기록', icon: '●', tone: 'sky', html: `
                 <h3>오늘 기록 <small>${routine.status === 'done' ? `${routine.doneAt} 완료` : STATE_LABEL[routine.status]}</small></h3>
-                ${todayPanel}
-            </section>
-            <section class="report_panel">
+                ${todayPanel}` },
+            { key: 'good', label: '잘하고 있는 점', icon: '★', tone: 'good', html: `
                 <h3>잘하고 있는 점</h3>
-                <ul class="good_list">${data.good.map((text) => `<li>${text}</li>`).join('')}</ul>
-            </section>`;
+                <ul class="good_list">${data.good.map((text) => `<li>${text}</li>`).join('')}</ul>` }
+        ];
+
+        $('[data-report-panels]').innerHTML = `
+            <div class="rp_acc">
+                ${sections.map((sec, i) => `
+                <section class="rp_item rp_${sec.key} tone_${sec.tone}${i === 0 ? ' is-open' : ''}" data-acc="${sec.key}"${sec.key === 'issues' ? ' data-report-issues' : ''}>
+                    <button type="button" class="rp_tab" data-acc-open="${sec.key}" aria-expanded="${i === 0}">
+                        <span class="rp_label">${sec.label}</span>
+                        <i aria-hidden="true">L</i>
+                    </button>
+                    <div class="rp_body report_panel${sec.key === 'summary' ? ` report_hero tone_${verdictKey}` : ''}">${sec.html}</div>
+                </section>`).join('')}
+            </div>`;
         $('[data-report-panels]').scrollTop = 0;
     };
 
@@ -867,6 +1025,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const wasOpen = report.open;
         if (!wasOpen) {
             report.showModal();
+            document.documentElement.classList.add('is-report-open');
         }
         // 닫혀 있는 동안에는 스크롤 위치가 적용되지 않으므로 연 뒤에 맨 위로
         $('[data-report-panels]').scrollTop = 0;
@@ -886,6 +1045,9 @@ document.addEventListener('DOMContentLoaded', () => {
         report.style.clipPath = 'inset(0 round 30px)';
         report.classList.add('is-in');
     }
+
+    // 리포트가 닫히면(✕ · Esc · 바깥) 뒷배경 스크롤 다시 허용
+    report.addEventListener('close', () => document.documentElement.classList.remove('is-report-open'));
 
     const closeReport = () => {
         report.classList.remove('is-in');
@@ -910,7 +1072,7 @@ document.addEventListener('DOMContentLoaded', () => {
             closeReport();
         }
         if (event.target.closest('[data-report-jump]')) {
-            $('[data-report-issues]').scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
+            openSection('issues');
         }
     });
 
@@ -947,6 +1109,123 @@ document.addEventListener('DOMContentLoaded', () => {
         updateReportProgress();
     }, { passive: true });
 
+
+    // ---------- 첫 등장 인터렉션 (페이지 들어올 때 한 번) ----------
+    // 1) 인사 문구가 낱말마다 흐린 회색 → 진하게
+    // 2) 가운데에 지금 하는 카드 한 장이 기울어진 채 떠오름
+    // 3) 나머지 카드가 그 뒤에 겹쳐 쌓였다가
+    // 4) 부채처럼 촤르륵 펼쳐지며 제자리로
+    const splitWords = (el) => {
+        [...el.childNodes].forEach((node) => {
+            if (node.nodeType === Node.TEXT_NODE) {
+                const frag = document.createDocumentFragment();
+                node.textContent.split(/(\s+)/).forEach((part) => {
+                    if (!part) return;
+                    if (/^\s+$/.test(part)) {
+                        frag.append(part);
+                        return;
+                    }
+                    const span = document.createElement('span');
+                    span.className = 'intro_word';
+                    span.textContent = part;
+                    frag.append(span);
+                });
+                node.replaceWith(frag);
+            } else if (node.nodeType === Node.ELEMENT_NODE) {
+                node.classList.add('intro_word');
+            }
+        });
+        [...el.querySelectorAll('.intro_word')].forEach((word, i) => word.style.setProperty('--i', i));
+    };
+
+    const playIntro = () => {
+        const stage = $('[data-stage]');
+        if (!stage.querySelector('.stage_glow')) {
+            stage.insertAdjacentHTML('afterbegin', '<div class="stage_glow" aria-hidden="true"><span class="glow_edge"></span></div>');
+        }
+        // 카드가 모였다 펼쳐지는 첫 등장은 뺌 → 카드는 처음부터 제자리, 색만 아래에서 위로 차오름
+        if (prefersReducedMotion || !isStrip()) {
+            stage.classList.add('is-filled', 'is-filled-now');
+            return;
+        }
+        if (!stage.dataset.introDone) {
+            stage.dataset.introDone = '1';
+            setTimeout(() => stage.classList.add('is-filled'), 300);
+        }
+        return;
+        stage.dataset.introDone = '1';
+        splitWords($('#today-title'));
+        stage.classList.add('is-intro');
+
+        const cards = [...track.children];
+        const center = track.querySelector('.is-active, .is-clear') || cards[0];
+        const centerIndex = cards.indexOf(center);
+        const mid = center.offsetLeft + center.offsetWidth / 2;
+        const EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
+
+        cards.forEach((card, i) => {
+            const offset = i - centerIndex;
+            const dx = mid - (card.offsetLeft + card.offsetWidth / 2);
+            card.style.transition = 'none';
+            card.style.zIndex = String(20 - Math.abs(offset));
+            card.style.opacity = '0';
+            // 3D 곡선에서 가장자리 카드가 앞으로 나와 있으므로(translateZ) 그만큼 되돌리고, 가운데 카드가 맨 위에 오게 깊이를 줌
+            const curveZ = Number((card.style.transform.match(/translateZ\(([-\d.]+)px\)/) || [0, 0])[1]);
+            const z = 0;
+            card.dataset.introZ = String(z);
+            card.style.translate = `${dx + offset * 26}px 60px ${z}px`;
+            card.style.rotate = `${-6 + offset * 3}deg`;
+            card.style.scale = card === center ? '0.82' : '0.9';
+            card.dataset.introDx = String(dx);
+        });
+        void track.offsetWidth;
+
+        // 2) 가운데 카드 한 장
+        setTimeout(() => {
+            center.style.transition = `opacity 0.6s ease, translate 0.9s ${EASE}, scale 0.9s ${EASE}, rotate 0.9s ${EASE}`;
+            center.style.opacity = '1';
+            center.style.translate = `0 0 ${center.dataset.introZ}px`;
+            center.style.scale = '1';
+            center.style.rotate = '-6deg';
+        }, 350);
+
+        // 3) 나머지가 뒤에 겹쳐 쌓임
+        setTimeout(() => {
+            cards.forEach((card, i) => {
+                if (card === center) return;
+                const offset = i - centerIndex;
+                const dx = Number(card.dataset.introDx);
+                card.style.transition = `opacity 0.4s ease ${Math.abs(offset) * 70}ms, translate 0.6s ${EASE} ${Math.abs(offset) * 70}ms, scale 0.6s ${EASE}`;
+                card.style.opacity = '1';
+                card.style.translate = `${dx + offset * 34}px 0 ${card.dataset.introZ}px`;
+                card.style.scale = '0.94';
+            });
+        }, 1100);
+
+        // 4) 부채처럼 펼쳐짐
+        setTimeout(() => {
+            cards.forEach((card, i) => {
+                const delay = Math.abs(i - centerIndex) * 60;
+                card.style.transition = `translate 1.1s ${EASE} ${delay}ms, rotate 1.1s ${EASE} ${delay}ms, scale 1.1s ${EASE} ${delay}ms, opacity 0.3s ease`;
+                card.style.translate = '0 0';
+                card.style.rotate = '0deg';
+                card.style.scale = '1';
+            });
+        }, 1900);
+
+        // 끝나면 깨끗이 정리
+        setTimeout(() => {
+            cards.forEach((card) => {
+                ['transition', 'zIndex', 'opacity', 'translate', 'rotate', 'scale'].forEach((prop) => { card.style[prop] = ''; });
+                delete card.dataset.introDx;
+                delete card.dataset.introZ;
+            });
+            stage.classList.remove('is-intro');
+            // 카드가 멈춘 뒤: 파랑·분홍 빛이 아래에서 위로 차오름
+            stage.classList.add('is-filled');
+        }, 3400);
+    };
+
     // ---------- 시작 ----------
     const current = activeRoutine();
     if (current) {
@@ -956,7 +1235,10 @@ document.addEventListener('DOMContentLoaded', () => {
     renderCards();
     centerOn(track.querySelector('.is-active'), true);
     // 웹폰트가 늦게 적용되면 카드 폭이 바뀌므로 한 번 더 맞춤
-    window.addEventListener('load', () => centerOn(track.querySelector('.is-active, .is-clear'), true));
+    window.addEventListener('load', () => {
+        centerOn(track.querySelector('.is-active, .is-clear'), true);
+        playIntro();
+    });
 
     // 로딩 화면(막대 3개)은 없앰 → 바로 화면이 보임
     // 마이페이지의 "리포트 보기"로 들어오면 진행 중인 루틴 리포트를 바로 열기

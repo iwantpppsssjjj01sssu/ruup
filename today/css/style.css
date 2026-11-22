@@ -3089,3 +3089,2093 @@ html.is-splash .stage_floor {
   font-weight: 600;
   color: rgba(5, 8, 15, 0.5);
 }
+
+/* =========================================================
+   리포트 첫 그림 예쁘게
+   - 빛 덩어리가 겹친 배경 · 캐릭터 뒤 흰 원 무대
+   - 숫자 + 한마디 알약 · 요일은 유리 띠 안에
+   ========================================================= */
+.report_hero {
+  --hero-a: #bfe6ff;
+  --hero-b: #a8efdc;
+  --hero-c: #e9f7ff;
+  --hero-ink: #0f6e5c;
+  isolation: isolate;
+  min-height: clamp(460px, 36vw, 600px);
+  border-radius: 24px;
+  background:
+    radial-gradient(60% 70% at 85% 15%, rgba(255, 255, 255, 0.85), transparent 60%),
+    radial-gradient(50% 60% at 10% 100%, var(--hero-b), transparent 70%),
+    radial-gradient(70% 80% at 0% 0%, var(--hero-a), transparent 70%),
+    linear-gradient(150deg, var(--hero-c), var(--hero-b));
+}
+
+.report_hero.tone_warn {
+  --hero-a: #ffe0bd;
+  --hero-b: #ffc9a3;
+  --hero-c: #fff4e8;
+  --hero-ink: #b45f0c;
+  background:
+    radial-gradient(60% 70% at 85% 15%, rgba(255, 255, 255, 0.85), transparent 60%),
+    radial-gradient(50% 60% at 10% 100%, var(--hero-b), transparent 70%),
+    radial-gradient(70% 80% at 0% 0%, var(--hero-a), transparent 70%),
+    linear-gradient(150deg, var(--hero-c), var(--hero-b));
+}
+
+.report_hero.tone_bad {
+  --hero-a: #ffd3da;
+  --hero-b: #ffbcc6;
+  --hero-c: #fff0f2;
+  --hero-ink: #c23440;
+  background:
+    radial-gradient(60% 70% at 85% 15%, rgba(255, 255, 255, 0.85), transparent 60%),
+    radial-gradient(50% 60% at 10% 100%, var(--hero-b), transparent 70%),
+    radial-gradient(70% 80% at 0% 0%, var(--hero-a), transparent 70%),
+    linear-gradient(150deg, var(--hero-c), var(--hero-b));
+}
+
+/* 오른쪽 위 옅은 반짝이 */
+.report_hero::before {
+  content: '';
+  position: absolute;
+  top: 9%;
+  right: 7%;
+  z-index: -1;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow:
+    -60px 34px 0 -2px rgba(255, 255, 255, 0.9),
+    -130px 6px 0 -3px rgba(255, 255, 255, 0.7),
+    -24px 90px 0 -3px rgba(255, 255, 255, 0.8);
+  opacity: 0.9;
+}
+
+.hero_body {
+  align-items: center;
+  padding: 0;
+}
+
+.hero_info {
+  display: grid;
+  justify-items: start;
+  gap: 22px;
+}
+
+.hero_pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 8px 16px 8px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.75);
+  box-shadow: 0 8px 24px rgba(5, 8, 15, 0.06);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--hero-ink);
+}
+
+.hero_pill i {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--hero-ink);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 800;
+  color: #fff;
+}
+
+/* 캐릭터 무대: 흰 원 + 부드러운 그림자 */
+.hero_stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: clamp(190px, 17vw, 260px);
+  aspect-ratio: 1;
+  flex: none;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.45) 70%);
+  box-shadow:
+    0 0 0 14px rgba(255, 255, 255, 0.22),
+    0 0 0 30px rgba(255, 255, 255, 0.12),
+    0 30px 60px rgba(5, 8, 15, 0.08);
+}
+
+.hero_stage::after {
+  content: '';
+  position: absolute;
+  bottom: 16%;
+  left: 50%;
+  width: 46%;
+  height: 8%;
+  border-radius: 50%;
+  background: rgba(5, 8, 15, 0.1);
+  filter: blur(6px);
+  transform: translateX(-50%);
+}
+
+.hero_stage .hero_buddy {
+  position: relative;
+  z-index: 1;
+  width: 62%;
+}
+
+/* 요일: 유리 띠 */
+.hero_glass {
+  margin-top: 28px;
+  padding: 18px 20px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.5);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+
+.hero_glass .hero_week {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.hero_glass .hero_week li {
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(5, 8, 15, 0.45);
+}
+
+.hero_glass .hero_week i {
+  width: 32px;
+  height: 32px;
+  border: 2px solid var(--tone);
+  background: #fff;
+  color: var(--tone);
+  font-size: 13px;
+  box-shadow: none;
+}
+
+.hero_glass .hero_week li.is-today {
+  color: #05080f;
+}
+
+.hero_glass .hero_week li.is-today i {
+  background: var(--tone);
+  color: #fff;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--tone) 22%, transparent);
+}
+
+.hero_glass .hero_week li.tone_none i {
+  border-style: dashed;
+  border-color: rgba(5, 8, 15, 0.25);
+  color: rgba(5, 8, 15, 0.4);
+}
+
+.hero_caption {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .hero_stage {
+    display: none;
+  }
+
+  .hero_glass {
+    padding: 14px 10px 10px;
+  }
+}
+
+/* =========================================================
+   인사 문구(왼쪽 위) 새 디자인
+   - 흰 상자 없이 깔끔하게: 왼쪽 파란 세로선 + 날짜 알약(위) + 인사(아래)
+   - 오른쪽 진행 현황도 같은 느낌으로 상자 없앰
+   ========================================================= */
+.today_stage .stage_tl,
+.today_stage .stage_tr {
+  margin: 0;
+  border-radius: 0;
+  background: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow: none;
+}
+
+.today_stage .stage_tl {
+  flex-direction: column;
+  gap: 12px;
+  padding: 4px 0 4px 20px;
+  border-left: 3px solid var(--luup-primary);
+}
+
+.today_stage .stage_tl .stage_label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #eef4ff;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: #2563eb;
+}
+
+.today_stage .stage_tl .stage_label::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);
+}
+
+.today_stage .stage_tl h1 {
+  font-size: clamp(24px, 2.2vw, 34px);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.04em;
+  color: #111318;
+}
+
+.today_stage .stage_tl h1 em {
+  font-style: normal;
+  font-weight: 700;
+  color: #2563eb;
+}
+
+.today_stage .stage_tr {
+  padding: 4px 0;
+}
+
+/* =========================================================
+   카드 그림: 입체 물건 하나를 카드 위쪽에 크게 (살짝 기울여 둥실)
+   ========================================================= */
+.stage_card .card_visual {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 0;
+}
+
+.card_art {
+  width: min(78%, 230px);
+  aspect-ratio: 1;
+  filter: drop-shadow(0 22px 26px rgba(11, 26, 58, 0.18));
+  transform: rotate(-4deg);
+  animation: card-art-float 4.5s ease-in-out infinite;
+}
+
+.stage_card:nth-child(even) .card_art {
+  transform: rotate(4deg);
+  animation-delay: -2.2s;
+}
+
+.card_art svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+@keyframes card-art-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -8px; }
+}
+
+/* 아직 안 한 카드: 그림을 살짝 흐리게 */
+.stage_card.is-todo .card_art {
+  opacity: 0.55;
+  filter: grayscale(0.6) drop-shadow(0 16px 20px rgba(11, 26, 58, 0.1));
+}
+
+.stage_card.is-next .card_art {
+  opacity: 0.85;
+  filter: grayscale(0.15) drop-shadow(0 18px 22px rgba(11, 26, 58, 0.14));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card_art {
+    animation: none;
+  }
+}
+
+/* =========================================================
+   카드 세련되게 (참고: 단색 카드 + 두 줄 제목 + 가장자리로 넘치는 큰 물건 + ↗ 버튼)
+   - 끝낸 카드: 코랄 · 파랑 단색 (흰 글씨)
+   - 아직 안 한 카드: 흰 카드 + 얇은 회색 점선 (글씨 회색)
+   - 그림은 오른쪽 아래로 크게, 카드 밖으로 살짝 잘리게
+   ========================================================= */
+.stage_card:not(.is-active):not(.is-clear) {
+  --ink: #111318;
+  --ink-soft: rgba(17, 19, 24, 0.38);
+  --btn-bg: #111318;
+  --btn-fg: #fff;
+  padding: 26px 26px 24px;
+  border: 0;
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 30px 60px -34px rgba(17, 19, 24, 0.35);
+  filter: none;
+}
+
+.stage_card.is-done:not(.is-active):nth-child(odd) {
+  --ink: #fff;
+  --ink-soft: rgba(255, 255, 255, 0.6);
+  --btn-bg: #fff;
+  --btn-fg: #111318;
+  background:
+    radial-gradient(120% 80% at 100% 100%, rgba(255, 255, 255, 0.16), transparent 60%),
+    linear-gradient(160deg, #f06a74 0%, #dc4655 100%);
+  box-shadow: 0 30px 60px -30px rgba(220, 70, 85, 0.6);
+}
+
+.stage_card.is-done:not(.is-active):nth-child(even) {
+  --ink: #fff;
+  --ink-soft: rgba(255, 255, 255, 0.62);
+  --btn-bg: #fff;
+  --btn-fg: #2449e0;
+  background:
+    radial-gradient(110% 80% at 100% 100%, rgba(170, 215, 255, 0.55), transparent 60%),
+    linear-gradient(160deg, #3c63f2 0%, #2449e0 100%);
+  box-shadow: 0 30px 60px -30px rgba(36, 73, 224, 0.6);
+}
+
+.stage_card.is-todo:not(.is-active) {
+  --ink: #6b7280;
+  --ink-soft: #b4bac4;
+  --btn-bg: #e9ecf1;
+  --btn-fg: #6b7280;
+  border: 1.5px dashed #d3d8df;
+  background: #fff;
+  filter: none;
+}
+
+.stage_card.is-todo.is-next:not(.is-active) {
+  --ink: #111318;
+  --ink-soft: #9aa1ab;
+  --btn-bg: #111318;
+  --btn-fg: #fff;
+  border-color: #b9c0ca;
+}
+
+/* 위: 번호 · 상태 */
+.stage_card:not(.is-active):not(.is-clear) .card_no {
+  color: var(--ink-soft);
+}
+
+.stage_card.is-done:not(.is-active) .card_state {
+  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+}
+
+.stage_card.is-done:not(.is-active) .card_state::before {
+  background: #fff;
+}
+
+/* 두 줄 제목 */
+.stage_card:not(.is-active):not(.is-clear) .card_title {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  margin: 22px 0 0;
+  font-family: 'Pretendard Variable', 'Pretendard', var(--luup-font);
+  font-size: clamp(24px, 2vw, 30px);
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+}
+
+.stage_card:not(.is-active):not(.is-clear) .card_title span {
+  color: var(--ink-soft);
+}
+
+.stage_card:not(.is-active):not(.is-clear) .card_meta {
+  position: relative;
+  z-index: 2;
+  margin: 10px 0 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+
+/* 그림: 오른쪽 아래로 크게, 가장자리에서 잘리게 */
+.stage_card:not(.is-active):not(.is-clear) .card_visual {
+  position: absolute;
+  inset: auto -14% -10% auto;
+  z-index: 1;
+  display: block;
+  width: 92%;
+  aspect-ratio: 1;
+  pointer-events: none;
+}
+
+.stage_card:not(.is-active):not(.is-clear) .card_art {
+  width: 100%;
+  opacity: 1;
+  filter: drop-shadow(0 24px 30px rgba(11, 26, 58, 0.22));
+  transform: rotate(-10deg);
+}
+
+.stage_card:not(.is-active):not(.is-clear):nth-child(even) .card_art {
+  transform: rotate(8deg);
+}
+
+.stage_card.is-todo:not(.is-active) .card_art {
+  opacity: 0.5;
+  filter: grayscale(1) drop-shadow(0 18px 22px rgba(11, 26, 58, 0.12));
+}
+
+.stage_card.is-todo.is-next:not(.is-active) .card_art {
+  opacity: 0.85;
+  filter: grayscale(0.2) drop-shadow(0 20px 26px rgba(11, 26, 58, 0.16));
+}
+
+/* 아래: ↗ 리포트 보기 (띠 없이) */
+.stage_card:not(.is-active):not(.is-clear) .card_bottom {
+  position: relative;
+  z-index: 2;
+  margin: auto 0 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.stage_card:not(.is-active):not(.is-clear) .card_go {
+  width: auto;
+  height: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  transform: none;
+}
+
+.stage_card:not(.is-active):not(.is-clear) .card_go i {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--btn-bg);
+  font-size: 13px;
+  font-style: normal;
+  color: var(--btn-fg);
+  transition: transform 0.25s ease;
+}
+
+.stage_card:not(.is-active):not(.is-clear) .card_go:hover,
+.stage_card:not(.is-active):not(.is-clear) .card_go:focus-visible {
+  background: none;
+  color: var(--ink);
+  transform: none;
+}
+
+.stage_card:not(.is-active):not(.is-clear) .card_go:hover i,
+.stage_card:not(.is-active):not(.is-clear) .card_go:focus-visible i {
+  transform: rotate(45deg);
+}
+
+/* =========================================================
+   지금 하는 카드(받아쓰기)도 같은 카드 디자인으로
+   - 접혀 있을 땐: 검정 단색 + 흰 두 줄 제목 + 연필 그림 + ↗ 리포트 보기
+   - 펼치면(버튼 누름·멈춤·도움·시간 끝): 원래 밝은 화면으로 문제·버튼 보여 줌
+   ========================================================= */
+.stage_card.is-active {
+  --ink: #fff;
+  --ink-soft: rgba(255, 255, 255, 0.5);
+  --btn-bg: #d9ff6b;
+  --btn-fg: #111318;
+}
+
+.stage_card.is-active .focus_title {
+  display: grid;
+  margin: 22px 0 0;
+  font-family: 'Pretendard Variable', 'Pretendard', var(--luup-font);
+  font-size: clamp(24px, 2vw, 30px);
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: -0.04em;
+}
+
+.stage_card.is-active .focus_title span {
+  opacity: 0.45;
+}
+
+.stage_card.is-active .focus_meta {
+  position: relative;
+  z-index: 2;
+  margin: 10px 0 0;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.stage_card.is-active .focus_art {
+  position: absolute;
+  inset: auto -14% -10% auto;
+  z-index: 1;
+  display: block;
+  width: 92%;
+  aspect-ratio: 1;
+  pointer-events: none;
+}
+
+.stage_card.is-active .focus_art .card_art {
+  width: 100%;
+  opacity: 1;
+  filter: drop-shadow(0 24px 30px rgba(0, 0, 0, 0.35));
+  transform: rotate(-8deg);
+}
+
+.stage_card.is-active .focus_more {
+  position: relative;
+  z-index: 2;
+  margin: auto 0 0;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+
+.stage_card.is-active .focus_more .card_go {
+  width: auto;
+  height: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  transform: none;
+}
+
+.stage_card.is-active .focus_more .card_go i {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--btn-bg);
+  font-size: 13px;
+  font-style: normal;
+  color: var(--btn-fg);
+  transition: transform 0.25s ease;
+}
+
+.stage_card.is-active .focus_more .card_go:hover i {
+  transform: rotate(45deg);
+}
+
+/* 접힌 상태 */
+.stage_card.is-active:not(:focus-within, .is-paused, .is-help, .is-timeup) {
+  overflow: hidden;
+  padding: 26px 26px 24px;
+  border: 0;
+  border-radius: 22px;
+  background:
+    radial-gradient(90% 70% at 100% 100%, rgba(217, 255, 107, 0.22), transparent 60%),
+    linear-gradient(160deg, #22252c 0%, #0c0d10 100%);
+  box-shadow: 0 34px 70px -30px rgba(12, 13, 16, 0.7);
+}
+
+.stage_card.is-active:not(:focus-within, .is-paused, .is-help, .is-timeup) .focus_title {
+  color: var(--ink);
+}
+
+.stage_card.is-active:not(:focus-within, .is-paused, .is-help, .is-timeup) .focus_meta {
+  color: var(--ink-soft);
+}
+
+.stage_card.is-active:not(:focus-within, .is-paused, .is-help, .is-timeup) .card_no {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.stage_card.is-active:not(:focus-within, .is-paused, .is-help, .is-timeup) .card_state {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.stage_card.is-active:not(:focus-within, .is-paused, .is-help, .is-timeup) .card_state::before {
+  background: #d9ff6b;
+  box-shadow: 0 0 0 3px rgba(217, 255, 107, 0.25);
+}
+
+/* 접혀 있을 땐 위쪽 → 버튼은 숨기고 아래 ↗ 리포트 보기만 */
+.stage_card.is-active:not(:focus-within, .is-paused, .is-help, .is-timeup) .card_top_end .card_go {
+  display: none;
+}
+
+/* 펼친 상태: 그림·요약·아래 버튼 숨기고 제목은 진하게 */
+.stage_card.is-active:is(:focus-within, .is-paused, .is-help, .is-timeup) .focus_art,
+.stage_card.is-active:is(:focus-within, .is-paused, .is-help, .is-timeup) .focus_meta,
+.stage_card.is-active:is(:focus-within, .is-paused, .is-help, .is-timeup) .focus_more {
+  display: none;
+}
+
+.stage_card.is-active:is(:focus-within, .is-paused, .is-help, .is-timeup) .focus_title {
+  display: block;
+  color: #111318;
+}
+
+.stage_card.is-active:is(:focus-within, .is-paused, .is-help, .is-timeup) .focus_title span {
+  margin-left: 0.25em;
+}
+
+/* 접힌 진행 중 카드: ↗ 리포트 보기를 맨 아래로 */
+.stage_card.is-active:not(:focus-within, .is-paused, .is-help, .is-timeup) .focus_more {
+  order: 9;
+  margin-top: auto !important;
+}
+
+.stage_card.is-active:not(:focus-within, .is-paused, .is-help, .is-timeup) .focus_grid {
+  margin: 0 !important;
+}
+
+/* =========================================================
+   TODAY 첫 등장: 인사 문구가 낱말마다 흐린 회색 → 진하게
+   (카드가 쌓였다 펼쳐지는 움직임은 today.js의 playIntro)
+   ========================================================= */
+.today_stage.is-intro .intro_word {
+  display: inline-block;
+  opacity: 0.18;
+  filter: blur(6px);
+  translate: 0 10px;
+  animation: intro-word 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: calc(0.15s + var(--i, 0) * 0.12s);
+}
+
+@keyframes intro-word {
+  to {
+    opacity: 1;
+    filter: blur(0);
+    translate: 0 0;
+  }
+}
+
+/* 펼쳐지는 동안 카드를 누르거나 끌지 않게 */
+.today_stage.is-intro .stage_track > * {
+  pointer-events: none;
+}
+
+/* 첫 등장 동안엔 3D 겹침을 끄고 z-index 순서대로 쌓이게 (가운데 카드가 맨 위) */
+.today_stage.is-intro .stage_track {
+  transform-style: flat;
+}
+
+/* =========================================================
+   카드가 멈춘 뒤 뒷배경: 파랑·분홍 빛이 아래에서 위로 화려하게 차오름
+   - 차오르는 맨 윗선에 밝은 빛줄기가 함께 올라감
+   - 다 찬 뒤에는 빛 덩어리가 천천히 일렁임
+   ========================================================= */
+.stage_glow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(42% 50% at 15% 68%, rgba(91, 140, 255, 0.7), transparent 70%),
+    radial-gradient(42% 50% at 85% 62%, rgba(255, 143, 184, 0.7), transparent 70%),
+    radial-gradient(55% 45% at 50% 95%, rgba(167, 123, 255, 0.55), transparent 75%),
+    linear-gradient(0deg, rgba(205, 222, 255, 0.95) 0%, rgba(255, 220, 236, 0.6) 50%, transparent 92%);
+  background-size: 140% 140%, 140% 140%, 100% 100%, 100% 100%;
+  clip-path: inset(100% 0 0 0);
+}
+
+.stage_glow {
+  transition: clip-path 1.6s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.today_stage.is-filled .stage_glow {
+  clip-path: inset(0 0 0 0);
+  animation: glow-drift 12s ease-in-out 1.6s infinite alternate;
+}
+
+.today_stage.is-filled-now .stage_glow {
+  clip-path: inset(0);
+  animation: glow-drift 12s ease-in-out infinite alternate;
+}
+
+/* 차오르는 맨 윗선의 빛줄기 */
+.glow_edge {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  bottom: 0;
+  height: 180px;
+  background:
+    radial-gradient(50% 40% at 30% 50%, rgba(91, 140, 255, 0.9), transparent 70%),
+    radial-gradient(50% 40% at 70% 50%, rgba(255, 143, 184, 0.9), transparent 70%),
+    linear-gradient(0deg, transparent, rgba(255, 255, 255, 0.95) 50%, transparent);
+  filter: blur(18px);
+  opacity: 0;
+  transform: translateY(50%);
+}
+
+.today_stage.is-filled .glow_edge {
+  animation: glow-edge 1.6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+.today_stage.is-filled-now .glow_edge {
+  display: none;
+}
+
+@keyframes glow-fill {
+  from { clip-path: inset(100% 0 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes glow-edge {
+  0% { opacity: 0; bottom: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { opacity: 0; bottom: 100%; }
+}
+
+@keyframes glow-drift {
+  from { background-position: 0% 100%, 100% 100%, 50% 100%, 0 0; }
+  to { background-position: 30% 60%, 70% 70%, 50% 100%, 0 0; }
+}
+
+/* 바닥 격자·카드·글씨가 빛 위에 오게 */
+.today_stage > :not(.stage_glow) {
+  position: relative;
+  z-index: 1;
+}
+
+@media (min-width: 1025px) {
+  .today_stage > .stage_strip,
+  .today_stage > .stage_floor,
+  .today_stage > .stage_corner {
+    position: absolute;
+  }
+}
+
+/* =========================================================
+   리포트 첫 그림: 날짜 알약 + 큰 요약 카드 (참고: 세로로 길쭉한 카드들 + 펼쳐진 큰 카드)
+   - 왼쪽 7개: 길쭉한 알약, 상태 색 그라데이션 + 맨 아래 흰 동그라미 아이콘
+   - 가리키거나(키보드 포함) 누르면 그 알약이 넓어지며 걸린 시간·상태가 보임
+   ========================================================= */
+.hero_row {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  min-height: clamp(420px, 34vw, 560px);
+}
+
+.hero_days {
+  display: flex;
+  gap: 10px;
+  flex: none;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hero_day {
+  --pill-a: #e9edf3;
+  --pill-b: #cfd6e1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: clamp(44px, 3.6vw, 58px);
+  padding: 18px 0 12px;
+  overflow: hidden;
+  border-radius: 999px;
+  background:
+    radial-gradient(120% 50% at 50% 0%, rgba(255, 255, 255, 0.65), transparent 70%),
+    linear-gradient(180deg, var(--pill-a), var(--pill-b));
+  cursor: pointer;
+  outline: none;
+  transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1), border-radius 0.5s ease, box-shadow 0.3s ease;
+}
+
+.hero_day.tone_good { --pill-a: #d8f6ec; --pill-b: #7fd9bd; }
+.hero_day.tone_warn { --pill-a: #ffeedd; --pill-b: #ffbe86; }
+.hero_day.tone_bad { --pill-a: #ffe3e6; --pill-b: #ff9aa6; }
+
+.hero_day.is-today {
+  box-shadow: inset 0 0 0 2px #111318;
+}
+
+.hd_day {
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(17, 19, 24, 0.7);
+  white-space: nowrap;
+}
+
+.hd_info {
+  display: grid;
+  gap: 2px;
+  margin-top: auto;
+  margin-bottom: 14px;
+  opacity: 0;
+  text-align: center;
+  white-space: nowrap;
+  transition: opacity 0.25s ease;
+}
+
+.hd_info b {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #111318;
+}
+
+.hd_info small {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(17, 19, 24, 0.6);
+}
+
+.hero_day > i {
+  width: 30px;
+  height: 30px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  margin-top: auto;
+  border-radius: 50%;
+  background: #fff;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 800;
+  color: var(--tone, #6b7280);
+  box-shadow: 0 4px 10px rgba(17, 19, 24, 0.1);
+}
+
+.hd_info + i {
+  margin-top: 0;
+}
+
+.hero_day:is(:hover, :focus-visible) {
+  width: clamp(110px, 9vw, 140px);
+  border-radius: 28px;
+  box-shadow: 0 16px 30px -16px rgba(17, 19, 24, 0.35);
+}
+
+.hero_day.is-today:is(:hover, :focus-visible) {
+  box-shadow: inset 0 0 0 2px #111318, 0 16px 30px -16px rgba(17, 19, 24, 0.35);
+}
+
+.hero_day:is(:hover, :focus-visible) .hd_info {
+  opacity: 1;
+  transition-delay: 0.15s;
+}
+
+/* 오른쪽 큰 요약 카드: 남은 폭을 모두 차지, 알약과 같은 둥근 모서리 */
+.hero_row .report_hero {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  border-radius: 32px;
+}
+
+.hero_row .hero_stage {
+  width: clamp(150px, 13vw, 210px);
+}
+
+@media (max-width: 1100px) {
+  .hero_row {
+    flex-direction: column;
+  }
+
+  .hero_days {
+    height: 150px;
+  }
+
+  .hero_day {
+    flex: 1;
+    width: auto;
+  }
+
+  .hero_day:is(:hover, :focus-visible) {
+    width: auto;
+    flex: 2.4;
+  }
+}
+
+/* 알약 줄이 오른쪽 칸 폭을 넘지 않게 */
+.hero_row {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.hero_days {
+  gap: 8px;
+}
+
+.hero_day {
+  width: clamp(38px, 3vw, 50px);
+}
+
+.hero_row .report_hero {
+  padding: clamp(24px, 2.6vw, 40px);
+}
+
+.hero_row .hero_body {
+  gap: 12px;
+}
+
+.hero_row .hero_stage {
+  width: clamp(120px, 11vw, 190px);
+}
+
+.hero_row .hero_score b {
+  font-size: clamp(72px, 6.4vw, 120px);
+}
+
+.hero_pill {
+  white-space: nowrap;
+}
+
+/* 큰 카드가 좁을 땐 캐릭터 원을 숨겨 잘리지 않게 */
+.hero_row .report_hero {
+  container-type: inline-size;
+}
+
+@container (max-width: 420px) {
+  .hero_row .hero_stage {
+    display: none;
+  }
+}
+
+/* =========================================================
+   리포트 오른쪽: 항목들을 세로 알약으로 (하나만 크게 펼쳐짐)
+   - 접힌 항목: 길쭉한 알약 + 세로 글씨 이름 + 맨 아래 흰 동그라미 아이콘
+   - 알약을 누르면 그 항목이 넓게 펼쳐지고 안에서 스크롤
+   ========================================================= */
+.report_panels {
+  display: block;
+  padding-top: 64px;
+  padding-bottom: 40px;
+  overflow: hidden;
+}
+
+.rp_acc {
+  display: flex;
+  gap: 10px;
+  height: calc(100svh - 44px - 104px);
+  min-height: 460px;
+}
+
+.rp_item {
+  --pa: #eef1f6;
+  --pb: #cdd5e1;
+  --pi: #5b6474;
+  position: relative;
+  display: flex;
+  flex: 0 0 clamp(52px, 4.2vw, 64px);
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 999px;
+  background:
+    radial-gradient(120% 40% at 50% 0%, rgba(255, 255, 255, 0.7), transparent 70%),
+    linear-gradient(180deg, var(--pa), var(--pb));
+  transition: flex 0.6s cubic-bezier(0.22, 1, 0.36, 1), border-radius 0.6s ease;
+}
+
+.rp_item.tone_good { --pa: #e3f8f0; --pb: #8fdcc3; --pi: #0f9e7d; }
+.rp_item.tone_warn { --pa: #fff1e2; --pb: #ffc38f; --pi: #d06a0a; }
+.rp_item.tone_bad { --pa: #ffe6e9; --pb: #ffa3ae; --pi: #cc3340; }
+.rp_item.tone_blue { --pa: #e6eeff; --pb: #9db8ff; --pi: #2f5fe0; }
+.rp_item.tone_purple { --pa: #efe8ff; --pb: #c0a7ff; --pi: #6b44e0; }
+.rp_item.tone_sky { --pa: #e3f6ff; --pb: #8fd3f5; --pi: #1784bf; }
+
+.rp_item.is-open {
+  flex: 1 1 auto;
+  border-radius: 32px;
+}
+
+/* 접힌 알약의 버튼 */
+.rp_tab {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 0 12px;
+  border: 0;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.rp_label {
+  writing-mode: vertical-rl;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  color: rgba(17, 19, 24, 0.72);
+}
+
+.rp_tab i {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #fff;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 800;
+  color: var(--pi);
+  box-shadow: 0 4px 12px rgba(17, 19, 24, 0.1);
+}
+
+.rp_item:not(.is-open) .rp_tab:hover i {
+  transform: scale(1.08);
+}
+
+.rp_item.is-open .rp_tab {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* 펼친 내용 */
+.rp_body.report_panel {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  padding: clamp(26px, 2.8vw, 44px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-radius: inherit;
+  background: rgba(255, 255, 255, 0.72);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+.rp_item.is-open .rp_body {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.4s ease 0.25s, visibility 0s;
+}
+
+/* 요약은 원래 큰 그림 배경 그대로 */
+.rp_body.report_hero {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: none;
+}
+
+.rp_summary .hero_stage {
+  width: clamp(130px, 12vw, 200px);
+}
+
+.rp_summary .hero_body {
+  gap: 12px;
+}
+
+.rp_summary .rp_body {
+  container-type: inline-size;
+}
+
+@container (max-width: 420px) {
+  .rp_summary .hero_stage {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .rp_acc {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .rp_item {
+    flex: 0 0 56px;
+  }
+
+  .rp_item.is-open {
+    flex: 0 0 auto;
+    min-height: 420px;
+  }
+
+  .rp_label {
+    writing-mode: horizontal-tb;
+  }
+
+  .rp_tab {
+    flex-direction: row;
+    padding: 0 12px 0 24px;
+  }
+}
+
+.rp_label {
+  text-orientation: upright;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+/* =========================================================
+   화면을 줄였을 때(1024px 이하) 정리
+   - 뒷배경 빛 끔, 인사·진행 현황은 위에 차례로
+   - 카드: 위(번호·상태) → 두 줄 제목 → 시간 → ↗ 리포트 보기, 그림은 오른쪽 아래에 작게
+   - 진행 중 카드: 큰 그림 없이 제목 + 문제 진행 + 버튼
+   ========================================================= */
+@media (max-width: 1024px) {
+  .stage_glow {
+    display: none;
+  }
+
+  .today_stage .stage_tl {
+    margin-top: 8px;
+  }
+
+  .today_stage .stage_tr {
+    margin-top: 16px;
+  }
+
+  .stage_card:not(.is-active):not(.is-clear) {
+    display: flex;
+    flex-direction: column;
+    min-height: 210px;
+    padding: 20px 22px;
+    overflow: hidden;
+  }
+
+  .stage_card:not(.is-active):not(.is-clear) .card_title {
+    margin-top: 14px;
+    font-size: 24px;
+  }
+
+  .stage_card:not(.is-active):not(.is-clear) .card_meta {
+    margin-top: 6px;
+  }
+
+  .stage_card:not(.is-active):not(.is-clear) .card_bottom {
+    margin-top: auto;
+    padding-top: 18px;
+  }
+
+  .stage_card:not(.is-active):not(.is-clear) .card_visual {
+    inset: auto -14px -22px auto;
+    width: 170px;
+  }
+
+  /* 진행 중 카드 */
+  .stage_card.is-active .focus_art,
+  .stage_card.is-active .focus_more {
+    display: none !important;
+  }
+
+  .stage_card.is-active .card_top_end .card_go {
+    display: grid !important;
+  }
+
+  .stage_card.is-active .focus_title {
+    margin-top: 14px;
+  }
+
+  .stage_card.is-active .focus_meta {
+    margin: 6px 0 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .stage_card:not(.is-active):not(.is-clear) .card_visual {
+    width: 130px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .today_stage .stage_corner {
+    inset: auto;
+  }
+}
+
+/* =========================================================
+   리포트 펼친 항목 글씨 정리 (좁은 칸에 맞게 한 줄씩 차례로)
+   - 제목: 한 줄, 24px · 옆 설명은 제목 아래 작은 회색
+   - 문제 카드: 배지 → 제목 → 설명 → 해결 방법 (세로로 쌓음)
+   - 알약 폭을 줄여 펼친 칸을 넓게
+   ========================================================= */
+.rp_acc {
+  gap: 8px;
+}
+
+.rp_item {
+  flex-basis: clamp(44px, 3.4vw, 52px);
+}
+
+.rp_tab i {
+  width: 30px;
+  height: 30px;
+  font-size: 13px;
+}
+
+.rp_label {
+  font-size: 13px;
+}
+
+.rp_body.report_panel {
+  padding: clamp(24px, 2.4vw, 36px) clamp(22px, 2.2vw, 32px);
+  font-family: 'Pretendard Variable', 'Pretendard', var(--luup-font);
+  word-break: keep-all;
+}
+
+.rp_body h3 {
+  display: grid;
+  gap: 6px;
+  margin: 0 0 22px;
+  font-family: 'Pretendard Variable', 'Pretendard', var(--luup-font);
+  font-size: clamp(20px, 1.7vw, 24px);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.03em;
+  color: #111318;
+}
+
+.rp_body h3 small {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: #8a919c;
+}
+
+/* 문제 카드 */
+.rp_body .issue_list {
+  gap: 12px;
+}
+
+.rp_body .issue_list li {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  padding: 18px;
+  border-radius: 16px;
+}
+
+.rp_body .issue_badge {
+  grid-row: auto;
+  justify-self: start;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.rp_body .issue_list b {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.45;
+  color: #111318;
+}
+
+.rp_body .issue_list p {
+  font-size: 14px;
+  line-height: 1.65;
+  color: #5b6472;
+}
+
+.rp_body .issue_list .issue_fix {
+  margin-top: 4px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.6;
+  color: #111318;
+}
+
+.rp_body .issue_fix::before {
+  content: '이렇게 해 보세요';
+  display: block;
+  margin-bottom: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #2563eb;
+}
+
+.rp_body .issue_empty {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* 최근 7일 */
+.rp_body .week_row {
+  gap: 6px;
+  margin-bottom: 22px;
+}
+
+.rp_body .week_row li {
+  gap: 6px;
+  padding: 10px 2px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #5b6472;
+}
+
+.rp_body .week_row b {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.rp_body .week_row i {
+  width: 22px;
+  height: 22px;
+  font-size: 11px;
+}
+
+.rp_body .bar_chart {
+  height: 170px;
+}
+
+.rp_body .bar_axis {
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* 오늘 기록: 2칸씩 */
+.rp_body .today_log {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.rp_body .today_log div {
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.rp_body .today_log dt {
+  font-size: 12px;
+  font-weight: 600;
+  color: #8a919c;
+}
+
+.rp_body .today_log dd {
+  margin-top: 4px;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+/* 잘하고 있는 점 */
+.rp_body .good_list {
+  gap: 12px;
+}
+
+.rp_body .good_list li {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.6;
+  color: #111318;
+}
+
+.rp_body .good_list li::before {
+  width: 22px;
+  height: 22px;
+  margin-top: 1px;
+  font-size: 11px;
+}
+
+/* 요약 */
+.rp_summary .hero_tag {
+  font-size: 12px;
+}
+
+.rp_summary .hero_score span {
+  font-size: 14px;
+}
+
+/* =========================================================
+   리포트 왼쪽 요약 칸: 비율 확 줄이기 (약 40% → 약 28%)
+   - 글씨·숫자·박스도 그에 맞춰 작게
+   ========================================================= */
+@media (min-width: 901px) {
+  .report_inner {
+    grid-template-columns: minmax(280px, 0.4fr) minmax(0, 1fr);
+  }
+}
+
+.report_summary {
+  padding: 56px 24px 32px clamp(28px, 3vw, 44px);
+}
+
+.report_eyebrow {
+  margin-bottom: 10px;
+  font-size: 12px;
+}
+
+.report_summary h2 {
+  font-size: clamp(26px, 2.2vw, 36px);
+  line-height: 1.15;
+}
+
+.report_lead {
+  margin-top: 14px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.report_chips {
+  margin-top: 24px;
+  padding: 16px 0;
+}
+
+.report_chip {
+  gap: 4px;
+  padding-left: 12px;
+}
+
+.report_chip small {
+  font-size: 11px;
+}
+
+.report_chip b {
+  font-size: 20px;
+}
+
+.report_chip em {
+  font-size: 12px;
+}
+
+.report_jump {
+  width: 30px;
+  height: 30px;
+  font-size: 12px;
+}
+
+.report_verdict {
+  margin-top: 16px;
+  padding: 12px 14px;
+  gap: 10px;
+  border-radius: 14px;
+}
+
+.report_verdict > span {
+  width: 28px;
+  height: 28px;
+  font-size: 13px;
+}
+
+.report_verdict b {
+  font-size: 14px;
+}
+
+.report_verdict p {
+  font-size: 12px;
+}
+
+.report_note {
+  font-size: 11px;
+}
+
+/* =========================================================
+   카드 사이 화살표: 01 → 02 → 03 … 순서대로 하는 느낌
+   - 카드 간격을 넓히고, 각 카드 오른쪽 가장자리 바깥(간격 한가운데)에 동그란 → 를 붙임
+   - 카드는 overflow를 풀고, 그림은 그림 칸 안에서만 잘리게 옮김
+   - 끝낸 카드 뒤 화살표는 진하게, 아직 안 한 카드 쪽은 연하게
+   ========================================================= */
+@media (min-width: 1025px) {
+  .stage_track {
+    gap: 56px;
+  }
+
+  .stage_card:not(.is-clear),
+  .stage_card.is-active:not(:focus-within, .is-paused, .is-help, .is-timeup) {
+    overflow: visible;
+  }
+
+  /* 그림 칸: 카드 전체를 덮고 그 안에서만 잘림 */
+  .stage_card:not(.is-active):not(.is-clear) .card_visual,
+  .stage_card.is-active .focus_art {
+    inset: 0;
+    width: auto;
+    aspect-ratio: auto;
+    overflow: hidden;
+    border-radius: inherit;
+  }
+
+  .stage_card:not(.is-active):not(.is-clear) .card_visual .card_art,
+  .stage_card.is-active .focus_art .card_art {
+    position: absolute;
+    right: -14%;
+    bottom: -10%;
+    width: 92%;
+  }
+
+  .stage_card .card_top {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* 화살표 */
+  .stage_card:not(:last-child)::before {
+    content: '→';
+    position: absolute;
+    top: 50%;
+    right: -46px;
+    z-index: 6;
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 8px 20px -8px rgba(17, 19, 24, 0.35), 0 0 0 1px rgba(17, 19, 24, 0.06);
+    font-size: 16px;
+    font-weight: 700;
+    color: #111318;
+    transform: translateY(-50%);
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+  }
+
+  /* 끝낸·하는 카드 다음 화살표는 진하게 */
+  .stage_card:is(.is-done, .is-active):not(:last-child)::before {
+    background: #111318;
+    color: #fff;
+  }
+
+  /* 아직 안 한 카드 다음은 연하게 */
+  .stage_card.is-todo:not(:last-child)::before {
+    background: rgba(255, 255, 255, 0.85);
+    color: #9aa1ab;
+  }
+
+  /* 쌓였다 펼쳐지는 동안엔 숨김 */
+  .today_stage.is-intro .stage_card::before {
+    opacity: 0;
+  }
+}
+
+@media (min-width: 1025px) {
+  .stage_track > .stage_card.stage_card:not(.is-active):not(.is-clear) {
+    overflow: visible;
+  }
+}
+
+/* =========================================================
+   요약 항목: 캐릭터·반짝이 빼고 정돈된 세로 레이아웃
+   위: 루틴 이름 → 가운데: 큰 숫자 + 한마디 + 설명 → 아래: 숫자 4칸
+   ========================================================= */
+.rp_summary .report_hero::before,
+.rp_summary .hero_stage {
+  display: none;
+}
+
+.rp_summary .rp_body {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.rp_summary .hero_tag {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: rgba(17, 19, 24, 0.5);
+}
+
+.sum_main {
+  display: grid;
+  justify-items: start;
+  gap: 16px;
+  margin: auto 0;
+  padding: 32px 0;
+}
+
+.rp_summary .hero_score {
+  gap: 6px;
+}
+
+.rp_summary .hero_score b {
+  font-size: clamp(72px, 7vw, 112px);
+}
+
+.sum_text {
+  max-width: 340px;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(17, 19, 24, 0.62);
+}
+
+.sum_stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+}
+
+.sum_stats div {
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.sum_stats dt {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(17, 19, 24, 0.55);
+}
+
+.sum_stats dd {
+  margin: 4px 0 0;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #111318;
+}
+
+.sum_stats small {
+  margin-left: 2px;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(17, 19, 24, 0.5);
+}
+
+/* 좁은 화면: 진행 중 카드(03)를 맨 위로 올리지 않고 01 · 02 다음, 원래 순서대로 */
+@media (max-width: 1024px) {
+  .stage_card.is-active {
+    order: 0;
+  }
+}
+
+/* 요약: 큰 숫자 아래 상세 설명 */
+.sum_detail {
+  display: grid;
+  gap: 10px;
+  max-width: 460px;
+  margin-top: 4px;
+}
+
+.sum_detail p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(17, 19, 24, 0.68);
+  word-break: keep-all;
+}
+
+.sum_detail b {
+  font-weight: 700;
+  color: #111318;
+}
+
+.sum_detail .sum_tip {
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.6);
+  font-weight: 600;
+  color: #111318;
+}
+
+.sum_main {
+  padding: 24px 0;
+}
+
+/* 요약 소견: 소견서처럼 한 덩어리 글 */
+.sum_detail {
+  gap: 12px;
+  max-width: 520px;
+  padding: 20px 22px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.62);
+}
+
+.sum_detail p {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #2b3038;
+}
+
+.sum_detail .sum_label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: rgba(17, 19, 24, 0.5);
+}
+
+.sum_detail b {
+  font-weight: 600;
+}
+
+.sum_detail .sum_sign {
+  margin-top: 4px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(17, 19, 24, 0.08);
+  font-size: 12px;
+  text-align: right;
+  color: rgba(17, 19, 24, 0.45);
+}
+
+/* 리포트가 열려 있는 동안 뒷배경(페이지)은 스크롤되지 않게 */
+html.is-report-open,
+html.is-report-open body {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+.report,
+.rp_body,
+.report_summary {
+  overscroll-behavior: contain;
+}
+
+/* =========================================================
+   카드 상태 배지(완료 · 진행 중 · 다음 할 일)가 깜빡이며 사라지던 문제
+   - 3D로 기운 카드 안의 흐림(backdrop-filter)이 사파리에서 그렸다 지웠다 함 → 흐림을 없애고 단색 배경으로 고정
+   - 카드 색마다 글씨·배경을 확실히 대비되게
+   ========================================================= */
+.stage_card *,
+.stage_card .card_state,
+.stage_card .card_go {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+.stage_card .card_state {
+  border: 1px solid transparent;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 끝낸 카드(코랄 · 파랑): 반투명 흰 테두리 + 흰 글씨 */
+.stage_card.is-done:not(.is-active) .card_state {
+  border-color: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+.stage_card.is-done:not(.is-active) .card_state::before {
+  background: #fff;
+}
+
+/* 진행 중(검정 카드) */
+.stage_card.is-active .card_state {
+  border-color: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+/* 진행 중 카드를 펼쳤을 때(밝은 바탕) */
+.stage_card.is-active:is(:focus-within, .is-paused, .is-help, .is-timeup) .card_state {
+  border-color: rgba(17, 19, 24, 0.12);
+  background: #fff;
+  color: #111318;
+}
+
+/* 아직 안 한 카드(흰 카드) */
+.stage_card.is-todo:not(.is-active) .card_state {
+  border-color: #e3e6eb;
+  background: #f5f6f8;
+  color: #6b7280;
+}
+
+.stage_card.is-todo.is-next:not(.is-active) .card_state {
+  border-color: #cfd4dc;
+  background: #fff;
+  color: #111318;
+}
+
+/* 요약 숫자: "6/6일" 앞뒤 크기를 똑같이 (뒤쪽만 연한 색) */
+.rp_summary .hero_score b {
+  font-family: 'Pretendard Variable', 'Pretendard', var(--luup-font);
+  font-size: clamp(44px, 4vw, 60px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.rp_summary .hero_score small {
+  margin-left: 0;
+  font-size: 1em;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: rgba(17, 19, 24, 0.35);
+}
+
+/* 알약 아래 동그라미: 모두 대문자 L (LUUP의 L), 알약 색으로 */
+.rp_tab i {
+  font-family: 'Paperlogy', var(--luup-font);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--pi);
+}
+
+/* =========================================================
+   오늘 진행 막대: 한 줄 막대 → 루틴마다 한 칸씩 나뉜 막대
+   - 끝낸 칸은 꽉, 하는 중 칸은 진행만큼, 예정 칸은 비어 있음
+   - 칸이 왼쪽부터 차례로 차오르는 움직임이 5초마다 반복
+   ========================================================= */
+.today_stage .stage_bar.seg_bar {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 6px;
+  height: 12px;
+  overflow: visible;
+  border-radius: 0;
+  background: none;
+}
+
+.seg_bar .seg {
+  position: relative;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e6eaf1;
+}
+
+.seg_bar .seg i {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #5cc8f7, #2fe0b5);
+  transform: scaleX(var(--fill));
+  transform-origin: left;
+  animation: seg-fill 5s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  animation-delay: calc(var(--i) * 0.18s);
+}
+
+.seg_bar .seg.is-active i {
+  background: linear-gradient(90deg, #5b8cff, #a77bff);
+}
+
+/* 하는 중 칸: 끝에서 빛이 깜빡 */
+.seg_bar .seg.is-active::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: calc(var(--fill) * 100%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(91, 140, 255, 0.35);
+  transform: translate(-50%, -50%);
+  animation: seg-dot 1.4s ease-in-out infinite;
+}
+
+@keyframes seg-fill {
+  0% { transform: scaleX(0); }
+  22% { transform: scaleX(var(--fill)); }
+  85% { transform: scaleX(var(--fill)); opacity: 1; }
+  95% { transform: scaleX(var(--fill)); opacity: 0; }
+  100% { transform: scaleX(0); opacity: 0; }
+}
+
+@keyframes seg-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .seg_bar .seg i,
+  .seg_bar .seg.is-active::after {
+    animation: none;
+  }
+}
+
+/* 왼쪽 아래 "카드 / 목록" 전환 + "01 / 05" 번호 없앰 */
+.today_stage .stage_bl {
+  display: none !important;
+}
+
+/* 공통 .progress span 규칙(폭 = --value)이 칸에 걸리지 않게 */
+.seg_bar .seg {
+  display: block;
+  width: auto;
+  height: 100%;
+  background: #e6eaf1;
+  transition: none;
+}
+
+/* =========================================================
+   진행 막대·완료 수 단순하게
+   - 그라데이션·파랑보라·점 없이 회색만 (채움 = 진한 회색, 빈 칸 = 연한 회색)
+   - "2 / 5개 완료" 글씨 크기 모두 같게
+   ========================================================= */
+.seg_bar .seg {
+  background: #eceef1;
+}
+
+.seg_bar .seg i,
+.seg_bar .seg.is-active i {
+  background: #6b7280;
+}
+
+.seg_bar .seg.is-active::after {
+  display: none;
+}
+
+.today_stage .stage_count,
+.today_stage .stage_count b,
+.today_stage .stage_count span {
+  font-family: 'Pretendard Variable', 'Pretendard', var(--luup-font);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: #4b5563;
+}
+
+.today_stage .stage_count b {
+  color: #111318;
+}
+
+/* =========================================================
+   리포트 알약을 누를 때 움직임 정리
+   - 전에는 칸이 넓어지는 동안 글씨가 좁은 폭에서 줄바꿈되며 출렁여 보였음
+   - 이제: 닫히는 칸 내용은 바로 숨김 → 칸 폭만 부드럽게 바뀜 → 다 넓어진 뒤 새 내용이 살짝 떠오르며 나타남
+   - 접힌 알약의 세로 이름은 칸이 다 줄어든 뒤에 나타남
+   ========================================================= */
+.rp_item {
+  transition: flex 0.55s cubic-bezier(0.65, 0, 0.35, 1), border-radius 0.55s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.rp_body.report_panel {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: none;
+}
+
+.rp_item.is-open .rp_body.report_panel {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity 0.35s ease 0.45s, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.45s, visibility 0s linear 0.45s;
+}
+
+.rp_item:not(.is-open) .rp_tab {
+  opacity: 1;
+  transition: opacity 0.3s ease 0.35s;
+}
+
+.rp_item.is-open .rp_tab {
+  opacity: 0;
+  transition: opacity 0.1s ease;
+}
+
+.rp_tab:focus-visible {
+  outline: 2px solid #111318;
+  outline-offset: -4px;
+  border-radius: 999px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rp_item,
+  .rp_item .rp_tab,
+  .rp_item.is-open .rp_body.report_panel {
+    transition: none;
+  }
+}
+
+/* 페이지 제목 한글 "오늘의 루틴": ROUTINE의 "이번 달 루틴"과 같은 서체·크기·자리 */
+.td_head .td_title {
+  font-family: 'Paperlogy', var(--luup-font);
+  font-size: clamp(44px, 9.2vw, 168px);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.05em;
+  margin-left: calc(-0.059em + 1.8px);
+  white-space: nowrap;
+}
+
+/* =========================================================
+   뒷배경 파랑·분홍 차오름 없앰 → 카드마다 색이 아래에서 위로 차오름
+   - 카드가 펼쳐져 멈춘 뒤(is-filled), 끝낸 카드·하는 카드의 색이 한 장씩 차례로 채워짐
+   - 연한 회색 덮개가 위로 걷히는 방식 (글씨·버튼은 덮개 위에 그대로 보임)
+   ========================================================= */
+.stage_glow {
+  display: none !important;
+}
+
+.today_stage .stage_card:is(.is-done, .is-active)::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  border-radius: inherit;
+  background: #eef1f6;
+  box-shadow: none;
+  opacity: 1 !important;
+  transform: scaleY(1);
+  transform-origin: top;
+  animation: none !important;
+  pointer-events: none;
+  transition: transform 1.1s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.today_stage.is-filled .stage_card:is(.is-done, .is-active)::after {
+  transform: scaleY(0);
+}
+
+.today_stage.is-filled .stage_card:nth-child(1)::after { transition-delay: 0s; }
+.today_stage.is-filled .stage_card:nth-child(2)::after { transition-delay: 0.18s; }
+.today_stage.is-filled .stage_card:nth-child(3)::after { transition-delay: 0.36s; }
+.today_stage.is-filled .stage_card:nth-child(4)::after { transition-delay: 0.54s; }
+.today_stage.is-filled .stage_card:nth-child(5)::after { transition-delay: 0.72s; }
+
+.today_stage.is-filled-now .stage_card::after {
+  transition: none;
+}
+
+/* 덮개 위로 글씨·버튼이 보이게 */
+.stage_card .card_top,
+.stage_card .card_title,
+.stage_card .card_meta,
+.stage_card .card_bottom,
+.stage_card.is-active .focus_title,
+.stage_card.is-active .focus_meta,
+.stage_card.is-active .focus_more,
+.stage_card.is-active .focus_grid {
+  position: relative;
+  z-index: 2;
+}
+
+/* 펼친(밝은) 진행 중 카드에는 덮개 없음 */
+.today_stage .stage_card.is-active:is(:focus-within, .is-paused, .is-help, .is-timeup)::after {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .today_stage .stage_card::after {
+    transition: none;
+  }
+}
+
+/* 리포트 왼쪽 숫자 3칸: "6/6일 · 14분 · 6일" 숫자와 단위 크기 똑같이 */
+.report_chip b,
+.report_chip em {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.report_chip em {
+  margin-left: 0;
+  color: #8a919c;
+}

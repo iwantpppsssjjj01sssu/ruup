@@ -116,66 +116,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 기록 첫 화면: 사진 줄과 기록 목록이 자동으로 다음 기록으로 넘어감, 목록 이름을 누르면 그 기록으로
-    const ro = document.querySelector('[data-ro]');
-    if (!ro) {
-        return;
-    }
-    const items = [...ro.querySelectorAll('.ro_item')];
-    const names = [...ro.querySelectorAll('[data-ro-names] button')];
-    const no = ro.querySelector('[data-ro-no]');
-    const cat = ro.querySelector('[data-ro-cat]');
-    const tag = ro.querySelector('[data-ro-tag]');
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const n = items.length;
-    let current = 0;
-    let timer = null;
-
-    // 지금 기록 기준 위치: -1(왼쪽) 0(가운데) 1(오른쪽), 나머지는 오른쪽 밖(2)에 숨김
-    const offsetOf = (i) => ((i - current + n + 1) % n) - 1;
-
-    const show = (index) => {
-        current = index;
-        items.forEach((item, i) => {
-            const o = offsetOf(i);
-            const before = Number(item.style.getPropertyValue('--o') || o);
-            // 오른쪽 밖에서 왼쪽으로 한 번에 건너가는 카드는 움직임 없이 자리만 옮김
-            item.classList.toggle('no-anim', Math.abs(o - before) > 1);
-            item.style.setProperty('--o', o);
-            item.classList.toggle('is-current', o === 0);
-            item.classList.toggle('is-hidden', o > 1);
-        });
-        names.forEach((name, i) => name.setAttribute('aria-current', String(i === index)));
-        no.textContent = index + 1;
-        cat.textContent = names[index].dataset.cat;
-        tag.textContent = names[index].dataset.tag;
-    };
-
-    const start = () => {
-        clearInterval(timer);
-        if (!reduce) {
-            timer = setInterval(() => show((current + 1) % n), 3600);
-        }
-    };
-
-    names.forEach((name, i) => name.addEventListener('click', () => {
-        show(i);
-        start();
-    }));
-
-    // 사진 위에 마우스를 올리거나 키보드로 고르는 동안은 멈춤, 벗어나면 다시 넘어감
-    const stage = ro.querySelector('.ro_stage');
-    const pause = () => clearInterval(timer);
-    stage?.addEventListener('pointerenter', pause);
-    stage?.addEventListener('pointerleave', start);
-    stage?.addEventListener('focusin', pause);
-    stage?.addEventListener('focusout', start);
-
-    show(0);
-    start();
-});
-
-document.addEventListener('DOMContentLoaded', () => {
     // 오늘의 기록: 화면 가운데에 온 카드에 맞춰 오른쪽 큰 사진을 바꿈
     const cards = [...document.querySelectorAll('[data-cx-card]')];
     const photos = [...document.querySelectorAll('[data-cx-media] img')];
@@ -487,4 +427,158 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', setup);
     window.addEventListener('load', setup);
     setup();
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 기록 첫 화면 사진 4장: 누르면 바로 아래로 이번 주(최근 7일) 기록이 쭉 펼쳐짐, 다시 누르면 접힘
+    const grid = document.querySelector('[data-ro-grid]');
+    const detail = document.querySelector('[data-ro-detail]');
+    const body = document.querySelector('[data-ro-detail-body]');
+    if (!grid || !detail || !body) {
+        return;
+    }
+    const WEEK = ['일', '월', '화', '수', '목', '금', '토'];
+    const MOODS = [['😆', '최고예요'], ['🙂', '좋아요'], ['😐', '그저 그래요'], ['😢', '속상해요'], ['😠', '화나요']];
+    const MEMOS = ['받아쓰기를 끝까지 혼자 해냈어요!', '영어 단어 10개 외우기 성공', '동생이랑 같이 책을 읽었어요', '줄넘기 50개 넘었어요', '아침에 알람 없이 일어났어요', '숙제를 저녁 먹기 전에 끝냈어요'];
+    const ROUTINES = ['아침 식사하기', '등교 준비하기', '받아쓰기 10문제', '영어 단어 외우기', '책 10분 읽기'];
+    const seeded = (n) => {
+        const x = Math.sin(n * 9301 + 49297) * 233280;
+        return x - Math.floor(x);
+    };
+    const today = new Date();
+    const days = Array.from({ length: 7 }, (_, i) => {
+        const date = new Date(today.getFullYear(), today.getMonth(), today.getDate() - (6 - i));
+        const n = Math.floor(date.getTime() / 86400000);
+        return {
+            label: i === 6 ? '오늘' : WEEK[date.getDay()],
+            date: `${date.getMonth() + 1}/${date.getDate()}`,
+            done: 2 + Math.floor(seeded(n + 1) * 4),
+            mood: Math.min(4, Math.floor(seeded(n + 2) * seeded(n + 3) * 5)),
+            focus: 2 + Math.floor(seeded(n + 4) * 4),
+            memo: seeded(n + 5) < 0.6 ? MEMOS[Math.floor(seeded(n + 6) * MEMOS.length)] : ''
+        };
+    });
+    const dayName = (d) => (d.label === '오늘' ? '오늘' : `${d.label}요일`);
+    const avg = (key) => (days.reduce((sum, d) => sum + d[key], 0) / days.length);
+
+    const views = {
+        routine: () => {
+            const total = days.reduce((sum, d) => sum + d.done, 0);
+            const best = [...days].sort((a, b) => b.done - a.done)[0];
+            return {
+                title: '루틴 수행 기록',
+                lead: `이번 주에 루틴을 모두 <b>${total}번</b> 끝냈어요. 하루 평균 <b>${avg('done').toFixed(1)}개</b>이고, 가장 많이 해낸 날은 <b>${dayName(best)}(${best.done}개)</b>이에요.`,
+                body: `<ol class="rd_bars">${days.map((d, i) => `<li style="--i:${i}"><span class="rd_bar" style="--v:${d.done / 5}"><i></i></span><b>${d.done}/5</b><small>${d.label}</small></li>`).join('')}</ol>
+                    <ul class="rd_list">${ROUTINES.map((name, i) => `<li style="--i:${i}"><span>${name}</span><b>${days.filter((d) => d.done > i).length}/7일</b></li>`).join('')}</ul>`
+            };
+        },
+        mood: () => {
+            const counts = MOODS.map((_, i) => days.filter((d) => d.mood === i).length);
+            const top = counts.indexOf(Math.max(...counts));
+            return {
+                title: '감정 기록',
+                lead: `이번 주에는 <b>‘${MOODS[top][1]}’</b>가 가장 많았어요 (${counts[top]}일). 기분이 안 좋았던 날은 <b>${counts[3] + counts[4]}일</b>이에요.`,
+                body: `<ol class="rd_moods">${days.map((d, i) => `<li style="--i:${i}"><span aria-hidden="true">${MOODS[d.mood][0]}</span><b>${MOODS[d.mood][1]}</b><small>${d.label}</small></li>`).join('')}</ol>`
+            };
+        },
+        focus: () => ({
+            title: '집중도 기록',
+            lead: `이번 주 평균 집중도는 <b>${avg('focus').toFixed(1)}점</b>이에요 (5점 만점). 가장 집중한 날은 <b>${dayName([...days].sort((a, b) => b.focus - a.focus)[0])}</b>이에요.`,
+            body: `<ol class="rd_bars rd_bars_focus">${days.map((d, i) => `<li style="--i:${i}"><span class="rd_bar" style="--v:${d.focus / 5}"><i></i></span><b>${d.focus}점</b><small>${d.label}</small></li>`).join('')}</ol>`
+        }),
+        memo: () => {
+            const memos = days.filter((d) => d.memo).reverse();
+            return {
+                title: '기타메모',
+                lead: `이번 주에 남긴 메모는 <b>${memos.length}개</b>예요.`,
+                body: memos.length
+                    ? `<ul class="rd_memos">${memos.map((d, i) => `<li style="--i:${i}"><small>${d.label} · ${d.date}</small><p>${d.memo}</p></li>`).join('')}</ul>`
+                    : '<p class="rd_empty">이번 주에는 아직 메모가 없어요.</p>'
+            };
+        }
+    };
+
+    // 화면을 천천히(약 0.9초) 처음과 끝이 부드러운 곡선으로 내려 줌
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const glideTo = (el) => {
+        const header = document.querySelector('.site_header');
+        const offset = (header ? header.getBoundingClientRect().height : 0) + 16;
+        const start = window.scrollY;
+        const end = Math.max(0, el.getBoundingClientRect().top + start - offset);
+        if (reduceMotion || Math.abs(end - start) < 4) {
+            window.scrollTo(0, end);
+            return;
+        }
+        const root = document.documentElement;
+        root.style.scrollBehavior = 'auto';
+        const duration = 900;
+        const t0 = performance.now();
+        const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+        const stop = () => { cancelled = true; };
+        let cancelled = false;
+        window.addEventListener('wheel', stop, { once: true, passive: true });
+        window.addEventListener('touchstart', stop, { once: true, passive: true });
+        const step = (now) => {
+            if (cancelled) {
+                root.style.scrollBehavior = '';
+                return;
+            }
+            const t = Math.min((now - t0) / duration, 1);
+            window.scrollTo(0, start + (end - start) * ease(t));
+            if (t < 1) {
+                requestAnimationFrame(step);
+            } else {
+                root.style.scrollBehavior = '';
+                window.removeEventListener('wheel', stop);
+                window.removeEventListener('touchstart', stop);
+            }
+        };
+        requestAnimationFrame(step);
+    };
+
+    const buttons = [...grid.querySelectorAll('[data-ro-open]')];
+    let openKey = null;
+    const close = () => {
+        detail.classList.remove('is-open');
+        buttons.forEach((b) => b.setAttribute('aria-expanded', 'false'));
+        openKey = null;
+        setTimeout(() => {
+            if (!openKey) detail.hidden = true;
+        }, 500);
+    };
+    buttons.forEach((button) => button.addEventListener('click', () => {
+        const key = button.dataset.roOpen;
+        if (openKey === key) {
+            close();
+            return;
+        }
+        const view = views[key]();
+        body.innerHTML = `
+            <div class="rd_head">
+                <p class="rd_kicker">이번 주 · 최근 7일</p>
+                <h2>${view.title}</h2>
+                <p class="rd_lead">${view.lead}</p>
+            </div>
+            <div class="rd_body">${view.body}</div>
+            <button type="button" class="rd_close" data-ro-close>접기 <span aria-hidden="true">↑</span></button>`;
+        body.querySelector('[data-ro-close]').addEventListener('click', () => {
+            close();
+            button.focus();
+        });
+        buttons.forEach((b) => b.setAttribute('aria-expanded', String(b === button)));
+        const switching = detail.classList.contains('is-open');
+        detail.hidden = false;
+        // 숨김 → 보임 직후 한 번 그려 둔 뒤 열어야 높이가 0에서부터 부드럽게 늘어남
+        void detail.offsetHeight;
+        detail.classList.remove('is-swap');
+        if (switching) {
+            // 다른 사진으로 바꿀 때: 내용만 다시 떠오르게
+            void detail.offsetWidth;
+            detail.classList.add('is-swap');
+        }
+        detail.classList.add('is-open');
+        openKey = key;
+        // 칸이 열리기 시작하면 화면도 그 칸 위쪽(헤더 바로 아래)까지 부드럽게 내려감
+        glideTo(detail);
+    }));
 });

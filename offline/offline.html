@@ -43,7 +43,7 @@
                 </ul>
             </nav>
             <div class="site_actions">
-                <a class="btn btn_small btn_line" href="../sleep/sleep_main.html">진단 시작하기</a>
+                <a class="btn btn_small btn_line" href="../sleep/sleep_start.html">진단 시작하기</a>
                 <button type="button" class="menu_button" data-menu-open aria-label="메뉴 열기" aria-expanded="false" aria-controls="mobile-menu">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
                 </button>
@@ -64,7 +64,7 @@
             <a href="../offline/offline.html" aria-current="page">GROWTH</a>
             <a href="../my/my.html">MY</a>
         </nav>
-        <a class="btn btn_gradient" href="../sleep/sleep_main.html">루틴 유형 진단하기</a>
+        <a class="btn btn_gradient" href="../sleep/sleep_start.html">루틴 유형 진단하기</a>
     </div>
 <!-- header:end -->
 
@@ -87,26 +87,44 @@
         </section>
 
         <!-- 2. 핵심 숫자 4개: 화면에 들어오면 0부터 올라감 -->
-        <section class="gr_stats" aria-label="이번 달 성장 요약">
-            <div class="gr_stat reveal">
-                <p class="gr_label" data-scramble-label>GROWTH RATE</p>
+        <section class="gr_stats gr_log" aria-labelledby="gr-log-title">
+            <div class="gl_center">
+                <h2 id="gr-log-title" class="gl_title">이번 달<br>우리 아이 성장</h2>
+                <p class="gl_sub">지난달과 비교한 이번 달 기록</p>
+                <p class="gl_hint">일지를 누르면 자세한 기록이 펼쳐져요</p>
+            </div>
+            <!-- 일지 카드를 누르면 가운데에 크게 펼쳐지는 상세 일지 -->
+            <div class="gl_detail" id="gl-detail" role="dialog" aria-modal="false" aria-labelledby="gl-detail-title" data-gl-detail hidden>
+                <button type="button" class="gl_detail_close" aria-label="상세 일지 닫기" data-gl-close>✕</button>
+                <div data-gl-body></div>
+            </div>
+            <div class="gr_stat gl_card" role="button" tabindex="0" aria-expanded="false" aria-controls="gl-detail" data-gl-open="rate">
+                <p class="gl_head">LUUP 성장 일지 · No.01</p>
+                <p class="gr_label">성장률</p>
+                <p class="gl_now">지난 4주보다 실천율이 올랐어요</p>
                 <p class="gr_num"><span>+</span><b data-count="43">43</b><span>%</span></p>
-                <p class="gr_stat_desc">지난 4주보다 실천율이 올랐어요</p>
+                <span class="gl_stamp" aria-hidden="true">성장</span>
             </div>
-            <div class="gr_stat reveal">
-                <p class="gr_label" data-scramble-label>STREAK</p>
+            <div class="gr_stat gl_card" role="button" tabindex="0" aria-expanded="false" aria-controls="gl-detail" data-gl-open="streak">
+                <p class="gl_head">LUUP 성장 일지 · No.02</p>
+                <p class="gr_label">연속 기록</p>
+                <p class="gl_now">하루도 빠짐없이 이어가는 중</p>
                 <p class="gr_num"><b data-count="18">18</b><span>일</span></p>
-                <p class="gr_stat_desc">하루도 빠짐없이 이어가는 중</p>
+                <span class="gl_stamp" aria-hidden="true">연속</span>
             </div>
-            <div class="gr_stat reveal">
-                <p class="gr_label" data-scramble-label>COMPLETED</p>
+            <div class="gr_stat gl_card" role="button" tabindex="0" aria-expanded="false" aria-controls="gl-detail" data-gl-open="done">
+                <p class="gl_head">LUUP 성장 일지 · No.03</p>
+                <p class="gr_label">완료한 할 일</p>
+                <p class="gl_now">지금까지 완료한 할 일</p>
                 <p class="gr_num"><b data-count="126">126</b><span>개</span></p>
-                <p class="gr_stat_desc">지금까지 완료한 할 일</p>
+                <span class="gl_stamp" aria-hidden="true">완료</span>
             </div>
-            <div class="gr_stat reveal">
-                <p class="gr_label" data-scramble-label>GOALS</p>
+            <div class="gr_stat gl_card" role="button" tabindex="0" aria-expanded="false" aria-controls="gl-detail" data-gl-open="goals">
+                <p class="gl_head">LUUP 성장 일지 · No.04</p>
+                <p class="gr_label">해낸 목표</p>
+                <p class="gl_now">끝까지 해낸 목표</p>
                 <p class="gr_num"><b data-count="7">7</b><span>개</span></p>
-                <p class="gr_stat_desc">끝까지 해낸 목표</p>
+                <span class="gl_stamp" aria-hidden="true">달성</span>
             </div>
         </section>
 
@@ -329,7 +347,7 @@
                     <h2>Start.</h2>
                     <p>오늘의 루틴을<br>1분 만에 시작해요.</p>
                     <div class="sf_btns">
-                        <a class="sf_btn sf_btn_wide" href="../sleep/sleep_main.html">루틴 유형 진단하기 <span aria-hidden="true">→</span></a>
+                        <a class="sf_btn sf_btn_wide" href="../sleep/sleep_start.html">루틴 유형 진단하기 <span aria-hidden="true">→</span></a>
                     </div>
                 </div>
                 <div class="sf_col">
@@ -360,6 +378,7 @@
 <!-- footer:end -->
     <script src="js/together.js"></script>
     <script src="../js/studio_header.js"></script>
+    <script src="../js/smooth_scroll.js"></script>
 </body>
 
 </html>
