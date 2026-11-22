@@ -180,3 +180,103 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 })();
+
+// 프로필 사진 바꾸기: 연필 버튼 → 캐릭터 5가지 · 배경색 5가지 고르기, 또는 내 사진 올리기 (이 브라우저에 저장)
+(() => {
+    const editBtn = document.querySelector('[data-avatar-edit]');
+    const picker = document.querySelector('[data-avatar-picker]');
+    const img = document.querySelector('[data-avatar-img]');
+    const avatar = img?.closest('.my_avatar');
+    if (!editBtn || !picker || !img) {
+        return;
+    }
+    const KEY = 'luup-my-avatar';
+    const BGS = {
+        blue: 'linear-gradient(145deg, #5b8cff, #2563eb)',
+        pink: 'linear-gradient(145deg, #ffb3d1, #ff6fa8)',
+        yellow: 'linear-gradient(145deg, #ffe28a, #ffbf3c)',
+        mint: 'linear-gradient(145deg, #8ff0d6, #2fc79f)',
+        purple: 'linear-gradient(145deg, #c9b5ff, #8b6cff)'
+    };
+    const read = () => {
+        try {
+            return JSON.parse(localStorage.getItem(KEY)) || {};
+        } catch (error) {
+            return {};
+        }
+    };
+    let state = { src: '../img/common_character_towel.png', bg: 'blue', photo: false, ...read() };
+
+    const apply = () => {
+        img.src = state.src;
+        avatar.classList.toggle('is-photo', !!state.photo);
+        avatar.style.background = BGS[state.bg] || BGS.blue;
+        picker.querySelectorAll('[data-avatar]').forEach((b) => b.setAttribute('aria-checked', String(!state.photo && b.dataset.avatar === state.src)));
+        picker.querySelectorAll('[data-avatar-bg]').forEach((b) => b.setAttribute('aria-checked', String(b.dataset.avatarBg === state.bg)));
+    };
+    const save = () => {
+        try {
+            localStorage.setItem(KEY, JSON.stringify(state));
+        } catch (error) {
+            // 사진이 너무 크면 저장되지 않을 수 있음 (화면에는 그대로 보임)
+        }
+    };
+    const setOpen = (open) => {
+        picker.hidden = !open;
+        editBtn.setAttribute('aria-expanded', String(open));
+    };
+
+    editBtn.addEventListener('click', (event) => {
+        event.stopPropagation();
+        setOpen(picker.hidden);
+    });
+    picker.addEventListener('click', (event) => {
+        event.stopPropagation();
+        const pick = event.target.closest('[data-avatar]');
+        const bg = event.target.closest('[data-avatar-bg]');
+        if (pick) {
+            state = { ...state, src: pick.dataset.avatar, photo: false };
+        } else if (bg) {
+            state = { ...state, bg: bg.dataset.avatarBg };
+        } else {
+            return;
+        }
+        apply();
+        save();
+    });
+    picker.querySelector('[data-avatar-file]').addEventListener('change', (event) => {
+        const file = event.target.files?.[0];
+        if (!file) {
+            return;
+        }
+        // 올린 사진은 작게 줄여서 저장 (최대 240px)
+        const reader = new FileReader();
+        reader.onload = () => {
+            const pic = new Image();
+            pic.onload = () => {
+                const size = 240;
+                const canvas = document.createElement('canvas');
+                canvas.width = size;
+                canvas.height = size;
+                const scale = Math.max(size / pic.width, size / pic.height);
+                const w = pic.width * scale;
+                const h = pic.height * scale;
+                canvas.getContext('2d').drawImage(pic, (size - w) / 2, (size - h) / 2, w, h);
+                state = { ...state, src: canvas.toDataURL('image/jpeg', 0.85), photo: true };
+                apply();
+                save();
+                setOpen(false);
+            };
+            pic.src = reader.result;
+        };
+        reader.readAsDataURL(file);
+    });
+    document.addEventListener('click', () => setOpen(false));
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            setOpen(false);
+        }
+    });
+
+    apply();
+})();

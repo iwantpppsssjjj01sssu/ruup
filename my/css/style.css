@@ -1013,3 +1013,230 @@
 .mf_col span {
   color: #4b5563;
 }
+
+/* "MY PAGE" 제목: RECORD · 이번 달 루틴 · Growth 제목과 같은 서체·크기·굵기 */
+.my_title {
+  font-family: 'Paperlogy', var(--luup-font);
+  font-size: clamp(44px, 9.2vw, 168px);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.05em;
+}
+
+/* =========================================================
+   마이페이지 아래쪽에 색 채우기
+   - 큰 제목 아래 영역 전체를 연한 하늘빛 회색 바탕으로 깔고 (화면 끝까지)
+   - 왼쪽 블록(프로필 · 이번 주 리포트 · 빠른 메뉴)과 오른쪽 정보 수정은 흰 카드로 띄움
+   - 숫자 · 소제목에 파랑 포인트
+   ========================================================= */
+.my_body,
+.my_menus {
+  margin-left: calc(var(--title-x) * -1);
+  margin-right: calc(var(--title-x) * -1);
+  padding-left: var(--title-x);
+  padding-right: var(--title-x);
+  background: #f2f6fc;
+}
+
+.my_body {
+  margin-top: clamp(64px, 7vw, 110px);
+  padding-top: clamp(40px, 4vw, 64px);
+  padding-bottom: clamp(40px, 4vw, 64px);
+}
+
+.my_info {
+  gap: 20px;
+}
+
+.my_block,
+.my_form {
+  padding: clamp(22px, 2.2vw, 32px);
+  border: 1px solid #e4ebf5;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 20px 40px -32px rgba(37, 99, 235, 0.35);
+}
+
+.my_block h2,
+.my_form_title,
+.my_menu_row h2 {
+  color: #12233a;
+}
+
+/* 프로필 숫자 · 리포트 값: 파랑 */
+.my_stats dd,
+.my_report_stats b,
+.my_report_stats strong {
+  color: #2563eb;
+}
+
+/* 이번 주 리포트 줄: 아주 연한 파랑 칸 */
+.my_report_stats li {
+  border-bottom-color: #eaf0f8;
+}
+
+/* 아래 메뉴 묶음도 같은 바탕 위 흰 줄 카드로 */
+.my_menus {
+  margin-top: 0;
+  padding-top: 8px;
+  padding-bottom: clamp(48px, 5vw, 80px);
+}
+
+.my_menu_row {
+  margin-top: 16px;
+  padding: clamp(24px, 2.4vw, 36px);
+  border: 1px solid #e4ebf5;
+  border-radius: 24px;
+  background: #fff;
+}
+
+.my_list a:hover,
+.my_list button:hover {
+  color: #2563eb;
+}
+
+@media (max-width: 900px) {
+  .my_menu_row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+}
+
+/* =========================================================
+   프로필 사진 고르기 (연필 버튼)
+   ========================================================= */
+.my_profile {
+  position: relative;
+}
+
+.my_avatar {
+  overflow: visible;
+}
+
+.my_avatar img {
+  width: 62px;
+  height: 62px;
+  margin-top: 2px;
+  object-fit: contain;
+}
+
+/* 내 사진: 동그라미 가득 */
+.my_avatar.is-photo img {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.my_avatar_edit {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.my_avatar_edit:hover {
+  transform: scale(1.1);
+}
+
+.my_avatar_picker {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 12px);
+  z-index: 20;
+  display: grid;
+  gap: 10px;
+  width: min(300px, 80vw);
+  padding: 16px;
+  border: 1px solid #e4ebf5;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 24px 50px -20px rgba(17, 19, 24, 0.3);
+  color: #12233a;
+  animation: my-picker-in 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.my_avatar_picker[hidden] {
+  display: none;
+}
+
+@keyframes my-picker-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+.my_picker_title {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.my_picker_grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+}
+
+.my_picker_grid button {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  padding: 4px;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  background: #f2f6fc;
+  cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.my_picker_grid button:hover {
+  transform: translateY(-2px);
+}
+
+.my_picker_grid button[aria-checked="true"] {
+  border-color: #2563eb;
+}
+
+.my_picker_grid img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.my_picker_colors {
+  display: flex;
+  gap: 8px;
+}
+
+.my_picker_colors button {
+  width: 28px;
+  height: 28px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: var(--sw);
+  box-shadow: 0 0 0 1px #e4ebf5;
+  cursor: pointer;
+}
+
+.my_picker_colors button[aria-checked="true"] {
+  box-shadow: 0 0 0 2px #2563eb;
+}
+
+.my_picker_upload {
+  display: grid;
+  place-items: center;
+  padding: 10px;
+  border: 1.5px dashed #c9d3e1;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #2563eb;
+  cursor: pointer;
+}
+
+.my_picker_upload:hover {
+  border-color: #2563eb;
+  background: #f2f6fc;
+}

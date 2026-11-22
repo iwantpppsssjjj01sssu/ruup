@@ -5019,23 +5019,28 @@ html:has([data-intro]) .hero * {
 @keyframes intro-eye {
   0% {
     opacity: 0;
-    transform: scaleY(0.2);
+    transform: scale(0.2, 0.15);
   }
 
-  25%,
-  60% {
+  24% {
     opacity: 1;
-    transform: scaleY(1);
+    transform: scale(1.12, 0.92);
   }
 
-  70% {
-    transform: scaleY(0.1);
+  34%,
+  64% {
+    opacity: 1;
+    transform: scale(1);
   }
 
-  80%,
+  78% {
+    transform: scale(1, 0.12);
+  }
+
+  88%,
   100% {
     opacity: 1;
-    transform: scaleY(1);
+    transform: scale(1);
   }
 }
 
@@ -6220,17 +6225,17 @@ a.gg_more:hover {
 
 @keyframes intro-gap-close {
   to {
-    margin-left: 0.02em;
+    margin-left: 0;
   }
 }
 
-/* 접힌 뒤 남은 LU · UP 은 R 쪽으로 조금 붙음 */
+/* 접힌 뒤 남은 LUUP은 R 없이 한 덩어리로 붙음 */
 .intro_left {
-  padding-right: 0.2em;
+  padding-right: 0;
 }
 
 .intro_right {
-  padding-left: 0.2em;
+  padding-left: 0;
 }
 
 /* 열리는 시점 0.8초 늦춤 */
@@ -6265,26 +6270,30 @@ a.gg_more:hover {
 
 /* R 선 그리기: 0.3초부터 천천히 */
 .intro_line {
-  animation-duration: 1.4s;
-  animation-delay: 0.3s;
+  will-change: stroke-dashoffset;
+  animation-duration: 1.05s;
+  animation-delay: 0.15s;
+  animation-timing-function: cubic-bezier(0.45, 0.05, 0.15, 1);
 }
 
 .intro_line:nth-child(2) {
-  animation-delay: 0.65s;
+  animation-delay: 0.38s;
 }
 
 .intro_line:nth-child(3) {
-  animation-delay: 1s;
+  animation-delay: 0.62s;
 }
 
 .intro_smile {
-  animation-duration: 0.6s;
-  animation-delay: 2s;
+  animation-duration: 0.45s;
+  animation-delay: 1.72s;
+  animation-timing-function: ease-out;
 }
 
 .intro_eye {
-  animation-duration: 1.8s;
-  animation-delay: 1.8s;
+  animation-duration: 0.7s;
+  animation-delay: 1.42s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* 단어 등장 2.3초~ , 1.3초 정도 그대로 머문 뒤 3.7초에 접힘(0.9초), LUUP으로 0.6초 머무름 */
@@ -8627,4 +8636,40 @@ a.gg_more:hover {
 
 .arc_go_btn::after {
   display: none;
+}
+
+/* GO 버튼: 카드 윗변 바로 위 바깥에 (카드와 겹치지 않게, 12px 띄움) */
+.arc_go_btn {
+  bottom: calc(100% + 12px);
+}
+
+.arc_go_btn::after {
+  display: block;
+  left: -24px;
+  right: -24px;
+  top: 100%;
+  height: 24px;
+}
+
+/* 온보딩: 단어가 LU · UP 으로 접힐 때(4.2초) 가운데 R 캐릭터는 흐려지며 사라지고 자리도 좁혀져 LUUP으로 붙음 */
+.intro .intro_r {
+  animation: intro-r-away 0.8s cubic-bezier(0.65, 0, 0.35, 1) 4.2s forwards;
+}
+
+@keyframes intro-r-away {
+  to {
+    width: 0;
+    opacity: 0;
+    filter: blur(6px);
+  }
+}
+
+.intro .intro_row {
+  animation: intro-row-close 0.8s cubic-bezier(0.65, 0, 0.35, 1) 4.2s forwards;
+}
+
+@keyframes intro-row-close {
+  to {
+    column-gap: 0;
+  }
 }

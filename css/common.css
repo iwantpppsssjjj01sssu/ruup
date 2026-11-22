@@ -1100,3 +1100,204 @@ body.has-dark-hero.is-at-top .site_actions .btn_line {
     --page-x: 24px;
   }
 }
+
+/* =========================================================
+   모바일 메뉴: 온보딩 R 캐릭터처럼 — 검정 바탕 위 흰 선(외곽선) 글씨
+   - 메뉴 글씨는 속이 빈 흰 테두리 글씨, 가리키거나 지금 페이지면 속이 흰색으로 채워짐
+   - 구분선·버튼도 가는 흰 선으로
+   ========================================================= */
+.mobile_menu {
+  background: #070707;
+}
+
+.mobile_menu nav a {
+  border-bottom-color: rgba(255, 255, 255, 0.14);
+  color: transparent;
+  -webkit-text-stroke: 1.2px #f1f1f1;
+  transition: color 0.3s ease;
+}
+
+.mobile_menu nav a:hover,
+.mobile_menu nav a:focus-visible,
+.mobile_menu nav a[aria-current="page"] {
+  color: #f1f1f1;
+}
+
+.mobile_menu .btn {
+  border: 1.5px solid #f1f1f1;
+  background: transparent;
+  color: #f1f1f1;
+  box-shadow: none;
+}
+
+.mobile_menu .btn:hover {
+  background: #f1f1f1;
+  color: #070707;
+}
+
+/* =========================================================
+   메뉴 열기 · 닫기 버튼: 더 크게 + 인터렉션
+   - 크기: 44px → 56px, 아이콘 26px → 32px
+   - 닫기(×): 메뉴가 열리면 빙글 돌며 나타나고, 가리키면 흰 테두리 동그라미가 생기며 90° 회전
+   - 열기(☰): 가리키면 살짝 커지며 동그라미 배경
+   - 메뉴 글씨들은 열릴 때 아래에서 차례로 올라옴
+   ========================================================= */
+.menu_button {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.menu_button svg {
+  width: 32px;
+  height: 32px;
+  transition: transform 0.45s cubic-bezier(0.34, 1.4, 0.5, 1);
+}
+
+[data-menu-open]:hover,
+[data-menu-open]:focus-visible {
+  background: rgba(18, 35, 58, 0.06);
+  transform: scale(1.06);
+}
+
+.mobile_menu_top {
+  height: 64px;
+}
+
+.mobile_menu [data-menu-close] {
+  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0);
+}
+
+.mobile_menu [data-menu-close]:hover,
+.mobile_menu [data-menu-close]:focus-visible {
+  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.85);
+}
+
+.mobile_menu [data-menu-close]:hover svg,
+.mobile_menu [data-menu-close]:focus-visible svg {
+  transform: rotate(90deg);
+}
+
+.mobile_menu [data-menu-close]:active {
+  transform: scale(0.92);
+}
+
+.mobile_menu.is-open [data-menu-close] svg {
+  animation: menu-x-in 0.55s cubic-bezier(0.34, 1.4, 0.5, 1) both;
+}
+
+@keyframes menu-x-in {
+  from {
+    opacity: 0;
+    transform: rotate(-180deg) scale(0.4);
+  }
+}
+
+.mobile_menu.is-open nav a {
+  animation: menu-item-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.mobile_menu.is-open nav a:nth-child(2) { animation-delay: 0.05s; }
+.mobile_menu.is-open nav a:nth-child(3) { animation-delay: 0.1s; }
+.mobile_menu.is-open nav a:nth-child(4) { animation-delay: 0.15s; }
+.mobile_menu.is-open nav a:nth-child(5) { animation-delay: 0.2s; }
+
+@keyframes menu-item-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu_button svg,
+  .mobile_menu.is-open [data-menu-close] svg,
+  .mobile_menu.is-open nav a {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* =========================================================
+   모바일 메뉴 글씨 hover
+   - 속이 빈 글씨 안이 왼쪽 → 오른쪽으로 흰색으로 차오름
+   - 글씨가 살짝 오른쪽으로 밀리고, 오른쪽 끝에 ↗ 화살표가 나타남
+   - 아래 구분선도 왼쪽부터 흰색으로 그어짐
+   ========================================================= */
+.mobile_menu nav a {
+  position: relative;
+  padding-right: 48px;
+  background: linear-gradient(#f1f1f1, #f1f1f1) no-repeat 0 0 / 0% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition: background-size 0.45s cubic-bezier(0.65, 0, 0.35, 1), padding-left 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mobile_menu nav a:hover,
+.mobile_menu nav a:focus-visible {
+  padding-left: 14px;
+  background-size: 100% 100%;
+  color: transparent;
+}
+
+/* 지금 페이지는 처음부터 채워져 있음 */
+.mobile_menu nav a[aria-current="page"] {
+  background-size: 100% 100%;
+  color: transparent;
+}
+
+/* 오른쪽 화살표 */
+.mobile_menu nav a::after {
+  content: '↗';
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  font-size: 0.8em;
+  -webkit-text-stroke: 0;
+  color: #f1f1f1;
+  opacity: 0;
+  transform: translate(-12px, -40%);
+  transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mobile_menu nav a:hover::after,
+.mobile_menu nav a:focus-visible::after {
+  opacity: 1;
+  transform: translate(0, -55%);
+}
+
+/* 아래 구분선이 왼쪽부터 흰색으로 */
+.mobile_menu nav a::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: #f1f1f1;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.mobile_menu nav a:hover::before,
+.mobile_menu nav a:focus-visible::before {
+  transform: scaleX(1);
+}
+
+.mobile_menu nav a:focus-visible {
+  outline: none;
+}
+
+/* 메뉴 열기(☰) 아이콘 더 크게 */
+[data-menu-open] {
+  width: 64px;
+  height: 64px;
+}
+
+[data-menu-open] svg {
+  width: 38px;
+  height: 38px;
+}

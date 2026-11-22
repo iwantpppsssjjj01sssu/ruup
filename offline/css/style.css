@@ -1186,3 +1186,28 @@
     order: 2;
   }
 }
+
+/* 오른쪽 위 TODAY · 날짜: TODAY 크게, 둘 사이 간격 좁게 */
+.gr_today {
+  gap: 0;
+}
+
+.gr_today_label {
+  font-size: clamp(14px, 1.15vw, 18px);
+  line-height: 1.1;
+}
+
+.gr_today time {
+  line-height: 1.15;
+}
+
+/* TODAY와 날짜 사이 살짝 띄움 */
+.gr_today {
+  gap: 4px;
+}
+
+/* TODAY: Pretendard 서체, 자간 좁게 */
+.gr_today_label {
+  font-family: 'Pretendard Variable', 'Pretendard', var(--luup-font);
+  letter-spacing: 0.01em;
+}

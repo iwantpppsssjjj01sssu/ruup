@@ -12,11 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 하루 시간대별 루틴 · tasks는 순서대로 하는 단계
     const DEFAULT_BLOCKS = [
-        { name: '일어나기', desc: '상쾌한 아침을 여는 루틴이에요', start: '07:00', end: '07:20', color: '#d6dcfb', tasks: [{ title: '일어나서 물 한 잔', minutes: 5 }, { title: '이불 정리하기', minutes: 5 }, { title: '세수하기', minutes: 10 }] },
-        { name: '아침먹기', desc: '든든하게 먹고 학교 갈 준비를 해요', start: '07:20', end: '08:10', color: '#a8b4fb', tasks: [{ title: '아침 식사하기', minutes: 20 }, { title: '등교 준비하기', minutes: 15 }, { title: '양치하기', minutes: 5 }] },
-        { name: '숙제하기', desc: '오늘의 학습 루틴 일정을 확인해요', start: '16:00', end: '16:40', color: '#4f6bff', tasks: [{ title: '준비하기', minutes: 5 }, { title: '책상에 앉기', minutes: 3 }, { title: '문제 풀기', minutes: 20 }, { title: '쉬는 시간', minutes: 5 }, { title: '정리하기', minutes: 7 }] },
-        { name: '씻기', desc: '하루를 깨끗하게 마무리해요', start: '20:00', end: '20:30', color: '#a6ecdf', tasks: [{ title: '샤워하기', minutes: 15 }, { title: '양치하기', minutes: 5 }, { title: '내일 가방 챙기기', minutes: 10 }] },
-        { name: '잠자기', desc: '푹 자야 내일도 힘이 나요', start: '21:00', end: '07:00', color: '#d2f5ec', tasks: [{ title: '책 10분 읽기', minutes: 10 }, { title: '불 끄고 잠자리에 들기', minutes: 5 }] }
+        { name: '일어나기', desc: '상쾌한 아침을 여는 루틴이에요', start: '07:00', end: '07:20', color: '#ff8fb8', tasks: [{ title: '일어나서 물 한 잔', minutes: 5 }, { title: '이불 정리하기', minutes: 5 }, { title: '세수하기', minutes: 10 }] },
+        { name: '아침먹기', desc: '든든하게 먹고 학교 갈 준비를 해요', start: '07:20', end: '08:10', color: '#ffc94a', tasks: [{ title: '아침 식사하기', minutes: 20 }, { title: '등교 준비하기', minutes: 15 }, { title: '양치하기', minutes: 5 }] },
+        { name: '숙제하기', desc: '오늘의 학습 루틴 일정을 확인해요', start: '16:00', end: '16:40', color: '#5b8cff', tasks: [{ title: '준비하기', minutes: 5 }, { title: '책상에 앉기', minutes: 3 }, { title: '문제 풀기', minutes: 20 }, { title: '쉬는 시간', minutes: 5 }, { title: '정리하기', minutes: 7 }] },
+        { name: '씻기', desc: '하루를 깨끗하게 마무리해요', start: '20:00', end: '20:30', color: '#3fd8b0', tasks: [{ title: '샤워하기', minutes: 15 }, { title: '양치하기', minutes: 5 }, { title: '내일 가방 챙기기', minutes: 10 }] },
+        { name: '잠자기', desc: '푹 자야 내일도 힘이 나요', start: '21:00', end: '07:00', color: '#a77bff', tasks: [{ title: '책 10분 읽기', minutes: 10 }, { title: '불 끄고 잠자리에 들기', minutes: 5 }] }
     ];
 
     // 계획과 체크 기록은 이 브라우저에만 저장 (저장이 막힌 환경에서도 화면은 동작)
@@ -89,16 +89,24 @@ document.addEventListener('DOMContentLoaded', () => {
         const sleep = [[pick(['책 10분 읽기', '오늘 일기 한 줄 쓰기', '감사한 일 말하기'], seed), 10], ['불 끄고 잠자리에 들기', 5]];
         const washStart = (weekend ? 20 * 60 + 30 : 19 * 60 + 50) + ((seed * 7) % 3) * 10;
         const plan = [
-            make('일어나기', weekend ? '여유로운 주말 아침이에요' : '상쾌한 아침을 여는 루틴이에요', wake, '#d6dcfb', [['일어나서 물 한 잔', 5], ['이불 정리하기', 5], [pick(['세수하기', '스트레칭하기', '창문 열고 환기하기'], seed), 10]]),
-            make('아침먹기', weekend ? '천천히 아침을 즐겨요' : '든든하게 먹고 학교 갈 준비를 해요', wake + 20, '#a8b4fb', breakfast),
-            make(after.name, after.desc, toMinutes(after.start), '#4f6bff', after.tasks),
-            make('씻기', '하루를 깨끗하게 마무리해요', washStart, '#a6ecdf', wash),
-            make('잠자기', '푹 자야 내일도 힘이 나요', washStart + 50, '#d2f5ec', sleep)
+            make('일어나기', weekend ? '여유로운 주말 아침이에요' : '상쾌한 아침을 여는 루틴이에요', wake, '#ff8fb8', [['일어나서 물 한 잔', 5], ['이불 정리하기', 5], [pick(['세수하기', '스트레칭하기', '창문 열고 환기하기'], seed), 10]]),
+            make('아침먹기', weekend ? '천천히 아침을 즐겨요' : '든든하게 먹고 학교 갈 준비를 해요', wake + 20, '#ffc94a', breakfast),
+            make(after.name, after.desc, toMinutes(after.start), '#5b8cff', after.tasks),
+            make('씻기', '하루를 깨끗하게 마무리해요', washStart, '#3fd8b0', wash),
+            make('잠자기', '푹 자야 내일도 힘이 나요', washStart + 50, '#a77bff', sleep)
         ];
         plan[4].end = toTime(wake + (weekend ? 0 : 0));
         return plan;
     };
-    const blocksFor = (date) => plans[dateKey(date)] || makePlan(date);
+    // 시간대 색: 분홍 · 노랑 · 파랑 · 민트 · 보라 (예전에 저장된 비슷한 색 계획도 새 색으로 바꿔 보여 줌)
+    const OLD_COLORS = { '#d6dcfb': '#ff8fb8', '#a8b4fb': '#ffc94a', '#4f6bff': '#5b8cff', '#a6ecdf': '#3fd8b0', '#d2f5ec': '#a77bff', '#c3c7d1': '#ff9a5c' };
+    const recolor = (list) => {
+        list.forEach((block) => {
+            block.color = OLD_COLORS[block.color] || block.color;
+        });
+        return list;
+    };
+    const blocksFor = (date) => (plans[dateKey(date)] ? recolor(plans[dateKey(date)]) : makePlan(date));
     let blocks = blocksFor(state.date);
     const setDate = (date) => {
         state.date = date;
@@ -211,9 +219,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }).join('');
         $('[data-panel]').innerHTML = `
             <div class="rc_panel_head">
-                <p class="rc_label">TODAY'S PLAN</p>
+                <p class="rc_label rc_label_plain">Today's Plan</p>
                 <h2 class="rc_panel_title" tabindex="-1" data-panel-title>${dayLabel.format(state.date)}${isToday ? '<span class="rc_badge">오늘</span>' : ''}</h2>
-                <p class="rc_panel_meta">루틴 ${blocks.length}개 중 <b>${completeCount}개 완료</b> · 하나를 누르면 단계가 나와요</p>
+                <p class="rc_panel_meta">루틴 ${blocks.length}개 중 <b>${completeCount}개 완료</b></p>
             </div>
             <ol class="rc_list">${items}</ol>
             <button type="button" class="rc_add" data-add>+ 할 일 추가하기</button>`;
@@ -263,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
         $('[data-panel]').innerHTML = `
             <button type="button" class="rc_back" data-back>← ${dayLabel.format(state.date)} 일정</button>
             <div class="rc_panel_head rc_routine_head" style="--c:${block.color}">
-                <p class="rc_label">STEP BY STEP</p>
+                <p class="rc_label rc_label_plain">Step by Step</p>
                 <h2 class="rc_panel_title" tabindex="-1" data-panel-title><i class="rc_swatch" aria-hidden="true"></i>${escapeHtml(block.name)}</h2>
                 <p class="rc_panel_meta">${block.start} ~ ${block.end} · ${escapeHtml(block.desc || '')}</p>
                 <div class="rc_progress" aria-hidden="true"><i style="--value:${total ? (count / total) * 100 : 0}%"></i></div>
@@ -496,6 +504,120 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     renderLegend();
+
+    // 왼쪽 탭 너비: 사이 손잡이를 끌거나(마우스·터치) 방향키로 늘이고 줄임, 고른 너비는 이 브라우저에 기억
+    const resizer = $('[data-side-resize]');
+    const calBox = $('.rc_cal');
+    const SIDE_KEY = 'luup-routine-side-w';
+    const SIDE_MIN = 160;
+    const SIDE_MAX = 440;
+    const setSideW = (w, remember = true) => {
+        const width = Math.round(Math.min(Math.max(w, SIDE_MIN), SIDE_MAX));
+        calBox.style.setProperty('--side-w', `${width}px`);
+        resizer.setAttribute('aria-valuenow', String(width));
+        if (remember) {
+            save(SIDE_KEY, width);
+        }
+    };
+    const savedSide = load(SIDE_KEY, null);
+    if (savedSide) {
+        setSideW(savedSide, false);
+    }
+    resizer?.addEventListener('pointerdown', (event) => {
+        event.preventDefault();
+        const side = $('.rc_side');
+        const startX = event.clientX;
+        const startW = side.getBoundingClientRect().width;
+        resizer.setPointerCapture(event.pointerId);
+        calBox.classList.add('is-resizing');
+        const move = (e) => setSideW(startW + (e.clientX - startX));
+        const up = () => {
+            calBox.classList.remove('is-resizing');
+            resizer.removeEventListener('pointermove', move);
+            resizer.removeEventListener('pointerup', up);
+        };
+        resizer.addEventListener('pointermove', move);
+        resizer.addEventListener('pointerup', up);
+    });
+    resizer?.addEventListener('keydown', (event) => {
+        if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') {
+            return;
+        }
+        event.preventDefault();
+        const now = $('.rc_side').getBoundingClientRect().width;
+        setSideW(now + (event.key === 'ArrowRight' ? 20 : -20));
+    });
+    // 손잡이를 두 번 누르면 기본 너비로
+    resizer?.addEventListener('dblclick', () => {
+        calBox.style.removeProperty('--side-w');
+        save(SIDE_KEY, null);
+    });
+
+    // 왼쪽 탭 '+ 할 일 추가하기': 창을 띄우지 않고 버튼 바로 아래에 작은 입력칸이 탭처럼 펼쳐짐 (고른 날짜에 추가)
+    const sideAddToggle = $('[data-side-add-toggle]');
+    const sideAdd = $('[data-side-add]');
+    const setSideAdd = (open) => {
+        sideAdd.hidden = !open;
+        sideAddToggle.setAttribute('aria-expanded', String(open));
+        sideAddToggle.textContent = open ? '− 추가 닫기' : '+ 할 일 추가하기';
+        if (open) {
+            // 시간은 목록에서 고르지 않고 직접 적음 (기본값: 지금부터 다음 정각)
+            const next = new Date();
+            $('[data-side-add-hour]').value = String((next.getHours() + 1) % 24);
+            $('[data-side-add-minute]').value = '0';
+            sideAdd.querySelector('input[name="title"]').focus();
+        } else {
+            sideAdd.reset();
+        }
+    };
+    sideAddToggle?.addEventListener('click', () => setSideAdd(sideAdd.hidden));
+    // 숫자 칸 옆 큰 − / + 버튼: 시는 1시간, 분은 5분씩 (시·분은 끝에서 반대쪽으로 돌아감)
+    sideAdd?.addEventListener('click', (event) => {
+        const btn = event.target.closest('[data-num-step]');
+        if (!btn) {
+            return;
+        }
+        const input = btn.parentElement.querySelector('input');
+        const min = Number(input.min);
+        const max = Number(input.max);
+        let value = (Number(input.value) || 0) + Number(btn.dataset.numStep);
+        if (input.hasAttribute('data-wrap')) {
+            const span = max - min + 1;
+            value = ((value - min) % span + span) % span + min;
+        } else {
+            value = Math.min(Math.max(value, min), max);
+        }
+        input.value = String(value);
+    });
+
+
+    sideAdd?.querySelector('[data-side-add-cancel]').addEventListener('click', () => setSideAdd(false));
+    sideAdd?.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const data = new FormData(sideAdd);
+        const title = String(data.get('title')).trim();
+        const minutes = Number(data.get('minutes')) || 10;
+        if (!title) {
+            return;
+        }
+        // 적은 시간과 같은 시간대가 있으면 거기에 넣고, 없으면 그 시간에 새 할 일 칸을 만들어 붙임
+        // 시·분을 각각 적은 값으로 시작 시간 만들기 (범위를 벗어나면 안쪽으로 맞춤)
+        const hour = Math.min(Math.max(Math.round(Number(data.get('hour')) || 0), 0), 23);
+        const minute = Math.min(Math.max(Math.round(Number(data.get('minute')) || 0), 0), 59);
+        const start = `${pad(hour)}:${pad(minute)}`;
+        let index = blocks.findIndex((block) => block.start === start);
+        if (index >= 0) {
+            blocks[index].tasks.push({ title, minutes });
+        } else {
+            blocks.push({ name: title, desc: '직접 추가한 할 일이에요', start, end: toTime(toMinutes(start) + minutes), color: '#ff9a5c', tasks: [{ title, minutes }] });
+            index = blocks.length - 1;
+        }
+        savePlan();
+        state.selected = index;
+        refresh();
+        toast(`${dayLabel.format(state.date)} ${blocks[index].start} ${blocks[index].name}에 "${title}"을(를) 넣었어요`);
+        setSideAdd(false);
+    });
 
     // 왼쪽 탭 '오늘 할 일 보기': 오른쪽 창 대신 버튼 바로 아래에 1. 2. … 간단한 목록으로 펼침 (다시 누르면 접힘)
     const todayToggle = $('[data-today-toggle]');

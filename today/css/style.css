@@ -2827,3 +2827,265 @@ html.is-splash .stage_floor {
 .stage_card .card_top_end {
   gap: 8px;
 }
+
+/* =========================================================
+   페이지 큰 제목 TODAY (다른 페이지 제목과 같은 서체·크기·위치)
+   - 제목 아래로 카드 무대가 이어지므로, 무대 위쪽의 헤더 여백은 빼 줌
+   ========================================================= */
+.td_head {
+  padding: calc(var(--luup-header-h) + var(--page-top)) var(--title-x) 0;
+  background: #fff;
+}
+
+.td_title {
+  margin: 0;
+  font-family: 'Paperlogy', var(--luup-font);
+  font-size: clamp(44px, 9.2vw, 168px);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.05em;
+  color: #111318;
+}
+
+/* 제목이 생겼으니 무대 안 모서리 글씨는 헤더 높이만큼 내리지 않고 위에서 바로 */
+.td_head + .today_stage .stage_tl,
+.td_head + .today_stage .stage_tr {
+  top: 24px;
+}
+
+@media (max-width: 1024px) {
+  .td_head + .today_stage {
+    padding-top: 24px;
+  }
+}
+
+/* =========================================================
+   카드 호버 효과 없애기
+   - 반사광·젤리·확대·기울기·펼쳐짐·미리보기 모두 끔
+   - 진행 중 카드는 멈춤·도움·시간 끝, 또는 안의 버튼을 눌렀을 때만 펼쳐짐
+   ========================================================= */
+.stage_card:hover::after {
+  opacity: 0 !important;
+  animation: none !important;
+}
+
+.stage_card:not(.is-active):not(.is-clear):hover {
+  scale: 1;
+  animation: none;
+  box-shadow: none;
+}
+
+@media (min-width: 1025px) {
+  .stage_card:not(.is-active):is(:hover, :focus-within) {
+    --grow: 0px;
+    --lift: 0px;
+  }
+
+  .stage_card:not(.is-active):is(:hover, :focus-within) .card_preview {
+    max-height: 0;
+    margin-bottom: 0;
+    opacity: 0;
+  }
+
+  .stage_card:not(.is-active):is(:hover, :focus-within) .card_emoji {
+    transform: none;
+  }
+
+  .stage_card.is-active:hover:not(:focus-within, .is-paused, .is-help, .is-timeup) {
+    --grow: 0px;
+    --lift: 0px;
+    padding: 22px 24px;
+  }
+
+  .stage_card.is-active:hover:not(:focus-within, .is-paused, .is-help, .is-timeup) .focus_grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0fr);
+    gap: 0;
+  }
+
+  .stage_card.is-active:hover:not(:focus-within, .is-paused, .is-help, .is-timeup) .focus_right {
+    opacity: 0;
+  }
+}
+
+.stage_card.is-active:hover:not(:is(:focus-within, .is-paused, .is-help, .is-timeup)) .focus_grid {
+  flex: 0 0 0;
+}
+
+/* =========================================================
+   리포트 창 글씨·이미지 정리
+   - 왼쪽: 라벨(작게) → 제목(크게) → 설명(회색) → 숫자 3개 → 한마디
+   - 오른쪽 첫 그림: 이모지 상자 빼고 숫자 + 캐릭터만
+   ========================================================= */
+.report_eyebrow {
+  margin-bottom: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.report_summary h2 {
+  font-family: 'Paperlogy', var(--luup-font);
+  font-size: clamp(36px, 3.4vw, 56px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+.report_lead {
+  max-width: 460px;
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.7;
+  letter-spacing: -0.01em;
+  color: #5b6472;
+}
+
+/* 숫자 3개: 알약 대신 구분선으로 나눈 한 줄 */
+.report_chips {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+  gap: 0;
+  max-width: 460px;
+  margin-top: 36px;
+  padding: 22px 0;
+  border-block: 1px solid #e6e9ee;
+}
+
+.report_chip {
+  display: grid;
+  gap: 6px;
+  padding: 0 0 0 18px;
+  border-radius: 0;
+  border-left: 1px solid #e6e9ee;
+  background: none;
+}
+
+.report_chip:first-of-type {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.report_chip small {
+  font-size: 13px;
+  font-weight: 500;
+  color: #8a919c;
+}
+
+.report_chip b {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: #05080f;
+}
+
+.report_chip em {
+  margin-left: 2px;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  color: #8a919c;
+}
+
+.report_jump {
+  order: 1;
+  align-self: center;
+  width: 36px;
+  height: 36px;
+  font-size: 14px;
+}
+
+.report_verdict {
+  max-width: 460px;
+  margin-top: 24px;
+  padding: 16px 18px;
+  border-radius: 16px;
+}
+
+.report_verdict > span {
+  width: 34px;
+  height: 34px;
+  font-size: 15px;
+}
+
+.report_verdict b {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.report_verdict p {
+  gap: 2px;
+  font-size: 14px;
+  color: #5b6472;
+}
+
+.report_progress {
+  display: none;
+}
+
+.report_note {
+  color: #a3a9b3;
+}
+
+/* 첫 그림 */
+.hero_tag {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: rgba(5, 8, 15, 0.5);
+}
+
+.hero_icon {
+  display: none;
+}
+
+.hero_body {
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 8px 0 32px;
+}
+
+.hero_score {
+  gap: 10px;
+  text-align: left;
+}
+
+.hero_score span {
+  font-size: 15px;
+  font-weight: 600;
+  color: rgba(5, 8, 15, 0.6);
+}
+
+.hero_score b {
+  font-family: 'Paperlogy', var(--luup-font);
+  font-size: clamp(88px, 8vw, 136px);
+  letter-spacing: -0.04em;
+}
+
+.hero_score small {
+  margin-left: 6px;
+  font-size: 0.3em;
+  font-weight: 600;
+  color: rgba(5, 8, 15, 0.55);
+}
+
+.hero_buddy {
+  width: clamp(120px, 11vw, 170px);
+}
+
+.hero_week {
+  padding-top: 24px;
+  border-top: 1px solid rgba(5, 8, 15, 0.08);
+}
+
+.hero_week i {
+  width: 30px;
+  height: 30px;
+  font-size: 13px;
+  box-shadow: none;
+}
+
+.hero_week li {
+  font-weight: 600;
+  color: rgba(5, 8, 15, 0.5);
+}

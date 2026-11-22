@@ -9,7 +9,13 @@ document.addEventListener('DOMContentLoaded', () => {
         return r.top < window.innerHeight * 0.15 && r.bottom > window.innerHeight * 0.85;
     };
 
+    // 자동 스크롤 끄기: 페이지는 사용자가 직접 스크롤 (구역 안의 장면 넘김·카드 등장 같은 효과는 그대로)
+    const AUTO_SCROLL = false;
+
     const glideTo = (targetY, customDuration) => {
+        if (!AUTO_SCROLL) {
+            return;
+        }
         const startY = window.scrollY;
         const distance = targetY - startY;
         if (prefersReducedMotion) {
@@ -297,6 +303,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (index < chapters.length - 1) {
                     ggAuto = index + 1;
                     requestGg();
+                    return;
+                }
+                // 자동 스크롤을 끈 상태: 마지막 장면은 그대로 두고, 아래로는 사용자가 직접 스크롤
+                if (!AUTO_SCROLL) {
+                    ggAutoDone = true;
                     return;
                 }
                 // 마지막 장면만 글자가 사라진 뒤 아래 구역으로 내려감
@@ -793,7 +804,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const HOLD_MIN_MS = 600;
         const GESTURE_GAP_MS = 450;
         function startHold(y) {
-            if (prefersReducedMotion) {
+            // 초대장 앞에서 스크롤을 붙잡아 두던 것도 끔 (직접 스크롤)
+            if (prefersReducedMotion || !AUTO_SCROLL) {
                 return;
             }
             hold.on = true;

@@ -71,7 +71,6 @@
     <main class="pl_page rc" data-routine-page>
         <!-- 1. 제목: 이번 달 캘린더 → 날짜를 누르면 그날 할 일 → 할 일을 누르면 단계 -->
         <section class="rc_head">
-            <p class="rc_label">MY ROUTINE</p>
             <h1 class="rc_title">이번 달 루틴</h1>
             <p class="rc_lead">날짜를 누르면 그날 <b>해야 할 일</b>이, 할 일을 누르면 <b>어떤 순서로 하면 되는지</b>가 나와요.</p>
         </section>
@@ -84,11 +83,24 @@
                     <p class="rc_side_label rc_side_today" data-side-today>11월 21일 토요일</p>
                     <button type="button" class="rc_side_btn rc_side_main" aria-expanded="false" aria-controls="rc-today-list" data-today-toggle>오늘 할 일 보기</button>
                     <ol id="rc-today-list" class="rc_side_list" data-today-list hidden></ol>
-                    <button type="button" class="rc_side_btn" data-add>+ 할 일 추가하기</button>
+                    <button type="button" class="rc_side_btn" aria-expanded="false" aria-controls="rc-side-add" data-side-add-toggle>+ 할 일 추가하기</button>
+                    <form id="rc-side-add" class="rc_side_form" data-side-add hidden>
+                        <label class="rc_time_row">언제
+                            <span class="rc_time_field"><button type="button" class="rc_num_btn" data-num-step="-1" aria-label="1시간 이르게">−</button><input name="hour" type="number" min="0" max="23" value="15" required aria-label="시" data-side-add-hour data-wrap><button type="button" class="rc_num_btn" data-num-step="1" aria-label="1시간 늦게">+</button><i>시</i></span>
+                            <span class="rc_time_field"><button type="button" class="rc_num_btn" data-num-step="-5" aria-label="5분 이르게">−</button><input name="minute" type="number" min="0" max="59" step="1" value="0" required aria-label="분" data-side-add-minute data-wrap><button type="button" class="rc_num_btn" data-num-step="5" aria-label="5분 늦게">+</button><i>분</i></span>
+                        </label>
+                        <label>무엇을<input name="title" type="text" maxlength="20" placeholder="예: 줄넘기 100번" required></label>
+                        <label>몇 분<span class="rc_time_field"><button type="button" class="rc_num_btn" data-num-step="-5" aria-label="5분 줄이기">−</button><input name="minutes" type="number" min="1" max="180" value="10" required><button type="button" class="rc_num_btn" data-num-step="5" aria-label="5분 늘리기">+</button><i>분</i></span></label>
+                        <div class="rc_side_form_actions">
+                            <button type="button" data-side-add-cancel>취소</button>
+                            <button type="submit">추가</button>
+                        </div>
+                    </form>
                     <p class="rc_side_label">루틴별로 보기</p>
                     <p class="rc_side_hint">고른 루틴만 달력 막대에 진하게 표시돼요</p>
                     <div class="rc_side_tags" role="group" aria-label="시간대 골라 보기" data-filters></div>
                 </aside>
+                <div class="rc_resize" role="separator" aria-orientation="vertical" aria-label="왼쪽 탭 너비 조절 (좌우 방향키)" tabindex="0" data-side-resize></div>
                 <div class="rc_cal_main">
                 <div class="rc_cal_head">
                     <h2 id="rc-month" class="rc_month" data-month-label>2026년 11월</h2>
@@ -106,7 +118,7 @@
 
             <!-- 3. 오른쪽 패널: 고른 날의 할 일 목록 ↔ 고른 할 일의 단계 -->
             <section class="rc_panel" aria-live="polite" data-panel></section>
-            <button type="button" class="rc_close" data-close aria-label="할 일 창 닫기">×</button>
+            <button type="button" class="rc_close" data-close aria-label="할 일 창 닫기"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
         </div>
 
         <!-- 계획 추가 -->

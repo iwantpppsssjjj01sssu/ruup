@@ -419,12 +419,15 @@ document.addEventListener('DOMContentLoaded', () => {
         move();
     }
 
-    // 휠: 세로 휠을 가로 이동으로 바꾸고, 양 끝에 닿으면 페이지 스크롤로 넘겨줌
+    // 휠: 세로 휠은 그대로 페이지 스크롤, 가로 휠(트랙패드 좌우)만 카드 이동
     stage.addEventListener('wheel', (event) => {
         if (!isStrip() || event.target.closest('dialog')) {
             return;
         }
-        const delta = Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY;
+        if (Math.abs(event.deltaX) <= Math.abs(event.deltaY)) {
+            return;
+        }
+        const delta = event.deltaX;
         const atEnd = (delta > 0 && scroll.target >= scroll.max - 1) || (delta < 0 && scroll.target <= scroll.min + 1);
         if (atEnd) {
             return;
@@ -473,7 +476,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 카드 호버: 커서 위치로 기울기(--tilt)와 유리 반사광 위치(--mx, --my) 갱신
-    const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches && !prefersReducedMotion;
+    // 카드 호버 효과 끔 (기울기·반사광 없음)
+    const canHover = false;
     const resetTilt = (card) => {
         card.style.setProperty('--tilt-x', '0deg');
         card.style.setProperty('--tilt-y', '0deg');
@@ -724,10 +728,9 @@ document.addEventListener('DOMContentLoaded', () => {
             + (data.issues.length ? `가장 먼저 살펴볼 점은 “${data.issues[0].title}”예요.` : '눈에 띄는 문제 없이 잘 이어가고 있어요.');
         $('[data-report-chips]').innerHTML = `
             <button type="button" class="report_jump" data-report-jump aria-label="문제와 해결 방법 보기"><span aria-hidden="true">↓</span></button>
-            <span class="report_chip">해낸 날 <b>${doneDays}/${past.length}일</b></span>
-            <span class="report_chip">평균 <b>${average}분</b></span>
-            <span class="report_chip">연속 <b>${streak}일</b></span>
-            ${verdictKey === 'good' && streak >= 3 ? '<span class="report_trophy" role="img" aria-label="잘하고 있어요 트로피">🏆</span>' : ''}`;
+            <span class="report_chip"><small>해낸 날</small><b>${doneDays}<em>/${past.length}일</em></b></span>
+            <span class="report_chip"><small>평균 시간</small><b>${average}<em>분</em></b></span>
+            <span class="report_chip"><small>연속</small><b>${streak}<em>일</em></b></span>`;
         const verdictBox = $('[data-report-verdict]');
         verdictBox.className = `report_verdict tone_${verdictKey}`;
         verdictBox.innerHTML = `<span aria-hidden="true">${verdict.icon}</span><p><b>${verdict.title}</b>${verdict.text}</p>`;
@@ -790,17 +793,22 @@ document.addEventListener('DOMContentLoaded', () => {
             : '<p class="issue_empty" style="background:#f1f4f8">아직 시작 전이에요.</p>';
 
         // 첫 화면: 프로젝트 스크린샷처럼 루틴을 크게 보여주는 대표 이미지
-        const heroDots = week.map((day) => `<li class="tone_${STATUS[day.status].tone}"><i aria-hidden="true">${STATUS[day.status].icon}</i><span>${day.day}</span></li>`).join('');
+        const heroDots = week.map((day) => `<li class="tone_${STATUS[day.status].tone}${day.today ? ' is-today' : ''}"><i aria-hidden="true">${STATUS[day.status].icon}</i><span>${day.day}</span></li>`).join('');
         const hero = `
             <section class="report_panel report_hero tone_${verdictKey}" aria-label="${routine.title} 한눈에 보기">
                 <p class="hero_tag">LUUP · ${routine.title}</p>
                 <div class="hero_body">
-                    <span class="hero_icon" aria-hidden="true">${routine.icon}</span>
-                    <p class="hero_score"><b>${doneDays}<small>/${past.length}일</small></b>이번 주 해낸 날</p>
-                    <img class="hero_buddy" src="../img/common_character.svg" alt="">
+                    <div class="hero_info">
+                        <p class="hero_score"><span>최근 ${past.length}일 중 해낸 날</span><b>${doneDays}<small>/${past.length}일</small></b></p>
+                        <p class="hero_pill"><i aria-hidden="true">${verdict.icon}</i>${verdict.title}</p>
+                    </div>
+                    <div class="hero_stage" aria-hidden="true">
+                        <img class="hero_buddy" src="../img/common_character.svg" alt="">
+                    </div>
                 </div>
-                <ul class="hero_week" aria-label="최근 7일 상태">${heroDots}</ul>
-                <p class="hero_caption">${verdict.title} · 평균 ${average}분 · 목표 ${routine.minutes}분</p>
+                <div class="hero_glass">
+                    <ul class="hero_week" aria-label="최근 7일 상태">${heroDots}</ul>
+                </div>
             </section>`;
 
         $('[data-report-panels]').innerHTML = `
