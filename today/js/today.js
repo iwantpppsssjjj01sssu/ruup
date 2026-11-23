@@ -10,11 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // 오늘의 루틴 데이터 (status: done 완료 / active 진행 중 / todo 예정)
     // log: 오늘 기록 (시작 시각, 일시정지·시간 연장·도움 요청 횟수, 걸린 분)
     const routines = [
-        { title: '아침 식사하기', icon: '🍚', minutes: 20, status: 'done', doneAt: '07:40', log: { start: '07:21', pauses: 0, extends: 0, helps: 0, spent: 19 } },
-        { title: '등교 준비하기', icon: '🎒', minutes: 15, status: 'done', doneAt: '08:10', log: { start: '07:56', pauses: 0, extends: 0, helps: 0, spent: 14 } },
-        { title: '받아쓰기 10문제 연습하기', icon: '✏️', minutes: 20, status: 'active', steps: 10, stepsDone: 7, unit: '문제', left: 16 * 60 + 58, log: { start: '16:03', pauses: 1, extends: 0, helps: 1 } },
-        { title: '영어 단어 외우기', icon: '🔤', minutes: 15, status: 'todo', steps: 10, unit: '단어' },
-        { title: '책 10분 읽기', icon: '📖', minutes: 10, status: 'todo' }
+        { title: '아침 식사하기', at: '07:20', icon: '🍚', minutes: 20, status: 'done', doneAt: '07:40', log: { start: '07:21', pauses: 0, extends: 0, helps: 0, spent: 19 } },
+        { title: '등교 준비하기', at: '07:55', icon: '🎒', minutes: 15, status: 'done', doneAt: '08:10', log: { start: '07:56', pauses: 0, extends: 0, helps: 0, spent: 14 } },
+        { title: '받아쓰기 10문제 연습하기', at: '16:00', icon: '✏️', minutes: 20, status: 'active', steps: 10, stepsDone: 7, unit: '문제', left: 16 * 60 + 58, log: { start: '16:03', pauses: 1, extends: 0, helps: 1 } },
+        { title: '영어 단어 외우기', at: '17:00', icon: '🔤', minutes: 15, status: 'todo', steps: 10, unit: '단어' },
+        { title: '책 10분 읽기', at: '20:30', icon: '📖', minutes: 10, status: 'todo' }
     ];
 
     // 보호자 리포트용 최근 기록 (예시 데이터, routines와 같은 순서)
@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const focusCardHTML = (routine, index) => `
         <li class="stage_card is-active" data-card="${index}" aria-current="step">
             <div class="card_top">
-                <span class="card_no">${pad(index + 1)}</span>
+                <span class="card_no">${pad(index + 1)}<small> · ${routine.at}</small></span>
                 <span class="card_top_end">
                     <span class="card_state" data-focus-badge>진행 중</span>
                     <button type="button" class="card_go" data-go="${index}" aria-label="${routine.title} 리포트 보기"><span aria-hidden="true">→</span></button>
@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <div class="focus_right">
                     <div class="focus_help" data-help-banner${timer.help ? '' : ' hidden'}>
-                        <span aria-hidden="true">🙋</span>
+                        <svg class="focus_help_icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V11"/><path d="M11 10V4a1.5 1.5 0 0 1 3 0v6"/><path d="M14 10V5.5a1.5 1.5 0 0 1 3 0V12"/><path d="M17 9.5a1.5 1.5 0 0 1 3 0V14a7 7 0 0 1-7 7h-1.2a6 6 0 0 1-4.6-2.2L4.3 15.4a1.6 1.6 0 0 1 2.5-2L8 15"/></svg>
                         <p><b>도움을 요청했어요</b>곧 와 주실 거예요. 그동안 시계는 멈춰 있어요.</p>
                         <button type="button" class="btn btn_small btn_white" data-help-done>도움 받았어요</button>
                     </div>
@@ -162,10 +162,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p class="focus_hint">한 ${routine.unit}를 끝내면 반짝이는 동그라미를 눌러요</p>
                     </div>` : '<button type="button" class="btn btn_gradient focus_finish" data-finish>다 했어요! ✓</button>'}
                     <div class="focus_controls">
-                        <button type="button" class="focus_control" data-action="pause"><span aria-hidden="true">⏸</span>일시정지</button>
-                        <button type="button" class="focus_control" data-action="resume"><span aria-hidden="true">▶</span>다시 시작</button>
-                        <button type="button" class="focus_control" data-action="extend"><span aria-hidden="true">⏱</span>시간 연장<small>+5분</small></button>
-                        <button type="button" class="focus_control is-help" data-action="help"><span aria-hidden="true">🙋</span>도움 요청</button>
+                        <button type="button" class="focus_control" data-action="pause"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M9 6v12M15 6v12"/></svg>일시정지</button>
+                        <button type="button" class="focus_control" data-action="resume"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M8 5.5v13l10-6.5z"/></svg>다시 시작</button>
+                        <button type="button" class="focus_control" data-action="extend"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="13" r="7"/><path d="M12 9.5V13l2.5 1.5M10 3h4"/></svg>시간 연장<small>+5분</small></button>
+                        <button type="button" class="focus_control is-help" data-action="help"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V11"/><path d="M11 10V4a1.5 1.5 0 0 1 3 0v6"/><path d="M14 10V5.5a1.5 1.5 0 0 1 3 0V12"/><path d="M17 9.5a1.5 1.5 0 0 1 3 0V14a7 7 0 0 1-7 7h-1.2a6 6 0 0 1-4.6-2.2L4.3 15.4a1.6 1.6 0 0 1 2.5-2L8 15"/></svg>도움 요청</button>
                     </div>
                 </div>
             </div>
@@ -272,7 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const dots = past.map(([, status]) => `<i class="dot_${status}"></i>`).join('');
         return `
         <li class="stage_card is-${routine.status}${isNext ? ' is-next' : ''}" data-card="${index}">
-            <div class="card_top"><span class="card_no">${pad(index + 1)}</span><span class="card_state">${state}</span></div>
+            <div class="card_top"><span class="card_no">${pad(index + 1)}<small> · ${routine.at}</small></span><span class="card_state">${state}</span></div>
             <h2 class="card_title">${splitTitle(routine.title)}</h2>
             <p class="card_meta">${meta}</p>
             <div class="card_visual" aria-hidden="true">${cardArt(index)}</div>
@@ -873,11 +873,31 @@ document.addEventListener('DOMContentLoaded', () => {
                 const tip = `${i + 1}번 ${routine.unit} · ${formatMinutes(minutes)}${slow ? ' · 느려요' : ''}`;
                 return `<div class="bar_col" ${tipAttrs(tip)}><span class="bar" style="--h:${height}%;${slow ? '--bar:var(--warn)' : ''}"></span>${slow ? `<span class="bar_label" style="--h:${height}%">느려요</span>` : ''}</div>`;
             }).join('');
+            // 문제별 시간 소견: 느려지는 구간 · 앞뒤 평균 비교 · 가장 빠른/느린 문제 · 권고
+            const steps = data.steps;
+            const slowIdx = steps.map((m, i) => (m >= median * 1.5 ? i : -1)).filter((i) => i >= 0);
+            const firstSlow = slowIdx[0];
+            const avgOf = (list) => list.reduce((sum, m) => sum + m, 0) / Math.max(list.length, 1);
+            const before = firstSlow > 0 ? avgOf(steps.slice(0, firstSlow)) : avgOf(steps);
+            const after = slowIdx.length ? avgOf(slowIdx.map((i) => steps[i])) : 0;
+            const fastI = steps.indexOf(Math.min(...steps));
+            const slowI = steps.indexOf(Math.max(...steps));
+            const total = steps.reduce((sum, m) => sum + m, 0);
+            const stepOpinion = `
+                    <div class="step_opinion">
+                        <p class="step_op_label">LUUP 소견</p>
+                        <p>${routine.unit} ${steps.length}개를 푸는 데 평균 <b>${formatMinutes(total)}</b>이 걸렸으며, 한 ${routine.unit}당 보통 <b>${formatMinutes(median)}</b> 정도가 소요되었습니다. 가장 빨리 끝낸 것은 <b>${fastI + 1}번(${formatMinutes(steps[fastI])})</b>, 가장 오래 걸린 것은 <b>${slowI + 1}번(${formatMinutes(steps[slowI])})</b>입니다.</p>
+                        ${slowIdx.length
+                            ? `<p><b>${firstSlow + 1}번 ${routine.unit}부터</b> 소요 시간이 뚜렷하게 늘어나는 경향을 보였습니다. 앞부분은 평균 ${formatMinutes(before)}였으나, 느려진 ${slowIdx.length}개는 평균 ${formatMinutes(after)}로 약 <b>${(after / before).toFixed(1)}배</b> 길어졌습니다. 후반부로 갈수록 집중력이 떨어지는 것으로 판단됩니다.</p>
+                               <p>따라서 ${firstSlow}번까지 마친 뒤 <b>1분 정도 짧게 쉬는 시간</b>을 두거나, 어려운 ${routine.unit}를 앞쪽에 배치해 집중력이 높을 때 해결하도록 하는 것을 권장합니다.</p>`
+                            : `<p>모든 ${routine.unit}에서 비슷한 속도를 유지하여 <b>집중력이 끝까지 안정적</b>인 것으로 보입니다. 지금의 방식을 유지하시길 권장합니다.</p>`}
+                    </div>`;
             stepPanel = `
                 <section class="report_panel">
                     <h3>${routine.unit}별 걸린 시간 <small>이번 주 평균 · 보통 ${formatMinutes(median)}</small></h3>
                     <div class="bar_chart" style="--bars:${data.steps.length}">${stepBars}</div>
                     <div class="bar_axis" style="--bars:${data.steps.length}" aria-hidden="true">${data.steps.map((_, i) => `<span>${i + 1}</span>`).join('')}</div>
+                    ${stepOpinion}
                 </section>`;
         }
 
@@ -954,6 +974,21 @@ document.addEventListener('DOMContentLoaded', () => {
             <p>${advice}</p>
             <p class="sum_sign">${today} · LUUP 루틴 분석</p>`;
 
+        // 최근 7일 기록 소견: 제시간 · 늦은 날 · 평균과 목표 차이 · 가장 빨랐던/늦었던 날 · 권고
+        const timedDays = week.filter((day) => day.min && !day.today);
+        const lateList = week.filter((day) => day.status === 'late').map((day) => `${day.day}요일`);
+        const missList = week.filter((day) => day.status === 'miss').map((day) => `${day.day}요일`);
+        const quick = [...timedDays].sort((x, y) => x.min - y.min)[0];
+        const slow = [...timedDays].sort((x, y) => y.min - x.min)[0];
+        const gap = average - routine.minutes;
+        const weekOpinion = `
+                <div class="step_opinion">
+                    <p class="step_op_label">LUUP 소견</p>
+                    <p>최근 ${past.length}일 중 <b>${okDays}일은 목표 시간(${routine.minutes}분) 안에</b> 마쳤고${lateDays ? `, <b>${lateDays}일은 목표보다 늦게</b> 끝냈습니다` : ', 늦게 끝낸 날은 없었습니다'}${missList.length ? `. ${missList.join(', ')}에는 수행하지 못했습니다` : ''}. 평균 소요 시간은 <b>${average}분</b>으로 목표보다 ${gap > 0 ? `${gap}분 길었습니다` : gap < 0 ? `${-gap}분 짧았습니다` : '정확히 맞았습니다'}.</p>
+                    ${quick && slow ? `<p>가장 빨리 끝낸 날은 <b>${quick.day}요일(${quick.min}분)</b>, 가장 오래 걸린 날은 <b>${slow.day}요일(${slow.min}분)</b>로 ${slow.min - quick.min}분 차이가 났습니다.${lateList.length ? ` 늦게 끝낸 날은 ${lateList.join(', ')}로, 이날의 일정이나 컨디션을 함께 살펴볼 필요가 있습니다.` : ' 날마다 큰 차이 없이 안정적인 속도를 유지했습니다.'}</p>` : ''}
+                    <p>${lateDays ? '따라서 늦어진 날의 시작 시각을 10분 정도 앞당기거나, 시작 전에 필요한 준비물을 미리 챙겨 두는 것을 권장합니다.' : '현재의 속도와 시간대를 그대로 유지하시길 권장합니다.'}</p>
+                </div>`;
+
         const sections = [
             { key: 'summary', label: '요약', icon: verdict.icon, tone: verdictKey, html: `
                 <p class="hero_tag">LUUP · ${routine.title}</p>
@@ -969,7 +1004,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span class="goal" style="--goal:${(routine.minutes / max) * 100}%"><span>목표 ${routine.minutes}분</span></span>
                     ${weekBars}
                 </div>
-                <div class="bar_axis" style="--bars:7" aria-hidden="true">${week.map((day) => `<span>${day.day}</span>`).join('')}</div>` },
+                <div class="bar_axis" style="--bars:7" aria-hidden="true">${week.map((day) => `<span>${day.day}</span>`).join('')}</div>
+                ${weekOpinion}` },
             { key: 'issues', label: '무엇이 문제일까요', icon: data.issues.length ? '!' : '✓', tone: data.issues.length ? 'warn' : 'good', html: `
                 <h3>무엇이 문제일까요? <small>${data.issues.length}가지</small></h3>
                 ${issues}` },
@@ -1225,6 +1261,54 @@ document.addEventListener('DOMContentLoaded', () => {
             stage.classList.add('is-filled');
         }, 3400);
     };
+
+    // ---------- 지금 시각 · 지금 해야 할 단계 · 지금 하고 있는 단계 (카드 왼쪽 패널) ----------
+    const nowPanel = $('[data-now]');
+    const toMin = (hhmm) => {
+        const [h, m] = hhmm.split(':').map(Number);
+        return h * 60 + m;
+    };
+    const renderNow = () => {
+        if (!nowPanel) {
+            return;
+        }
+        const now = new Date();
+        const nowMin = now.getHours() * 60 + now.getMinutes();
+        nowPanel.querySelector('[data-now-time]').textContent = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
+        // 일정상 지금 해야 할 단계: 시작 시각이 지났고 다음 단계 시작 전인 것
+        let planIndex = -1;
+        routines.forEach((routine, i) => {
+            if (toMin(routine.at) <= nowMin) planIndex = i;
+        });
+        const doingIndex = routines.findIndex((routine) => routine.status === 'active');
+        const plan = routines[planIndex];
+        const doing = routines[doingIndex];
+        nowPanel.querySelector('[data-now-plan]').innerHTML = plan
+            ? `<b>${pad(planIndex + 1)}단계</b> ${plan.title} <small>${plan.at}~</small>`
+            : `<b>시작 전</b> 첫 단계는 ${routines[0].at}부터`;
+        nowPanel.querySelector('[data-now-doing]').innerHTML = doing
+            ? `<b>${pad(doingIndex + 1)}단계</b> ${doing.title}${doing.steps ? ` <small>${doing.stepsDone}/${doing.steps}${doing.unit}</small>` : ''}`
+            : '<b>모두 끝</b> 오늘 루틴을 다 했어요';
+        const status = nowPanel.querySelector('[data-now-status]');
+        let text = '';
+        let tone = 'ok';
+        if (!doing) {
+            text = '오늘 할 일을 모두 마쳤어요';
+        } else if (planIndex < 0) {
+            text = '일정보다 먼저 시작했어요';
+        } else if (doingIndex === planIndex) {
+            text = '지금 해야 할 단계를 제때 하고 있어요';
+        } else if (doingIndex < planIndex) {
+            text = `일정보다 ${planIndex - doingIndex}단계 늦어요`;
+            tone = 'late';
+        } else {
+            text = `일정보다 ${doingIndex - planIndex}단계 앞서 있어요`;
+        }
+        status.textContent = text;
+        nowPanel.dataset.tone = tone;
+    };
+    renderNow();
+    setInterval(renderNow, 30 * 1000);
 
     // ---------- 시작 ----------
     const current = activeRoutine();

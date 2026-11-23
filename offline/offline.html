@@ -68,28 +68,58 @@
     </div>
 <!-- header:end -->
 
-    <main class="gr">
+    <main class="gr gr_report">
         <!-- 1. 첫 화면: 아주 큰 대문자 문장 사이에 둥근 사진 -->
         <section class="gr_hero" aria-labelledby="gr-title">
             <!-- 오른쪽 위: 오늘 날짜 (JS가 오늘 날짜로 채움) -->
             <p class="gr_today"><span class="gr_today_label">TODAY</span><time data-today-date>2026.11.16 (월)</time></p>
-            <h1 id="gr-title" class="gr_title" aria-label="우리 아이의 성장 리포트">
+            <h1 id="gr-title" class="gr_title" aria-label="성장 리포트">
                 <span class="gr_line" aria-hidden="true"><span class="gr_swap" data-title-swap><span class="gr_swap_from">나의</span><span class="gr_swap_to">우리 아이의</span></span> 성장</span>
                 <span class="gr_line" aria-hidden="true">리포트 <span class="gr_pill"><img src="../img/main_photo_tablet_quiz.png" alt=""></span> <span class="gr_arrow" aria-hidden="true">↗</span></span>
             </h1>
+            <p class="page_lead">지난 8주 동안의 실천을 모아 <b>얼마나 꾸준했는지</b>, <b>무엇을 해냈는지</b> 보여 드려요.</p>
+            <div class="gr_mint">
+            <!-- 보고서 머리: 문서 정보 표 -->
+            <div class="rp_meta" aria-label="보고서 정보">
+                <p class="rp_doc"><span>LUUP 성장 리포트</span><span>문서 번호 GR-2026-11</span><span>작성일 <time data-today-date>2026.11.23</time></span></p>
+                <dl class="rp_info">
+                    <div><dt>대상</dt><dd>우리 아이 (초등 2학년)</dd></div>
+                    <div><dt>분석 기간</dt><dd>최근 8주 (9.28 – 11.23)</dd></div>
+                    <div><dt>분석 항목</dt><dd>실천율 · 연속 기록 · 완료한 일 · 달성 목표</dd></div>
+                    <div><dt>작성</dt><dd>LUUP 루틴 분석</dd></div>
+                </dl>
+            </div>
+            <!-- 목차: 네모를 누르면 그 페이지가 아래에 한 장씩 추가됨 -->
+            <nav class="rp_toc" aria-label="리포트 페이지 추가">
+                <p class="rp_toc_head"><b>목차</b><span>네모를 누르면 아래에 페이지가 추가돼요</span></p>
+                <ol class="rp_tiles">
+                    <li><button type="button" aria-pressed="false" data-add-page="rate"><span class="rt_no">2</span><b>주별 실천율 추이</b><small>42% → 81%</small><i aria-hidden="true">+</i></button></li>
+                    <li><button type="button" aria-pressed="false" data-add-page="streak"><span class="rt_no">3</span><b>연속 실천 기록</b><small>최장 18일</small><i aria-hidden="true">+</i></button></li>
+                    <li><button type="button" aria-pressed="false" data-add-page="done"><span class="rt_no">4</span><b>완료한 일</b><small>분야별 완료</small><i aria-hidden="true">+</i></button></li>
+                    <li><button type="button" aria-pressed="false" data-add-page="goals"><span class="rt_no">5</span><b>달성한 목표</b><small>7개 달성</small><i aria-hidden="true">+</i></button></li>
+                    <li><button type="button" aria-pressed="false" data-add-page="opinion"><span class="rt_no">6</span><b>종합 소견</b><small>LUUP 분석</small><i aria-hidden="true">+</i></button></li>
+                </ol>
+            </nav>
+            </div>
             <div class="gr_hero_foot">
-                <p class="gr_label" data-scramble-label>GROWTH REPORT · NOV 2026</p>
+                <p class="gr_label">요약</p>
                 <div class="gr_hero_copy">
                     <p class="gr_lead">작은 체크가 쌓인 <em>8주의 기록</em></p>
                     <p>지난 8주 동안의 실천을 한눈에 모았어요. 얼마나 꾸준했는지, 무엇을 해냈는지 확인해 보세요.</p>
                 </div>
             </div>
+            <!-- 요약 아래 빛나는 상자 3개 -->
+            <ul class="gr_hero_more">
+                <li><p class="ghm_label">이번 주 하이라이트</p><p class="ghm_big">실천율 <em>81%</em></p><p class="ghm_text">8주 중 가장 높은 기록이에요. 한 주도 빠짐없이 올랐어요.</p></li>
+                <li><p class="ghm_label">가장 꾸준한 루틴</p><p class="ghm_big">아침 8시 기상 <em>21일</em></p><p class="ghm_text">하루도 거르지 않고 이어 가는 중이에요.</p></li>
+                <li><p class="ghm_label">다음에 신경 쓸 점</p><p class="ghm_big">독서 <em>주 3회</em> → 5회</p><p class="ghm_text">분야 중 완료가 가장 적어요. 저녁 시간을 앞당겨 보세요.</p></li>
+            </ul>
         </section>
 
         <!-- 2. 핵심 숫자 4개: 화면에 들어오면 0부터 올라감 -->
         <section class="gr_stats gr_log" aria-labelledby="gr-log-title">
             <div class="gl_center">
-                <h2 id="gr-log-title" class="gl_title">이번 달<br>우리 아이 성장</h2>
+                <h2 id="gr-log-title" class="gl_title"><span class="rp_no">1</span>핵심 지표</h2>
                 <p class="gl_sub">지난달과 비교한 이번 달 기록</p>
                 <p class="gl_hint">일지를 누르면 자세한 기록이 펼쳐져요</p>
             </div>
@@ -129,9 +159,9 @@
         </section>
 
         <!-- 3. 성장률: 주별 실천율 그래프 -->
-        <section class="gr_block" aria-labelledby="gr-rate-title">
+        <section class="gr_block" aria-labelledby="gr-rate-title" data-page="rate" hidden>
             <div class="gr_block_head">
-                <h2 id="gr-rate-title" class="gr_label" data-scramble-label>WEEKLY PROGRESS</h2>
+                <h2 id="gr-rate-title" class="gr_label"><span class="rp_no">2</span>주별 실천율 추이</h2>
                 <p class="gr_block_title gr_rate" data-rate aria-label="실천율 42%에서 81%로"><span class="gr_rate_part" aria-hidden="true">실천율 <b>42%</b></span> <span class="gr_rate_arrow" aria-hidden="true">→</span> <b class="is-up gr_rate_up" aria-hidden="true"><span data-rate-num data-from="42" data-to="81">81</span>%</b></p>
             </div>
             <div class="gr_chart" data-chart>
@@ -170,12 +200,13 @@
                     </g>
                 </svg>
             </div>
+            <p class="rp_cap">그림 1. 최근 8주 주별 실천율 (%) — 8주 연속 상승</p>
         </section>
 
         <!-- 4. 연속 실천: 최근 5주 달력 -->
-        <section class="gr_block" aria-labelledby="gr-streak-title">
+        <section class="gr_block" aria-labelledby="gr-streak-title" data-page="streak" hidden>
             <div class="gr_block_head">
-                <h2 id="gr-streak-title" class="gr_label" data-scramble-label>STREAK CALENDAR</h2>
+                <h2 id="gr-streak-title" class="gr_label"><span class="rp_no">3</span>연속 실천 기록</h2>
                 <p class="gr_block_title">최근 5주 · 최장 연속 <b>18일</b></p>
             </div>
             <div class="gr_cal">
@@ -221,12 +252,13 @@
                     <li>적게</li><li class="gr_day lv0"></li><li class="gr_day lv1"></li><li class="gr_day lv2"></li><li class="gr_day lv3"></li><li>많이</li>
                 </ul>
             </div>
+            <p class="rp_cap">그림 2. 최근 35일 실천 기록 — 진할수록 많이 완료</p>
         </section>
 
         <!-- 5. 완료한 일: 기간 탭(이번 주·이번 달·전체)을 누르면 제목·기간·분야별 숫자와 막대가 바뀜 -->
-        <section class="gr_block" aria-labelledby="gr-done-title" data-done>
+        <section class="gr_block" aria-labelledby="gr-done-title" data-page="done" hidden data-done>
             <div class="gr_block_head">
-                <h2 id="gr-done-title" class="gr_label" data-scramble-label>COMPLETED TASKS</h2>
+                <h2 id="gr-done-title" class="gr_label"><span class="rp_no">4</span>완료한 일</h2>
                 <div class="gr_done_head">
                     <p class="gr_block_title" aria-live="polite"><span data-done-period>이번 주</span> 완료한 일 <b data-done-total>24개</b></p>
                     <div class="gr_tabs" role="group" aria-label="기간 선택" data-done-tabs>
@@ -237,18 +269,22 @@
                     <p class="gr_tabs_note">기간 <span data-done-range>11.10 (월) – 11.16 (일)</span></p>
                 </div>
             </div>
+            <div class="gc_stack" aria-hidden="true" data-done-stack>
+                <span style="flex-grow:9"></span><span style="flex-grow:7"></span><span style="flex-grow:5"></span><span style="flex-grow:3"></span>
+            </div>
             <ul class="gr_cats">
-                <li class="reveal" data-week="9" data-month="22" data-all="48" style="--v:1.00"><span>생활 습관</span><b data-count="9">9</b><i aria-hidden="true"></i></li>
-                <li class="reveal" data-week="7" data-month="17" data-all="36" style="--v:0.78"><span>공부</span><b data-count="7">7</b><i aria-hidden="true"></i></li>
-                <li class="reveal" data-week="5" data-month="11" data-all="24" style="--v:0.56"><span>운동</span><b data-count="5">5</b><i aria-hidden="true"></i></li>
-                <li class="reveal" data-week="3" data-month="8" data-all="18" style="--v:0.33"><span>독서</span><b data-count="3">3</b><i aria-hidden="true"></i></li>
+                <li class="reveal" data-week="9" data-month="22" data-all="48" style="--v:1.00"><span>생활 습관</span><b data-count="9">9</b><em data-share>38%</em><i aria-hidden="true"></i></li>
+                <li class="reveal" data-week="7" data-month="17" data-all="36" style="--v:0.78"><span>공부</span><b data-count="7">7</b><em data-share>29%</em><i aria-hidden="true"></i></li>
+                <li class="reveal" data-week="5" data-month="11" data-all="24" style="--v:0.56"><span>운동</span><b data-count="5">5</b><em data-share>21%</em><i aria-hidden="true"></i></li>
+                <li class="reveal" data-week="3" data-month="8" data-all="18" style="--v:0.33"><span>독서</span><b data-count="3">3</b><em data-share>13%</em><i aria-hidden="true"></i></li>
             </ul>
+            <p class="rp_cap">표 1. 분야별 완료한 일 (선택한 기간 기준)</p>
         </section>
 
         <!-- 6. 달성한 목표: 같은 모양 블록 반복 (라벨 · 큰 이름 · 정보 | 사진) -->
-        <section class="gr_list" aria-labelledby="gr-goal-title">
+        <section class="gr_list" aria-labelledby="gr-goal-title" data-page="goals" hidden>
             <div class="gr_list_head">
-                <h2 id="gr-goal-title" class="gr_label" data-scramble-label>ACHIEVED GOALS (07)</h2>
+                <h2 id="gr-goal-title" class="gr_label"><span class="rp_no">5</span>달성한 목표 (7개)</h2>
                 <p class="gr_list_note">최근 달성한 목표 4개</p>
             </div>
             <!-- 버튼을 누르면 아래 목표 블록이 펼쳐짐 -->
@@ -264,7 +300,7 @@
                 <div class="gr_goals_inner">
                 <article class="gr_item reveal">
                     <div class="gr_item_text">
-                        <p class="gr_label" data-scramble-label>GOAL 01 · 달성</p>
+                        <p class="gr_label">목표 01 · 달성</p>
                         <h3 class="gr_name">아침 8시 기상 21일</h3>
                         <dl class="gr_meta">
                             <div><dt>달성일</dt><dd>11.12</dd></div>
@@ -276,7 +312,7 @@
                 </article>
                 <article class="gr_item reveal">
                     <div class="gr_item_text">
-                        <p class="gr_label" data-scramble-label>GOAL 02 · 달성</p>
+                        <p class="gr_label">목표 02 · 달성</p>
                         <h3 class="gr_name">하루 20페이지 독서</h3>
                         <dl class="gr_meta">
                             <div><dt>달성일</dt><dd>11.05</dd></div>
@@ -288,7 +324,7 @@
                 </article>
                 <article class="gr_item reveal">
                     <div class="gr_item_text">
-                        <p class="gr_label" data-scramble-label>GOAL 03 · 달성</p>
+                        <p class="gr_label">목표 03 · 달성</p>
                         <h3 class="gr_name">하루 30분 걷기</h3>
                         <dl class="gr_meta">
                             <div><dt>달성일</dt><dd>10.28</dd></div>
@@ -300,7 +336,7 @@
                 </article>
                 <article class="gr_item reveal">
                     <div class="gr_item_text">
-                        <p class="gr_label" data-scramble-label>GOAL 04 · 달성</p>
+                        <p class="gr_label">목표 04 · 달성</p>
                         <h3 class="gr_name">물 8잔 마시기 2주</h3>
                         <dl class="gr_meta">
                             <div><dt>달성일</dt><dd>10.20</dd></div>
@@ -315,8 +351,19 @@
         </section>
 
         <!-- 7. 마무리: 큰 문장 + 링크 -->
+        <!-- 6. 종합 소견 -->
+        <section class="rp_opinion" aria-labelledby="rp-op-title" data-page="opinion" hidden>
+            <h2 id="rp-op-title" class="gr_label"><span class="rp_no">6</span>종합 소견</h2>
+            <div class="rp_op_body">
+                <p>최근 8주간 실천율이 <b>42%에서 81%로 꾸준히 상승</b>하였으며, 한 주도 하락 없이 개선되는 안정적인 성장 경향을 보였습니다.</p>
+                <p>최근 2주는 하루도 빠짐없이 실천하여 <b>최장 18일 연속 기록</b>을 세웠고, 루틴이 생활 속에 자리 잡은 단계로 판단됩니다. 분야별로는 <b>생활 습관</b>의 완료 비중이 가장 높고, 독서는 상대적으로 낮았습니다.</p>
+                <p>따라서 현재의 흐름을 유지하되, <b>독서 루틴의 시간을 앞당기거나 분량을 줄여</b> 균형을 맞추는 것을 권장합니다.</p>
+                <p class="rp_sign"><span>2026년 11월</span><span>LUUP 루틴 분석</span></p>
+            </div>
+        </section>
+
         <section class="gr_end" aria-labelledby="gr-end-title">
-            <p class="gr_label" data-scramble-label>WHAT'S NEXT?</p>
+            <p class="gr_label"><span class="rp_no">7</span>다음 단계</p>
             <h2 id="gr-end-title" class="gr_end_title">다음 목표를 세워 볼까요</h2>
             <a class="gr_biglink" href="../routine/routine.html"><span>새 루틴 만들기</span> <i aria-hidden="true">↗</i></a>
         </section>

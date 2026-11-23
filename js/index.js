@@ -9,8 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return r.top < window.innerHeight * 0.15 && r.bottom > window.innerHeight * 0.85;
     };
 
-    // 자동 스크롤 끄기: 페이지는 사용자가 직접 스크롤 (구역 안의 장면 넘김·카드 등장 같은 효과는 그대로)
-    const AUTO_SCROLL = false;
+    // 자동 스크롤 켜기: 구역마다 잠시 머문 뒤 다음 구역으로 부드럽게 슥 내려감 (사용자가 휠·터치하면 바로 멈춤)
+    const AUTO_SCROLL = true;
 
     const glideTo = (targetY, customDuration) => {
         if (!AUTO_SCROLL) {
@@ -666,19 +666,25 @@ document.addEventListener('DOMContentLoaded', () => {
         // 카드 등장: 처음엔 카드가 모두 위에 숨어 있다가, 구역이 보이면 왼쪽 카드부터 한 장씩 위에서 내려와 자리 잡음
         // 내려온 카드는 잠깐 맨 앞에 떠서 글(고민 문장)이 가려지지 않고 다 읽히고, 그다음 카드가 내려옴
         const dealCards = [...arc.querySelectorAll('.arc_card')];
-        const DEAL_MS = 1000;
+        const DEAL_MS = 600;
         let arcDealt = false;
         const arcDealtWaiters = [];
         const whenDealt = (fn) => (arcDealt ? fn() : arcDealtWaiters.push(fn));
         if ('IntersectionObserver' in window && dealCards.length) {
-            dealCards.forEach((card) => card.classList.add('is-up'));
+            dealCards.forEach((card) => {
+                card.style.setProperty('--drop-x', `${Math.round((Math.random() - 0.5) * 160)}px`);
+                card.style.setProperty('--drop-r', `${Math.round((Math.random() - 0.5) * 40)}deg`);
+                card.classList.add('is-up');
+            });
             arc.querySelector('.arc_cards')?.classList.add('is-dealing');
             const dealObserver = new IntersectionObserver((entries) => {
                 if (!entries[0].isIntersecting) {
                     return;
                 }
                 dealObserver.disconnect();
-                dealCards.forEach((card, i) => {
+                // 무작위 순서로 한 장씩 (매번 다른 순서), 떨어지는 방향·기울기도 카드마다 다르게
+                const order = [...dealCards].sort(() => Math.random() - 0.5);
+                order.forEach((card, i) => {
                     setTimeout(() => {
                         dealCards.forEach((c) => {
                             c.classList.remove('is-front');
@@ -698,7 +704,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     arcDealt = true;
                     setTimeout(() => arc.querySelector('.arc_cards')?.classList.remove('is-dealing'), 1200);
                     arcDealtWaiters.splice(0).forEach((fn) => fn());
-                }, 300 + dealCards.length * DEAL_MS + 400);
+                }, 300 + dealCards.length * DEAL_MS + 200);
             }, { threshold: 0.3 });
             dealObserver.observe(arc.querySelector('.arc_cards') || arc);
         } else {

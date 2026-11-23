@@ -1942,3 +1942,1327 @@
     padding: 32px 22px 24px;
   }
 }
+
+/* =========================================================
+   GROWTH 페이지 전체: "보고서" 느낌
+   - 회색 책상 위에 놓인 흰 A4 문서 한 장 (가운데, 그림자)
+   - 맨 위 문서 정보(문서 번호 · 작성일 · 대상 · 기간)
+   - 섹션마다 번호(1 ~ 7) + 제목, 위에 굵은 선
+   - 그림·표 아래 캡션 "그림 1." "표 1."
+   - 핵심 지표 4개는 어두운 보드 대신 표처럼 4칸
+   ========================================================= */
+body:has(.gr_report) {
+  background: #e9ecf1;
+}
+
+.gr.gr_report {
+  --gr-x: clamp(28px, 5vw, 80px);
+  width: min(1180px, calc(100% - 32px));
+  margin: calc(var(--luup-header-h) + 32px) auto 64px;
+  padding: 0 0 48px;
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(17, 19, 24, 0.06), 0 30px 70px -40px rgba(17, 19, 24, 0.35);
+  overflow: hidden;
+}
+
+/* 1) 표지 부분 */
+.gr_report .gr_hero {
+  min-height: 0;
+  padding: clamp(40px, 5vw, 72px) var(--gr-x) 32px;
+}
+
+.gr_report .gr_today,
+.gr_report .gr_pill,
+.gr_report .gr_arrow {
+  display: none;
+}
+
+.gr_report .gr_title {
+  font-size: clamp(40px, 5.2vw, 76px);
+  line-height: 1.1;
+}
+
+.gr_report .gr_title .gr_line {
+  display: inline;
+  padding: 0;
+}
+
+.gr_report .gr_title .gr_line + .gr_line::before {
+  content: ' ';
+}
+
+.rp_meta {
+  order: -1;
+  margin-bottom: 28px;
+}
+
+.gr_report .gr_hero {
+  display: flex;
+  flex-direction: column;
+}
+
+.rp_doc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  margin: 0 0 18px;
+  padding-bottom: 14px;
+  border-bottom: 3px solid #111318;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #5b6472;
+}
+
+.rp_doc span:first-child {
+  margin-right: auto;
+  font-weight: 800;
+  color: #111318;
+}
+
+.rp_info {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 28px 0 0;
+  border-top: 1px solid #d6dae1;
+  border-left: 1px solid #d6dae1;
+  order: 2;
+}
+
+.rp_info div {
+  padding: 12px 16px;
+  border-right: 1px solid #d6dae1;
+  border-bottom: 1px solid #d6dae1;
+}
+
+.rp_info dt {
+  font-size: 12px;
+  font-weight: 700;
+  color: #8a919c;
+}
+
+.rp_info dd {
+  margin: 4px 0 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #111318;
+}
+
+.gr_report .gr_hero_foot {
+  order: 3;
+  margin-top: 28px;
+  padding: 20px 0 0;
+  border-top: 0;
+}
+
+/* 섹션 번호 · 제목 공통 */
+.gr_report .gr_label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: clamp(18px, 1.6vw, 22px);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  color: #111318;
+}
+
+.rp_no {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  flex: none;
+  border-radius: 4px;
+  background: #111318;
+  font-size: 15px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.gr_report .gr_block,
+.gr_report .gr_list,
+.rp_opinion,
+.gr_report .gr_end {
+  margin: 0 var(--gr-x);
+  padding: 32px 0 56px;
+  border-top: 2px solid #111318;
+}
+
+.gr_report .gr_block_title {
+  font-family: 'Pretendard Variable', 'Pretendard', var(--luup-font);
+  font-size: clamp(20px, 2vw, 30px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.rp_cap {
+  margin: 14px 0 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: #8a919c;
+}
+
+/* 1. 핵심 지표: 어두운 보드 → 표 4칸 */
+.gr_report .gr_stats.gr_log {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  height: auto;
+  min-height: 0;
+  margin: 0 var(--gr-x);
+  padding: 32px 0 56px;
+  overflow: visible;
+  border-top: 2px solid #111318;
+  background: none;
+  color: #111318;
+}
+
+.gr_report .gl_center {
+  position: static;
+  grid-column: 1 / -1;
+  justify-items: start;
+  width: auto;
+  margin-bottom: 22px;
+  text-align: left;
+  transform: none;
+}
+
+.gr_report .gl_title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Pretendard Variable', 'Pretendard', var(--luup-font);
+  font-size: clamp(18px, 1.6vw, 22px);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: #111318;
+  text-shadow: none;
+}
+
+.gr_report .gl_sub,
+.gr_report .gl_hint {
+  font-size: 13px;
+  color: #8a919c;
+}
+
+.gr_report .gr_log .gl_card,
+.gr_report .gr_log .gl_card[data-gl-open] {
+  position: relative;
+  inset: auto;
+  width: auto;
+  padding: 20px 22px 22px;
+  border: 1px solid #d6dae1;
+  border-right-width: 0;
+  border-radius: 0;
+  background: #fff;
+  box-shadow: none;
+  transform: none;
+  translate: none;
+}
+
+.gr_report .gr_log .gl_card:last-of-type {
+  border-right-width: 1px;
+}
+
+.gr_report .gr_log .gl_card:hover {
+  background: #f6f8fb;
+  box-shadow: none;
+}
+
+.gr_report .gr_log .gl_card::after,
+.gr_report .gl_head,
+.gr_report .gl_stamp {
+  display: none;
+}
+
+.gr_report .gr_log .gr_label {
+  padding: 0;
+  border: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #5b6472;
+}
+
+.gr_report .gr_log .gr_num {
+  margin-top: 14px;
+  font-family: 'Paperlogy', var(--luup-font);
+  font-size: clamp(34px, 3.2vw, 48px);
+  font-weight: 700;
+  color: var(--gr-accent);
+}
+
+.gr_report .gr_log .gl_card::before {
+  content: '자세히 ›';
+  position: absolute;
+  right: 16px;
+  top: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #8a919c;
+}
+
+.gr_report .gr_log .gl_card[aria-expanded="true"] {
+  outline: 2px solid var(--gr-accent);
+  outline-offset: -2px;
+}
+
+/* 상세 창: 보드 대신 화면 가운데 고정 */
+.gr_report .gl_detail {
+  position: fixed;
+  z-index: 60;
+}
+
+.gr_report .gr_log.is-detail .gl_center {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* 6. 종합 소견 */
+.rp_op_body {
+  margin-top: 22px;
+  padding: 26px 28px;
+  border: 1px solid #d6dae1;
+  border-left: 4px solid var(--gr-accent);
+  background: #f8fafc;
+}
+
+.rp_op_body p {
+  margin: 0 0 12px;
+  font-size: 16px;
+  line-height: 1.8;
+  color: #2b3038;
+  word-break: keep-all;
+}
+
+.rp_op_body b {
+  color: #111318;
+}
+
+.rp_op_body .rp_sign {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin: 18px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid #e3e6eb;
+  font-size: 13px;
+  color: #8a919c;
+}
+
+.gr_report .gr_end {
+  padding-bottom: 24px;
+}
+
+/* 문서 맨 아래 쪽 번호 */
+.gr.gr_report::after {
+  content: 'LUUP 성장 리포트 · GR-2026-11 · 1 / 1';
+  display: block;
+  margin: 0 var(--gr-x);
+  padding-top: 16px;
+  border-top: 1px solid #e3e6eb;
+  font-size: 12px;
+  text-align: center;
+  color: #a3a9b3;
+}
+
+@media (max-width: 900px) {
+  .rp_info,
+  .gr_report .gr_stats.gr_log {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .gr_report .gr_log .gl_card {
+    border-right-width: 1px;
+  }
+}
+
+@media (max-width: 520px) {
+  .rp_info {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* =========================================================
+   성장 리포트: 첫 장(표지 · 목차 · 핵심 지표) + 목차 네모를 누르면 한 장씩 추가되는 페이지
+   ========================================================= */
+.gr.gr_report {
+  background: none;
+  box-shadow: none;
+  overflow: visible;
+  padding: 0;
+}
+
+.gr.gr_report::after {
+  display: none;
+}
+
+/* 첫 장: 표지 + 핵심 지표를 한 장으로 */
+.gr_report > .gr_hero,
+.gr_report > .gr_stats.gr_log,
+.gr_report > [data-page],
+.gr_report > .gr_end {
+  position: relative;
+  margin: 0;
+  padding-left: var(--gr-x);
+  padding-right: var(--gr-x);
+  background: #fff;
+  border-top: 0;
+  box-shadow: 0 1px 2px rgba(17, 19, 24, 0.06), 0 30px 70px -40px rgba(17, 19, 24, 0.35);
+}
+
+.gr_report > .gr_hero {
+  border-radius: 4px 4px 0 0;
+}
+
+.gr_report > .gr_stats.gr_log {
+  margin: 0;
+  padding-top: 32px;
+  padding-bottom: 72px;
+  border-radius: 0 0 4px 4px;
+}
+
+.gr_report > .gr_stats.gr_log .gl_center {
+  padding-top: 32px;
+  border-top: 2px solid #111318;
+}
+
+/* 추가되는 페이지: 각각 한 장 */
+.gr_report > [data-page],
+.gr_report > .gr_end {
+  margin-top: 28px;
+  padding-top: 56px;
+  padding-bottom: 72px;
+  border-radius: 4px;
+}
+
+.gr_report > [data-page][hidden] {
+  display: none;
+}
+
+.gr_report > [data-page]::after,
+.gr_report > .gr_stats.gr_log::after {
+  position: absolute;
+  left: var(--gr-x);
+  right: var(--gr-x);
+  bottom: 22px;
+  padding-top: 12px;
+  border-top: 1px solid #e3e6eb;
+  font-size: 12px;
+  text-align: center;
+  color: #a3a9b3;
+}
+
+.gr_report > [data-page]::after {
+  content: 'LUUP 성장 리포트 · ' attr(data-page-no);
+}
+
+.gr_report > .gr_stats.gr_log::after {
+  content: 'LUUP 성장 리포트 · 1쪽';
+}
+
+.gr_report > [data-page].is-new {
+  animation: rp-page-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes rp-page-in {
+  from { opacity: 0; transform: translateY(40px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+
+/* 리포트 안에서는 공통 스크롤 등장 효과 끔 (페이지 추가 효과와 겹치지 않게) */
+.gr_report .sr_hide {
+  opacity: 1;
+  transform: none;
+}
+
+/* 목차 네모 */
+.rp_toc {
+  order: 2;
+  margin-top: 28px;
+}
+
+.rp_toc_head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 0 0 12px;
+}
+
+.rp_toc_head b {
+  font-size: 18px;
+  font-weight: 800;
+  color: #111318;
+}
+
+.rp_toc_head span {
+  font-size: 13px;
+  color: #8a919c;
+}
+
+.rp_tiles {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rp_tiles button {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  width: 100%;
+  aspect-ratio: 1;
+  padding: 18px;
+  border: 1px solid #d6dae1;
+  border-radius: 6px;
+  background: #fff;
+  font: inherit;
+  text-align: left;
+  color: #111318;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.rp_tiles button:hover {
+  border-color: #111318;
+  transform: translateY(-3px);
+}
+
+.rt_no {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  background: #111318;
+  font-size: 14px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.rp_tiles b {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.3;
+  word-break: keep-all;
+}
+
+.rp_tiles small {
+  font-size: 13px;
+  color: #8a919c;
+}
+
+.rp_tiles i {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #d6dae1;
+  border-radius: 50%;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  color: #111318;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.rp_tiles button[aria-pressed="true"] {
+  border-color: var(--gr-accent);
+  background: #f3f7ff;
+}
+
+.rp_tiles button[aria-pressed="true"] .rt_no,
+.rp_tiles button[aria-pressed="true"] i {
+  border-color: var(--gr-accent);
+  background: var(--gr-accent);
+  color: #fff;
+}
+
+.rp_tiles button:focus-visible {
+  outline: 2px solid var(--gr-accent);
+  outline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+  .rp_tiles {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .rp_tiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .rp_tiles button {
+    aspect-ratio: auto;
+    min-height: 130px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gr_report > [data-page].is-new {
+    animation: none;
+  }
+}
+
+/* 리포트 종이 밖으로 삐져나가던 예전 회색 가로선 없앰 (종이 안 여백까지만) */
+.gr_report .gr_hero_foot::before,
+.gr_report .gr_stats::before,
+.gr_report .gr_block::before,
+.gr_report .gr_end::before {
+  display: none;
+}
+
+.gr_report .gr_list_head::before,
+.gr_report .gr_item::before,
+.gr_report .gr_cats li::after,
+.gr_report .gr_reveal_btn::after {
+  left: 0;
+  right: 0;
+}
+
+.gr_report .gr_chart::before {
+  inset: 0;
+}
+
+/* =========================================================
+   GROWTH: 다른 페이지(오늘의 루틴 · 이번 달 루틴 · 이번 주 기록)와 같은 틀
+   - 회색 책상·가운데 종이 없앰 → 흰 화면 전체, 좌우 여백 = --title-x
+   - 제목 "성장 리포트": 같은 서체·크기·위치(헤더 아래 --page-top), 그 아래 문서 정보
+   - 추가되는 페이지는 카드 대신 굵은 선으로 구분
+   ========================================================= */
+body:has(.gr_report) {
+  background: #fff;
+}
+
+.gr.gr_report {
+  --gr-x: var(--title-x);
+  width: auto;
+  margin: 0;
+  padding: 0 0 48px;
+  border-radius: 0;
+}
+
+.gr_report > .gr_hero,
+.gr_report > .gr_stats.gr_log,
+.gr_report > [data-page],
+.gr_report > .gr_end {
+  border-radius: 0;
+  box-shadow: none;
+  padding-left: var(--title-x);
+  padding-right: var(--title-x);
+}
+
+.gr_report > .gr_hero {
+  padding-top: calc(var(--luup-header-h) + var(--page-top));
+}
+
+/* 제목: 맨 위, 한 줄 */
+.gr_report .gr_title {
+  order: -2;
+  margin: 0 0 0 calc(-0.059em + 1.8px);
+  font-family: 'Paperlogy', var(--luup-font);
+  font-size: clamp(44px, 9.2vw, 168px);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.05em;
+  white-space: nowrap;
+}
+
+.gr_report .gr_title .gr_swap {
+  display: none;
+}
+
+.gr_report .gr_title .gr_line + .gr_line::before {
+  content: none;
+}
+
+.gr_report .gr_title .gr_line:first-child::after {
+  content: ' ';
+}
+
+.gr_report .rp_meta {
+  order: 0;
+  margin: clamp(28px, 3vw, 44px) 0 0;
+}
+
+.gr_report .rp_toc {
+  order: 1;
+}
+
+.gr_report .gr_hero_foot {
+  order: 3;
+}
+
+/* 추가 페이지: 위 굵은 선으로 구분 */
+.gr_report > [data-page],
+.gr_report > .gr_end {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.gr_report > [data-page] > :first-child,
+.gr_report > .gr_end > :first-child {
+  padding-top: 40px;
+  border-top: 2px solid #111318;
+}
+
+.gr_report > [data-page]::after,
+.gr_report > .gr_stats.gr_log::after {
+  left: var(--title-x);
+  right: var(--title-x);
+}
+
+.gr_report .gr_title {
+  display: block;
+}
+
+.gr_report .gr_title .gr_line {
+  display: inline !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  transform: none !important;
+}
+
+/* 목차 네모: 정사각형은 너무 커서 낮게 */
+.rp_tiles button {
+  aspect-ratio: auto;
+  min-height: 150px;
+}
+
+/* =========================================================
+   4. 완료한 일: 긴 막대 목록 → 비율 띠 + 분야 카드 4칸
+   - 위: 한 줄 100% 띠 (분야별 비율만큼 파랑 농도 4단계로 나눔)
+   - 아래: 카드 4칸 (색 점 · 분야 이름 · 큰 숫자 · 비율)
+   ========================================================= */
+.gc_stack {
+  display: flex;
+  gap: 4px;
+  height: 18px;
+  margin: 0 0 20px;
+}
+
+.gc_stack span {
+  min-width: 6px;
+  border-radius: 4px;
+  transition: flex-grow 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.gc_stack span:nth-child(1),
+.gr_report .gr_cats li:nth-child(1) { --gc: #2563eb; }
+.gc_stack span:nth-child(2),
+.gr_report .gr_cats li:nth-child(2) { --gc: #5b8cf0; }
+.gc_stack span:nth-child(3),
+.gr_report .gr_cats li:nth-child(3) { --gc: #93b4f5; }
+.gc_stack span:nth-child(4),
+.gr_report .gr_cats li:nth-child(4) { --gc: #c7d7fa; }
+
+.gc_stack span {
+  background: var(--gc);
+}
+
+.gr_report .gr_cats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid #d6dae1;
+  border-left: 1px solid #d6dae1;
+  list-style: none;
+}
+
+.gr_report .gr_cats li {
+  position: relative;
+  display: grid;
+  grid-template-areas:
+    'name name'
+    'num share';
+  grid-template-columns: auto 1fr;
+  align-items: end;
+  gap: 14px 10px;
+  min-height: 0;
+  padding: 20px 22px 22px;
+  border-right: 1px solid #d6dae1;
+  border-bottom: 1px solid #d6dae1;
+  opacity: 1;
+  transform: none;
+}
+
+.gr_report .gr_cats li::after {
+  display: none;
+}
+
+.gr_report .gr_cats li > i {
+  display: none;
+}
+
+.gr_report .gr_cats span {
+  grid-area: name;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #5b6472;
+}
+
+.gr_report .gr_cats span::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  background: var(--gc);
+}
+
+.gr_report .gr_cats b {
+  grid-area: num;
+  font-family: 'Paperlogy', var(--luup-font);
+  font-size: clamp(36px, 3.2vw, 48px);
+  font-weight: 700;
+  line-height: 1;
+  color: #111318;
+}
+
+.gr_report .gr_cats b::after {
+  content: '개';
+  margin-left: 2px;
+  font-family: 'Pretendard Variable', 'Pretendard', var(--luup-font);
+  font-size: 0.4em;
+  font-weight: 600;
+  color: #8a919c;
+}
+
+.gr_report .gr_cats em {
+  grid-area: share;
+  justify-self: end;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #eef3ff;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 700;
+  color: #2563eb;
+}
+
+@media (max-width: 760px) {
+  .gr_report .gr_cats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* =========================================================
+   GROWTH 테마: 전시 키오스크 느낌 (참고: 어두운 판 + 빛나는 흰 테두리 / 민트 카드 + 우표)
+   - 바탕: 짙은 먹색, 제목은 흰 글씨 + 은은한 빛
+   - 첫 화면: 왼쪽 어두운 판(제목 · 요약) | 오른쪽 민트 카드(문서 정보 · 목차)
+   - 핵심 지표: 빛나는 흰 테두리 네모
+   - 추가되는 페이지: 민트 카드, 안쪽 상자는 반투명 흰 둥근 상자
+   ========================================================= */
+body:has(.gr_report) {
+  background: #18181b;
+}
+
+.gr.gr_report {
+  --mint: #a6f2cf;
+  --mint-ink: #0f3b2a;
+  --mint-soft: rgba(255, 255, 255, 0.45);
+  --glow: 0 0 0 1.5px rgba(255, 255, 255, 0.9), 0 0 18px rgba(255, 255, 255, 0.35), inset 0 0 18px rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.gr_report > .gr_hero,
+.gr_report > .gr_stats.gr_log,
+.gr_report > [data-page],
+.gr_report > .gr_end {
+  background: transparent;
+  box-shadow: none;
+  color: #fff;
+}
+
+.gr_report > .gr_stats.gr_log::after,
+.gr_report > [data-page]::after {
+  border-top-color: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* ---------- 첫 화면: 왼쪽 어두운 판 | 오른쪽 민트 카드 ---------- */
+.gr_report > .gr_hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-areas:
+    'title mint'
+    'foot  mint';
+  align-items: start;
+  gap: 32px clamp(24px, 3vw, 48px);
+}
+
+.gr_report .gr_title {
+  grid-area: title;
+  font-size: clamp(44px, 6.4vw, 120px);
+  color: #fff;
+  text-shadow: 0 0 22px rgba(255, 255, 255, 0.35);
+}
+
+.gr_report .gr_hero_foot {
+  grid-area: foot;
+  margin: 0;
+  padding: 26px;
+  border-radius: 18px;
+  box-shadow: var(--glow);
+}
+
+.gr_report .gr_hero_foot .gr_label {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.gr_report .gr_hero_copy,
+.gr_report .gr_hero_copy p,
+.gr_report .gr_lead {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.gr_report .gr_lead em {
+  color: var(--mint);
+}
+
+.gr_mint {
+  grid-area: mint;
+  position: relative;
+  padding: 32px clamp(22px, 2.6vw, 40px) 36px;
+  border-radius: 20px;
+  background: var(--mint);
+  color: var(--mint-ink);
+}
+
+/* 오른쪽 위 우표 */
+.gr_mint::before,
+.gr_report > [data-page]::before {
+  content: 'L';
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 52px;
+  border: 3px dotted var(--mint);
+  outline: 2px solid var(--mint-ink);
+  outline-offset: -6px;
+  background: #fff;
+  font-family: 'Paperlogy', var(--luup-font);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--mint-ink);
+  transform: rotate(6deg);
+}
+
+.gr_mint .rp_meta {
+  margin: 0;
+}
+
+.gr_mint .rp_doc {
+  padding-right: 64px;
+  border-bottom: 2px solid var(--mint-ink);
+  color: rgba(15, 59, 42, 0.7);
+}
+
+.gr_mint .rp_doc span:first-child {
+  color: var(--mint-ink);
+}
+
+.gr_mint .rp_info {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  border: 0;
+}
+
+.gr_mint .rp_info div {
+  border: 0;
+  border-radius: 12px;
+  background: var(--mint-soft);
+}
+
+.gr_mint .rp_info dt {
+  color: rgba(15, 59, 42, 0.6);
+}
+
+.gr_mint .rp_info dd {
+  color: var(--mint-ink);
+}
+
+.gr_mint .rp_toc_head b {
+  color: var(--mint-ink);
+}
+
+.gr_mint .rp_toc_head span {
+  color: rgba(15, 59, 42, 0.6);
+}
+
+.gr_mint .rp_tiles {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.gr_mint .rp_tiles button {
+  min-height: 112px;
+  padding: 14px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--mint-soft);
+  color: var(--mint-ink);
+}
+
+.gr_mint .rp_tiles button:hover {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.gr_mint .rt_no {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 4px;
+  font-size: 12px;
+  background: var(--mint-ink);
+}
+
+.gr_mint .rp_tiles b {
+  font-size: 14px;
+}
+
+.gr_mint .rp_tiles small {
+  font-size: 12px;
+  color: rgba(15, 59, 42, 0.6);
+}
+
+.gr_mint .rp_tiles i {
+  right: 10px;
+  bottom: 10px;
+  width: 26px;
+  height: 26px;
+  border-color: rgba(15, 59, 42, 0.3);
+  font-size: 13px;
+  color: var(--mint-ink);
+}
+
+.gr_mint .rp_tiles button[aria-pressed="true"] {
+  background: #fff;
+}
+
+.gr_mint .rp_tiles button[aria-pressed="true"] .rt_no,
+.gr_mint .rp_tiles button[aria-pressed="true"] i {
+  border-color: var(--mint-ink);
+  background: var(--mint-ink);
+  color: var(--mint);
+}
+
+/* ---------- 섹션 제목 공통 (어두운 바탕) ---------- */
+.gr_report .gr_label,
+.gr_report .gl_title {
+  color: #fff;
+}
+
+.gr_report .rp_no {
+  background: var(--mint);
+  color: var(--mint-ink);
+}
+
+/* ---------- 1. 핵심 지표: 빛나는 흰 테두리 네모 ---------- */
+.gr_report > .gr_stats.gr_log {
+  gap: 16px;
+}
+
+.gr_report > .gr_stats.gr_log .gl_center {
+  border-top-color: rgba(255, 255, 255, 0.2);
+}
+
+.gr_report .gl_sub,
+.gr_report .gl_hint {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.gr_report .gr_log .gl_card,
+.gr_report .gr_log .gl_card[data-gl-open],
+.gr_report .gr_log .gl_card:last-of-type {
+  border: 0;
+  border-radius: 18px;
+  background: transparent;
+  box-shadow: var(--glow);
+}
+
+.gr_report .gr_log .gl_card:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.gr_report .gr_log .gr_label {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.gr_report .gr_log .gr_num {
+  color: #fff;
+  text-shadow: 0 0 16px rgba(255, 255, 255, 0.35);
+}
+
+.gr_report .gr_log .gl_card::before {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ---------- 추가되는 페이지: 민트 카드 ---------- */
+.gr_report > [data-page] {
+  --gr-accent: var(--mint-ink);
+  --gr-ink: var(--mint-ink);
+  --gr-muted: rgba(15, 59, 42, 0.6);
+  --gr-line: rgba(15, 59, 42, 0.15);
+  margin: 28px var(--title-x) 0;
+  padding: 44px clamp(22px, 3vw, 48px) 72px;
+  border-radius: 24px;
+  background: var(--mint);
+  color: var(--mint-ink);
+}
+
+.gr_report > [data-page] > :first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.gr_report > [data-page] .gr_label,
+.gr_report > [data-page] .gr_block_title {
+  padding-right: 64px;
+  color: var(--mint-ink);
+}
+
+.gr_report > [data-page] .rp_no {
+  background: var(--mint-ink);
+  color: var(--mint);
+}
+
+.gr_report > [data-page] .rp_cap {
+  color: rgba(15, 59, 42, 0.6);
+}
+
+.gr_report > [data-page]::after {
+  left: clamp(22px, 3vw, 48px);
+  right: clamp(22px, 3vw, 48px);
+  border-top-color: rgba(15, 59, 42, 0.15);
+  color: rgba(15, 59, 42, 0.5);
+}
+
+/* 안쪽 상자: 반투명 흰 둥근 상자 */
+.gr_report > [data-page] .gr_chart,
+.gr_report > [data-page] .gr_cal,
+.gr_report > [data-page] .rp_op_body {
+  padding: 22px;
+  border: 0;
+  border-radius: 18px;
+  background: var(--mint-soft);
+}
+
+.gr_report > [data-page] .gr_day.lv0 { background: rgba(15, 59, 42, 0.08); }
+.gr_report > [data-page] .gr_day.lv1 { background: rgba(15, 59, 42, 0.25); }
+.gr_report > [data-page] .gr_day.lv2 { background: rgba(15, 59, 42, 0.55); }
+.gr_report > [data-page] .gr_day.lv3 { background: var(--mint-ink); }
+
+.gr_report > [data-page] .gc_stack span:nth-child(1),
+.gr_report > [data-page] .gr_cats li:nth-child(1) { --gc: #0f3b2a; }
+.gr_report > [data-page] .gc_stack span:nth-child(2),
+.gr_report > [data-page] .gr_cats li:nth-child(2) { --gc: #2f7a5a; }
+.gr_report > [data-page] .gc_stack span:nth-child(3),
+.gr_report > [data-page] .gr_cats li:nth-child(3) { --gc: #5fb48c; }
+.gr_report > [data-page] .gc_stack span:nth-child(4),
+.gr_report > [data-page] .gr_cats li:nth-child(4) { --gc: #ffffff; }
+
+.gr_report > [data-page] .gr_cats {
+  gap: 8px;
+  border: 0;
+}
+
+.gr_report > [data-page] .gr_cats li {
+  border: 0;
+  border-radius: 16px;
+  background: var(--mint-soft);
+}
+
+.gr_report > [data-page] .gr_cats span,
+.gr_report > [data-page] .gr_cats b {
+  color: var(--mint-ink);
+}
+
+.gr_report > [data-page] .gr_cats em {
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--mint-ink);
+}
+
+.gr_report > [data-page] .gr_tabs button {
+  border-color: rgba(15, 59, 42, 0.25);
+  background: transparent;
+  color: var(--mint-ink);
+}
+
+.gr_report > [data-page] .gr_tabs button.is-active {
+  background: var(--mint-ink);
+  color: var(--mint);
+}
+
+.gr_report > [data-page] .rp_op_body {
+  border-left: 0;
+}
+
+.gr_report > [data-page] .rp_op_body p,
+.gr_report > [data-page] .rp_op_body b {
+  color: var(--mint-ink);
+}
+
+/* 다음 단계 */
+.gr_report > .gr_end .gr_end_title {
+  color: #fff;
+}
+
+.gr_report > .gr_end .gr_biglink {
+  color: var(--mint);
+}
+
+@media (max-width: 900px) {
+  .gr_report > .gr_hero {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'title' 'mint' 'foot';
+  }
+
+  .gr_mint .rp_tiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.gr_report > [data-page]::before,
+.gr_mint::before {
+  left: auto;
+  right: 18px;
+  border-top: 3px dotted var(--mint);
+}
+
+.gr_report .gr_hero_foot {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+}
+
+.gr_report .gr_hero_foot .gr_lead {
+  font-size: clamp(22px, 2vw, 30px);
+}
+
+/* 제목 크기 다른 페이지와 똑같이 + "나의 → 우리 아이의" 바뀌는 연출 다시 */
+.gr_report > .gr_hero {
+  grid-template-areas:
+    'title title'
+    'foot  mint';
+}
+
+.gr_report .gr_title {
+  grid-column: 1 / -1;
+  font-size: clamp(44px, 9.2vw, 168px);
+  line-height: 1.08;
+  letter-spacing: -0.05em;
+  white-space: normal;
+}
+
+.gr_report .gr_title .gr_swap {
+  display: inline-grid;
+}
+
+.gr_report .gr_title .gr_line {
+  display: block !important;
+}
+
+.gr_report .gr_title .gr_line:first-child::after {
+  content: none;
+}
+
+.gr_report .gr_swap_to {
+  color: var(--mint);
+  text-shadow: 0 0 24px rgba(166, 242, 207, 0.45);
+}
+
+/* 제목 아래 한 줄 설명 (이번 달 루틴과 같은 크기·간격, 어두운 바탕이라 연한 글씨) */
+.gr_report .page_lead {
+  grid-column: 1 / -1;
+  margin: -14px 0 8px;
+  padding-left: 6px;
+  font-size: clamp(19px, 1.8vw, 27px);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.gr_report .page_lead b {
+  font-weight: 600;
+  color: #fff;
+}
+
+/* 요약 아래 빛나는 상자 3개 (왼쪽 열, 오른쪽은 민트 카드) */
+.gr_report > .gr_hero {
+  grid-template-areas:
+    'title title'
+    'lead  lead'
+    'foot  mint'
+    'more  mint';
+  grid-template-rows: auto auto auto 1fr;
+}
+
+.gr_report .page_lead {
+  grid-area: lead;
+}
+
+.gr_hero_more {
+  grid-area: more;
+  display: grid;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  align-content: start;
+}
+
+.gr_hero_more li {
+  padding: 22px 26px;
+  border-radius: 18px;
+  box-shadow: var(--glow);
+}
+
+.ghm_label {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.ghm_big {
+  margin: 10px 0 8px;
+  font-size: clamp(20px, 1.8vw, 26px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.ghm_big em {
+  font-style: normal;
+  color: var(--mint);
+}
+
+.ghm_text {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+@media (max-width: 900px) {
+  .gr_report > .gr_hero {
+    grid-template-areas: 'title' 'lead' 'mint' 'foot' 'more';
+    grid-template-rows: none;
+  }
+}

@@ -77,14 +77,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 첫 화면 오른쪽 위: 오늘 날짜 (예: 2026.11.16 (월))
-    const todayDate = document.querySelector('[data-today-date]');
-    if (todayDate) {
+    document.querySelectorAll('[data-today-date]').forEach((todayDate) => {
         const d = new Date();
         const two = (n) => String(n).padStart(2, '0');
         const day = ['일', '월', '화', '수', '목', '금', '토'][d.getDay()];
         todayDate.textContent = `${d.getFullYear()}.${two(d.getMonth() + 1)}.${two(d.getDate())} (${day})`;
         todayDate.setAttribute('datetime', `${d.getFullYear()}-${two(d.getMonth() + 1)}-${two(d.getDate())}`);
-    }
+    });
 
     // 첫 화면 제목: 잠시 뒤 "나의" → "우리 아이의"로 바뀜 (칸 폭도 새 글자에 맞게 부드럽게 늘어남)
     const swap = document.querySelector('[data-title-swap]');
@@ -174,9 +173,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const values = [...rows].map((row) => Number(row.dataset[period]));
             const max = Math.max(...values);
             const total = values.reduce((sum, v) => sum + v, 0);
+            const stack = done.querySelectorAll('[data-done-stack] span');
             rows.forEach((row, i) => {
                 row.style.setProperty('--v', (values[i] / max).toFixed(2));
                 animateNumber(row.querySelector('b'), values[i]);
+                const share = row.querySelector('[data-share]');
+                if (share) share.textContent = `${Math.round((values[i] / total) * 100)}%`;
+                if (stack[i]) stack[i].style.flexGrow = values[i];
             });
             periodText.textContent = button.dataset.label;
             totalText.textContent = `${total.toLocaleString('ko-KR')}개`;
@@ -353,4 +356,60 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape' && openKey) close();
     });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 성장 리포트 목차: 네모를 누르면 해당 페이지가 아래에 한 장 추가됨 (다시 누르면 뺌)
+    const tiles = [...document.querySelectorAll('[data-add-page]')];
+    if (!tiles.length) {
+        return;
+    }
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const pages = [...document.querySelectorAll('[data-page]')];
+    const glide = (el) => {
+        const header = document.querySelector('.site_header');
+        const offset = (header ? header.getBoundingClientRect().height : 0) + 20;
+        const start = window.scrollY;
+        const end = el.getBoundingClientRect().top + start - offset;
+        if (reduce) {
+            window.scrollTo(0, end);
+            return;
+        }
+        const root = document.documentElement;
+        root.style.scrollBehavior = 'auto';
+        const t0 = performance.now();
+        const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+        const step = (now) => {
+            const t = Math.min((now - t0) / 900, 1);
+            window.scrollTo(0, start + (end - start) * ease(t));
+            if (t < 1) requestAnimationFrame(step);
+            else root.style.scrollBehavior = '';
+        };
+        requestAnimationFrame(step);
+    };
+    const renumber = () => {
+        const shown = pages.filter((page) => !page.hidden);
+        const total = shown.length + 1;
+        shown.forEach((page, i) => page.setAttribute('data-page-no', `${i + 2} / ${total}`));
+        document.querySelector('.gr_report')?.setAttribute('data-page-total', `1 / ${total}`);
+    };
+    tiles.forEach((tile) => tile.addEventListener('click', () => {
+        const page = pages.find((p) => p.dataset.page === tile.dataset.addPage);
+        if (!page) return;
+        const add = page.hidden;
+        page.hidden = !add;
+        tile.setAttribute('aria-pressed', String(add));
+        tile.querySelector('i').textContent = add ? '✓' : '+';
+        renumber();
+        if (add) {
+            page.classList.remove('is-new');
+            void page.offsetWidth;
+            page.classList.add('is-new');
+            // 안쪽 숫자·그래프 등장 연출이 바로 보이도록 reveal 표시
+            page.querySelectorAll('.reveal').forEach((el) => el.classList.add('is-in', 'is-visible'));
+            page.querySelectorAll('[data-chart], .gr_heat').forEach((el) => el.classList.add('is-in'));
+            setTimeout(() => glide(page), 60);
+        }
+    }));
+    renumber();
 });

@@ -1240,3 +1240,36 @@
   border-color: #2563eb;
   background: #f2f6fc;
 }
+
+/* 제목 왼쪽 시작점 다른 페이지와 똑같이 */
+.my_title {
+  margin-left: calc(-0.059em + 1.8px - 6px);
+}
+
+/* 제목 아래 한 줄 설명 (다른 페이지와 같은 크기·간격) */
+.my_hero .page_lead {
+  margin: 18px 0 0;
+  padding-left: 6px;
+  font-size: clamp(19px, 1.8vw, 27px);
+  line-height: 1.5;
+  color: #404856;
+}
+
+.my_hero .page_lead b {
+  font-weight: 600;
+  color: #111318;
+}
+
+.my_hero .page_lead {
+  grid-column: 1 / -1;
+  order: 0;
+}
+
+.my_hero .my_title {
+  grid-column: 1 / -1;
+}
+
+/* 제목과 설명 사이 간격을 다른 페이지(18px)와 같게 (격자 간격 40px 보정) */
+.my_hero .page_lead {
+  margin-top: -22px;
+}

@@ -275,7 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="rc_panel_head rc_routine_head" style="--c:${block.color}">
                 <p class="rc_label rc_label_plain">Step by Step</p>
                 <h2 class="rc_panel_title" tabindex="-1" data-panel-title><i class="rc_swatch" aria-hidden="true"></i>${escapeHtml(block.name)}</h2>
-                <p class="rc_panel_meta">${block.start} ~ ${block.end} · ${escapeHtml(block.desc || '')}</p>
+                <p class="rc_panel_meta rc_step_meta"><span class="rc_step_time">${block.start} – ${block.end}</span>${block.desc ? `<span class="rc_step_desc">${escapeHtml(block.desc)}</span>` : ''}</p>
                 <div class="rc_progress" aria-hidden="true"><i style="--value:${total ? (count / total) * 100 : 0}%"></i></div>
                 <div class="rc_tools">
                     <p><b>${count}/${total}단계</b> 완료 · 약 ${totalOf(block)}분</p>

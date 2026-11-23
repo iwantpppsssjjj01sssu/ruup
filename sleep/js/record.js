@@ -455,45 +455,94 @@ document.addEventListener('DOMContentLoaded', () => {
             done: 2 + Math.floor(seeded(n + 1) * 4),
             mood: Math.min(4, Math.floor(seeded(n + 2) * seeded(n + 3) * 5)),
             focus: 2 + Math.floor(seeded(n + 4) * 4),
-            memo: seeded(n + 5) < 0.6 ? MEMOS[Math.floor(seeded(n + 6) * MEMOS.length)] : ''
+            memo: seeded(n + 5) < 0.85 ? MEMOS[Math.floor(seeded(n + 6) * MEMOS.length)] : ''
         };
     });
     const dayName = (d) => (d.label === '오늘' ? '오늘' : `${d.label}요일`);
     const avg = (key) => (days.reduce((sum, d) => sum + d[key], 0) / days.length);
 
+    // 펼친 칸 공통 조각: 숫자 3칸 · 지난주와 비교 · 도움말
+    const stats = (items) => `<dl class="rd_stats">${items.map(([k, v, note], i) => `<div style="--i:${i}"><dt>${k}</dt><dd>${v}</dd>${note ? `<small>${note}</small>` : ''}</div>`).join('')}</dl>`;
+    const tip = (title, text) => `<div class="rd_tip" style="--i:9"><b>${title}</b><p>${text}</p></div>`;
+    const sub = (text) => `<h3 class="rd_sub">${text}</h3>`;
+    const diffText = (now, prev, unit) => {
+        const d = Math.round((now - prev) * 10) / 10;
+        return d > 0 ? `지난주보다 +${d}${unit}` : d < 0 ? `지난주보다 ${d}${unit}` : '지난주와 같아요';
+    };
+
+    const MEMO_SHOW = 3;
+
     const views = {
         routine: () => {
             const total = days.reduce((sum, d) => sum + d.done, 0);
             const best = [...days].sort((a, b) => b.done - a.done)[0];
+            const full = days.filter((d) => d.done === 5).length;
+            const rate = Math.round((total / 35) * 100);
+            const perRoutine = ROUTINES.map((name, i) => [name, days.filter((d) => d.done > i).length]);
+            const weakest = [...perRoutine].sort((a, b) => a[1] - b[1])[0];
             return {
                 title: '루틴 수행 기록',
                 lead: `이번 주에 루틴을 모두 <b>${total}번</b> 끝냈어요. 하루 평균 <b>${avg('done').toFixed(1)}개</b>이고, 가장 많이 해낸 날은 <b>${dayName(best)}(${best.done}개)</b>이에요.`,
-                body: `<ol class="rd_bars">${days.map((d, i) => `<li style="--i:${i}"><span class="rd_bar" style="--v:${d.done / 5}"><i></i></span><b>${d.done}/5</b><small>${d.label}</small></li>`).join('')}</ol>
-                    <ul class="rd_list">${ROUTINES.map((name, i) => `<li style="--i:${i}"><span>${name}</span><b>${days.filter((d) => d.done > i).length}/7일</b></li>`).join('')}</ul>`
+                body: `${stats([['수행률', `${rate}%`, diffText(rate, rate - 6, '%p')], ['모두 해낸 날', `${full}일`, '5개 모두 완료'], ['끝낸 루틴', `${total}번`, '7일 합계']])}
+                    ${sub('하루에 끝낸 루틴')}
+                    <ol class="rd_bars">${days.map((d, i) => `<li style="--i:${i}"><span class="rd_bar" style="--v:${d.done / 5}"><i></i></span><b>${d.done}/5</b><small>${d.label}</small></li>`).join('')}</ol>
+                    ${sub('루틴별로 해낸 날')}
+                    <ul class="rd_list">${perRoutine.map(([name, n], i) => `<li style="--i:${i}"><span>${name}</span><i class="rd_meter" style="--v:${n / 7}"></i><b>${n}/7일</b></li>`).join('')}</ul>
+                    ${tip('이렇게 해 보세요', `가장 자주 빠진 루틴은 <b>${weakest[0]}</b>예요 (${weakest[1]}/7일). 시간을 앞당기거나 다른 루틴 바로 뒤에 붙여 보세요.`)}`
             };
         },
         mood: () => {
             const counts = MOODS.map((_, i) => days.filter((d) => d.mood === i).length);
             const top = counts.indexOf(Math.max(...counts));
+            const good = counts[0] + counts[1];
+            const bad = counts[3] + counts[4];
+            const badDays = days.filter((d) => d.mood >= 3).map(dayName);
             return {
                 title: '감정 기록',
-                lead: `이번 주에는 <b>‘${MOODS[top][1]}’</b>가 가장 많았어요 (${counts[top]}일). 기분이 안 좋았던 날은 <b>${counts[3] + counts[4]}일</b>이에요.`,
-                body: `<ol class="rd_moods">${days.map((d, i) => `<li style="--i:${i}"><span aria-hidden="true">${MOODS[d.mood][0]}</span><b>${MOODS[d.mood][1]}</b><small>${d.label}</small></li>`).join('')}</ol>`
+                lead: `이번 주에는 <b>‘${MOODS[top][1]}’</b>가 가장 많았어요 (${counts[top]}일). 기분이 안 좋았던 날은 <b>${bad}일</b>이에요.`,
+                body: `${stats([['좋았던 날', `${good}일`, '최고예요 · 좋아요'], ['보통인 날', `${counts[2]}일`, '그저 그래요'], ['안 좋았던 날', `${bad}일`, '속상해요 · 화나요']])}
+                    ${sub('날마다 기분')}
+                    <ol class="rd_moods">${days.map((d, i) => `<li style="--i:${i}"><span aria-hidden="true">${MOODS[d.mood][0]}</span><b>${MOODS[d.mood][1]}</b><small>${d.label}</small></li>`).join('')}</ol>
+                    ${sub('기분별 횟수')}
+                    <ul class="rd_list">${MOODS.map(([emoji, name], i) => `<li style="--i:${i}"><span><em aria-hidden="true">${emoji}</em> ${name}</span><i class="rd_meter" style="--v:${counts[i] / 7}"></i><b>${counts[i]}일</b></li>`).join('')}</ul>
+                    ${tip('이렇게 해 보세요', bad ? `<b>${badDays.join(', ')}</b>에 기분이 안 좋았어요. 그날 무슨 일이 있었는지 짧게 이야기 나눠 보세요.` : '이번 주는 기분이 안 좋았던 날이 없어요. 좋았던 순간을 함께 떠올려 칭찬해 주세요.')}`
             };
         },
-        focus: () => ({
-            title: '집중도 기록',
-            lead: `이번 주 평균 집중도는 <b>${avg('focus').toFixed(1)}점</b>이에요 (5점 만점). 가장 집중한 날은 <b>${dayName([...days].sort((a, b) => b.focus - a.focus)[0])}</b>이에요.`,
-            body: `<ol class="rd_bars rd_bars_focus">${days.map((d, i) => `<li style="--i:${i}"><span class="rd_bar" style="--v:${d.focus / 5}"><i></i></span><b>${d.focus}점</b><small>${d.label}</small></li>`).join('')}</ol>`
-        }),
+        focus: () => {
+            const a = avg('focus');
+            const best = [...days].sort((x, y) => y.focus - x.focus)[0];
+            const low = [...days].sort((x, y) => x.focus - y.focus)[0];
+            const high = days.filter((d) => d.focus >= 4).length;
+            return {
+                title: '집중도 기록',
+                lead: `이번 주 평균 집중도는 <b>${a.toFixed(1)}점</b>이에요 (5점 만점). 가장 집중한 날은 <b>${dayName(best)}</b>이에요.`,
+                body: `<div class="rd_focus_top"><div class="rd_gauge" style="--v:${a / 5}" aria-label="평균 집중도 ${a.toFixed(1)}점 (5점 만점)"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50"/><circle class="rd_gauge_bar" cx="60" cy="60" r="50" pathLength="100"/></svg><b>${a.toFixed(1)}<small>/5</small></b><span>평균 집중도</span></div>${stats([['지난주와 비교', diffText(a, 4.0, '점').replace('지난주보다 ', ''), '지난주 4.0점'], ['가장 높은 날', `${best.focus}점`, dayName(best)], ['4점 이상', `${high}일`, '잘 집중한 날']])}</div>
+                    ${sub('날마다 집중도')}
+                    <div class="rd_focus_chart" style="--avg:${a / 5}">
+                        <span class="rd_avg_line" aria-hidden="true"><em>평균 ${a.toFixed(1)}</em></span>
+                        <ol class="rd_bars rd_bars_focus">${days.map((d, i) => `<li style="--i:${i}" class="${d === best ? 'is-best' : ''}${d === low ? ' is-low' : ''}"><span class="rd_bar" style="--v:${d.focus / 5}"><i></i></span><b>${d.focus}점</b><small>${d.label}</small></li>`).join('')}</ol>
+                    </div>
+                    <p class="rd_legend"><span class="is-best"></span>가장 높은 날 <span class="is-low"></span>가장 낮은 날 <span class="is-avg"></span>이번 주 평균</p>
+                    ${tip('이렇게 해 보세요', `집중도가 가장 낮았던 날은 <b>${dayName(low)}(${low.focus}점)</b>이에요. 공부 전 5분 쉬는 시간을 넣거나, 책상 위 물건을 정리해 보세요.`)}`
+            };
+        },
         memo: () => {
             const memos = days.filter((d) => d.memo).reverse();
+            const words = memos.flatMap((d) => d.memo.replace(/[!.]/g, '').split(' ')).filter((w) => w.length > 1);
+            const freq = {};
+            words.forEach((w) => { freq[w] = (freq[w] || 0) + 1; });
+            const tags = Object.entries(freq).sort((x, y) => y[1] - x[1]).slice(0, 6).map(([w]) => w);
             return {
                 title: '기타메모',
                 lead: `이번 주에 남긴 메모는 <b>${memos.length}개</b>예요.`,
-                body: memos.length
-                    ? `<ul class="rd_memos">${memos.map((d, i) => `<li style="--i:${i}"><small>${d.label} · ${d.date}</small><p>${d.memo}</p></li>`).join('')}</ul>`
-                    : '<p class="rd_empty">이번 주에는 아직 메모가 없어요.</p>'
+                body: `${stats([['남긴 메모', `${memos.length}개`, '7일 중'], ['메모한 날', `${memos.length}일`, `${7 - memos.length}일은 쉬었어요`], ['가장 최근', memos[0] ? memos[0].label : '-', memos[0] ? memos[0].date : '']])}
+                    ${tags.length ? `${sub('자주 나온 말')}<ul class="rd_tags">${tags.map((t, i) => `<li style="--i:${i}">${t}</li>`).join('')}</ul>` : ''}
+                    ${sub('메모 모아 보기')}
+                    ${memos.length
+                        ? `<ul class="rd_memos" data-memo-list>${memos.map((d, i) => `<li style="--i:${i}"${i >= MEMO_SHOW ? ' hidden' : ''}><small>${d.label} · ${d.date}</small><p>${d.memo}</p></li>`).join('')}</ul>
+                            ${memos.length > MEMO_SHOW ? `<button type="button" class="rd_more" aria-expanded="false" data-memo-more>더 보기 <span>+${memos.length - MEMO_SHOW}</span> <i aria-hidden="true">↓</i></button>` : ''}`
+                        : '<p class="rd_empty">이번 주에는 아직 메모가 없어요.</p>'}
+                    ${tip('이렇게 해 보세요', '잘한 일을 메모로 남긴 날은 다음 날 루틴 수행률이 높아요. 잠들기 전 한 줄씩 함께 적어 보세요.')}`
             };
         }
     };
@@ -535,6 +584,23 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         requestAnimationFrame(step);
     };
+
+    // 기타메모 "더 보기": 처음엔 3개만, 누르면 나머지 메모가 차례로 펼쳐짐 / 다시 누르면 접기
+    body.addEventListener('click', (event) => {
+        const more = event.target.closest('[data-memo-more]');
+        if (!more) {
+            return;
+        }
+        const open = more.getAttribute('aria-expanded') !== 'true';
+        const rest = [...body.querySelectorAll('[data-memo-list] li')].slice(MEMO_SHOW);
+        rest.forEach((li, i) => {
+            li.hidden = !open;
+            li.style.setProperty('--i', i);
+            li.classList.toggle('is-more', open);
+        });
+        more.setAttribute('aria-expanded', String(open));
+        more.innerHTML = open ? '접기 <i aria-hidden="true">↑</i>' : `더 보기 <span>+${rest.length}</span> <i aria-hidden="true">↓</i>`;
+    });
 
     const buttons = [...grid.querySelectorAll('[data-ro-open]')];
     let openKey = null;
