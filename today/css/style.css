@@ -5966,3 +5966,12 @@ html.is-report-open body {
 .stage_card:not(.is-active):not(.is-clear) .card_meta {
   font-size: 16px;
 }
+
+/* 페이지 큰 제목 전체적으로 작게 (168px → 최대 96px) */
+.td_head .td_title { font-size: clamp(36px, 5.6vw, 96px); }
+
+/* 페이지 제목 조금 키움 (최대 96px → 116px) */
+.td_head .td_title { font-size: clamp(40px, 6.6vw, 116px); }
+
+/* 페이지 제목 줄임 (최대 116px → 88px) */
+.td_head .td_title { font-size: clamp(34px, 5vw, 88px); }

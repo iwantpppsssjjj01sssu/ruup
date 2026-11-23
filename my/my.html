@@ -91,6 +91,22 @@
                     </div>
                 </div>
             </div>
+            <!-- 알림 설정: 제목 오른쪽 흰 영역 (폼과 연결되어 함께 저장) -->
+            <div class="my_notify_card">
+                <p class="my_notify_head"><span class="my_notify_icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 22a2.5 2.5 0 0 0 2.45-2h-4.9A2.5 2.5 0 0 0 12 22Zm7-6V11a7 7 0 0 0-5.5-6.84V3.5a1.5 1.5 0 0 0-3 0v.66A7 7 0 0 0 5 11v5l-1.7 1.7A1 1 0 0 0 4 19.4h16a1 1 0 0 0 .7-1.7Z"/></svg></span>알림 설정</p>
+                <div class="my_notify_opts" role="radiogroup" aria-label="알림 받을 시간">
+                    <label><input type="radio" name="notify" value="each" form="my-form"><span>루틴 시작할 때마다</span></label>
+                    <label><input type="radio" name="notify" value="morning" form="my-form"><span>하루 한 번 · 아침 7시</span></label>
+                    <label><input type="radio" name="notify" value="evening" form="my-form"><span>하루 한 번 · 저녁 8시</span></label>
+                    <label class="my_notify_custom"><input type="radio" name="notify" value="custom" form="my-form"><span>직접 입력하기</span></label>
+                    <div class="my_notify_time" data-notify-time hidden>
+                        <label>매일 <input type="time" name="notifyTime" value="18:00" form="my-form" aria-label="알림 받을 시각"></label>
+                        <small>에 알림을 받아요</small>
+                    </div>
+                    <label><input type="radio" name="notify" value="off" form="my-form"><span>알림 끄기</span></label>
+                </div>
+                <p class="my_notify_note">아래 <b>저장하기</b>를 누르면 함께 저장돼요.</p>
+            </div>
         </section>
 
         <!-- 왼쪽 정보 + 오른쪽 내 정보 수정 -->
@@ -167,7 +183,7 @@
                 </div>
             </div>
 
-            <form class="my_form" data-profile-form novalidate>
+            <form id="my-form" class="my_form" data-profile-form novalidate>
                 <h2 class="my_form_title">내 정보 수정</h2>
                 <div class="my_fields">
                     <label class="my_field">이름
@@ -181,14 +197,6 @@
                     </label>
                     <label class="my_field">이메일
                         <input type="email" name="email" placeholder="parent@email.com" autocomplete="email">
-                    </label>
-                    <label class="my_field is-wide">알림 받을 시간
-                        <select name="notify">
-                            <option value="each">루틴 시작할 때마다</option>
-                            <option value="morning">하루 한 번 (아침 7시)</option>
-                            <option value="evening">하루 한 번 (저녁 8시)</option>
-                            <option value="off">알림 끄기</option>
-                        </select>
                     </label>
                     <label class="my_field is-wide">우리 아이 메모
                         <textarea name="memo" rows="4" maxlength="300" placeholder="잘하는 점, 어려워하는 점, 선생님께 전하고 싶은 이야기를 적어 주세요."></textarea>

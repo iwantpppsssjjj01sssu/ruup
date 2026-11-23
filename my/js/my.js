@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const PROFILE_KEY = 'luup-my-profile';
     const form = document.querySelector('[data-profile-form]');
     const formError = document.querySelector('[data-form-error]');
-    const DEFAULT_PROFILE = { name: '박하루', motto: '천천히, 꾸준히!', phone: '', email: '', notify: 'each', memo: '', share: false };
+    const DEFAULT_PROFILE = { name: '박하루', motto: '천천히, 꾸준히!', phone: '', email: '', notify: 'each', notifyTime: '18:00', memo: '', share: false };
     let profile = DEFAULT_PROFILE;
     try {
         profile = { ...DEFAULT_PROFILE, ...JSON.parse(localStorage.getItem(PROFILE_KEY)) };
@@ -125,6 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
             phone: String(data.get('phone')).trim(),
             email: String(data.get('email')).trim(),
             notify: String(data.get('notify')),
+            notifyTime: String(data.get('notifyTime') || '18:00'),
             memo: String(data.get('memo')).trim(),
             share: data.get('share') === 'on'
         };
@@ -146,7 +147,11 @@ document.addEventListener('DOMContentLoaded', () => {
         button.addEventListener('click', () => focusField(form.elements.name));
     });
     document.querySelectorAll('[data-focus-notify]').forEach((button) => {
-        button.addEventListener('click', () => focusField(form.elements.notify));
+        button.addEventListener('click', () => {
+            const card = document.querySelector('.my_notify_card');
+            card?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(() => card?.querySelector('input:checked, input')?.focus({ preventScroll: true }), 450);
+        });
     });
 
     // 로그아웃 확인 (데모: 실제 계정 연결 전)
@@ -280,3 +285,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     apply();
 })();
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 알림 설정 "직접 입력하기": 고르면 시각 입력칸이 펼쳐짐
+    const box = document.querySelector('[data-notify-time]');
+    if (!box) return;
+    const radios = [...document.querySelectorAll('input[name="notify"]')];
+    const sync = () => {
+        const custom = radios.find((r) => r.value === 'custom')?.checked;
+        box.hidden = !custom;
+        if (custom) box.querySelector('input')?.focus({ preventScroll: true });
+    };
+    radios.forEach((r) => r.addEventListener('change', sync));
+    setTimeout(() => { box.hidden = !radios.find((r) => r.value === 'custom')?.checked; }, 0);
+});

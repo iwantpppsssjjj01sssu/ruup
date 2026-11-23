@@ -47,7 +47,7 @@
             if (event.ctrlKey || event.defaultPrevented || Math.abs(event.deltaX) > Math.abs(event.deltaY)) {
                 return;
             }
-            if (document.querySelector('dialog[open]') || root.classList.contains('is-report-open')) {
+            if (document.querySelector('dialog[open]') || root.classList.contains('is-report-open') || root.classList.contains('is-col-open') || root.classList.contains('is-op-alert')) {
                 return;
             }
             const delta = event.deltaMode === 1 ? event.deltaY * 16 : event.deltaMode === 2 ? event.deltaY * window.innerHeight : event.deltaY;

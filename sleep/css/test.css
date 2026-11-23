@@ -6692,3 +6692,938 @@ main.ds_page {
 .rd_gauge > span {
   font-weight: 400;
 }
+
+/* =========================================================
+   기록 숫자 칸: 참고 이미지처럼 — 연한 카드 + 오른쪽 아래 말랑한 파란 입체 아이콘
+   - 왼쪽 위: 칸 이름(진하게) → 숫자 → 설명(회색)
+   - 오른쪽 아래: 반짝이는 파란 아이콘(별 동전 · 하트 · 말풍선)이 카드 밖으로 살짝 잘림
+   - 게이지 칸도 같은 연한 카드 + 파란 원
+   ========================================================= */
+.rd_stats div,
+.rd_gauge {
+  position: relative;
+  overflow: hidden;
+  min-height: 190px;
+  padding: 24px 24px 22px;
+  border-radius: 20px;
+  background: #f3f6fb;
+  box-shadow: none;
+}
+
+.rd_stats div {
+  justify-content: flex-start;
+}
+
+.rd_stats dt {
+  order: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #111318;
+}
+
+.rd_stats dd {
+  margin: 14px 0 6px;
+  font-size: 30px;
+  font-weight: 400;
+  color: #111318;
+}
+
+.rd_stats small {
+  max-width: 60%;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #6b7280;
+}
+
+/* 오른쪽 아래 입체 아이콘 */
+.rd_stats div::after {
+  content: '';
+  position: absolute;
+  right: -14px;
+  bottom: -18px;
+  width: 112px;
+  height: 112px;
+  background: center / contain no-repeat;
+  filter: drop-shadow(0 14px 18px rgba(37, 99, 235, 0.25));
+  pointer-events: none;
+}
+
+.rd_stats div:nth-child(1)::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cdefs%3E%3ClinearGradient id='a' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23b9d6ff'/%3E%3Cstop offset='1' stop-color='%234f8cf5'/%3E%3C/linearGradient%3E%3ClinearGradient id='b' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23fff'/%3E%3Cstop offset='1' stop-color='%23dbe8ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cellipse cx='60' cy='70' rx='48' ry='40' fill='%233b74e0'/%3E%3Cellipse cx='60' cy='62' rx='48' ry='40' fill='url(%23a)'/%3E%3Cpath d='M60 38l7 14 15 2-11 11 3 15-14-7-14 7 3-15-11-11 15-2z' fill='url(%23b)'/%3E%3Cellipse cx='42' cy='42' rx='12' ry='6' fill='%23fff' opacity='.5' transform='rotate(-25 42 42)'/%3E%3C/svg%3E");
+}
+
+.rd_stats div:nth-child(2)::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cdefs%3E%3ClinearGradient id='a' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23c9e0ff'/%3E%3Cstop offset='1' stop-color='%23568ff3'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M60 104C28 82 12 64 12 44a24 24 0 0 1 48-8 24 24 0 0 1 48 8c0 20-16 38-48 60z' fill='url(%23a)'/%3E%3Cellipse cx='36' cy='40' rx='12' ry='7' fill='%23fff' opacity='.55' transform='rotate(-30 36 40)'/%3E%3C/svg%3E");
+}
+
+.rd_stats div:nth-child(3)::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cdefs%3E%3ClinearGradient id='a' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23c3dbff'/%3E%3Cstop offset='1' stop-color='%234f8cf5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M22 24h76a12 12 0 0 1 12 12v40a12 12 0 0 1-12 12H56l-22 18 4-18H22a12 12 0 0 1-12-12V36a12 12 0 0 1 12-12z' fill='url(%23a)'/%3E%3Ccircle cx='42' cy='56' r='6' fill='%23fff'/%3E%3Ccircle cx='60' cy='56' r='6' fill='%23fff'/%3E%3Ccircle cx='78' cy='56' r='6' fill='%23fff'/%3E%3Cellipse cx='34' cy='34' rx='12' ry='5' fill='%23fff' opacity='.5'/%3E%3C/svg%3E");
+}
+
+/* 게이지 칸: 같은 연한 카드, 파란 원 */
+.rd_gauge {
+  width: 200px;
+  color: #111318;
+}
+
+.rd_gauge circle {
+  stroke: rgba(37, 99, 235, 0.12);
+}
+
+.rd_gauge .rd_gauge_bar {
+  stroke: #4f8cf5;
+}
+
+.rd_gauge b {
+  color: #111318;
+}
+
+.rd_gauge b small {
+  color: #9aa1ab;
+}
+
+.rd_gauge > span {
+  color: #6b7280;
+}
+
+/* 왼쪽 글(라벨 · 제목 · 설명)의 맨 윗줄을 오른쪽 첫 박스 윗변과 똑같이
+   - 따라 내려오는 고정(sticky) 때문에 스크롤 위치에 따라 아래로 밀리던 것 해제
+   - 라벨 줄간격을 1로 해 글자 윗부분이 박스 윗변에 딱 닿게 */
+.rd_head {
+  position: static;
+  margin: 0;
+  padding: 0;
+}
+
+.rd_kicker {
+  margin: 0;
+  line-height: 1;
+}
+
+/* =========================================================
+   펼친 칸 왼쪽 글(라벨 · 제목 · 요약): 모두 Pretendard, 더 크게, 3단계 위계
+   1) 라벨: 16px 파랑 (작지만 눈에 띄게)
+   2) 제목: 최대 60px 굵게 (가장 크게)
+   3) 요약: 최대 24px 회색, 숫자만 진한 파랑
+   ========================================================= */
+.rd_head,
+.rd_head * {
+  font-family: 'Pretendard Variable', 'Pretendard', var(--luup-font) !important;
+}
+
+.rd_kicker {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: #2563eb;
+}
+
+.rd_head h2 {
+  margin: 14px 0 20px;
+  font-size: clamp(40px, 4vw, 60px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  color: #111318;
+}
+
+.rd_lead {
+  max-width: 460px;
+  font-size: clamp(19px, 1.65vw, 24px);
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: -0.015em;
+  color: #6b7280;
+}
+
+.rd_lead b {
+  font-weight: 600;
+  color: #1d4ed8;
+}
+
+@media (max-width: 760px) {
+  .rd_head h2 {
+    font-size: 36px;
+  }
+
+  .rd_lead {
+    font-size: 18px;
+  }
+}
+
+/* 라벨 "이번 주 · 최근 7일": 더 크게, 회색 */
+.rd_kicker {
+  font-size: 19px;
+  font-weight: 500;
+  color: #8a919c;
+}
+
+/* =========================================================
+   "하루에 끝낸 루틴" 그래프: 참고 이미지 스타일
+   - 연한 초록 그라데이션 카드 · 위에 흰 알약 3개(이름 | 값)
+   - 막대는 흐린 연초록, 가장 많이 한 날만 빛나는 초록 그라데이션 + 반짝이
+   - 평균 점선 + "1주 평균" 글씨, 강조 막대 위 흰 동그라미
+   ========================================================= */
+.rd_glow_card {
+  position: relative;
+  margin-bottom: 40px;
+  padding: 24px 24px 18px;
+  border-radius: 24px;
+  background:
+    radial-gradient(70% 60% at 50% 100%, rgba(140, 220, 120, 0.22), transparent 70%),
+    linear-gradient(180deg, #f6f8f6 0%, #eaf5ea 100%);
+  box-shadow: inset 0 0 0 1px rgba(17, 19, 24, 0.04);
+}
+
+.rd_glow_pills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 0 26px;
+  padding: 0;
+  list-style: none;
+}
+
+.rd_glow_pills li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 4px 14px -8px rgba(17, 19, 24, 0.2);
+  font-size: 15px;
+  color: #2b3038;
+}
+
+.rd_glow_pills i {
+  width: 1px;
+  height: 14px;
+  background: #d6dae1;
+}
+
+.rd_glow_pills b {
+  font-weight: 600;
+  color: #3fa52a;
+}
+
+.rd_glow_chart {
+  position: relative;
+}
+
+.rd_glow_bars {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rd_glow_bars li {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+}
+
+.rd_glow_bar {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  max-width: 54px;
+  height: 200px;
+}
+
+.rd_glow_bar::before {
+  content: '';
+  width: 100%;
+  height: calc(var(--v) * 100%);
+  border-radius: 8px 8px 0 0;
+  background: linear-gradient(180deg, rgba(196, 222, 196, 0.75), rgba(214, 232, 214, 0.55));
+  transform-origin: bottom;
+}
+
+.rd_glow_bars li.is-hl .rd_glow_bar::before {
+  border-radius: 8px 8px 0 0;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.9) 0 1.5px, transparent 2px) 0 0 / 14px 22px,
+    radial-gradient(circle at 70% 60%, rgba(255, 255, 255, 0.7) 0 1px, transparent 1.5px) 0 0 / 18px 26px,
+    linear-gradient(180deg, #b9e23f 0%, #5cbf3a 55%, #128a3a 100%);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.7), 0 18px 40px -8px rgba(60, 170, 50, 0.55), 0 0 30px rgba(140, 220, 80, 0.45);
+}
+
+.ro_detail.is-open .rd_glow_bar::before {
+  animation: rd-fill 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(0.35s + var(--i, 0) * 0.06s);
+}
+
+/* 강조 막대 위 흰 동그라미 (평균선 높이) */
+.rd_glow_dot {
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--avg) * 100%);
+  z-index: 3;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.45), 0 2px 8px rgba(17, 19, 24, 0.25);
+  transform: translate(-50%, 50%);
+}
+
+.rd_glow_avg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(200px * var(--avg) + 52px);
+  z-index: 2;
+  border-top: 2px dashed rgba(30, 120, 50, 0.45);
+  pointer-events: none;
+}
+
+.rd_glow_avg em {
+  position: absolute;
+  left: 8%;
+  top: -22px;
+  font-size: 13px;
+  font-style: normal;
+  color: #4caf50;
+}
+
+.rd_glow_avg em b {
+  font-weight: 600;
+  color: #1f7a2e;
+}
+
+.rd_glow_bars b {
+  margin-top: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.rd_glow_bars li.is-hl b {
+  color: #1f7a2e;
+}
+
+.rd_glow_bars small {
+  font-size: 13px;
+  color: #9aa1ab;
+}
+
+@media (max-width: 760px) {
+  .rd_glow_bar {
+    height: 140px;
+  }
+
+  .rd_glow_avg {
+    bottom: calc(140px * var(--avg) + 52px);
+  }
+
+  .rd_glow_bars {
+    gap: 6px;
+  }
+}
+
+/* 강조 막대: 반짝이를 드문드문하게, 평균 글씨는 막대 사이 빈자리(오른쪽 끝 위)로 */
+.rd_glow_bars li.is-hl .rd_glow_bar::before {
+  background:
+    radial-gradient(circle at 25% 18%, rgba(255, 255, 255, 0.95) 0 1.6px, transparent 2.2px),
+    radial-gradient(circle at 70% 34%, rgba(255, 255, 255, 0.8) 0 1.2px, transparent 1.8px),
+    radial-gradient(circle at 40% 52%, rgba(255, 255, 255, 0.7) 0 1.4px, transparent 2px),
+    radial-gradient(circle at 78% 70%, rgba(255, 255, 255, 0.6) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 30% 84%, rgba(255, 255, 255, 0.5) 0 1.2px, transparent 1.8px),
+    linear-gradient(180deg, #b9e23f 0%, #5cbf3a 55%, #128a3a 100%);
+}
+
+.rd_glow_avg em {
+  left: auto;
+  right: 0;
+  top: -24px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.85);
+}
+
+/* 숫자 칸 오른쪽 아래 그림: 직접 그린 아이콘 → aa1 · aa2 · aa3 이미지 */
+.rd_stats div::after {
+  right: -18px;
+  bottom: -22px;
+  width: 128px;
+  height: 128px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: drop-shadow(0 14px 18px rgba(37, 99, 235, 0.2));
+}
+
+.rd_stats div:nth-child(1)::after { background-image: url('../../img/aa2.png'); }
+.rd_stats div:nth-child(2)::after { background-image: url('../../img/aa3.png'); }
+.rd_stats div:nth-child(3)::after { background-image: url('../../img/aa1.png'); width: 150px; right: -26px; }
+
+/* 숫자 칸 · 게이지 바탕: 위 흰색 → 아래 하늘색 그라데이션 */
+.rd_stats div,
+.rd_gauge {
+  background: linear-gradient(180deg, #ffffff 0%, #dcebff 100%);
+  box-shadow: inset 0 0 0 1px rgba(37, 99, 235, 0.08);
+}
+
+/* =========================================================
+   기록 그래프 모두 파랑 계열로 (초록·주황 → 파랑)
+   ========================================================= */
+/* 하루에 끝낸 루틴 (빛나는 카드) */
+.rd_glow_card {
+  background:
+    radial-gradient(70% 60% at 50% 100%, rgba(120, 170, 255, 0.22), transparent 70%),
+    linear-gradient(180deg, #f7f9fd 0%, #e6efff 100%);
+}
+
+.rd_glow_pills b,
+.rd_glow_bars li.is-hl b {
+  color: #2563eb;
+}
+
+.rd_glow_bar::before {
+  background: linear-gradient(180deg, rgba(190, 210, 245, 0.8), rgba(210, 224, 250, 0.55));
+}
+
+.rd_glow_bars li.is-hl .rd_glow_bar::before {
+  background:
+    radial-gradient(circle at 25% 18%, rgba(255, 255, 255, 0.95) 0 1.6px, transparent 2.2px),
+    radial-gradient(circle at 70% 34%, rgba(255, 255, 255, 0.8) 0 1.2px, transparent 1.8px),
+    radial-gradient(circle at 40% 52%, rgba(255, 255, 255, 0.7) 0 1.4px, transparent 2px),
+    radial-gradient(circle at 78% 70%, rgba(255, 255, 255, 0.6) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 30% 84%, rgba(255, 255, 255, 0.5) 0 1.2px, transparent 1.8px),
+    linear-gradient(180deg, #8ec5ff 0%, #4f8cf5 55%, #1d4ed8 100%);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.7), 0 18px 40px -8px rgba(37, 99, 235, 0.5), 0 0 30px rgba(110, 160, 255, 0.45);
+}
+
+.rd_glow_avg {
+  border-top-color: rgba(29, 78, 216, 0.4);
+}
+
+.rd_glow_avg em {
+  color: #4f8cf5;
+}
+
+.rd_glow_avg em b {
+  color: #1d4ed8;
+}
+
+/* 집중도 그래프 */
+.rd_focus_chart {
+  background: #f4f8ff;
+}
+
+.rd_focus_chart .rd_bar {
+  background: rgba(37, 99, 235, 0.08);
+}
+
+.rd_bars_focus .rd_bar i {
+  background: linear-gradient(180deg, #a9c8ff 0%, #5b8def 100%);
+}
+
+.rd_bars_focus li.is-best .rd_bar i {
+  background: linear-gradient(180deg, #4f8cf5 0%, #1d4ed8 100%);
+  box-shadow: 0 10px 20px -10px rgba(29, 78, 216, 0.6);
+}
+
+.rd_bars_focus li.is-low .rd_bar i {
+  background: linear-gradient(180deg, #e3ecfb 0%, #c3d4f2 100%);
+}
+
+.rd_bars_focus li.is-best b {
+  color: #1d4ed8;
+}
+
+.rd_bars_focus li.is-low b {
+  color: #8a9ab8;
+}
+
+.rd_legend .is-best { background: #1d4ed8; }
+.rd_legend .is-low { background: #c3d4f2; }
+
+/* 게이지 */
+.rd_gauge .rd_gauge_bar {
+  stroke: #2563eb;
+}
+
+/* 막대 목록 · 기본 막대 */
+.rd_meter::after,
+.rd_bar i {
+  background: #4f8cf5;
+}
+
+/* 부모님이 확인해 주세요: 체크 목록 */
+.rd_parent {
+  margin: 0 0 24px;
+  padding: 22px 24px;
+  border: 1px solid #e3e9f5;
+  border-radius: 18px;
+  background: #fff;
+}
+
+.rd_parent_head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 12px;
+  margin: 0 0 14px;
+}
+
+.rd_parent_head b {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111318;
+}
+
+.rd_parent_head span {
+  font-size: 13px;
+  color: #8a919c;
+}
+
+.rd_parent ul {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rd_parent li + li {
+  border-top: 1px solid #eef1f6;
+}
+
+.rd_parent label {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
+  gap: 14px;
+  padding: 14px 0;
+  cursor: pointer;
+}
+
+.rd_parent input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.rd_parent_box {
+  width: 24px;
+  height: 24px;
+  margin-top: 1px;
+  border: 1.5px solid #c9d3e4;
+  border-radius: 7px;
+  background: #fff;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.rd_parent input:checked + .rd_parent_box {
+  border-color: #2563eb;
+  background: #2563eb url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / 14px no-repeat;
+}
+
+.rd_parent input:focus-visible + .rd_parent_box {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+.rd_parent label > span:last-child {
+  display: grid;
+  gap: 4px;
+}
+
+.rd_parent label b {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111318;
+}
+
+.rd_parent label small {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #6b7280;
+  word-break: keep-all;
+}
+
+.rd_parent label small b {
+  font-size: inherit;
+  color: #2563eb;
+}
+
+.rd_parent input:checked ~ span:last-child b {
+  color: #9aa1ab;
+  text-decoration: line-through;
+}
+
+.ro_detail.is-open .rd_parent li {
+  animation: rd-rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(0.4s + var(--i, 0) * 0.07s);
+}
+
+/* 감정 얼굴 (그라데이션 동그라미) */
+.rd_moods span {
+  width: auto;
+  height: auto;
+  background: none;
+  font-size: 0;
+}
+
+.rd_moods .mood_face {
+  display: block;
+  width: 64px;
+  height: 64px;
+  filter: drop-shadow(0 8px 14px rgba(17, 19, 24, 0.08));
+}
+
+.rd_list em {
+  display: inline-flex;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+.rd_list .mood_face {
+  width: 26px;
+  height: 26px;
+}
+
+@media (max-width: 760px) {
+  .rd_moods .mood_face {
+    width: 42px;
+    height: 42px;
+  }
+}
+
+/* 왼쪽 칸으로 옮긴 부모님 확인 · 도움말 */
+.rd_head .rd_parent {
+  margin: 36px 0 16px;
+}
+
+.rd_head .rd_tip {
+  margin: 0;
+}
+
+.rd_head .rd_parent,
+.rd_head .rd_tip {
+  max-width: 520px;
+}
+
+/* 목록 막대(루틴별 · 기분별) 더 두껍게 */
+.rd_meter {
+  height: 16px;
+  border-radius: 8px;
+}
+
+/* 기분별 횟수: 누르면 요일 · 이유 펼침 */
+.rd_list_mood > li {
+  display: block;
+  padding: 0;
+}
+
+.rd_mood_row {
+  display: grid;
+  grid-template-columns: minmax(120px, 1fr) minmax(0, 2fr) 60px 20px;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 16px 4px;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 16px;
+  text-align: left;
+  color: #111318;
+  cursor: pointer;
+}
+
+.rd_mood_row:hover {
+  background: #f7f9fd;
+}
+
+.rd_mood_row b {
+  text-align: right;
+  color: #2563eb;
+}
+
+.rd_chev {
+  width: 10px;
+  height: 10px;
+  justify-self: center;
+  border-right: 2px solid #9aa1ab;
+  border-bottom: 2px solid #9aa1ab;
+  transform: rotate(45deg) translateY(-3px);
+  transition: transform 0.25s ease;
+}
+
+.rd_mood_row[aria-expanded="true"] .rd_chev {
+  transform: rotate(-135deg) translateY(-3px);
+}
+
+.rd_mood_row[data-empty] .rd_chev {
+  opacity: 0.35;
+}
+
+.rd_why_wrap {
+  padding: 4px 4px 18px 40px;
+  animation: rd-rise 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.rd_why {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rd_why li {
+  display: grid;
+  grid-template-columns: 64px 48px minmax(0, 1fr);
+  align-items: baseline;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: #f4f8ff;
+}
+
+.rd_why b {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111318;
+}
+
+.rd_why small {
+  font-size: 13px;
+  color: #9aa1ab;
+}
+
+.rd_why p,
+.rd_why_empty {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #3b4250;
+}
+
+.rd_why_empty {
+  color: #9aa1ab;
+}
+
+@media (max-width: 760px) {
+  .rd_mood_row {
+    grid-template-columns: minmax(0, 1fr) 70px 44px 16px;
+    gap: 8px;
+  }
+
+  .rd_why_wrap {
+    padding-left: 4px;
+  }
+
+  .rd_why li {
+    grid-template-columns: 56px minmax(0, 1fr);
+  }
+
+  .rd_why small {
+    display: none;
+  }
+}
+
+/* 오른쪽 섹션(날마다 기분 · 기분별 횟수 …)마다 연한 바탕 판 */
+.rd_section {
+  margin: 0 0 20px;
+  padding: 26px 28px 24px;
+  border-radius: 24px;
+  background: linear-gradient(180deg, #f7faff 0%, #eef4ff 100%);
+  box-shadow: inset 0 0 0 1px rgba(37, 99, 235, 0.06);
+}
+
+.rd_section > :last-child {
+  margin-bottom: 0;
+}
+
+.rd_section .rd_sub {
+  margin-bottom: 20px;
+}
+
+/* 판 안의 목록 줄 · 펼침 상자는 판 색에 맞게 */
+.rd_section .rd_list li,
+.rd_section .rd_list_mood > li {
+  border-bottom-color: rgba(37, 99, 235, 0.08);
+}
+
+.rd_section .rd_list li:last-child,
+.rd_section .rd_list_mood > li:last-child {
+  border-bottom: 0;
+}
+
+.rd_section .rd_mood_row:hover {
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 12px;
+}
+
+.rd_section .rd_why li {
+  background: #fff;
+}
+
+.rd_section .rd_meter {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.rd_section .rd_memos li {
+  border-bottom-color: rgba(37, 99, 235, 0.08);
+}
+
+/* 이미 카드 모양인 그래프는 판 안에서 겹치지 않게 */
+.rd_section .rd_glow_card,
+.rd_section .rd_focus_chart {
+  margin-bottom: 0;
+  background: #fff;
+}
+
+.rd_section .rd_legend {
+  margin-bottom: 0;
+}
+
+.rd_section .rd_more {
+  margin: 12px 0 0;
+}
+
+@media (max-width: 760px) {
+  .rd_section {
+    padding: 20px 16px;
+  }
+}
+
+/* =========================================================
+   화면을 줄였을 때 숫자 칸이 찌그러지던 것 보완
+   - 1200px 이하: 게이지 칸은 위에 가로로 길게, 숫자 칸 3개는 아래 한 줄
+   - 760px 이하: 숫자 칸 한 칸씩 세로로
+   - 칸 폭에 맞춰 그림 크기 줄이고, 글은 그림과 겹치지 않게 한 줄 유지
+   ========================================================= */
+.rd_stats div {
+  container-type: inline-size;
+  min-width: 0;
+}
+
+.rd_stats dt,
+.rd_stats small {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.rd_stats dd {
+  white-space: nowrap;
+  font-size: clamp(22px, 15cqi, 30px);
+}
+
+.rd_stats div::after {
+  width: clamp(72px, 46cqi, 128px);
+  height: clamp(72px, 46cqi, 128px);
+}
+
+.rd_stats div:nth-child(3)::after {
+  width: clamp(84px, 54cqi, 150px);
+}
+
+@media (max-width: 1200px) {
+  .rd_focus_top {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .rd_gauge {
+    width: auto;
+    min-height: 0;
+    grid-template-columns: auto 1fr;
+    justify-items: start;
+    align-items: center;
+    gap: 0 20px;
+    padding: 20px 24px;
+  }
+
+  .rd_gauge svg {
+    width: 96px;
+    height: 96px;
+    grid-row: 1 / 3;
+  }
+
+  .rd_gauge b {
+    position: static;
+    align-self: end;
+  }
+
+  .rd_gauge > span {
+    margin: 0;
+    align-self: start;
+  }
+}
+
+@media (max-width: 1100px) {
+  .ro_detail_inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 760px) {
+  .rd_stats {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .rd_stats div {
+    min-height: 130px;
+  }
+}
+
+/* 그래프 맨 오른쪽 = 오늘 요일: 파랑 굵게 + 아래 작은 점 */
+.rd_body small.is-today {
+  position: relative;
+  font-weight: 700;
+  color: #2563eb;
+}
+
+.rd_body small.is-today::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #2563eb;
+  transform: translateX(-50%);
+}
+
+/* 페이지 큰 제목 전체적으로 작게 (168px → 최대 96px) */
+.ro_word .ro_word_text { font-size: clamp(36px, 5.6vw, 96px); }
+
+/* 페이지 제목 조금 키움 (최대 96px → 116px) */
+.ro_word .ro_word_text { font-size: clamp(40px, 6.6vw, 116px); }
+
+/* 페이지 제목 줄임 (최대 116px → 88px) */
+.ro_word .ro_word_text { font-size: clamp(34px, 5vw, 88px); }
+
+/* 체크된 항목도 제목에 취소선 없이 그대로 읽히게 */
+.rd_parent input:checked ~ span:last-child b {
+  color: #111318;
+  text-decoration: none;
+}
+
+/* 고른 사진 파란 테두리: 두껍게 띄운 선 → 사진에 붙은 얇은 선 */
+.ro_grid button[aria-expanded="true"] img {
+  outline: 2px solid #2563eb;
+  outline-offset: 0;
+  box-shadow: 0 14px 26px -18px rgba(37, 99, 235, 0.45);
+}
+
+/* 사진 아래 기록 이름 · 설명 조금 크게 */
+.ro_grid b {
+  font-size: 20px;
+}
+
+.ro_grid span {
+  font-size: 16px;
+}

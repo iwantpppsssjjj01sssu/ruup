@@ -445,32 +445,66 @@ document.addEventListener('DOMContentLoaded', () => {
         const x = Math.sin(n * 9301 + 49297) * 233280;
         return x - Math.floor(x);
     };
-    const today = new Date();
-    const days = Array.from({ length: 7 }, (_, i) => {
-        const date = new Date(today.getFullYear(), today.getMonth(), today.getDate() - (6 - i));
-        const n = Math.floor(date.getTime() / 86400000);
-        return {
-            label: i === 6 ? '오늘' : WEEK[date.getDay()],
-            date: `${date.getMonth() + 1}/${date.getDate()}`,
-            done: 2 + Math.floor(seeded(n + 1) * 4),
-            mood: Math.min(4, Math.floor(seeded(n + 2) * seeded(n + 3) * 5)),
-            focus: 2 + Math.floor(seeded(n + 4) * 4),
-            memo: seeded(n + 5) < 0.85 ? MEMOS[Math.floor(seeded(n + 6) * MEMOS.length)] : ''
-        };
-    });
-    const dayName = (d) => (d.label === '오늘' ? '오늘' : `${d.label}요일`);
+    // 최근 7일: 열 때마다 오늘 날짜 기준으로 다시 계산 (맨 오른쪽 = 오늘 요일)
+    const buildDays = () => {
+        const today = new Date();
+        return Array.from({ length: 7 }, (_, i) => {
+            const date = new Date(today.getFullYear(), today.getMonth(), today.getDate() - (6 - i));
+            const n = Math.floor(date.getTime() / 86400000);
+            return {
+                label: WEEK[date.getDay()],
+                isToday: i === 6,
+                date: `${date.getMonth() + 1}/${date.getDate()}`,
+                done: 2 + Math.floor(seeded(n + 1) * 4),
+                mood: Math.min(4, Math.floor(seeded(n + 2) * seeded(n + 3) * 5)),
+                focus: 2 + Math.floor(seeded(n + 4) * 4),
+                memo: seeded(n + 5) < 0.85 ? MEMOS[Math.floor(seeded(n + 6) * MEMOS.length)] : ''
+            };
+        });
+    };
+    let days = buildDays();
+    const dayName = (d) => `${d.label}요일`;
     const avg = (key) => (days.reduce((sum, d) => sum + d[key], 0) / days.length);
 
     // 펼친 칸 공통 조각: 숫자 3칸 · 지난주와 비교 · 도움말
     const stats = (items) => `<dl class="rd_stats">${items.map(([k, v, note], i) => `<div style="--i:${i}"><dt>${k}</dt><dd>${v}</dd>${note ? `<small>${note}</small>` : ''}</div>`).join('')}</dl>`;
     const tip = (title, text) => `<div class="rd_tip" style="--i:9"><b>${title}</b><p>${text}</p></div>`;
     const sub = (text) => `<h3 class="rd_sub">${text}</h3>`;
+    // 부모님 확인: 이번 주 꼭 살펴볼 것 (체크하면 이 브라우저에 저장)
+    const parentCheck = (key, items) => `
+        <div class="rd_parent" data-parent-key="${key}">
+            <p class="rd_parent_head"><b>부모님이 확인해 주세요</b><span>이번 주 살펴볼 것 ${items.length}가지</span></p>
+            <ul>${items.map(([title, text], i) => `<li style="--i:${i}"><label><input type="checkbox" data-parent-item="${i}"><span class="rd_parent_box" aria-hidden="true"></span><span><b>${title}</b><small>${text}</small></span></label></li>`).join('')}</ul>
+        </div>`;
     const diffText = (now, prev, unit) => {
         const d = Math.round((now - prev) * 10) / 10;
         return d > 0 ? `지난주보다 +${d}${unit}` : d < 0 ? `지난주보다 ${d}${unit}` : '지난주와 같아요';
     };
 
     const MEMO_SHOW = 3;
+
+    // 감정 얼굴: 이모지 대신 파스텔 그라데이션 동그라미 + 점 눈 · 선 입 (최고예요 → 화나요)
+    const FACE = [
+        { a: '#a8f0e2', b: '#6fd3c4', mouth: 'M16 27 Q22 33 28 27' },
+        { a: '#c8f2b0', b: '#8fdc8a', mouth: 'M17 27 Q22 31 27 27' },
+        { a: '#fff1b0', b: '#f8d97a', mouth: 'M17 28 H27' },
+        { a: '#ffd3b5', b: '#f6a98a', mouth: 'M17 30 Q22 26 27 30' },
+        { a: '#ffc2cf', b: '#f2879e', mouth: 'M16 31 Q22 25 28 31' }
+    ];
+    const moodFace = (i, size = 56) => {
+        const f = FACE[i];
+        const id = `mf${i}_${Math.random().toString(36).slice(2, 7)}`;
+        return `<svg class="mood_face" width="${size}" height="${size}" viewBox="0 0 44 44" aria-hidden="true"><defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${f.a}"/><stop offset="1" stop-color="${f.b}"/></linearGradient></defs><circle cx="22" cy="22" r="22" fill="url(#${id})"/><circle cx="15" cy="20" r="2.2" fill="#1c1c1e"/><circle cx="29" cy="20" r="2.2" fill="#1c1c1e"/><path d="${f.mouth}" fill="none" stroke="#1c1c1e" stroke-width="2" stroke-linecap="round"/></svg>`;
+    };
+
+    // 기분마다 그날의 이유 (예시 기록)
+    const MOOD_REASONS = [
+        ['받아쓰기 100점을 받았어요', '친구랑 놀이터에서 신나게 놀았어요', '할머니 댁에 놀러 갔어요', '루틴을 5개 모두 해냈어요'],
+        ['좋아하는 반찬이 나왔어요', '숙제를 일찍 끝냈어요', '선생님께 칭찬받았어요', '동생이랑 사이좋게 놀았어요'],
+        ['특별한 일 없이 평범한 하루였어요', '조금 피곤했어요', '비가 와서 밖에 못 나갔어요', '학원이 늦게 끝났어요'],
+        ['친구와 다퉜어요', '받아쓰기를 많이 틀렸어요', '좋아하는 장난감이 망가졌어요', '혼자 남아 숙제를 했어요'],
+        ['동생이 숙제를 망가뜨렸어요', '게임 시간이 끝나서 속상했어요', '하기 싫은 공부를 했어요', '친구가 놀렸어요']
+    ];
 
     const views = {
         routine: () => {
@@ -482,12 +516,27 @@ document.addEventListener('DOMContentLoaded', () => {
             const weakest = [...perRoutine].sort((a, b) => a[1] - b[1])[0];
             return {
                 title: '루틴 수행 기록',
-                lead: `이번 주에 루틴을 모두 <b>${total}번</b> 끝냈어요. 하루 평균 <b>${avg('done').toFixed(1)}개</b>이고, 가장 많이 해낸 날은 <b>${dayName(best)}(${best.done}개)</b>이에요.`,
+                lead: `이번 주에 루틴을 모두 <b>${total}번</b> 끝냈어요.<br>하루 평균 <b>${avg('done').toFixed(1)}개</b>이고, 가장 많이 해낸 날은 <b>${dayName(best)}(${best.done}개)</b>이에요.`,
                 body: `${stats([['수행률', `${rate}%`, diffText(rate, rate - 6, '%p')], ['모두 해낸 날', `${full}일`, '5개 모두 완료'], ['끝낸 루틴', `${total}번`, '7일 합계']])}
                     ${sub('하루에 끝낸 루틴')}
-                    <ol class="rd_bars">${days.map((d, i) => `<li style="--i:${i}"><span class="rd_bar" style="--v:${d.done / 5}"><i></i></span><b>${d.done}/5</b><small>${d.label}</small></li>`).join('')}</ol>
+                    <div class="rd_glow_card" style="--avg:${avg('done') / 5}">
+                        <ul class="rd_glow_pills">
+                            <li>수행률 <i></i><b>${rate}%</b></li>
+                            <li>모두 해낸 날 <i></i><b>${full}일</b></li>
+                            <li>하루 평균 <i></i><b>${avg('done').toFixed(1)}개</b></li>
+                        </ul>
+                        <div class="rd_glow_chart">
+                            <span class="rd_glow_avg" aria-hidden="true"><em>1주 <b>평균</b></em></span>
+                            <ol class="rd_glow_bars">${days.map((d, i) => `<li style="--i:${i};--v:${d.done / 5}" class="${d === best ? 'is-hl' : ''}"><span class="rd_glow_bar">${d === best ? '<i class="rd_glow_dot"></i>' : ''}</span><b>${d.done}/5</b><small class="${d.isToday ? 'is-today' : ''}">${d.label}</small></li>`).join('')}</ol>
+                        </div>
+                    </div>
                     ${sub('루틴별로 해낸 날')}
                     <ul class="rd_list">${perRoutine.map(([name, n], i) => `<li style="--i:${i}"><span>${name}</span><i class="rd_meter" style="--v:${n / 7}"></i><b>${n}/7일</b></li>`).join('')}</ul>
+                    ${parentCheck('routine', [
+                        ['빠지는 루틴 확인', `<b>${weakest[0]}</b>가 이번 주 ${7 - weakest[1]}번 빠졌어요. 어떤 날 빠졌는지 함께 확인해 주세요.`],
+                        ['모두 해낸 날 칭찬하기', `5개를 모두 해낸 날이 ${full}일 있어요. 그날을 구체적으로 칭찬해 주세요.`],
+                        ['다음 주 루틴 시간 점검', '시작 시간이 너무 늦거나 겹치는 루틴이 없는지 루틴 페이지에서 확인해 주세요.']
+                    ])}
                     ${tip('이렇게 해 보세요', `가장 자주 빠진 루틴은 <b>${weakest[0]}</b>예요 (${weakest[1]}/7일). 시간을 앞당기거나 다른 루틴 바로 뒤에 붙여 보세요.`)}`
             };
         },
@@ -502,9 +551,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 lead: `이번 주에는 <b>‘${MOODS[top][1]}’</b>가 가장 많았어요 (${counts[top]}일). 기분이 안 좋았던 날은 <b>${bad}일</b>이에요.`,
                 body: `${stats([['좋았던 날', `${good}일`, '최고예요 · 좋아요'], ['보통인 날', `${counts[2]}일`, '그저 그래요'], ['안 좋았던 날', `${bad}일`, '속상해요 · 화나요']])}
                     ${sub('날마다 기분')}
-                    <ol class="rd_moods">${days.map((d, i) => `<li style="--i:${i}"><span aria-hidden="true">${MOODS[d.mood][0]}</span><b>${MOODS[d.mood][1]}</b><small>${d.label}</small></li>`).join('')}</ol>
+                    <ol class="rd_moods">${days.map((d, i) => `<li style="--i:${i}"><span aria-hidden="true">${moodFace(d.mood)}</span><b>${MOODS[d.mood][1]}</b><small class="${d.isToday ? 'is-today' : ''}">${d.label}</small></li>`).join('')}</ol>
                     ${sub('기분별 횟수')}
-                    <ul class="rd_list">${MOODS.map(([emoji, name], i) => `<li style="--i:${i}"><span><em aria-hidden="true">${emoji}</em> ${name}</span><i class="rd_meter" style="--v:${counts[i] / 7}"></i><b>${counts[i]}일</b></li>`).join('')}</ul>
+                    <ul class="rd_list rd_list_mood">${MOODS.map(([emoji, name], i) => {
+                        const hits = days.map((d, k) => ({ d, k })).filter(({ d }) => d.mood === i);
+                        const detail = hits.length
+                            ? `<ul class="rd_why">${hits.map(({ d, k }) => `<li><b>${dayName(d)}</b><small>${d.date}</small><p>${MOOD_REASONS[i][k % MOOD_REASONS[i].length]}</p></li>`).join('')}</ul>`
+                            : '<p class="rd_why_empty">이번 주에는 이 기분이었던 날이 없어요.</p>';
+                        return `<li style="--i:${i}"><button type="button" class="rd_mood_row" aria-expanded="false" data-mood-row${hits.length ? '' : ' data-empty'}><span><em aria-hidden="true">${moodFace(i, 26)}</em> ${name}</span><i class="rd_meter" style="--v:${counts[i] / 7}"></i><b>${counts[i]}일</b><i class="rd_chev" aria-hidden="true"></i></button><div class="rd_why_wrap" hidden>${detail}</div></li>`;
+                    }).join('')}</ul>
+                    ${parentCheck('mood', [
+                        ['기분이 안 좋았던 날 대화하기', bad ? `${badDays.join(', ')}에 기분이 안 좋았어요. 무슨 일이 있었는지 들어 주세요.` : '이번 주는 안 좋은 날이 없어요. 좋았던 이유를 물어봐 주세요.'],
+                        ['기분과 루틴 연결해 보기', '기분이 안 좋은 날 루틴을 빠뜨렸는지 루틴 기록과 함께 비교해 주세요.'],
+                        ['감정 표현 칭찬하기', '자기 기분을 솔직하게 기록한 것 자체를 칭찬해 주세요.']
+                    ])}
                     ${tip('이렇게 해 보세요', bad ? `<b>${badDays.join(', ')}</b>에 기분이 안 좋았어요. 그날 무슨 일이 있었는지 짧게 이야기 나눠 보세요.` : '이번 주는 기분이 안 좋았던 날이 없어요. 좋았던 순간을 함께 떠올려 칭찬해 주세요.')}`
             };
         },
@@ -520,9 +580,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     ${sub('날마다 집중도')}
                     <div class="rd_focus_chart" style="--avg:${a / 5}">
                         <span class="rd_avg_line" aria-hidden="true"><em>평균 ${a.toFixed(1)}</em></span>
-                        <ol class="rd_bars rd_bars_focus">${days.map((d, i) => `<li style="--i:${i}" class="${d === best ? 'is-best' : ''}${d === low ? ' is-low' : ''}"><span class="rd_bar" style="--v:${d.focus / 5}"><i></i></span><b>${d.focus}점</b><small>${d.label}</small></li>`).join('')}</ol>
+                        <ol class="rd_bars rd_bars_focus">${days.map((d, i) => `<li style="--i:${i}" class="${d === best ? 'is-best' : ''}${d === low ? ' is-low' : ''}"><span class="rd_bar" style="--v:${d.focus / 5}"><i></i></span><b>${d.focus}점</b><small class="${d.isToday ? 'is-today' : ''}">${d.label}</small></li>`).join('')}</ol>
                     </div>
                     <p class="rd_legend"><span class="is-best"></span>가장 높은 날 <span class="is-low"></span>가장 낮은 날 <span class="is-avg"></span>이번 주 평균</p>
+                    ${parentCheck('focus', [
+                        ['집중이 낮은 날 환경 점검', `${dayName(low)}(${low.focus}점)에 공부한 장소와 시간대를 확인해 주세요.`],
+                        ['휴대폰 · TV 거리 두기', '공부하는 동안 화면이 보이는 곳에 있지 않았는지 살펴봐 주세요.'],
+                        ['잘 집중한 날 이유 찾기', `${dayName(best)}처럼 잘 집중한 날의 비결을 아이와 함께 찾아 보세요.`]
+                    ])}
                     ${tip('이렇게 해 보세요', `집중도가 가장 낮았던 날은 <b>${dayName(low)}(${low.focus}점)</b>이에요. 공부 전 5분 쉬는 시간을 넣거나, 책상 위 물건을 정리해 보세요.`)}`
             };
         },
@@ -542,6 +607,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         ? `<ul class="rd_memos" data-memo-list>${memos.map((d, i) => `<li style="--i:${i}"${i >= MEMO_SHOW ? ' hidden' : ''}><small>${d.label} · ${d.date}</small><p>${d.memo}</p></li>`).join('')}</ul>
                             ${memos.length > MEMO_SHOW ? `<button type="button" class="rd_more" aria-expanded="false" data-memo-more>더 보기 <span>+${memos.length - MEMO_SHOW}</span> <i aria-hidden="true">↓</i></button>` : ''}`
                         : '<p class="rd_empty">이번 주에는 아직 메모가 없어요.</p>'}
+                    ${parentCheck('memo', [
+                        ['메모 함께 읽기', '아이가 남긴 메모를 함께 읽고 짧게 답해 주세요.'],
+                        ['걱정되는 내용 확인', '힘들거나 속상하다는 메모가 있었는지 살펴봐 주세요.'],
+                        ['쉬었던 날 기록 돕기', `${7 - memos.length}일은 메모가 없어요. 잠들기 전 한 줄 쓰기를 도와주세요.`]
+                    ])}
                     ${tip('이렇게 해 보세요', '잘한 일을 메모로 남긴 날은 다음 날 루틴 수행률이 높아요. 잠들기 전 한 줄씩 함께 적어 보세요.')}`
             };
         }
@@ -602,6 +672,37 @@ document.addEventListener('DOMContentLoaded', () => {
         more.innerHTML = open ? '접기 <i aria-hidden="true">↑</i>' : `더 보기 <span>+${rest.length}</span> <i aria-hidden="true">↓</i>`;
     });
 
+    // 기분별 횟수: 줄을 누르면 그 기분이었던 요일과 이유가 바로 아래에 펼쳐짐
+    body.addEventListener('click', (event) => {
+        const row = event.target.closest('[data-mood-row]');
+        if (!row) return;
+        const wrap = row.nextElementSibling;
+        const open = row.getAttribute('aria-expanded') !== 'true';
+        row.setAttribute('aria-expanded', String(open));
+        wrap.hidden = !open;
+    });
+
+    // 부모님 확인 체크: 주(週)마다 따로 저장
+    const weekKey = (() => { const d = new Date(); const first = new Date(d.getFullYear(), d.getMonth(), d.getDate() - d.getDay()); return `${first.getFullYear()}-${first.getMonth() + 1}-${first.getDate()}`; })();
+    const parentStore = (k) => `luup-parent-${k}-${weekKey}`;
+    const restoreParent = () => {
+        body.querySelectorAll('[data-parent-key]').forEach((box) => {
+            // 저장된 값이 없으면 처음부터 모두 체크된 상태로
+            let saved = null;
+            try { saved = JSON.parse(localStorage.getItem(parentStore(box.dataset.parentKey))); } catch { saved = null; }
+            box.querySelectorAll('[data-parent-item]').forEach((input) => {
+                input.checked = Array.isArray(saved) ? saved.includes(Number(input.dataset.parentItem)) : true;
+            });
+        });
+    };
+    body.addEventListener('change', (event) => {
+        const input = event.target.closest('[data-parent-item]');
+        if (!input) return;
+        const box = input.closest('[data-parent-key]');
+        const checked = [...box.querySelectorAll('[data-parent-item]')].filter((el) => el.checked).map((el) => Number(el.dataset.parentItem));
+        try { localStorage.setItem(parentStore(box.dataset.parentKey), JSON.stringify(checked)); } catch { /* 저장 불가 시 무시 */ }
+    });
+
     const buttons = [...grid.querySelectorAll('[data-ro-open]')];
     let openKey = null;
     const close = () => {
@@ -618,6 +719,7 @@ document.addEventListener('DOMContentLoaded', () => {
             close();
             return;
         }
+        days = buildDays();
         const view = views[key]();
         body.innerHTML = `
             <div class="rd_head">
@@ -627,6 +729,23 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
             <div class="rd_body">${view.body}</div>
             <button type="button" class="rd_close" data-ro-close>접기 <span aria-hidden="true">↑</span></button>`;
+        // "부모님이 확인해 주세요" · "이렇게 해 보세요"는 왼쪽 칸(제목 아래)으로
+        const headCol = body.querySelector('.rd_head');
+        body.querySelectorAll('.rd_body > .rd_parent, .rd_body > .rd_tip').forEach((el) => headCol.append(el));
+        // 오른쪽: 소제목 + 그 아래 내용(다음 소제목 전까지)을 한 판으로 묶어 바탕을 깔아 줌
+        body.querySelectorAll('.rd_body > .rd_sub').forEach((subEl) => {
+            const panel = document.createElement('section');
+            panel.className = 'rd_section';
+            subEl.before(panel);
+            let next = subEl;
+            while (next && !(next !== subEl && next.classList?.contains('rd_sub')) && !next.classList?.contains('rd_more_skip')) {
+                const after = next.nextElementSibling;
+                panel.append(next);
+                next = after;
+                if (next && (next.classList.contains('rd_sub') || next.classList.contains('rd_close'))) break;
+            }
+        });
+        restoreParent();
         body.querySelector('[data-ro-close]').addEventListener('click', () => {
             close();
             button.focus();

@@ -671,11 +671,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const arcDealtWaiters = [];
         const whenDealt = (fn) => (arcDealt ? fn() : arcDealtWaiters.push(fn));
         if ('IntersectionObserver' in window && dealCards.length) {
-            dealCards.forEach((card) => {
-                card.style.setProperty('--drop-x', `${Math.round((Math.random() - 0.5) * 160)}px`);
-                card.style.setProperty('--drop-r', `${Math.round((Math.random() - 0.5) * 40)}deg`);
-                card.classList.add('is-up');
-            });
+            dealCards.forEach((card) => card.classList.add('is-up'));
             arc.querySelector('.arc_cards')?.classList.add('is-dealing');
             const dealObserver = new IntersectionObserver((entries) => {
                 if (!entries[0].isIntersecting) {
@@ -683,28 +679,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 dealObserver.disconnect();
                 // 무작위 순서로 한 장씩 (매번 다른 순서), 떨어지는 방향·기울기도 카드마다 다르게
-                const order = [...dealCards].sort(() => Math.random() - 0.5);
-                order.forEach((card, i) => {
-                    setTimeout(() => {
-                        dealCards.forEach((c) => {
-                            c.classList.remove('is-front');
-                            c.style.removeProperty('--rise');
-                        });
-                        card.classList.remove('is-up');
-                        card.classList.add('is-front');
-                        card.style.setProperty('--rise', '-18px');
-                    }, 300 + i * DEAL_MS);
+                // 카드 6장이 한 번에 아래에서 위로 쓱 올라옴 (가운데부터 아주 살짝 차이를 두어 부드럽게)
+                // 펼침·확대 상태 초기화 후 한 번에 올라옴 (지연은 translate · opacity에만)
+                dealCards.forEach((card) => {
+                    card.classList.remove('is-front', 'is-back', 'show-go');
+                    card.style.removeProperty('--rise');
+                    card.style.removeProperty('--spread');
                 });
-                // 마지막 카드까지 읽을 시간을 준 뒤 모두 제자리로
+                const mid = (dealCards.length - 1) / 2;
+                dealCards.forEach((card, i) => {
+                    const delay = `${Math.round(Math.abs(i - mid) * 50)}ms`;
+                    card.style.transitionDelay = `${delay}, ${delay}, 0s`;
+                });
+                requestAnimationFrame(() => requestAnimationFrame(() => dealCards.forEach((card) => card.classList.remove('is-up'))));
                 setTimeout(() => {
-                    dealCards.forEach((c) => {
-                        c.classList.remove('is-front');
-                        c.style.removeProperty('--rise');
-                    });
+                    dealCards.forEach((card) => { card.style.transitionDelay = ''; });
                     arcDealt = true;
-                    setTimeout(() => arc.querySelector('.arc_cards')?.classList.remove('is-dealing'), 1200);
+                    arc.querySelector('.arc_cards')?.classList.remove('is-dealing');
                     arcDealtWaiters.splice(0).forEach((fn) => fn());
-                }, 300 + dealCards.length * DEAL_MS + 200);
+                }, 1500);
             }, { threshold: 0.3 });
             dealObserver.observe(arc.querySelector('.arc_cards') || arc);
         } else {

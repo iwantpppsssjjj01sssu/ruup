@@ -3266,3 +3266,1994 @@ body:has(.gr_report) {
     grid-template-rows: none;
   }
 }
+
+/* =========================================================
+   GROWTH: 검정 바탕 빼기 → 흰 바탕
+   - 글씨는 진한 색, 빛나는 흰 테두리 → 연한 회색 테두리 + 은은한 그림자
+   - 민트 카드 · 민트 강조색은 그대로 (흰 바탕에서 읽히게 진한 민트로)
+   ========================================================= */
+body:has(.gr_report) {
+  background: #fff;
+}
+
+.gr.gr_report {
+  --glow: 0 0 0 1px #e3e6eb, 0 18px 40px -28px rgba(17, 19, 24, 0.25);
+  --mint-text: #0f9a66;
+  color: #111318;
+}
+
+.gr_report > .gr_hero,
+.gr_report > .gr_stats.gr_log,
+.gr_report > .gr_end {
+  color: #111318;
+}
+
+.gr_report .gr_title {
+  color: #111318;
+  text-shadow: none;
+}
+
+.gr_report .gr_swap_to {
+  color: var(--mint-text);
+  text-shadow: none;
+}
+
+.gr_report .page_lead {
+  color: #404856;
+}
+
+.gr_report .page_lead b {
+  color: #111318;
+}
+
+.gr_report .gr_hero_foot .gr_label,
+.ghm_label {
+  color: #8a919c;
+}
+
+.gr_report .gr_hero_copy,
+.gr_report .gr_hero_copy p,
+.gr_report .gr_lead,
+.ghm_text {
+  color: #5b6472;
+}
+
+.gr_report .gr_lead,
+.ghm_big {
+  color: #111318;
+}
+
+.gr_report .gr_lead em,
+.ghm_big em {
+  color: var(--mint-text);
+}
+
+.gr_report .gr_label,
+.gr_report .gl_title {
+  color: #111318;
+}
+
+.gr_report .gl_sub,
+.gr_report .gl_hint {
+  color: #8a919c;
+}
+
+.gr_report > .gr_stats.gr_log .gl_center {
+  border-top-color: #e3e6eb;
+}
+
+.gr_report .gr_log .gl_card:hover {
+  background: #f7f9fb;
+}
+
+.gr_report .gr_log .gr_label {
+  color: #5b6472;
+}
+
+.gr_report .gr_log .gr_num {
+  color: var(--mint-text);
+  text-shadow: none;
+}
+
+.gr_report .gr_log .gl_card::before {
+  color: #9aa1ab;
+}
+
+.gr_report > .gr_stats.gr_log::after {
+  border-top-color: #e3e6eb;
+  color: #a3a9b3;
+}
+
+.gr_report > .gr_end .gr_end_title {
+  color: #111318;
+}
+
+.gr_report > .gr_end .gr_biglink {
+  color: var(--mint-text);
+}
+
+/* 초록(민트) → 파랑 */
+.gr.gr_report {
+  --mint: #cfe0ff;
+  --mint-ink: #12306e;
+  --mint-text: #2563eb;
+}
+
+.gr_report > [data-page] .gc_stack span:nth-child(1),
+.gr_report > [data-page] .gr_cats li:nth-child(1) { --gc: #12306e; }
+.gr_report > [data-page] .gc_stack span:nth-child(2),
+.gr_report > [data-page] .gr_cats li:nth-child(2) { --gc: #2563eb; }
+.gr_report > [data-page] .gc_stack span:nth-child(3),
+.gr_report > [data-page] .gr_cats li:nth-child(3) { --gc: #6f9cf2; }
+.gr_report > [data-page] .gc_stack span:nth-child(4),
+.gr_report > [data-page] .gr_cats li:nth-child(4) { --gc: #ffffff; }
+
+.gr_report > [data-page] .gr_day.lv0 { background: rgba(18, 48, 110, 0.08); }
+.gr_report > [data-page] .gr_day.lv1 { background: rgba(18, 48, 110, 0.25); }
+.gr_report > [data-page] .gr_day.lv2 { background: rgba(18, 48, 110, 0.55); }
+
+.gr_mint .rp_doc {
+  color: rgba(18, 48, 110, 0.7);
+}
+
+.gr_mint .rp_info dt,
+.gr_mint .rp_toc_head span,
+.gr_mint .rp_tiles small {
+  color: rgba(18, 48, 110, 0.6);
+}
+
+.gr_mint .rp_tiles i {
+  border-color: rgba(18, 48, 110, 0.3);
+}
+
+.gr_report > [data-page] .rp_cap,
+.gr_report > [data-page]::after {
+  color: rgba(18, 48, 110, 0.55);
+}
+
+.gr_report > [data-page]::after {
+  border-top-color: rgba(18, 48, 110, 0.15);
+}
+
+.gr_report > [data-page] .gr_tabs button {
+  border-color: rgba(18, 48, 110, 0.25);
+}
+
+/* =========================================================
+   GROWTH 핵심 지표: 세로 기둥 4개 레이아웃 (참고: OUR APPROACH · TECHNOLOGY · STORY · DESIGN TEAM)
+   - 흰 기둥 4개, 위엔 작은 글, 아래엔 큰 이름 두 줄
+   - 가리키면 그 기둥에 사진이 아래에서 위로 차오름
+   - 누르면 그 기둥이 넓어져 화면 전체를 덮고, 이름은 흰 글씨 + 설명 · 보기 버튼
+   ========================================================= */
+.gr_report > .gr_stats.gr_log {
+  display: none;
+}
+
+.gr_cols {
+  position: relative;
+  margin: 0 var(--title-x) 64px;
+  height: clamp(460px, 62svh, 620px);
+  overflow: hidden;
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: 0 0 0 1px #e3e6eb;
+}
+
+.gc_head {
+  position: absolute;
+  top: 32px;
+  left: 50%;
+  z-index: 3;
+  margin: 0;
+  font-size: clamp(24px, 2.6vw, 40px);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: #111318;
+  pointer-events: none;
+  transition: color 0.4s ease;
+}
+
+.gr_cols.is-open .gc_head {
+  color: #fff;
+}
+
+.gc_list {
+  display: flex;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gc_col {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  border-left: 1px solid #e3e6eb;
+  transition: flex 0.8s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.gc_col:first-child {
+  border-left: 0;
+}
+
+.gc_btn {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  text-align: left;
+  color: #111318;
+  cursor: pointer;
+}
+
+.gc_top {
+  position: absolute;
+  top: 26px;
+  left: 26px;
+  z-index: 2;
+  font-size: 13px;
+  color: #5b6472;
+  transition: color 0.4s ease, opacity 0.4s ease;
+}
+
+.gc_pic {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 0.7s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.gc_pic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.08);
+  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.gc_pic::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(17, 19, 24, 0.15) 0%, transparent 35%, rgba(17, 19, 24, 0.45) 100%);
+}
+
+.gc_name {
+  position: absolute;
+  left: 26px;
+  bottom: 26px;
+  z-index: 2;
+  font-size: clamp(22px, 2.2vw, 34px);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: #111318;
+  transition: color 0.4s ease;
+}
+
+.gc_name b {
+  font-weight: 600;
+  color: #2563eb;
+  transition: color 0.4s ease;
+}
+
+/* 가리키면 사진 차오름 */
+.gc_col:hover .gc_pic,
+.gc_btn:focus-visible .gc_pic,
+.gc_col.is-open .gc_pic {
+  clip-path: inset(0 0 0 0);
+}
+
+.gc_col:hover .gc_pic img,
+.gc_col.is-open .gc_pic img {
+  transform: scale(1);
+}
+
+.gc_col:hover .gc_name,
+.gc_col:hover .gc_name b,
+.gc_col:hover .gc_top,
+.gc_col.is-open .gc_name,
+.gc_col.is-open .gc_name b,
+.gc_col.is-open .gc_top {
+  color: #fff;
+}
+
+/* 펼침: 고른 기둥만 넓게 */
+.gr_cols.is-open .gc_col {
+  flex-grow: 0.0001;
+  border-left-color: transparent;
+}
+
+.gr_cols.is-open .gc_col.is-open {
+  flex-grow: 1;
+}
+
+.gr_cols.is-open .gc_col:not(.is-open) .gc_btn > * {
+  opacity: 0;
+}
+
+.gc_col.is-open .gc_name {
+  font-size: clamp(32px, 3.6vw, 56px);
+}
+
+/* 펼친 뒤 설명 + 보기 */
+.gc_more {
+  position: absolute;
+  left: 50%;
+  bottom: 28px;
+  right: 28px;
+  z-index: 3;
+  display: grid;
+  gap: 14px;
+  justify-items: start;
+  max-width: 420px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: opacity 0.3s ease, transform 0.4s ease, visibility 0s linear 0.3s;
+}
+
+.gc_col.is-open .gc_more {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity 0.4s ease 0.6s, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.6s, visibility 0s;
+}
+
+.gc_more p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  word-break: keep-all;
+}
+
+.gc_go {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 999px;
+  background: #fff;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: #111318;
+  cursor: pointer;
+}
+
+.gc_go i {
+  font-style: normal;
+}
+
+.gc_close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 4;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 16px;
+  color: #111318;
+  cursor: pointer;
+}
+
+@media (max-width: 760px) {
+  .gr_cols {
+    height: auto;
+  }
+
+  .gc_head {
+    position: static;
+    padding: 24px 20px 12px;
+  }
+
+  .gc_list {
+    flex-direction: column;
+  }
+
+  .gc_col {
+    flex: none;
+    height: 160px;
+    border-left: 0;
+    border-top: 1px solid #e3e6eb;
+  }
+
+  .gr_cols.is-open .gc_col:not(.is-open) {
+    height: 0;
+    overflow: hidden;
+  }
+
+  .gr_cols.is-open .gc_col.is-open {
+    height: 440px;
+  }
+
+  .gc_more {
+    left: 20px;
+    bottom: 110px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gc_col,
+  .gc_pic,
+  .gc_pic img,
+  .gc_more {
+    transition: none;
+  }
+}
+
+/* 가운데 큰 제목이 놓인 3번째 기둥은 위 작은 글 숨김 (겹침 방지) */
+.gc_col:nth-child(3) .gc_top {
+  display: none;
+}
+
+.gr_cols.is-open .gc_col.is-open:nth-child(3) .gc_top {
+  display: block;
+}
+
+/* =========================================================
+   GROWTH 전체 = 기둥 4개 한 가지 디자인
+   - 제목 바로 아래에 기둥 4개 (옛 요약 상자 · 문서 카드 · 목차 · 핵심 지표 표 · 추가 페이지 모두 없앰)
+   - 기둥을 누르면: 왼쪽은 사진 + 이름, 오른쪽은 흰 상세 칸(그래프 · 달력 · 목록)이 스크롤
+   - 아래: 종합 소견 · 다음 단계도 같은 테두리 판
+   ========================================================= */
+.gr_report > .gr_hero {
+  display: block;
+  padding-bottom: clamp(28px, 3vw, 44px);
+}
+
+.gr_report .gr_mint,
+.gr_report .gr_hero_foot,
+.gr_report .gr_hero_more,
+.gr_report .rp_meta,
+.gr_report .rp_toc {
+  display: none !important;
+}
+
+.gr_report .page_lead {
+  margin: 18px 0 0;
+}
+
+/* 기둥 판: 열리면 높게 */
+.gr_cols {
+  margin-bottom: 28px;
+  transition: height 0.8s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.gr_cols.is-open {
+  height: min(86svh, 860px);
+}
+
+.gr_cols.is-open .gc_head {
+  opacity: 0;
+}
+
+.gc_head {
+  transition: color 0.4s ease, opacity 0.3s ease;
+}
+
+/* 열린 기둥: 왼쪽 38% 사진 · 오른쪽 상세 */
+.gc_col.is-open .gc_btn {
+  right: 62%;
+}
+
+.gc_col.is-open .gc_pic {
+  right: 62%;
+}
+
+.gc_more {
+  display: none !important;
+}
+
+.gc_detail {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 38%;
+  z-index: 3;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: clamp(28px, 3vw, 48px) clamp(24px, 3vw, 48px) 48px;
+  background: #fff;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(24px);
+  transition: opacity 0.3s ease, transform 0.4s ease, visibility 0s linear 0.3s;
+  outline: none;
+}
+
+.gc_col.is-open .gc_detail {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity 0.45s ease 0.55s, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.55s, visibility 0s;
+}
+
+.gc_detail_lead {
+  max-width: 560px;
+  margin: 0 0 28px;
+  padding-right: 48px;
+  font-size: clamp(17px, 1.4vw, 20px);
+  line-height: 1.65;
+  color: #404856;
+  word-break: keep-all;
+}
+
+/* 옮겨 온 상세 페이지: 판 장식 없애고 칸 안에 맞춤 */
+.gc_detail .gc_page {
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: none !important;
+  box-shadow: none !important;
+  color: #111318;
+  animation: none !important;
+}
+
+.gc_detail .gc_page::before,
+.gc_detail .gc_page::after {
+  display: none !important;
+}
+
+.gc_detail .gc_page .rp_no {
+  display: none;
+}
+
+.gc_detail .gc_page .gr_block_head,
+.gc_detail .gc_page .gr_list_head {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 24px;
+  padding: 0;
+  border: 0;
+}
+
+.gc_detail .gc_page .gr_label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #8a919c;
+}
+
+.gc_detail .gc_page .gr_block_title {
+  font-family: 'Pretendard Variable', 'Pretendard', var(--luup-font);
+  font-size: clamp(22px, 2vw, 30px);
+  font-weight: 600;
+  color: #111318;
+}
+
+.gc_detail .gc_page .gr_chart,
+.gc_detail .gc_page .gr_cal,
+.gc_detail .gc_page .gc_stack,
+.gc_detail .gc_page .gr_cats {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.gc_detail .gc_page .gr_chart,
+.gc_detail .gc_page .gr_cal {
+  padding: 20px;
+  border-radius: 18px;
+  background: #f5f8ff;
+}
+
+.gc_detail .gc_page .rp_cap {
+  color: #8a919c;
+}
+
+.gc_detail .gc_page .gr_item {
+  margin: 0;
+  padding: 24px 0;
+}
+
+.gc_detail .gc_page .gr_item::before,
+.gc_detail .gc_page .gr_list_head::before,
+.gc_detail .gc_page .gr_reveal_btn::after,
+.gc_detail .gc_page .gr_cats li::after,
+.gc_detail .gc_page .gr_chart::before {
+  display: none;
+}
+
+.gc_detail .gc_page .gr_reveal_btn {
+  display: none;
+}
+
+.gc_detail .gc_page .gr_goals {
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible;
+}
+
+.gc_detail .gc_page .gr_day.lv0 { background: #e9eef8; }
+.gc_detail .gc_page .gr_day.lv1 { background: #c7d7fa; }
+.gc_detail .gc_page .gr_day.lv2 { background: #6f9cf2; }
+.gc_detail .gc_page .gr_day.lv3 { background: #2563eb; }
+
+.gc_detail .gc_page .gc_stack span:nth-child(1),
+.gc_detail .gc_page .gr_cats li:nth-child(1) { --gc: #1d4ed8; }
+.gc_detail .gc_page .gc_stack span:nth-child(2),
+.gc_detail .gc_page .gr_cats li:nth-child(2) { --gc: #4f8cf5; }
+.gc_detail .gc_page .gc_stack span:nth-child(3),
+.gc_detail .gc_page .gr_cats li:nth-child(3) { --gc: #93b4f5; }
+.gc_detail .gc_page .gc_stack span:nth-child(4),
+.gc_detail .gc_page .gr_cats li:nth-child(4) { --gc: #c7d7fa; }
+
+.gc_detail .gc_page .gr_tabs button {
+  border-color: #d6dae1;
+  background: #fff;
+  color: #111318;
+}
+
+.gc_detail .gc_page .gr_tabs button.is-active {
+  border-color: #111318;
+  background: #111318;
+  color: #fff;
+}
+
+/* 닫기 버튼: 흰 상세 칸 위에서도 보이게 */
+.gc_close {
+  background: #111318;
+  color: #fff;
+}
+
+/* 아래 판들: 기둥과 같은 테두리 판 */
+.gr_report > .gc_opinion,
+.gr_report > .gr_end {
+  margin: 0 var(--title-x) 28px !important;
+  padding: clamp(28px, 3vw, 44px) !important;
+  border: 0 !important;
+  border-radius: 6px !important;
+  background: #fff !important;
+  box-shadow: 0 0 0 1px #e3e6eb !important;
+  color: #111318 !important;
+}
+
+.gr_report > .gc_opinion::before,
+.gr_report > .gc_opinion::after,
+.gr_report > .gr_end::before {
+  display: none !important;
+}
+
+.gr_report > .gc_opinion .rp_no,
+.gr_report > .gr_end .rp_no {
+  background: #111318;
+  color: #fff;
+}
+
+.gr_report > .gc_opinion .rp_op_body {
+  border: 0;
+  border-left: 3px solid #2563eb;
+  border-radius: 0;
+  background: #f5f8ff;
+}
+
+.gr_report > .gc_opinion .rp_op_body p,
+.gr_report > .gc_opinion .rp_op_body b {
+  color: #2b3038;
+}
+
+.gr_report > .gr_end .gr_end_title {
+  color: #111318;
+}
+
+.gr_report > .gr_end .gr_biglink {
+  color: #2563eb;
+}
+
+@media (max-width: 760px) {
+  .gr_cols.is-open {
+    height: auto;
+  }
+
+  .gr_cols.is-open .gc_col.is-open {
+    height: auto;
+  }
+
+  .gc_col.is-open .gc_btn,
+  .gc_col.is-open .gc_pic {
+    right: 0;
+    bottom: auto;
+    height: 220px;
+  }
+
+  .gc_col.is-open .gc_btn {
+    position: relative;
+    display: block;
+  }
+
+  .gc_detail {
+    position: relative;
+    left: 0;
+    max-height: none;
+    padding: 24px 20px 32px;
+  }
+
+  .gc_col:not(.is-open) .gc_detail {
+    display: none;
+  }
+}
+
+/* 아래 판: 번호 상자 · 옛 굵은 선 없애기 */
+.gr_report > .gc_opinion .rp_no,
+.gr_report > .gr_end .rp_no {
+  display: none;
+}
+
+.gr_report > .gr_end > :first-child,
+.gr_report > .gc_opinion > :first-child {
+  padding-top: 0 !important;
+  border-top: 0 !important;
+}
+
+/* 다음 단계: 제목 오른쪽 위 작은 카드 */
+.gr_report > .gr_hero {
+  position: relative;
+}
+
+.gr_report .gr_end.gr_end_top {
+  position: absolute;
+  top: calc(var(--luup-header-h) + var(--page-top));
+  right: var(--title-x);
+  width: min(340px, 30vw);
+  margin: 0 !important;
+  padding: 22px 24px !important;
+  border: 0 !important;
+  border-radius: 16px !important;
+  background: #fff !important;
+  box-shadow: 0 0 0 1px #e3e6eb, 0 18px 40px -28px rgba(17, 19, 24, 0.3) !important;
+}
+
+.gr_end_top .gr_label {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #8a919c !important;
+}
+
+.gr_end_top .gr_label .rp_no {
+  display: none;
+}
+
+.gr_end_top .gr_end_title {
+  margin: 8px 0 14px;
+  font-size: clamp(20px, 1.8vw, 26px) !important;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+.gr_end_top .gr_biglink {
+  font-size: 16px !important;
+  font-weight: 600;
+}
+
+@media (max-width: 1100px) {
+  .gr_report .gr_end.gr_end_top {
+    position: static;
+    width: auto;
+    margin-top: 24px !important;
+  }
+}
+
+/* =========================================================
+   기둥을 누르면 사진이 판 전체로 확장
+   - 사진: 기둥 → 판 전체(가로 꽉)
+   - 상세 내용: 사진 위 오른쪽에 떠 있는 흰 카드(반투명 · 흐림)로
+   ========================================================= */
+@media (min-width: 761px) {
+  .gc_col.is-open .gc_btn,
+  .gc_col.is-open .gc_pic {
+    right: 0;
+  }
+
+  .gc_col.is-open .gc_pic::after {
+    background: linear-gradient(90deg, rgba(17, 19, 24, 0.35) 0%, rgba(17, 19, 24, 0.05) 45%, rgba(17, 19, 24, 0.15) 100%);
+  }
+
+  .gc_detail {
+    top: 24px;
+    right: 24px;
+    bottom: 24px;
+    left: auto;
+    width: min(620px, 54%);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.92);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 30px 60px -30px rgba(17, 19, 24, 0.5);
+    transform: translateX(40px);
+  }
+
+  .gc_col.is-open .gc_detail {
+    transition: opacity 0.45s ease 0.75s, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.75s, visibility 0s;
+  }
+
+  .gc_close {
+    top: 40px;
+    right: 40px;
+  }
+}
+
+/* 기둥 위쪽 글씨 통일: 작은 설명과 가운데 제목을 같은 크기 · 같은 위치 규칙으로 */
+.gc_top,
+.gc_head {
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+
+.gc_top {
+  top: 28px;
+  left: 28px;
+  color: #404856;
+}
+
+.gc_head {
+  top: 28px;
+  left: calc(50% + 28px);
+  text-transform: none;
+  color: #111318;
+}
+
+/* =========================================================
+   펼친 기둥: 참고처럼 사진 위 흰 글씨 + 동그란 미리보기
+   - 상세 카드는 처음엔 숨김, 동그라미 · "자세히 보기"를 누르면 오른쪽에 열림
+   ========================================================= */
+.gc_layer {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gc_col.is-open .gc_layer {
+  opacity: 1;
+  transition: opacity 0.5s ease 0.7s;
+}
+
+.gc_col.is-open .gc_layer > * {
+  pointer-events: auto;
+}
+
+/* 동그란 미리보기 */
+.gc_orb {
+  position: absolute;
+  top: 34%;
+  left: 62%;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 4px;
+  width: clamp(150px, 15vw, 210px);
+  aspect-ratio: 1;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 24px 50px -20px rgba(17, 19, 24, 0.5);
+  font: inherit;
+  color: #111318;
+  cursor: pointer;
+  transform: translate(-50%, -50%) scale(0.8);
+  transition: transform 0.6s cubic-bezier(0.34, 1.4, 0.5, 1) 0.8s, box-shadow 0.3s ease;
+}
+
+.gc_col.is-open .gc_orb {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.gc_orb:hover {
+  box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.35), 0 24px 50px -20px rgba(17, 19, 24, 0.5);
+}
+
+.gc_orb svg {
+  width: 62%;
+  height: auto;
+}
+
+.gc_orb b {
+  font-size: 15px;
+  font-weight: 700;
+  color: #2563eb;
+}
+
+.gc_orb_go {
+  position: absolute;
+  right: 10%;
+  bottom: 12%;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(17, 19, 24, 0.08);
+  font-size: 15px;
+  font-style: normal;
+  color: #111318;
+}
+
+.orb_heat {
+  display: grid;
+  grid-template-columns: repeat(7, 12px);
+  gap: 4px;
+}
+
+.orb_heat i {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  background: #e9eef8;
+}
+
+.orb_heat .lv1 { background: #c7d7fa; }
+.orb_heat .lv2 { background: #6f9cf2; }
+.orb_heat .lv3 { background: #2563eb; }
+
+.orb_donut {
+  width: 56%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  -webkit-mask: radial-gradient(circle, transparent 46%, #000 47%);
+  mask: radial-gradient(circle, transparent 46%, #000 47%);
+}
+
+.orb_big {
+  font-family: 'Paperlogy', var(--luup-font);
+  font-size: clamp(48px, 5vw, 72px);
+  font-weight: 700;
+  line-height: 1;
+  color: #2563eb;
+}
+
+/* 흰 글씨 설명 + 자세히 보기 */
+.gc_caption {
+  position: absolute;
+  left: 50%;
+  bottom: 30px;
+  max-width: 360px;
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
+  word-break: keep-all;
+}
+
+.gc_hint {
+  position: absolute;
+  right: 30px;
+  bottom: 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 15px;
+  color: #fff;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.gc_hint i {
+  font-style: normal;
+}
+
+/* 상세 카드: '자세히 보기'를 눌렀을 때만 */
+.gc_col.is-open:not(.is-detail) .gc_detail {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(40px);
+  transition: opacity 0.3s ease, transform 0.4s ease, visibility 0s linear 0.3s;
+}
+
+.gc_col.is-open.is-detail .gc_detail {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity 0.4s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s;
+}
+
+.gc_col.is-detail .gc_layer {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.gc_col.is-detail .gc_layer > * {
+  pointer-events: none;
+}
+
+/* 닫기 버튼은 사진 위에서 보이게 흰색 */
+.gr_cols.is-open .gc_close {
+  background: rgba(255, 255, 255, 0.92);
+  color: #111318;
+}
+
+@media (max-width: 760px) {
+  .gc_layer {
+    position: absolute;
+    inset: 0 0 auto;
+    height: 220px;
+  }
+
+  .gc_orb {
+    top: 50%;
+    left: 74%;
+    width: 120px;
+  }
+
+  .gc_caption {
+    display: none;
+  }
+
+  .gc_hint {
+    right: 16px;
+    bottom: 16px;
+  }
+
+  .gc_col.is-open:not(.is-detail) .gc_detail {
+    display: none;
+  }
+}
+
+/* 기둥 이름: 처음엔 검정 두 줄 글씨만 (숫자는 펼쳤을 때만) */
+.gc_name {
+  display: grid;
+  font-size: clamp(22px, 2.1vw, 32px);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: #111318;
+}
+
+.gc_name b {
+  display: none;
+}
+
+.gc_col.is-open .gc_name b {
+  display: block;
+  margin-top: 6px;
+  color: #fff;
+}
+
+/* 가리켜 사진이 차올라도 글씨는 검정 그대로 (참고처럼), 펼쳤을 때만 흰색 */
+.gc_col:hover:not(.is-open) .gc_name,
+.gc_col:hover:not(.is-open) .gc_top {
+  color: #111318;
+}
+
+.gc_col:not(.is-open) .gc_pic::after {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* 기둥 펼침: 화면 전체(헤더 아래부터 끝까지, 양옆 여백 없이) */
+.gr_cols.is-full {
+  position: fixed;
+  top: var(--luup-header-h, 76px);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  height: auto !important;
+  margin: 0 !important;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.gc_spacer {
+  margin: 0 var(--title-x) 28px;
+}
+
+html.is-col-open,
+html.is-col-open body {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+/* 전체 화면일 때 글씨 · 버튼 위치를 화면 여백에 맞춤 */
+.gr_cols.is-full .gc_name {
+  left: var(--title-x);
+  bottom: 40px;
+  font-size: clamp(36px, 4vw, 64px);
+}
+
+.gr_cols.is-full .gc_top {
+  left: var(--title-x);
+  top: 32px;
+}
+
+.gr_cols.is-full .gc_caption {
+  bottom: 44px;
+}
+
+.gr_cols.is-full .gc_hint {
+  right: var(--title-x);
+  bottom: 44px;
+}
+
+.gr_cols.is-full .gc_close {
+  top: 28px;
+  right: var(--title-x);
+}
+
+.gr_cols.is-full .gc_detail {
+  top: 32px;
+  right: var(--title-x);
+  bottom: 32px;
+}
+
+/* 큰 제목: 기둥 선을 넘어 3·4번째 기둥에 걸쳐 크게 (참고: ELEVATING COMFORT WITH EVERY CURVE) */
+.gc_head {
+  top: 34px;
+  left: calc(50% + 28px);
+  display: grid;
+  justify-items: start;
+  gap: 22px;
+  pointer-events: none;
+}
+
+.gc_head p {
+  margin: 0;
+  font-size: clamp(30px, 3.4vw, 54px);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+  color: #111318;
+}
+
+.gc_head_btn {
+  padding: 9px 18px;
+  border: 1px solid #111318;
+  border-radius: 999px;
+  background: #fff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: #111318;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.gc_head_btn:hover {
+  background: #111318;
+  color: #fff;
+}
+
+/* 제목이 걸친 4번째 기둥은 위 작은 글 숨김 */
+.gc_col:nth-child(4) .gc_top {
+  display: none;
+}
+
+.gr_cols.is-open .gc_col.is-open:nth-child(4) .gc_top {
+  display: block;
+}
+
+@media (max-width: 760px) {
+  .gc_head p {
+    white-space: normal;
+    font-size: 28px;
+  }
+}
+
+/* 페이지 큰 제목 전체적으로 작게 (168px → 최대 96px) */
+.gr_report .gr_title { font-size: clamp(36px, 5.6vw, 96px); }
+
+/* 제목 "우리 아이의 성장 리포트" 한 줄로 */
+.gr_report .gr_title {
+  display: block;
+  white-space: nowrap;
+}
+
+.gr_report .gr_title .gr_line {
+  display: inline !important;
+}
+
+.gr_report .gr_title .gr_line:first-child::after {
+  content: ' ';
+}
+
+/* 페이지 제목 조금 키움 (최대 96px → 116px) */
+.gr_report .gr_title { font-size: clamp(40px, 6.6vw, 116px); }
+
+/* =========================================================
+   펼친 기둥: 글 · 도형을 누르면 각각 다른 정보 카드
+   ========================================================= */
+.gc_col.is-open .gc_tap {
+  cursor: pointer;
+}
+
+.gc_col.is-open .gc_top.gc_tap,
+.gc_col.is-open .gc_name.gc_tap,
+.gc_col.is-open .gc_caption.gc_tap {
+  text-decoration: underline dotted rgba(255, 255, 255, 0.6);
+  text-underline-offset: 6px;
+  text-decoration-thickness: 1.5px;
+  transition: opacity 0.2s ease;
+}
+
+.gc_col.is-open .gc_tap:hover {
+  opacity: 0.85;
+}
+
+.gc_col.is-open .gc_tap.is-active {
+  text-decoration-color: #fff;
+}
+
+.gc_orb.is-active {
+  box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.45), 0 24px 50px -20px rgba(17, 19, 24, 0.5);
+}
+
+.gc_pop {
+  position: absolute;
+  z-index: 8;
+  padding: 18px 20px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.96);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 24px 50px -20px rgba(17, 19, 24, 0.5);
+  color: #111318;
+  opacity: 0;
+  transform: translateY(8px) scale(0.98);
+  transition: opacity 0.25s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.gc_pop.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+.gc_pop_title {
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #2563eb;
+}
+
+.gc_pop_body p {
+  margin: 0 0 6px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #2b3038;
+  word-break: keep-all;
+}
+
+.gc_pop_body ul {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gc_pop_body li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #eef1f6;
+  font-size: 14px;
+  color: #3b4250;
+}
+
+.gc_pop_body li:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.gc_pop_body b {
+  font-weight: 700;
+  color: #111318;
+}
+
+/* 제목 바뀜이 끝나면 칸 폭 = "우리 아이의" 실제 폭 (겹침 방지) */
+.gr_swap.is-done {
+  width: auto !important;
+  transition: none;
+}
+
+.gr_swap.is-done .gr_swap_to {
+  position: static;
+}
+
+.gr_swap.is-done .gr_swap_from {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* 페이지 제목 줄임 (최대 116px → 88px) */
+.gr_report .gr_title { font-size: clamp(34px, 5vw, 88px); }
+
+/* 큰 제목: 판 오른쪽 위로, 글 · 버튼 모두 오른쪽 정렬 */
+.gc_head {
+  left: auto;
+  right: 32px;
+  justify-items: end;
+  text-align: right;
+}
+
+.gc_head p {
+  text-align: right;
+}
+
+@media (max-width: 760px) {
+  .gc_head {
+    right: auto;
+    justify-items: start;
+    text-align: left;
+  }
+
+  .gc_head p {
+    text-align: left;
+  }
+}
+
+/* 기둥 위쪽 작은 글(8주 연속 상승 · 하루도 빠짐없이 …) 없앰 — 접힌 상태 · 펼친 상태 모두 */
+.gc_top,
+.gr_cols.is-open .gc_col.is-open .gc_top {
+  display: none !important;
+}
+
+/* 펼친 기둥 사진: 아래쪽 전체에 검은 그라데이션 → 흰 글씨가 또렷하게 */
+.gc_col.is-open .gc_pic::after {
+  background:
+    linear-gradient(180deg, rgba(10, 12, 16, 0) 45%, rgba(10, 12, 16, 0.35) 70%, rgba(10, 12, 16, 0.72) 100%),
+    linear-gradient(180deg, rgba(10, 12, 16, 0.18) 0%, rgba(10, 12, 16, 0) 22%);
+}
+
+/* 아래 검은 그라데이션 더 진하고 넓게 */
+.gc_col.is-open .gc_pic::after {
+  background:
+    linear-gradient(180deg, rgba(10, 12, 16, 0) 25%, rgba(10, 12, 16, 0.45) 55%, rgba(10, 12, 16, 0.85) 100%),
+    linear-gradient(180deg, rgba(10, 12, 16, 0.22) 0%, rgba(10, 12, 16, 0) 22%);
+}
+
+/* =========================================================
+   "다음 단계" 카드 새 디자인: 진한 파랑 카드 + 흰 글씨 + 흰 알약 버튼
+   - 오른쪽 위에 은은한 빛, 버튼을 가리키면 화살표가 살짝 움직임
+   ========================================================= */
+.gr_report .gr_end.gr_end_top {
+  overflow: hidden;
+  padding: 26px 26px 24px !important;
+  border-radius: 22px !important;
+  background:
+    radial-gradient(120% 90% at 100% 0%, rgba(140, 190, 255, 0.55), transparent 60%),
+    linear-gradient(150deg, #2f6df0 0%, #1d4ed8 100%) !important;
+  box-shadow: 0 24px 50px -24px rgba(29, 78, 216, 0.6) !important;
+  color: #fff !important;
+}
+
+.gr_end_top .gr_label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.gr_end_top .gr_label::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.25);
+}
+
+.gr_end_top .gr_end_title {
+  margin: 12px 0 20px;
+  font-size: clamp(22px, 1.9vw, 28px) !important;
+  font-weight: 600;
+  color: #fff !important;
+}
+
+.gr_end_top .gr_biglink {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px 10px 18px;
+  border-radius: 999px;
+  background: #fff;
+  font-size: 15px !important;
+  font-weight: 600;
+  color: #1d4ed8 !important;
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.gr_end_top .gr_biglink i {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #1d4ed8;
+  font-size: 13px;
+  font-style: normal;
+  color: #fff;
+  transition: transform 0.25s ease;
+}
+
+.gr_end_top .gr_biglink:hover {
+  box-shadow: 0 10px 24px -10px rgba(0, 0, 0, 0.35);
+  transform: translateY(-1px);
+}
+
+.gr_end_top .gr_biglink:hover i {
+  transform: rotate(45deg);
+}
+
+.gr_end_top .gr_biglink::after,
+.gr_end_top .gr_biglink span::after {
+  display: none;
+}
+
+/* =========================================================
+   종합 소견 알림 창 (다른 페이지로 갈 때 한 번)
+   ========================================================= */
+.gr_report > .gc_opinion {
+  display: none !important;
+}
+
+.op_alert {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(10, 12, 16, 0.45);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.op_alert.is-in {
+  opacity: 1;
+}
+
+.op_alert_box {
+  width: min(560px, 100%);
+  max-height: calc(100svh - 40px);
+  overflow-y: auto;
+  padding: 30px 30px 24px;
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 40px 80px -30px rgba(10, 12, 16, 0.6);
+  transform: translateY(16px) scale(0.98);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.op_alert.is-in .op_alert_box {
+  transform: none;
+}
+
+.op_alert_kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #2563eb;
+}
+
+.op_alert_kicker span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #2563eb;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.18);
+  animation: op-ping 1.4s ease-in-out infinite;
+}
+
+@keyframes op-ping {
+  50% { box-shadow: 0 0 0 7px rgba(37, 99, 235, 0.08); }
+}
+
+.op_alert_box h2 {
+  margin: 10px 0 16px;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #111318;
+}
+
+.op_alert_body {
+  padding: 18px 20px;
+  border-left: 3px solid #2563eb;
+  border-radius: 0 14px 14px 0;
+  background: #f5f8ff;
+}
+
+.op_alert_body p {
+  margin: 0 0 10px;
+  font-size: 15px;
+  line-height: 1.75;
+  color: #2b3038;
+  word-break: keep-all;
+}
+
+.op_alert_body b {
+  color: #111318;
+}
+
+.op_alert_body .rp_sign {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin: 10px 0 0;
+  font-size: 12px;
+  color: #8a919c;
+}
+
+.op_alert_actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.op_stay,
+.op_go {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.op_stay {
+  border: 1px solid #d6dae1;
+  background: #fff;
+  color: #111318;
+}
+
+.op_go {
+  border: 1px solid #111318;
+  background: #111318;
+  color: #fff;
+}
+
+.op_go i {
+  font-style: normal;
+}
+
+html.is-op-alert,
+html.is-op-alert body {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .op_alert,
+  .op_alert_box {
+    transition: none;
+  }
+}
+
+/* 다음 단계 카드가 아래 기둥 판에 가려지지 않게: 카드를 더 작게 + 위쪽 여백 안에 들어가게 + 항상 위에 */
+.gr_report .gr_end.gr_end_top {
+  z-index: 5;
+  top: calc(var(--luup-header-h) + 20px);
+  padding: 20px 22px 18px !important;
+}
+
+.gr_end_top .gr_end_title {
+  margin: 8px 0 14px;
+  font-size: clamp(18px, 1.5vw, 22px) !important;
+}
+
+.gr_end_top .gr_biglink {
+  padding: 8px 12px 8px 16px;
+  font-size: 14px !important;
+}
+
+.gr_end_top .gr_biglink i {
+  width: 22px;
+  height: 22px;
+  font-size: 12px;
+}
+
+/* 제목 영역 높이를 카드보다 크게 확보 (기둥이 카드 아래에서 시작) */
+@media (min-width: 1101px) {
+  .gr_report > .gr_hero {
+    min-height: calc(var(--luup-header-h) + 20px + 210px);
+  }
+}
+
+/* "새 루틴 만들기" 막대: 가리키면 왼쪽부터 진한 남색이 채워지고 글씨는 흰색으로 */
+.gr_end_top .gr_biglink {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #fff;
+  transition: color 0.35s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.gr_end_top .gr_biglink::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: #0f2a7a;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.gr_end_top .gr_biglink:hover::before,
+.gr_end_top .gr_biglink:focus-visible::before {
+  transform: scaleX(1);
+}
+
+.gr_end_top .gr_biglink:hover,
+.gr_end_top .gr_biglink:focus-visible {
+  color: #fff !important;
+}
+
+.gr_end_top .gr_biglink:hover i,
+.gr_end_top .gr_biglink:focus-visible i {
+  background: #fff;
+  color: #0f2a7a;
+}
+
+.gr_end_top .gr_biglink i {
+  transition: transform 0.25s ease, background 0.35s ease, color 0.35s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gr_end_top .gr_biglink::before {
+    transition: none;
+  }
+}
+
+/* 가리키면 글자 · 화살표도 오른쪽으로 살짝 밀림 */
+.gr_end_top .gr_biglink > *:not(i),
+.gr_end_top .gr_biglink i {
+  transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1), background 0.35s ease, color 0.35s ease;
+}
+
+.gr_end_top .gr_biglink:hover > *:not(i),
+.gr_end_top .gr_biglink:focus-visible > *:not(i) {
+  transform: translateX(10px);
+}
+
+.gr_end_top .gr_biglink:hover i,
+.gr_end_top .gr_biglink:focus-visible i {
+  transform: translateX(10px) rotate(45deg);
+}
+
+/* 기둥 위 큰 제목 "작은 체크가 쌓여 더 큰 성장으로" + 버튼 없앰 */
+.gc_head {
+  display: none !important;
+}
+
+/* =========================================================
+   사진 속 얼굴 · 중요한 부분을 가리지 않게
+   - 동그라미 미리보기: 사진마다 빈 곳(창문 · 하늘 · 벽)으로 위치 조정
+   - 좁은 기둥일 때도 얼굴이 잘리지 않게 사진 중심점 조정
+   ========================================================= */
+/* 성장률(growth1): 아이 얼굴이 가운데 오른쪽 → 동그라미는 왼쪽 창문 쪽 */
+.gc_col[data-col="rate"] .gc_orb { left: 20%; top: 36%; }
+.gc_col[data-col="rate"] .gc_pic img { object-position: 63% 30%; }
+
+/* 연속 기록(growth2): 두 아이 얼굴이 가운데 위 → 동그라미는 오른쪽 나무 · 하늘 쪽 */
+.gc_col[data-col="streak"] .gc_orb { left: 84%; top: 40%; }
+.gc_col[data-col="streak"] .gc_pic img { object-position: 52% 30%; }
+
+/* 완료한 일(growth3): 아이 얼굴이 가운데 → 동그라미는 왼쪽 위 창문 쪽 */
+.gc_col[data-col="done"] .gc_orb { left: 20%; top: 32%; }
+.gc_col[data-col="done"] .gc_pic img { object-position: 57% 45%; }
+
+/* 해낸 목표(growth4): 가족 얼굴이 가운데 → 동그라미는 오른쪽 위 선반 쪽 */
+.gc_col[data-col="goals"] .gc_orb { left: 82%; top: 30%; }
+.gc_col[data-col="goals"] .gc_pic img { object-position: 50% 50%; }
+
+/* 아래 설명 글: 얼굴과 먼 맨 아래 가운데에 작게 */
+.gr_cols.is-full .gc_caption {
+  bottom: 40px;
+  max-width: 340px;
+}
+
+@media (max-width: 760px) {
+  .gc_col .gc_orb {
+    left: 80% !important;
+    top: 30% !important;
+    width: 100px;
+  }
+}
+
+/* 리포트 둘러보기 막대: 펼친 기둥 아래 가운데 (이전 · 4단계 · 다음) */
+.gc_tour {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  z-index: 9;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px;
+  border-radius: 999px;
+  background: rgba(17, 19, 24, 0.55);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  transform: translateX(-50%);
+  animation: gc-tour-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.6s both;
+}
+
+@keyframes gc-tour-in {
+  from { opacity: 0; transform: translate(-50%, 12px); }
+}
+
+.gc_tour[hidden] {
+  display: none;
+}
+
+.gc_tour_btn {
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  font-size: 15px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.gc_tour_btn:hover {
+  background: #fff;
+  color: #111318;
+}
+
+.gc_tour_steps {
+  display: flex;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gc_tour_steps li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.gc_tour_steps li span {
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+.gc_tour_steps li:hover {
+  color: #fff;
+}
+
+.gc_tour_steps li.is-on {
+  background: #fff;
+  color: #111318;
+}
+
+/* 둘러보기 막대와 겹치지 않게 아래 글 조금 위로 */
+.gr_cols.is-full .gc_caption,
+.gr_cols.is-full .gc_hint {
+  bottom: 84px;
+}
+
+.gr_cols.is-full .gc_name {
+  bottom: 84px;
+}
+
+@media (max-width: 760px) {
+  .gc_tour_steps li:not(.is-on) {
+    display: none;
+  }
+}
+
+/* 기둥 펼친 동안 헤더는 항상 맨 위에 그대로 */
+html.is-col-open .site_header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  transform: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* =========================================================
+   동그라미 속 도형: 하나씩 색이 채워지는 움직임 (동그라미가 뜬 뒤 시작)
+   - 도넛: 12시부터 시계 방향으로 한 바퀴 쓸며 분야 색이 차례로 채워짐
+   - 꺾은선: 선이 왼쪽부터 그려지고 → 면이 차오르고 → 끝 점이 톡
+   - 달력: 칸이 하나씩 차례로 켜짐
+   - 7: 숫자가 아래에서 톡 튀어 오름
+   ========================================================= */
+@property --sweep {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.orb_donut {
+  -webkit-mask:
+    radial-gradient(circle, transparent 46%, #000 47%),
+    conic-gradient(#000 var(--sweep), transparent 0);
+  -webkit-mask-composite: source-in;
+  mask:
+    radial-gradient(circle, transparent 46%, #000 47%) intersect,
+    conic-gradient(#000 var(--sweep), transparent 0);
+}
+
+.gc_orb.is-fill .orb_donut {
+  animation: orb-sweep 1.6s cubic-bezier(0.65, 0, 0.35, 1) 1.1s forwards;
+}
+
+@keyframes orb-sweep {
+  to { --sweep: 360deg; }
+}
+
+.orb_line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.orb_area {
+  opacity: 0;
+}
+
+.orb_dot {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.gc_orb.is-fill .orb_line {
+  animation: orb-draw 1.2s cubic-bezier(0.65, 0, 0.35, 1) 1.1s forwards;
+}
+
+.gc_orb.is-fill .orb_area {
+  animation: orb-fade 0.6s ease 2s forwards;
+}
+
+.gc_orb.is-fill .orb_dot {
+  animation: orb-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 2.25s forwards;
+}
+
+@keyframes orb-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes orb-fade {
+  to { opacity: 1; }
+}
+
+@keyframes orb-pop {
+  from { opacity: 0; transform: scale(0); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.orb_heat i {
+  opacity: 0;
+  transform: scale(0.4);
+}
+
+.gc_orb.is-fill .orb_heat i {
+  animation: orb-cell 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation-delay: calc(1.1s + var(--k, 0) * 0.06s);
+}
+
+@keyframes orb-cell {
+  to { opacity: 1; transform: none; }
+}
+
+.orb_big {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.gc_orb.is-fill .orb_big {
+  animation: orb-rise 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 1.1s forwards;
+}
+
+@keyframes orb-rise {
+  to { opacity: 1; transform: none; }
+}
+
+/* 아래 숫자(126개 · 81% …)는 도형이 다 채워진 뒤 */
+.gc_orb > b {
+  opacity: 0;
+}
+
+.gc_orb.is-fill > b {
+  animation: orb-fade 0.4s ease 2.4s forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orb_donut { --sweep: 360deg; }
+  .orb_line { stroke-dashoffset: 0; }
+  .orb_area,
+  .orb_dot,
+  .orb_heat i,
+  .orb_big,
+  .gc_orb > b {
+    opacity: 1;
+    transform: none;
+  }
+
+  .gc_orb.is-fill * {
+    animation: none !important;
+  }
+}
+
+/* 기둥 판 세로 조금 더 길게 + 이름 글씨 조금 두껍게 */
+.gr_cols:not(.is-full) {
+  height: clamp(520px, 72svh, 720px);
+}
+
+.gc_name {
+  font-weight: 500;
+}
+
+/* 펼친 기둥 이름: 꾸밈말 빼고 결과만 — 작은 항목 이름 + 큰 숫자 */
+.gc_name .gc_lead,
+.gc_name .gc_label {
+  display: block;
+}
+
+.gc_col.is-open .gc_name .gc_lead {
+  display: none;
+}
+
+.gc_col.is-open .gc_name .gc_label {
+  font-size: clamp(16px, 1.3vw, 20px);
+  font-weight: 500;
+  opacity: 0.85;
+}
+
+.gc_col.is-open .gc_name b {
+  margin-top: 4px;
+  font-size: clamp(56px, 6vw, 96px);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.gc_col.is-open .gc_name.gc_tap {
+  text-decoration: none;
+}

@@ -1273,3 +1273,206 @@
 .my_hero .page_lead {
   margin-top: -22px;
 }
+
+/* 페이지 큰 제목 전체적으로 작게 (168px → 최대 96px) */
+.my_hero .my_title { font-size: clamp(36px, 5.6vw, 96px); }
+
+/* 페이지 제목 조금 키움 (최대 96px → 116px) */
+.my_hero .my_title { font-size: clamp(40px, 6.6vw, 116px); }
+
+/* 페이지 제목 줄임 (최대 116px → 88px) */
+.my_hero .my_title { font-size: clamp(34px, 5vw, 88px); }
+
+/* 하늘색 영역을 위로: 제목 · 소개와의 간격 줄임 */
+.my_body {
+  margin-top: clamp(28px, 3vw, 44px);
+}
+
+/* 하늘색 영역 더 위로 */
+.my_body {
+  margin-top: 12px;
+}
+
+.my_hero {
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+/* 알림 설정: 제목 오른쪽 흰 영역 카드 */
+.my_hero {
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 380px);
+  grid-template-areas:
+    'title notify'
+    'lead  notify'
+    'intro notify';
+  align-items: start;
+  column-gap: 40px;
+}
+
+.my_hero .my_title { grid-area: title; }
+.my_hero .page_lead { grid-area: lead; }
+.my_hero .my_intro { grid-area: intro; }
+
+.my_notify_card {
+  grid-area: notify;
+  align-self: end;
+  padding: 22px 22px 18px;
+  border: 1px solid #e4ebf5;
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 20px 40px -32px rgba(37, 99, 235, 0.35);
+}
+
+.my_notify_head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 14px;
+  font-size: 17px;
+  font-weight: 700;
+  color: #111318;
+}
+
+.my_notify_icon {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #eef3ff;
+}
+
+.my_notify_icon svg {
+  width: 17px;
+  height: 17px;
+  fill: #2563eb;
+}
+
+.my_notify_opts {
+  display: grid;
+  gap: 6px;
+}
+
+.my_notify_opts label {
+  position: relative;
+  cursor: pointer;
+}
+
+.my_notify_opts input {
+  position: absolute;
+  opacity: 0;
+}
+
+.my_notify_opts span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  border: 1px solid #e6e9ee;
+  border-radius: 12px;
+  font-size: 15px;
+  color: #3b4250;
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.my_notify_opts span::before {
+  content: '';
+  width: 16px;
+  height: 16px;
+  flex: none;
+  border: 1.5px solid #c9d3e4;
+  border-radius: 50%;
+  background: #fff;
+  transition: border 0.2s ease;
+}
+
+.my_notify_opts label:hover span {
+  border-color: #c9d3e4;
+}
+
+.my_notify_opts input:checked + span {
+  border-color: #2563eb;
+  background: #f3f7ff;
+  font-weight: 600;
+  color: #111318;
+}
+
+.my_notify_opts input:checked + span::before {
+  border: 5px solid #2563eb;
+}
+
+.my_notify_opts input:focus-visible + span {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+.my_notify_note {
+  margin: 12px 0 0;
+  font-size: 12px;
+  color: #8a919c;
+}
+
+.my_notify_note b {
+  color: #2563eb;
+}
+
+@media (max-width: 900px) {
+  .my_hero {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'title' 'lead' 'intro' 'notify';
+  }
+
+  .my_notify_card {
+    align-self: auto;
+  }
+}
+
+/* 알림 설정: 직접 입력하기 + 시각 입력 */
+.my_notify_time {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #f3f7ff;
+  animation: my-notify-in 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.my_notify_time[hidden] {
+  display: none;
+}
+
+@keyframes my-notify-in {
+  from { opacity: 0; transform: translateY(-6px); }
+}
+
+.my_notify_time label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  color: #3b4250;
+}
+
+.my_notify_time input[type="time"] {
+  padding: 8px 10px;
+  border: 1px solid #c9d3e4;
+  border-radius: 10px;
+  background: #fff;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  color: #2563eb;
+}
+
+.my_notify_time input[type="time"]:focus {
+  outline: 2px solid #2563eb;
+  outline-offset: 1px;
+  border-color: #2563eb;
+}
+
+.my_notify_time small {
+  font-size: 14px;
+  color: #6b7280;
+}

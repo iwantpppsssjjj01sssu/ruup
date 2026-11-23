@@ -117,6 +117,62 @@
         </section>
 
         <!-- 2. 핵심 숫자 4개: 화면에 들어오면 0부터 올라감 -->
+        <!-- 핵심 지표: 세로 기둥 4개 (가리키면 사진이 아래에서 차오름, 누르면 한 기둥이 화면 전체로 펼쳐짐) -->
+        <section class="gr_cols" aria-label="핵심 지표" data-cols>
+            <div class="gc_head"><p>작은 체크가 쌓여<br>더 큰 성장으로</p><button type="button" class="gc_head_btn" data-cols-explore>성장 기록 살펴보기</button></div>
+            <ol class="gc_list">
+                <li class="gc_col" data-col="rate">
+                    <button type="button" class="gc_btn" aria-expanded="false" data-col-open>
+                        <span class="gc_top">8주 연속 상승</span>
+                        <span class="gc_pic"><img src="../img/growth1.png" alt=""></span>
+                        <span class="gc_name"><span class="gc_lead">우리 아이</span><span class="gc_label">성장률</span><b>+43%</b></span>
+                    </button>
+                    <div class="gc_more">
+                        <p>8주 전 42%였던 실천율이 이번 주 81%까지 올랐어요. 한 주도 내려가지 않고 꾸준히 올라간 것이 가장 큰 변화예요.</p>
+                        <button type="button" class="gc_go" data-col-go="rate">주별 실천율 보기 <i aria-hidden="true">↘</i></button>
+                    </div>
+                    <div class="gc_detail" data-col-detail="rate" tabindex="-1"></div>
+                </li>
+                <li class="gc_col" data-col="streak">
+                    <button type="button" class="gc_btn" aria-expanded="false" data-col-open>
+                        <span class="gc_top">하루도 빠짐없이</span>
+                        <span class="gc_pic"><img src="../img/growth2.png" alt=""></span>
+                        <span class="gc_name"><span class="gc_lead">하루하루</span><span class="gc_label">연속 기록</span><b>18일</b></span>
+                    </button>
+                    <div class="gc_more">
+                        <p>최근 5주 중 가장 길게 이어간 기록은 18일 연속이에요. 마지막 2주는 하루도 빠지지 않았어요.</p>
+                        <button type="button" class="gc_go" data-col-go="streak">연속 달력 보기 <i aria-hidden="true">↘</i></button>
+                    </div>
+                    <div class="gc_detail" data-col-detail="streak" tabindex="-1"></div>
+                </li>
+                <li class="gc_col" data-col="done">
+                    <button type="button" class="gc_btn" aria-expanded="false" data-col-open>
+                        <span class="gc_top">지금까지 완료한 할 일</span>
+                        <span class="gc_pic"><img src="../img/growth3.png" alt=""></span>
+                        <span class="gc_name"><span class="gc_lead">차곡차곡</span><span class="gc_label">완료한 일</span><b>126개</b></span>
+                    </button>
+                    <div class="gc_more">
+                        <p>8주 동안 완료한 할 일은 모두 126개예요. 생활 습관이 가장 많고, 그다음은 공부예요.</p>
+                        <button type="button" class="gc_go" data-col-go="done">분야별 완료 보기 <i aria-hidden="true">↘</i></button>
+                    </div>
+                    <div class="gc_detail" data-col-detail="done" tabindex="-1"></div>
+                </li>
+                <li class="gc_col" data-col="goals">
+                    <button type="button" class="gc_btn" aria-expanded="false" data-col-open>
+                        <span class="gc_top">끝까지 해낸 목표</span>
+                        <span class="gc_pic"><img src="../img/growth4.png" alt=""></span>
+                        <span class="gc_name"><span class="gc_lead">끝까지</span><span class="gc_label">해낸 목표</span><b>7개</b></span>
+                    </button>
+                    <div class="gc_more">
+                        <p>지금까지 끝까지 해낸 목표는 7개예요. 아침 8시 기상 21일, 하루 20페이지 독서 등을 달성했어요.</p>
+                        <button type="button" class="gc_go" data-col-go="goals">달성한 목표 보기 <i aria-hidden="true">↘</i></button>
+                    </div>
+                    <div class="gc_detail" data-col-detail="goals" tabindex="-1"></div>
+                </li>
+            </ol>
+            <button type="button" class="gc_close" aria-label="닫기" data-col-close hidden>✕</button>
+        </section>
+
         <section class="gr_stats gr_log" aria-labelledby="gr-log-title">
             <div class="gl_center">
                 <h2 id="gr-log-title" class="gl_title"><span class="rp_no">1</span>핵심 지표</h2>

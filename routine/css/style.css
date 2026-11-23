@@ -3707,3 +3707,68 @@
   font-size: 14px;
   color: #8a919c;
 }
+
+/* 페이지 큰 제목 전체적으로 작게 (168px → 최대 96px) */
+.rc .rc_title { font-size: clamp(36px, 5.6vw, 96px); }
+
+/* 페이지 제목 조금 키움 (최대 96px → 116px) */
+.rc .rc_title { font-size: clamp(40px, 6.6vw, 116px); }
+
+/* 페이지 제목 줄임 (최대 116px → 88px) */
+.rc .rc_title { font-size: clamp(34px, 5vw, 88px); }
+
+/* =========================================================
+   오른쪽 할 일 창(Today's Plan · 단계 화면): 모두 Pretendard, 굵기 낮춤
+   - 날짜 제목 600, 시간 · 루틴 이름 · 개수 500, 나머지 400
+   ========================================================= */
+.rc .rc_panel,
+.rc .rc_panel * {
+  font-family: 'Pretendard Variable', 'Pretendard', var(--luup-font) !important;
+}
+
+.rc .rc_panel .rc_panel_title,
+.rc .rc_routine_head .rc_panel_title {
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.rc .rc_badge {
+  font-weight: 600;
+}
+
+.rc .rc_panel .rc_panel_meta,
+.rc .rc_panel .rc_panel_meta b {
+  font-weight: 500;
+}
+
+.rc .rc_item_time {
+  font-weight: 500;
+}
+
+.rc .rc_item_time small {
+  font-weight: 400;
+}
+
+.rc .rc_item_body b {
+  font-weight: 500;
+}
+
+.rc .rc_item_body small {
+  font-weight: 400;
+}
+
+.rc .rc_item_count {
+  font-weight: 500;
+}
+
+.rc .rc_step_body b,
+.rc .rc_step_body strong,
+.rc .rc_check,
+.rc .rc_add,
+.rc .rc_back {
+  font-weight: 500;
+}
+
+.rc .rc_step_time {
+  font-weight: 500;
+}

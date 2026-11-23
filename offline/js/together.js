@@ -94,6 +94,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const run = () => {
             swap.classList.add('is-swapped');
             swap.style.setProperty('--swap-w', widthOf(to));
+            // 바뀐 뒤에는 고정 폭을 풀어 글자 크기가 바뀌어도 "성장"과 겹치지 않게
+            setTimeout(() => swap.classList.add('is-done'), prefersReducedMotion ? 0 : 1200);
         };
         const start = () => {
             swap.style.setProperty('--swap-w', widthOf(from));
@@ -106,7 +108,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // 웹폰트가 적용된 뒤에 폭을 재야 정확함
         (document.fonts?.ready || Promise.resolve()).then(start);
         window.addEventListener('resize', () => {
-            swap.style.setProperty('--swap-w', widthOf(swap.classList.contains('is-swapped') ? to : from));
+            if (!swap.classList.contains('is-done')) {
+                swap.style.setProperty('--swap-w', widthOf(swap.classList.contains('is-swapped') ? to : from));
+            }
         });
     }
 
@@ -412,4 +416,510 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }));
     renumber();
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 핵심 지표 기둥 4개: 누르면 그 기둥이 화면 전체로 펼쳐짐 (✕ · Esc · 다시 누르면 닫힘)
+    const wrap = document.querySelector('[data-cols]');
+    if (!wrap) {
+        return;
+    }
+    const cols = [...wrap.querySelectorAll('.gc_col')];
+    const closeBtn = wrap.querySelector('[data-col-close]');
+    const close = () => {
+        wrap.classList.remove('is-open');
+        cols.forEach((c) => {
+            c.classList.remove('is-open');
+            c.querySelector('[data-col-open]').setAttribute('aria-expanded', 'false');
+        });
+        closeBtn.hidden = true;
+    };
+    cols.forEach((col) => {
+        const btn = col.querySelector('[data-col-open]');
+        btn.addEventListener('click', () => {
+            if (col.classList.contains('is-open')) {
+                close();
+                return;
+            }
+            cols.forEach((c) => {
+                c.classList.toggle('is-open', c === col);
+                c.querySelector('[data-col-open]').setAttribute('aria-expanded', String(c === col));
+            });
+            wrap.classList.add('is-open');
+            closeBtn.hidden = false;
+        });
+    });
+    closeBtn.addEventListener('click', close);
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && wrap.classList.contains('is-open')) close();
+    });
+    // "보기" 버튼: 목차의 해당 페이지를 추가하고 그리로 이동
+    wrap.querySelectorAll('[data-col-go]').forEach((go) => {
+        go.addEventListener('click', () => {
+            const tile = document.querySelector(`[data-add-page="${go.dataset.colGo}"]`);
+            if (tile && tile.getAttribute('aria-pressed') !== 'true') {
+                tile.click();
+            } else {
+                document.querySelector(`[data-page="${go.dataset.colGo}"]`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 성장 리포트 = 기둥 4개로 통일: 기존 페이지(주별 실천율 · 연속 달력 · 완료한 일 · 달성 목표)를 각 기둥 안 상세 칸으로 옮김
+    const wrap = document.querySelector('[data-cols]');
+    if (!wrap) {
+        return;
+    }
+    wrap.querySelectorAll('[data-col-detail]').forEach((detail) => {
+        const key = detail.dataset.colDetail;
+        const page = document.querySelector(`[data-page="${key}"]`);
+        const intro = detail.closest('.gc_col').querySelector('.gc_more p');
+        if (intro) {
+            const lead = document.createElement('p');
+            lead.className = 'gc_detail_lead';
+            lead.textContent = intro.textContent;
+            detail.append(lead);
+        }
+        if (page) {
+            page.hidden = false;
+            page.removeAttribute('data-page');
+            page.classList.add('gc_page');
+            detail.append(page);
+        }
+    });
+    // 기둥을 열면: 그래프 선 · 달력 · 숫자 등장 연출을 바로 보여 주고, 목표 목록은 펼쳐 둠
+    wrap.querySelectorAll('[data-col-open]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const col = btn.closest('.gc_col');
+            const detail = col.querySelector('.gc_detail');
+            setTimeout(() => {
+                if (!col.classList.contains('is-open')) return;
+                detail.scrollTop = 0;
+                detail.querySelectorAll('[data-chart], .gr_heat').forEach((el) => el.classList.add('is-in'));
+                detail.querySelectorAll('.reveal').forEach((el) => el.classList.add('is-in', 'is-visible'));
+                const toggle = detail.querySelector('[data-goals-toggle]');
+                if (toggle && toggle.getAttribute('aria-expanded') !== 'true') toggle.click();
+            }, 500);
+        });
+    });
+    // 종합 소견은 기둥 아래 한 줄 판으로 늘 보이게
+    const opinion = document.querySelector('[data-page="opinion"]');
+    if (opinion) {
+        opinion.hidden = false;
+        opinion.removeAttribute('data-page');
+        opinion.classList.add('gc_opinion');
+    }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    // "다음 단계 · 새 루틴 만들기"를 페이지 맨 아래에서 제목 옆 오른쪽 위로 옮김
+    const end = document.querySelector('.gr_report > .gr_end');
+    const hero = document.querySelector('.gr_report > .gr_hero');
+    if (end && hero) {
+        end.classList.add('gr_end_top');
+        hero.append(end);
+    }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 펼친 기둥: 사진 위에 흰 글씨 설명 + 동그란 미리보기(그래프 · 달력 · 비율 · 개수)
+    // 동그라미나 "자세히 보기"를 누르면 그때 상세 카드가 열림
+    const wrap = document.querySelector('[data-cols]');
+    if (!wrap) {
+        return;
+    }
+    const rates = [42, 48, 51, 58, 63, 67, 74, 81];
+    const orbArt = {
+        rate: () => {
+            const xs = rates.map((_, i) => 14 + i * (72 / (rates.length - 1)));
+            const ys = rates.map((r) => 78 - (r / 100) * 60);
+            const d = xs.map((x, i) => `${i ? 'L' : 'M'}${x} ${ys[i]}`).join(' ');
+            return `<svg viewBox="0 0 100 100" aria-hidden="true"><path class="orb_area" d="${d} L86 86 L14 86 Z" fill="rgba(37,99,235,.15)"/><path class="orb_line" d="${d}" pathLength="1" fill="none" stroke="#2563eb" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle class="orb_dot" cx="86" cy="${ys[ys.length - 1]}" r="4" fill="#2563eb"/></svg><b>81%</b>`;
+        },
+        streak: () => {
+            const cells = [...document.querySelectorAll('.gr_heat .gr_day')].slice(-21).map((el, i) => `<i class="${(el.className.match(/lv\d/) || ['lv0'])[0]}" style="--k:${i}"></i>`).join('');
+            return `<span class="orb_heat">${cells}</span><b>18일</b>`;
+        },
+        done: () => {
+            const vals = [48, 36, 24, 18];
+            const total = vals.reduce((a, b) => a + b, 0);
+            let acc = 0;
+            const colors = ['#1d4ed8', '#4f8cf5', '#93b4f5', '#c7d7fa'];
+            const stops = vals.map((v, i) => { const from = acc; acc += (v / total) * 360; return `${colors[i]} ${from}deg ${acc}deg`; }).join(',');
+            return `<span class="orb_donut" style="background:conic-gradient(${stops})"></span><b>126개</b>`;
+        },
+        goals: () => '<span class="orb_big">7</span><b>개 달성</b>'
+    };
+    wrap.querySelectorAll('.gc_col').forEach((col) => {
+        const key = col.dataset.col;
+        const text = col.querySelector('.gc_more p')?.textContent || '';
+        const layer = document.createElement('div');
+        layer.className = 'gc_layer';
+        layer.innerHTML = `
+            <button type="button" class="gc_orb" aria-label="자세히 보기">${orbArt[key] ? orbArt[key]() : ''}<i class="gc_orb_go" aria-hidden="true">↘</i></button>
+            <p class="gc_caption">${text}</p>
+            <button type="button" class="gc_hint">자세히 보기 <i aria-hidden="true">↘</i></button>`;
+        col.append(layer);
+        const toggleDetail = () => col.classList.toggle('is-detail');
+        layer.querySelector('.gc_hint').addEventListener('click', toggleDetail);
+        // 기둥을 닫거나 다른 기둥을 열면 상세 카드도 닫힘
+        col.querySelector('[data-col-open]').addEventListener('click', () => {
+            wrap.querySelectorAll('.gc_col').forEach((c) => c.classList.remove('is-detail'));
+        });
+    });
+    wrap.querySelector('[data-col-close]')?.addEventListener('click', () => {
+        wrap.querySelectorAll('.gc_col').forEach((c) => c.classList.remove('is-detail'));
+    });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 기둥을 누르면 판 전체가 화면을 꽉 채움 (양옆 여백 · 위 제목까지 덮음), 열려 있는 동안 페이지 스크롤 잠금
+    // 원래 자리에서 화면 전체로 넓어지는 움직임(clip-path), 닫으면 다시 원래 자리로 줄어듦
+    const wrap = document.querySelector('[data-cols]');
+    if (!wrap) {
+        return;
+    }
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const root = document.documentElement;
+    const spacer = document.createElement('div');
+    spacer.className = 'gc_spacer';
+    const insetOf = (r) => `inset(${r.top}px ${window.innerWidth - r.right}px ${window.innerHeight - r.bottom}px ${r.left}px round 6px)`;
+    let full = false;
+    const goFull = () => {
+        if (full) return;
+        full = true;
+        const r = wrap.getBoundingClientRect();
+        spacer.style.height = `${wrap.offsetHeight}px`;
+        wrap.before(spacer);
+        wrap.classList.add('is-full');
+        root.classList.add('is-col-open');
+        if (!reduce) {
+            wrap.style.transition = 'none';
+            wrap.style.clipPath = insetOf(r);
+            void wrap.offsetWidth;
+            wrap.style.transition = 'clip-path 0.8s cubic-bezier(0.76, 0, 0.24, 1)';
+            wrap.style.clipPath = 'inset(0px 0px 0px 0px round 0px)';
+        }
+    };
+    const exitFull = () => {
+        if (!full) return;
+        full = false;
+        const finish = () => {
+            wrap.classList.remove('is-full');
+            wrap.style.clipPath = '';
+            wrap.style.transition = '';
+            spacer.remove();
+            root.classList.remove('is-col-open');
+        };
+        if (reduce) {
+            finish();
+            return;
+        }
+        const r = spacer.getBoundingClientRect();
+        wrap.style.transition = 'clip-path 0.7s cubic-bezier(0.76, 0, 0.24, 1)';
+        wrap.style.clipPath = insetOf({ top: r.top, bottom: r.bottom, left: r.left + (spacer.offsetLeft - spacer.getBoundingClientRect().left), right: r.right });
+        setTimeout(finish, 700);
+    };
+    // 열림 상태(is-open) 변화를 지켜보며 전체 화면 켜고 끄기
+    new MutationObserver(() => {
+        if (wrap.classList.contains('is-open')) goFull();
+        else exitFull();
+    }).observe(wrap, { attributes: true, attributeFilter: ['class'] });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 큰 제목 아래 "성장 기록 살펴보기": 첫 번째 기둥(성장률)을 펼침
+    document.querySelector('[data-cols-explore]')?.addEventListener('click', () => {
+        document.querySelector('[data-col="rate"] [data-col-open]')?.click();
+    });
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 펼친 기둥 위의 글 · 도형마다 서로 다른 정보 카드
+    // 위 작은 글 → 실천 팁 / 큰 이름 → 지난달과 비교 / 동그라미 → 세부 숫자 / 아래 설명 → LUUP 해석
+    const wrap = document.querySelector('[data-cols]');
+    if (!wrap) {
+        return;
+    }
+    const INFO = {
+        rate: {
+            top: ['주마다 오른 폭', '<ul><li>1→2주 <b>+6%p</b></li><li>2→3주 <b>+3%p</b></li><li>3→4주 <b>+7%p</b></li><li>4→5주 <b>+5%p</b></li><li>5→6주 <b>+4%p</b></li><li>6→7주 <b>+7%p</b></li><li>7→8주 <b>+7%p</b></li></ul>'],
+            name: ['지난달과 비교', '<p>지난달 평균 실천율 <b>38%</b> → 이번 달 <b>81%</b></p><p>한 달 사이 <b>+43%p</b> 올랐어요. 같은 또래 평균(62%)보다 19%p 높아요.</p>'],
+            orb: ['가장 많이 · 적게 오른 주', '<p>가장 크게 오른 주: <b>3→4주 · 6→7주 · 7→8주 (+7%p)</b></p><p>가장 적게 오른 주: <b>2→3주 (+3%p)</b> — 학교 행사가 많던 주예요.</p>'],
+            caption: ['LUUP 해석', '<p>한 주도 내려가지 않고 오른 것은 루틴이 <b>습관으로 자리 잡는 신호</b>예요.</p><p>지금 실천율을 유지하면서, 새 루틴은 한 번에 하나씩만 더해 보세요.</p>']
+        },
+        streak: {
+            top: ['빠짐없이 이어 가는 요령', '<ul><li>잠들기 전 <b>내일 할 일 1개</b>만 정해 두기</li><li>가장 쉬운 루틴을 <b>하루 첫 루틴</b>으로</li><li>바쁜 날은 <b>짧은 버전</b>이라도 체크</li></ul>'],
+            name: ['연속 기록 변화', '<p>지난달 최장 연속 <b>9일</b> → 이번 달 <b>18일</b></p><p>2배로 늘었어요. 지금은 <b>14일째</b> 이어 가는 중이에요.</p>'],
+            orb: ['요일별 실천', '<ul><li>월 · 화 · 수 <b>모두 완료가 가장 많아요</b></li><li>토요일 <b>빠진 날 2일</b></li><li>일요일 <b>일부만 한 날 3일</b></li></ul>'],
+            caption: ['LUUP 해석', '<p>주말에 리듬이 조금 흐트러지는 편이에요.</p><p>토요일 아침에 <b>가족 함께 하는 루틴</b>을 하나 넣으면 연속 기록을 지키기 쉬워요.</p>']
+        },
+        done: {
+            top: ['하루 평균 완료', '<p>하루 평균 <b>2.3개</b>를 완료했어요.</p><p>가장 많이 한 날은 <b>11월 12일 (6개)</b>예요.</p>'],
+            name: ['지난달과 비교', '<p>지난달 <b>94개</b> → 이번 달 <b>126개</b></p><p>32개 더 해냈어요 (<b>+34%</b>).</p>'],
+            orb: ['분야별 비율', '<ul><li>생활 습관 <b>48개 · 38%</b></li><li>공부 <b>36개 · 29%</b></li><li>운동 <b>24개 · 19%</b></li><li>독서 <b>18개 · 14%</b></li></ul>'],
+            caption: ['LUUP 해석', '<p>생활 습관은 충분히 자리 잡았어요.</p><p><b>독서</b> 비중이 가장 낮아요. 저녁 시간을 앞당기거나 10분짜리로 줄여 보세요.</p>']
+        },
+        goals: {
+            top: ['목표 달성 팁', '<ul><li>목표는 <b>2~3주 길이</b>가 가장 잘 지켜져요</li><li>달성하면 <b>작은 보상</b>을 함께 정해 두세요</li></ul>'],
+            name: ['달성 기록', '<p>지금까지 <b>7개</b> 달성 · 진행 중 <b>2개</b></p><p>최근 달성: 아침 8시 기상 21일 (11.12)</p>'],
+            orb: ['달성률이 높은 목표', '<ul><li>아침 8시 기상 21일 <b>100%</b></li><li>물 8잔 마시기 2주 <b>100%</b></li><li>하루 20페이지 독서 <b>93%</b></li><li>하루 30분 걷기 <b>93%</b></li></ul>'],
+            caption: ['LUUP 해석', '<p>짧고 구체적인 목표일수록 끝까지 해냈어요.</p><p>다음 목표도 <b>숫자로 정해진 목표</b>(예: 줄넘기 100개 2주)로 세워 보세요.</p>']
+        }
+    };
+    const pop = document.createElement('div');
+    pop.className = 'gc_pop';
+    pop.setAttribute('role', 'dialog');
+    pop.hidden = true;
+    wrap.append(pop);
+    let current = null;
+    const hide = () => {
+        pop.classList.remove('is-in');
+        pop.hidden = true;
+        current?.classList.remove('is-active');
+        current = null;
+    };
+    const show = (el, key, part) => {
+        const info = INFO[key]?.[part];
+        if (!info) return;
+        if (current === el) { hide(); return; }
+        current?.classList.remove('is-active');
+        current = el;
+        el.classList.add('is-active');
+        pop.innerHTML = `<p class="gc_pop_title">${info[0]}</p><div class="gc_pop_body">${info[1]}</div>`;
+        pop.hidden = false;
+        const wr = wrap.getBoundingClientRect();
+        const r = el.getBoundingClientRect();
+        const w = Math.min(320, wr.width - 32);
+        let left = r.left - wr.left + r.width / 2 - w / 2;
+        left = Math.max(16, Math.min(left, wr.width - w - 16));
+        const below = r.bottom - wr.top + 12;
+        pop.style.width = `${w}px`;
+        pop.style.left = `${left}px`;
+        if (below + 220 < wr.height) {
+            pop.style.top = `${below}px`;
+            pop.style.bottom = 'auto';
+        } else {
+            pop.style.top = 'auto';
+            pop.style.bottom = `${wr.bottom - r.top + 12}px`;
+        }
+        requestAnimationFrame(() => pop.classList.add('is-in'));
+    };
+    wrap.querySelectorAll('.gc_col').forEach((col) => {
+        const key = col.dataset.col;
+        const parts = [['.gc_top', 'top'], ['.gc_name', 'name'], ['.gc_orb', 'orb'], ['.gc_caption', 'caption']];
+        // 열려 있을 때 이 글 · 도형을 누르면 기둥이 닫히지 않고 정보 카드가 뜸
+        col.addEventListener('click', (event) => {
+            if (!col.classList.contains('is-open') || col.classList.contains('is-detail')) return;
+            for (const [sel, part] of parts) {
+                const el = event.target.closest(sel);
+                if (el && col.contains(el)) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    show(el, key, part);
+                    return;
+                }
+            }
+        }, true);
+        parts.forEach(([sel]) => col.querySelectorAll(sel).forEach((el) => el.classList.add('gc_tap')));
+    });
+    document.addEventListener('click', (event) => {
+        if (!pop.hidden && !pop.contains(event.target) && !event.target.closest('.gc_tap')) hide();
+    });
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !pop.hidden) hide();
+    });
+    new MutationObserver(() => { if (!wrap.classList.contains('is-open')) hide(); }).observe(wrap, { attributes: true, attributeFilter: ['class'] });
+    wrap.querySelectorAll('.gc_hint').forEach((h) => h.addEventListener('click', hide));
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    // ✕ 버튼: 상세 카드가 열려 있으면 상세만 닫고 사진(동그라미 화면)으로 돌아감 → 그다음 ✕로 기둥 전체 닫기
+    const wrap = document.querySelector('[data-cols]');
+    const closeBtn = wrap?.querySelector('[data-col-close]');
+    if (!closeBtn) {
+        return;
+    }
+    closeBtn.addEventListener('click', (event) => {
+        const detailCol = wrap.querySelector('.gc_col.is-open.is-detail');
+        if (detailCol) {
+            event.stopImmediatePropagation();
+            detailCol.classList.remove('is-detail');
+        }
+    }, true);
+    document.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape') return;
+        const detailCol = wrap.querySelector('.gc_col.is-open.is-detail');
+        if (detailCol) {
+            event.stopImmediatePropagation();
+            detailCol.classList.remove('is-detail');
+        }
+    }, true);
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 종합 소견: 페이지에는 숨기고, 다른 페이지로 가려 할 때(링크 클릭) 알림 창으로 한 번 띄움
+    // "그래도 이동" → 원래 가려던 곳으로, "더 보기" → 이 페이지에 머묾 (이번 방문에 한 번만)
+    const opinion = document.querySelector('.gc_opinion');
+    if (!opinion) {
+        return;
+    }
+    const body = opinion.querySelector('.rp_op_body');
+    opinion.hidden = true;
+    opinion.style.display = 'none';
+
+    const modal = document.createElement('div');
+    modal.className = 'op_alert';
+    modal.hidden = true;
+    modal.innerHTML = `
+        <div class="op_alert_box" role="alertdialog" aria-modal="true" aria-labelledby="op-alert-title">
+            <p class="op_alert_kicker"><span aria-hidden="true"></span>나가기 전에 확인해 주세요</p>
+            <h2 id="op-alert-title">이번 달 종합 소견</h2>
+            <div class="op_alert_body">${body ? body.innerHTML : ''}</div>
+            <div class="op_alert_actions">
+                <button type="button" class="op_stay" data-op-stay>리포트 더 보기</button>
+                <a class="op_go" data-op-go href="#">확인하고 이동 <i aria-hidden="true">→</i></a>
+            </div>
+        </div>`;
+    document.body.append(modal);
+    const goBtn = modal.querySelector('[data-op-go]');
+    let shown = false;
+    const close = () => {
+        modal.classList.remove('is-in');
+        document.documentElement.classList.remove('is-op-alert');
+        setTimeout(() => { modal.hidden = true; }, 250);
+    };
+    const open = (href) => {
+        shown = true;
+        goBtn.href = href;
+        modal.hidden = false;
+        document.documentElement.classList.add('is-op-alert');
+        requestAnimationFrame(() => modal.classList.add('is-in'));
+        goBtn.focus();
+    };
+    document.addEventListener('click', (event) => {
+        if (shown || event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
+        const link = event.target.closest('a[href]');
+        if (!link || modal.contains(link)) return;
+        const url = new URL(link.href, location.href);
+        if (url.pathname === location.pathname || link.target === '_blank') return;
+        event.preventDefault();
+        open(link.href);
+    }, true);
+    modal.querySelector('[data-op-stay]').addEventListener('click', close);
+    modal.addEventListener('click', (event) => { if (event.target === modal) close(); });
+    document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && !modal.hidden) close(); });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    // "리포트 더 보기": 알림을 닫고 → 기둥 4개를 차례로 둘러보는 '리포트 둘러보기'로 들어감
+    // 1번(성장률)을 펼쳐 상세까지 보여 주고, 아래 진행 막대 + 이전 · 다음 버튼으로 4가지 기록을 넘겨 봄
+    const wrap = document.querySelector('[data-cols]');
+    const stay = document.querySelector('[data-op-stay]');
+    if (!wrap) {
+        return;
+    }
+    const order = ['rate', 'streak', 'done', 'goals'];
+    const names = { rate: '성장률', streak: '연속 기록', done: '완료한 일', goals: '해낸 목표' };
+    const tour = document.createElement('div');
+    tour.className = 'gc_tour';
+    tour.hidden = true;
+    tour.innerHTML = `
+        <button type="button" class="gc_tour_btn" data-tour="prev" aria-label="이전 기록">←</button>
+        <ol class="gc_tour_steps">${order.map((k, i) => `<li data-step="${k}"><span>${String(i + 1).padStart(2, '0')}</span>${names[k]}</li>`).join('')}</ol>
+        <button type="button" class="gc_tour_btn" data-tour="next" aria-label="다음 기록">→</button>`;
+    wrap.append(tour);
+
+    const openCol = (key, detail) => {
+        const col = wrap.querySelector(`[data-col="${key}"]`);
+        if (!col) return;
+        if (!col.classList.contains('is-open')) {
+            col.querySelector('[data-col-open]').click();
+        }
+        wrap.querySelectorAll('.gc_col').forEach((c) => c.classList.toggle('is-detail', c === col && detail));
+        tour.querySelectorAll('li').forEach((li) => li.classList.toggle('is-on', li.dataset.step === key));
+    };
+    const currentKey = () => wrap.querySelector('.gc_col.is-open')?.dataset.col;
+    const step = (dir) => {
+        const i = order.indexOf(currentKey());
+        const next = order[(i + dir + order.length) % order.length];
+        // 다른 기둥으로: 닫았다가 바로 새 기둥 펼침
+        wrap.querySelector('[data-col-close]')?.click();
+        wrap.querySelector('[data-col-close]')?.click();
+        setTimeout(() => openCol(next, false), 50);
+    };
+    tour.querySelector('[data-tour="prev"]').addEventListener('click', () => step(-1));
+    tour.querySelector('[data-tour="next"]').addEventListener('click', () => step(1));
+    tour.querySelectorAll('li').forEach((li) => li.addEventListener('click', () => {
+        if (li.dataset.step === currentKey()) return;
+        wrap.querySelector('[data-col-close]')?.click();
+        wrap.querySelector('[data-col-close]')?.click();
+        setTimeout(() => openCol(li.dataset.step, false), 50);
+    }));
+    // 기둥이 열려 있는 동안 늘 둘러보기 막대 표시 + 현재 칸 표시
+    new MutationObserver(() => {
+        const key = currentKey();
+        tour.hidden = !wrap.classList.contains('is-open');
+        tour.querySelectorAll('li').forEach((li) => li.classList.toggle('is-on', li.dataset.step === key));
+    }).observe(wrap, { attributes: true, attributeFilter: ['class'], subtree: true });
+
+    stay?.addEventListener('click', () => {
+        setTimeout(() => {
+            wrap.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(() => openCol('rate', true), 500);
+        }, 260);
+    });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 기둥을 펼친 동안: 페이지(뒤 배경)는 휠 · 터치 · 키로 스크롤되지 않음 → 헤더도 그 자리에 고정
+    // (상세 카드 안처럼 스스로 스크롤되는 칸은 그대로 스크롤)
+    const root = document.documentElement;
+    const scrollableInside = (node, dy) => {
+        for (let el = node; el && el !== document.body; el = el.parentElement) {
+            const st = getComputedStyle(el);
+            if (/(auto|scroll)/.test(st.overflowY) && el.scrollHeight > el.clientHeight + 1) {
+                if ((dy > 0 && el.scrollTop + el.clientHeight < el.scrollHeight - 1) || (dy < 0 && el.scrollTop > 0)) return true;
+            }
+        }
+        return false;
+    };
+    const block = (event, dy) => {
+        if (!root.classList.contains('is-col-open')) return;
+        if (scrollableInside(event.target, dy)) return;
+        event.preventDefault();
+    };
+    window.addEventListener('wheel', (event) => block(event, event.deltaY), { passive: false, capture: true });
+    let ty = 0;
+    window.addEventListener('touchstart', (event) => { ty = event.touches[0].clientY; }, { passive: true });
+    window.addEventListener('touchmove', (event) => block(event, ty - event.touches[0].clientY), { passive: false, capture: true });
+    window.addEventListener('keydown', (event) => {
+        if (!root.classList.contains('is-col-open')) return;
+        if (event.target.closest?.('input, textarea, select, [contenteditable]')) return;
+        if (['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End', ' '].includes(event.key)) event.preventDefault();
+    }, true);
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 동그라미 속 도형: 기둥을 펼칠 때마다 처음부터 다시 채워지게 (클래스 다시 붙이기)
+    const wrap = document.querySelector('[data-cols]');
+    if (!wrap) return;
+    wrap.querySelectorAll('.gc_col').forEach((col) => {
+        new MutationObserver(() => {
+            const orb = col.querySelector('.gc_orb');
+            if (!orb) return;
+            if (col.classList.contains('is-open')) {
+                orb.classList.remove('is-fill');
+                void orb.offsetWidth;
+                orb.classList.add('is-fill');
+            } else {
+                orb.classList.remove('is-fill');
+            }
+        }).observe(col, { attributes: true, attributeFilter: ['class'] });
+    });
 });
