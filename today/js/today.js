@@ -1331,3 +1331,23 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => openReport(target), prefersReducedMotion ? 0 : 400);
     }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 제목: "오늘의 루틴" → 잠시 뒤 "오늘 하루님의 루틴" ("의"가 사라지고 이름 칸이 벌어지며 나타남)
+    const who = document.querySelector('.td_title [data-title-who]');
+    if (!who) return;
+    try {
+        const full = (JSON.parse(localStorage.getItem('luup-my-profile'))?.name || '').trim();
+        if (full) who.querySelector('[data-who-name]').textContent = full.length === 3 ? full.slice(1) : full;
+    } catch { /* 기본 이름 */ }
+    const of = document.querySelector('.td_title .td_of');
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    (document.fonts?.ready || Promise.resolve()).then(() => setTimeout(() => {
+        if (of) {
+            of.style.setProperty('--of-w', `${of.scrollWidth}px`);
+            requestAnimationFrame(() => of.classList.add('is-out'));
+        }
+        who.style.setProperty('--who-w', `${who.scrollWidth}px`);
+        who.classList.add('is-in');
+    }, reduce ? 0 : 900));
+});

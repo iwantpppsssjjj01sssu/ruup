@@ -467,7 +467,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const avg = (key) => (days.reduce((sum, d) => sum + d[key], 0) / days.length);
 
     // 펼친 칸 공통 조각: 숫자 3칸 · 지난주와 비교 · 도움말
-    const stats = (items) => `<dl class="rd_stats">${items.map(([k, v, note], i) => `<div style="--i:${i}"><dt>${k}</dt><dd>${v}</dd>${note ? `<small>${note}</small>` : ''}</div>`).join('')}</dl>`;
+    const stats = (items) => `<dl class="rd_stats">${items.map(([k, v, note], i) => `<div style="--i:${i}" role="button" tabindex="0" data-stat="${i}" aria-label="${k} 자세히 보기"><dt>${k}</dt><dd>${v}</dd>${note ? `<small>${note}</small>` : ''}<span class="rd_stat_go" aria-hidden="true">↗</span></div>`).join('')}</dl>`;
     const tip = (title, text) => `<div class="rd_tip" style="--i:9"><b>${title}</b><p>${text}</p></div>`;
     const sub = (text) => `<h3 class="rd_sub">${text}</h3>`;
     // 부모님 확인: 이번 주 꼭 살펴볼 것 (체크하면 이 브라우저에 저장)
@@ -527,11 +527,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         </ul>
                         <div class="rd_glow_chart">
                             <span class="rd_glow_avg" aria-hidden="true"><em>1주 <b>평균</b></em></span>
-                            <ol class="rd_glow_bars">${days.map((d, i) => `<li style="--i:${i};--v:${d.done / 5}" class="${d === best ? 'is-hl' : ''}"><span class="rd_glow_bar">${d === best ? '<i class="rd_glow_dot"></i>' : ''}</span><b>${d.done}/5</b><small class="${d.isToday ? 'is-today' : ''}">${d.label}</small></li>`).join('')}</ol>
+                            <ol class="rd_glow_bars">${days.map((d, i) => `<li style="--i:${i};--v:${d.done / 5}" class="${d.isToday ? 'is-hl' : ''}${d === best && !d.isToday ? ' is-best' : ''}"><span class="rd_glow_bar">${d.isToday ? '<i class="rd_glow_tag">오늘</i>' : ''}</span><b>${d.date}</b><small class="${d.isToday ? 'is-today' : ''}">${d.label}</small></li>`).join('')}</ol>
                         </div>
                     </div>
                     ${sub('루틴별로 해낸 날')}
-                    <ul class="rd_list">${perRoutine.map(([name, n], i) => `<li style="--i:${i}"><span>${name}</span><i class="rd_meter" style="--v:${n / 7}"></i><b>${n}/7일</b></li>`).join('')}</ul>
+                    <ul class="rd_list rd_list_days">${perRoutine.map(([name, n], i) => {
+                        const week = days.map((d) => `<span class="${d.done > i ? 'is-ok' : 'is-miss'}${d.isToday ? ' is-today' : ''}"><i aria-hidden="true">${d.done > i ? '✓' : '✕'}</i>${d.label}</span>`).join('');
+                        const missed = days.filter((d) => d.done <= i).map(dayName);
+                        return `<li style="--i:${i}" tabindex="0"><span>${name}</span><i class="rd_meter" style="--v:${n / 7}"></i><b>${n}/7일</b>
+                            <div class="rd_day_tip" role="tooltip"><div class="rd_day_row">${week}</div><p>${missed.length ? `못 한 날: <b>${missed.join(', ')}</b>` : '<b>7일 모두</b> 해냈어요'}</p></div></li>`;
+                    }).join('')}</ul>
                     ${parentCheck('routine', [
                         ['빠지는 루틴 확인', `<b>${weakest[0]}</b>가 이번 주 ${7 - weakest[1]}번 빠졌어요. 어떤 날 빠졌는지 함께 확인해 주세요.`],
                         ['모두 해낸 날 칭찬하기', `5개를 모두 해낸 날이 ${full}일 있어요. 그날을 구체적으로 칭찬해 주세요.`],
@@ -593,15 +598,26 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         memo: () => {
             const memos = days.filter((d) => d.memo).reverse();
-            const words = memos.flatMap((d) => d.memo.replace(/[!.]/g, '').split(' ')).filter((w) => w.length > 1);
-            const freq = {};
-            words.forEach((w) => { freq[w] = (freq[w] || 0) + 1; });
-            const tags = Object.entries(freq).sort((x, y) => y[1] - x[1]).slice(0, 6).map(([w]) => w);
+            // 자주 나온 말: 메모를 낱말로 자르지 않고, 뜻이 통하는 주제 단어로 묶어 셈
+            const TOPICS = [
+                ['받아쓰기', ['받아쓰기']], ['영어 단어', ['영어']], ['책 읽기', ['책']], ['줄넘기', ['줄넘기']],
+                ['동생', ['동생']], ['혼자 해냄', ['혼자']], ['일찍 일어남', ['알람', '일어났']], ['숙제', ['숙제']]
+            ];
+            const tagHits = TOPICS.map(([name, keys]) => [name, keys, memos.filter((d) => keys.some((k) => d.memo.includes(k)))])
+                .filter(([, , hits]) => hits.length)
+                .sort((x, y) => y[2].length - x[2].length)
+                .slice(0, 6);
+            const tags = tagHits.map(([name]) => name);
             return {
                 title: '기타메모',
                 lead: `이번 주에 남긴 메모는 <b>${memos.length}개</b>예요.`,
                 body: `${stats([['남긴 메모', `${memos.length}개`, '7일 중'], ['메모한 날', `${memos.length}일`, `${7 - memos.length}일은 쉬었어요`], ['가장 최근', memos[0] ? memos[0].label : '-', memos[0] ? memos[0].date : '']])}
-                    ${tags.length ? `${sub('자주 나온 말')}<ul class="rd_tags">${tags.map((t, i) => `<li style="--i:${i}">${t}</li>`).join('')}</ul>` : ''}
+                    ${tags.length ? `${sub('메모에 자주 나온 이야기')}<ul class="rd_tags">${tags.map((t, i) => {
+                        const [, keys, hits] = tagHits[i];
+                        const mark = (text) => keys.reduce((out, k) => out.replace(k, `<mark>${k}</mark>`), text);
+                        const pop = hits.map((d) => `<li><small>${dayName(d)} · ${d.date}</small><p>${mark(d.memo)}</p></li>`).join('');
+                        return `<li style="--i:${i}"><button type="button" class="rd_tag_btn" aria-expanded="false">${t}<em>${hits.length}</em></button><div class="rd_tag_pop" hidden><p class="rd_tag_pop_head"><b>${t}</b> 이야기가 나온 날 · ${hits.length}일</p><ul>${pop}</ul></div></li>`;
+                    }).join('')}</ul>` : ''}
                     ${sub('메모 모아 보기')}
                     ${memos.length
                         ? `<ul class="rd_memos" data-memo-list>${memos.map((d, i) => `<li style="--i:${i}"${i >= MEMO_SHOW ? ' hidden' : ''}><small>${d.label} · ${d.date}</small><p>${d.memo}</p></li>`).join('')}</ul>
@@ -682,6 +698,26 @@ document.addEventListener('DOMContentLoaded', () => {
         wrap.hidden = !open;
     });
 
+    // 자주 나온 말: 단어를 누르면 그 말이 나온 날 · 메모가 살짝 뜸 (다시 누르거나 바깥 누르면 닫힘)
+    const closeTagPops = (except) => {
+        body.querySelectorAll('.rd_tag_btn[aria-expanded="true"]').forEach((b) => {
+            if (b === except) return;
+            b.setAttribute('aria-expanded', 'false');
+            b.nextElementSibling.hidden = true;
+        });
+    };
+    body.addEventListener('click', (event) => {
+        const btn = event.target.closest('.rd_tag_btn');
+        if (!btn) {
+            if (!event.target.closest('.rd_tag_pop')) closeTagPops();
+            return;
+        }
+        const open = btn.getAttribute('aria-expanded') !== 'true';
+        closeTagPops(btn);
+        btn.setAttribute('aria-expanded', String(open));
+        btn.nextElementSibling.hidden = !open;
+    });
+
     // 부모님 확인 체크: 주(週)마다 따로 저장
     const weekKey = (() => { const d = new Date(); const first = new Date(d.getFullYear(), d.getMonth(), d.getDate() - d.getDay()); return `${first.getFullYear()}-${first.getMonth() + 1}-${first.getDate()}`; })();
     const parentStore = (k) => `luup-parent-${k}-${weekKey}`;
@@ -721,6 +757,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         days = buildDays();
         const view = views[key]();
+        body.dataset.view = key;
         body.innerHTML = `
             <div class="rd_head">
                 <p class="rd_kicker">이번 주 · 최근 7일</p>
@@ -746,6 +783,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         restoreParent();
+        // 접기 버튼은 두 칸 밖(아래 가운데)으로
+        const closeEl = body.querySelector('[data-ro-close]');
+        if (closeEl) body.append(closeEl);
         body.querySelector('[data-ro-close]').addEventListener('click', () => {
             close();
             button.focus();
@@ -766,4 +806,147 @@ document.addEventListener('DOMContentLoaded', () => {
         // 칸이 열리기 시작하면 화면도 그 칸 위쪽(헤더 바로 아래)까지 부드럽게 내려감
         glideTo(detail);
     }));
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 제목: "이번 주 기록" → 잠시 뒤 "이번 주 하루님의 기록" (이름 칸이 벌어지며 나타남)
+    const who = document.querySelector('.ro_word [data-title-who]');
+    if (!who) return;
+    try {
+        const full = (JSON.parse(localStorage.getItem('luup-my-profile'))?.name || '').trim();
+        if (full) who.querySelector('[data-who-name]').textContent = full.length === 3 ? full.slice(1) : full;
+    } catch { /* 기본 이름 */ }
+    const sr = document.querySelector('.ro_word .sr_only');
+    if (sr) sr.textContent = `이번 주 ${who.querySelector('[data-who-name]').textContent}님의 기록`;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    (document.fonts?.ready || Promise.resolve()).then(() => setTimeout(() => {
+        who.style.setProperty('--who-w', `${who.scrollWidth}px`);
+        who.classList.add('is-in');
+    }, reduce ? 0 : 900));
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 숫자 칸을 누르면 오른쪽에서 상세 페이지(시트)가 밀려 들어옴: 7일 날짜별 기록 + 한 줄 정리
+    const body = document.querySelector('[data-ro-detail-body]');
+    if (!body) return;
+    const WEEK = ['일', '월', '화', '수', '목', '금', '토'];
+    const MOOD_NAMES = ['최고예요', '좋아요', '그저 그래요', '속상해요', '화나요'];
+    const MEMOS = ['받아쓰기를 끝까지 혼자 해냈어요!', '영어 단어 10개 외우기 성공', '동생이랑 같이 책을 읽었어요', '줄넘기 50개 넘었어요', '아침에 알람 없이 일어났어요', '숙제를 저녁 먹기 전에 끝냈어요'];
+    const seeded = (n) => { const x = Math.sin(n * 9301 + 49297) * 233280; return x - Math.floor(x); };
+    const week = () => {
+        const t = new Date();
+        return Array.from({ length: 7 }, (_, i) => {
+            const date = new Date(t.getFullYear(), t.getMonth(), t.getDate() - (6 - i));
+            const n = Math.floor(date.getTime() / 86400000);
+            return {
+                day: `${WEEK[date.getDay()]}요일`, date: `${date.getMonth() + 1}/${date.getDate()}`, today: i === 6,
+                done: 2 + Math.floor(seeded(n + 1) * 4),
+                mood: Math.min(4, Math.floor(seeded(n + 2) * seeded(n + 3) * 5)),
+                focus: 2 + Math.floor(seeded(n + 4) * 4),
+                memo: seeded(n + 5) < 0.85 ? MEMOS[Math.floor(seeded(n + 6) * MEMOS.length)] : ''
+            };
+        }).reverse();
+    };
+    const rows = {
+        routine: (d) => [`${d.done}/5개`, d.done === 5 ? '모두 해냈어요' : `${5 - d.done}개 남았어요`, d.done / 5],
+        mood: (d) => [MOOD_NAMES[d.mood], d.mood >= 3 ? '이야기를 들어 주세요' : '좋은 하루였어요', (5 - d.mood) / 5],
+        focus: (d) => [`${d.focus}점`, d.focus >= 4 ? '잘 집중했어요' : '집중이 어려웠어요', d.focus / 5],
+        memo: (d) => [d.memo ? '메모 있음' : '쉬었어요', d.memo || '이날은 메모가 없어요', d.memo ? 1 : 0.08]
+    };
+    const sheet = document.createElement('div');
+    sheet.className = 'rd_sheet';
+    sheet.hidden = true;
+    sheet.innerHTML = `<div class="rd_sheet_panel" role="dialog" aria-modal="true" aria-labelledby="rd-sheet-title" tabindex="-1">
+        <button type="button" class="rd_sheet_close" data-sheet-close aria-label="닫기">✕</button>
+        <div data-sheet-body></div></div>`;
+    document.body.append(sheet);
+    const sb = sheet.querySelector('[data-sheet-body]');
+    let lastFocus = null;
+    const close = () => {
+        sheet.classList.remove('is-in');
+        document.documentElement.classList.remove('is-sheet-open');
+        setTimeout(() => { sheet.hidden = true; }, 350);
+        lastFocus?.focus();
+    };
+    const open = (card) => {
+        lastFocus = card;
+        const key = body.dataset.view || 'routine';
+        const label = card.querySelector('dt')?.textContent || '';
+        const value = card.querySelector('dd')?.textContent || '';
+        const note = card.querySelector('small')?.textContent || '';
+        const title = body.querySelector('.rd_head h2')?.textContent || '';
+        const list = week().map((d) => {
+            const [v, text, ratio] = rows[key](d);
+            return `<li${d.today ? ' class="is-today"' : ''}><div class="rs_day"><b>${d.day}</b><small>${d.date}${d.today ? ' · 오늘' : ''}</small></div><div class="rs_main"><p><b>${v}</b><span>${text}</span></p><i style="--v:${ratio}"></i></div></li>`;
+        }).join('');
+        sb.innerHTML = `
+            <p class="rs_kicker">${title} · 자세히 보기</p>
+            <h2 id="rd-sheet-title">${label}</h2>
+            <p class="rs_big">${value}</p>
+            ${note ? `<p class="rs_note">${note}</p>` : ''}
+            <h3 class="rs_sub">날짜별 기록</h3>
+            <ol class="rs_list">${list}</ol>`;
+        sheet.hidden = false;
+        document.documentElement.classList.add('is-sheet-open');
+        requestAnimationFrame(() => {
+            sheet.classList.add('is-in');
+            sheet.querySelector('.rd_sheet_panel').focus();
+        });
+    };
+    body.addEventListener('click', (e) => {
+        const card = e.target.closest('[data-stat]');
+        if (card) open(card);
+    });
+    body.addEventListener('keydown', (e) => {
+        const card = e.target.closest('[data-stat]');
+        if (card && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); open(card); }
+    });
+    sheet.addEventListener('click', (e) => { if (e.target === sheet || e.target.closest('[data-sheet-close]')) close(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !sheet.hidden) close(); });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 상세 시트가 열려 있는 동안: 뒤 페이지는 휠 · 터치 · 키로 스크롤되지 않음 (시트 안은 스크롤 가능)
+    const root = document.documentElement;
+    const insideScrollable = (node, dy) => {
+        const panel = node.closest?.('.rd_sheet_panel');
+        if (!panel) return false;
+        return (dy > 0 && panel.scrollTop + panel.clientHeight < panel.scrollHeight - 1) || (dy < 0 && panel.scrollTop > 0);
+    };
+    const block = (event, dy) => {
+        if (!root.classList.contains('is-sheet-open')) return;
+        if (insideScrollable(event.target, dy)) return;
+        event.preventDefault();
+    };
+    window.addEventListener('wheel', (e) => block(e, e.deltaY), { passive: false, capture: true });
+    let ty = 0;
+    window.addEventListener('touchstart', (e) => { ty = e.touches[0].clientY; }, { passive: true });
+    window.addEventListener('touchmove', (e) => block(e, ty - e.touches[0].clientY), { passive: false, capture: true });
+    window.addEventListener('keydown', (e) => {
+        if (!root.classList.contains('is-sheet-open')) return;
+        if (e.target.closest?.('.rd_sheet_panel')) return;
+        if (['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End', ' '].includes(e.key)) e.preventDefault();
+    }, true);
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 날짜가 바뀌면(자정이 지나거나, 다른 날 다시 화면을 열면) 열려 있는 기록을 오늘 기준으로 다시 그림
+    // → 그래프 맨 오른쪽은 항상 오늘 요일(파랑 + 점), 왼쪽은 그 전 6일
+    const grid = document.querySelector('[data-ro-grid]');
+    if (!grid) return;
+    const dayKey = () => new Date().toDateString();
+    let shown = dayKey();
+    const refresh = () => {
+        const now = dayKey();
+        if (now === shown) return;
+        shown = now;
+        const openBtn = grid.querySelector('[data-ro-open][aria-expanded="true"]');
+        if (!openBtn) return;
+        openBtn.click();
+        setTimeout(() => openBtn.click(), 60);
+    };
+    setInterval(refresh, 30 * 1000);
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) refresh(); });
+    window.addEventListener('focus', refresh);
 });

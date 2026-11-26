@@ -7627,3 +7627,580 @@ main.ds_page {
 .ro_grid span {
   font-size: 16px;
 }
+
+/* 왼쪽(제목 · 부모님 확인 · 도움말)과 오른쪽(숫자 · 그래프) 아래 끝을 똑같이 */
+@media (min-width: 1101px) {
+  .ro_detail_inner {
+    align-items: stretch;
+  }
+
+  .rd_head,
+  .rd_body {
+    display: flex;
+    flex-direction: column;
+    align-self: stretch !important;
+    min-height: 100%;
+  }
+
+  /* 짧은 쪽의 마지막 칸이 늘어나 끝을 맞춤 */
+  .rd_head > .rd_tip {
+    flex-grow: 1;
+  }
+
+  .rd_body > .rd_section:last-of-type {
+    flex-grow: 1;
+    margin-bottom: 0;
+  }
+
+  .rd_body > .rd_close {
+    display: none;
+  }
+}
+
+/* 접기 버튼은 두 칸 아래 가운데에 따로 */
+.ro_detail_inner > .rd_close,
+.rd_close {
+  grid-column: 1 / -1;
+}
+
+/* 숫자 칸 아이콘 3개: 카드 폭과 상관없이 모두 같은 크기 · 같은 위치 */
+.rd_stats div::after,
+.rd_stats div:nth-child(1)::after,
+.rd_stats div:nth-child(2)::after,
+.rd_stats div:nth-child(3)::after {
+  right: -12px;
+  bottom: -16px;
+  width: 118px;
+  height: 118px;
+  background-size: contain;
+  background-position: center;
+}
+
+@media (max-width: 760px) {
+  .rd_stats div::after,
+  .rd_stats div:nth-child(n)::after {
+    width: 96px;
+    height: 96px;
+  }
+}
+
+/* 아이콘: 더 오른쪽 아래 구석으로 (카드 밖으로 조금 더 잘리게) */
+.rd_stats div::after,
+.rd_stats div:nth-child(n)::after {
+  right: -26px;
+  bottom: -32px;
+}
+
+@media (max-width: 760px) {
+  .rd_stats div::after,
+  .rd_stats div:nth-child(n)::after {
+    right: -20px;
+    bottom: -26px;
+  }
+}
+
+/* 아이콘 더 크게 (118px → 150px) */
+.rd_stats div::after,
+.rd_stats div:nth-child(n)::after {
+  width: 150px;
+  height: 150px;
+  right: -34px;
+  bottom: -40px;
+}
+
+@media (max-width: 760px) {
+  .rd_stats div::after,
+  .rd_stats div:nth-child(n)::after {
+    width: 120px;
+    height: 120px;
+    right: -26px;
+    bottom: -32px;
+  }
+}
+
+/* 자주 나온 말: 누르면 그 말이 나온 날 · 메모 말풍선 */
+.rd_tags li {
+  position: relative;
+  padding: 0;
+  background: none;
+}
+
+.rd_tag_btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 999px;
+  background: #eef4ff;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  color: #2563eb;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.rd_tag_btn em {
+  display: grid;
+  place-items: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 99px;
+  background: rgba(37, 99, 235, 0.15);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.rd_tag_btn:hover,
+.rd_tag_btn[aria-expanded="true"] {
+  background: #2563eb;
+  color: #fff;
+}
+
+.rd_tag_btn[aria-expanded="true"] em,
+.rd_tag_btn:hover em {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.rd_tag_pop {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  z-index: 10;
+  width: min(320px, 80vw);
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 18px 40px -16px rgba(17, 19, 24, 0.35), 0 0 0 1px rgba(37, 99, 235, 0.08);
+  animation: rd-pop-in 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.rd_tag_pop::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 22px;
+  width: 12px;
+  height: 12px;
+  background: #fff;
+  transform: rotate(45deg);
+  box-shadow: -1px -1px 0 rgba(37, 99, 235, 0.08);
+}
+
+@keyframes rd-pop-in {
+  from { opacity: 0; transform: translateY(-6px); }
+}
+
+.rd_tag_pop_head {
+  margin: 0 0 10px;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.rd_tag_pop_head b {
+  color: #2563eb;
+}
+
+.rd_tag_pop ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rd_tag_pop li {
+  display: grid;
+  gap: 2px;
+  padding: 0 0 8px;
+  border-bottom: 1px solid #eef1f6;
+  background: none;
+}
+
+.rd_tag_pop li:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.rd_tag_pop small {
+  font-size: 12px;
+  color: #9aa1ab;
+}
+
+.rd_tag_pop p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #111318;
+}
+
+.rd_tag_pop mark {
+  padding: 0 2px;
+  border-radius: 3px;
+  background: #dbe7ff;
+  color: #1d4ed8;
+}
+
+/* 단어 말풍선이 아래 칸(메모 모아 보기 등) 밑으로 깔리던 문제: 열린 칸을 맨 위로 */
+.rd_section {
+  position: relative;
+  z-index: 1;
+}
+
+.rd_section:has(.rd_tag_btn[aria-expanded="true"]),
+.rd_tags li:has(.rd_tag_btn[aria-expanded="true"]) {
+  z-index: 30;
+}
+
+.rd_tag_pop {
+  z-index: 40;
+}
+
+/* 루틴별로 해낸 날: 줄을 가리키면 요일별 했음(✓) · 못 함(✕) 말풍선 */
+.rd_list_days > li {
+  position: relative;
+  cursor: default;
+  outline: none;
+}
+
+.rd_list_days > li:hover,
+.rd_list_days > li:focus-visible {
+  z-index: 20;
+}
+
+.rd_day_tip {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% - 4px);
+  z-index: 20;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #111318;
+  color: #fff;
+  box-shadow: 0 16px 30px -14px rgba(17, 19, 24, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  transition: opacity 0.2s ease, transform 0.25s ease, visibility 0s linear 0.2s;
+  pointer-events: none;
+}
+
+.rd_list_days > li:hover .rd_day_tip,
+.rd_list_days > li:focus-visible .rd_day_tip {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity 0.2s ease, transform 0.25s ease, visibility 0s;
+}
+
+.rd_day_row {
+  display: flex;
+  gap: 6px;
+}
+
+.rd_day_row span {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.rd_day_row i {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.rd_day_row .is-ok i {
+  background: #2563eb;
+  color: #fff;
+}
+
+.rd_day_row .is-miss i {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ff8a8a;
+}
+
+.rd_day_row .is-today {
+  color: #fff;
+  font-weight: 700;
+}
+
+.rd_day_tip p {
+  margin: 10px 0 0;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.75);
+  white-space: nowrap;
+}
+
+.rd_day_tip p b {
+  font-size: inherit;
+  color: #fff;
+}
+
+/* 제목 "이번 주 [하루님의] 기록": 이름 칸이 0에서 벌어지며 파랑 글씨가 선명해짐 */
+.ro_who {
+  display: inline-block;
+  overflow: hidden;
+  width: 0;
+  vertical-align: bottom;
+  white-space: nowrap;
+  color: #2563eb;
+  opacity: 0;
+  filter: blur(8px);
+  transition: width 0.9s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.6s ease 0.35s, filter 0.6s ease 0.35s;
+}
+
+.ro_who.is-in {
+  width: var(--who-w, auto);
+  opacity: 1;
+  filter: blur(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ro_who {
+    transition: none;
+  }
+}
+
+/* 숫자 칸: 누를 수 있다는 표시 */
+.rd_stats div[data-stat] {
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease;
+}
+
+.rd_stats div[data-stat]:hover,
+.rd_stats div[data-stat]:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: inset 0 0 0 1px rgba(37, 99, 235, 0.25), 0 18px 34px -22px rgba(37, 99, 235, 0.5);
+  outline: none;
+}
+
+.rd_stat_go {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #fff;
+  font-size: 13px;
+  color: #2563eb;
+  box-shadow: 0 4px 10px -4px rgba(37, 99, 235, 0.35);
+  transition: transform 0.25s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.rd_stats div[data-stat]:hover .rd_stat_go {
+  background: #2563eb;
+  color: #fff;
+  transform: rotate(45deg);
+}
+
+/* 상세 시트: 오른쪽에서 밀려 들어오는 페이지 */
+.rd_sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: rgba(10, 12, 16, 0.4);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.rd_sheet.is-in {
+  opacity: 1;
+}
+
+.rd_sheet_panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(520px, 100%);
+  overflow-y: auto;
+  padding: 40px 36px 48px;
+  background: #fff;
+  box-shadow: -30px 0 60px -30px rgba(10, 12, 16, 0.5);
+  transform: translateX(100%);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  outline: none;
+}
+
+.rd_sheet.is-in .rd_sheet_panel {
+  transform: none;
+}
+
+.rd_sheet_close {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #e3e6eb;
+  border-radius: 50%;
+  background: #fff;
+  font-size: 15px;
+  color: #111318;
+  cursor: pointer;
+}
+
+.rd_sheet_close:hover {
+  border-color: #111318;
+  background: #111318;
+  color: #fff;
+}
+
+.rs_kicker {
+  margin: 0;
+  font-size: 14px;
+  color: #8a919c;
+}
+
+.rd_sheet_panel h2 {
+  margin: 8px 0 6px;
+  font-size: 28px;
+  font-weight: 700;
+  color: #111318;
+}
+
+.rs_big {
+  margin: 0;
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: #2563eb;
+}
+
+.rs_note {
+  margin: 6px 0 0;
+  font-size: 15px;
+  color: #6b7280;
+}
+
+.rs_sub {
+  margin: 32px 0 12px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #111318;
+}
+
+.rs_list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid #eef1f6;
+}
+
+.rs_list li {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr);
+  gap: 16px;
+  padding: 16px 4px;
+  border-bottom: 1px solid #eef1f6;
+}
+
+.rs_list li.is-today {
+  background: #f5f8ff;
+}
+
+.rs_day b {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  color: #111318;
+}
+
+.rs_day small {
+  font-size: 12px;
+  color: #9aa1ab;
+}
+
+.rs_main p {
+  display: grid;
+  gap: 2px;
+  margin: 0 0 8px;
+}
+
+.rs_main p b {
+  font-size: 15px;
+  font-weight: 600;
+  color: #2563eb;
+}
+
+.rs_main p span {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #3b4250;
+  word-break: keep-all;
+}
+
+.rs_main i {
+  display: block;
+  height: 6px;
+  border-radius: 99px;
+  background: linear-gradient(#2563eb, #2563eb) 0 0 / calc(var(--v) * 100%) 100% no-repeat, #eef1f6;
+}
+
+html.is-sheet-open,
+html.is-sheet-open body {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rd_sheet,
+  .rd_sheet_panel {
+    transition: none;
+  }
+}
+
+/* 시트 열림 동안 뒤 페이지 고정 · 시트 안 스크롤이 밖으로 번지지 않게 */
+.rd_sheet_panel {
+  overscroll-behavior: contain;
+}
+
+html.is-sheet-open {
+  overscroll-behavior: none;
+}
+
+/* 하루에 끝낸 루틴: 빛나는 막대 = 오늘(수 · 11/25), 가장 많이 한 날은 진한 테두리만 */
+.rd_glow_bars li.is-best .rd_glow_bar::before {
+  background: linear-gradient(180deg, rgba(120, 160, 240, 0.65), rgba(170, 196, 245, 0.5));
+}
+
+.rd_glow_bars li.is-best b {
+  color: #1d4ed8;
+}
+
+.rd_glow_tag {
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--v) * 100% + 8px);
+  z-index: 3;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: #111318;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+
+.rd_glow_dot {
+  display: none;
+}

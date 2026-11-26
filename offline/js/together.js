@@ -533,24 +533,51 @@ document.addEventListener('DOMContentLoaded', () => {
     const rates = [42, 48, 51, 58, 63, 67, 74, 81];
     const orbArt = {
         rate: () => {
-            const xs = rates.map((_, i) => 14 + i * (72 / (rates.length - 1)));
-            const ys = rates.map((r) => 78 - (r / 100) * 60);
-            const d = xs.map((x, i) => `${i ? 'L' : 'M'}${x} ${ys[i]}`).join(' ');
-            return `<svg viewBox="0 0 100 100" aria-hidden="true"><path class="orb_area" d="${d} L86 86 L14 86 Z" fill="rgba(37,99,235,.15)"/><path class="orb_line" d="${d}" pathLength="1" fill="none" stroke="#2563eb" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle class="orb_dot" cx="86" cy="${ys[ys.length - 1]}" r="4" fill="#2563eb"/></svg><b>81%</b>`;
+            // 참고 그래프처럼: 세로 격자선 · 부드러운 곡선(왼쪽은 흐리게 → 오른쪽 진하게) · 끝 점 후광 · 떠 있는 값 카드 · 아래 주차
+            const xs = rates.map((_, i) => 12 + i * (76 / (rates.length - 1)));
+            const ys = rates.map((r) => 70 - ((r - 40) / 45) * 46);
+            let d = `M${xs[0]} ${ys[0]}`;
+            for (let i = 1; i < xs.length; i += 1) {
+                const cx = (xs[i - 1] + xs[i]) / 2;
+                d += ` C${cx} ${ys[i - 1]} ${cx} ${ys[i]} ${xs[i]} ${ys[i]}`;
+            }
+            const ex = xs[xs.length - 1];
+            const ey = ys[ys.length - 1];
+            const grid = [2, 4, 6, 7].map((i) => `<line x1="${xs[i]}" y1="18" x2="${xs[i]}" y2="76" stroke="rgba(17,19,24,.07)" stroke-width=".6"/>`).join('');
+            return `<svg viewBox="0 0 100 100" aria-hidden="true">
+                <defs>
+                    <linearGradient id="orbLine" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2563eb" stop-opacity="0"/><stop offset=".45" stop-color="#2563eb" stop-opacity=".45"/><stop offset="1" stop-color="#2563eb"/></linearGradient>
+                    <radialGradient id="orbHalo"><stop offset="0" stop-color="#2563eb" stop-opacity=".28"/><stop offset="1" stop-color="#2563eb" stop-opacity="0"/></radialGradient>
+                </defs>
+                ${grid}
+                <path class="orb_line" d="${d}" pathLength="1" fill="none" stroke="url(#orbLine)" stroke-width="2.4" stroke-linecap="round"/>
+                <circle class="orb_dot" cx="${ex}" cy="${ey}" r="9" fill="url(#orbHalo)"/>
+                <circle class="orb_dot" cx="${ex}" cy="${ey}" r="3.6" fill="#2563eb" stroke="#fff" stroke-width="1.4"/>
+                
+                <text x="${xs[2]}" y="87" font-size="4.6" text-anchor="middle" fill="#c4cad4">3주</text>
+                <text x="${xs[4]}" y="87" font-size="4.6" text-anchor="middle" fill="#9aa1ab">5주</text>
+                <text x="${xs[6]}" y="87" font-size="4.6" text-anchor="middle" fill="#6b7280">7주</text>
+                <text x="${ex}" y="87" font-size="4.6" text-anchor="middle" font-weight="700" fill="#2563eb">8주</text>
+            </svg>`;
         },
         streak: () => {
             const cells = [...document.querySelectorAll('.gr_heat .gr_day')].slice(-21).map((el, i) => `<i class="${(el.className.match(/lv\d/) || ['lv0'])[0]}" style="--k:${i}"></i>`).join('');
             return `<span class="orb_heat">${cells}</span><b>18일</b>`;
         },
         done: () => {
-            const vals = [48, 36, 24, 18];
+            const vals = [9, 7, 5, 3];
             const total = vals.reduce((a, b) => a + b, 0);
             let acc = 0;
             const colors = ['#1d4ed8', '#4f8cf5', '#93b4f5', '#c7d7fa'];
             const stops = vals.map((v, i) => { const from = acc; acc += (v / total) * 360; return `${colors[i]} ${from}deg ${acc}deg`; }).join(',');
-            return `<span class="orb_donut" style="background:conic-gradient(${stops})"></span><b>126개</b>`;
+            return `<span class="orb_donut" style="background:conic-gradient(${stops})"></span><b>이번 주 24개</b>`;
         },
-        goals: () => '<span class="orb_big">7</span><b>개 달성</b>'
+        goals: () => {
+            // 네모 블록 7개가 위에서 떨어져 계단처럼 쌓임 (아래 3 · 가운데 2 · 위 2)
+            const spots = [[0, 0], [1, 0], [2, 0], [0.5, 1], [1.5, 1], [0.5, 2], [1.5, 2]];
+            const blocks = spots.map(([x, y], i) => `<i style="--x:${x};--y:${y};--k:${i}"></i>`).join('');
+            return `<span class="orb_stack">${blocks}</span><b>7개 달성</b>`;
+        }
     };
     wrap.querySelectorAll('.gc_col').forEach((col) => {
         const key = col.dataset.col;
@@ -649,25 +676,25 @@ document.addEventListener('DOMContentLoaded', () => {
             top: ['주마다 오른 폭', '<ul><li>1→2주 <b>+6%p</b></li><li>2→3주 <b>+3%p</b></li><li>3→4주 <b>+7%p</b></li><li>4→5주 <b>+5%p</b></li><li>5→6주 <b>+4%p</b></li><li>6→7주 <b>+7%p</b></li><li>7→8주 <b>+7%p</b></li></ul>'],
             name: ['지난달과 비교', '<p>지난달 평균 실천율 <b>38%</b> → 이번 달 <b>81%</b></p><p>한 달 사이 <b>+43%p</b> 올랐어요. 같은 또래 평균(62%)보다 19%p 높아요.</p>'],
             orb: ['가장 많이 · 적게 오른 주', '<p>가장 크게 오른 주: <b>3→4주 · 6→7주 · 7→8주 (+7%p)</b></p><p>가장 적게 오른 주: <b>2→3주 (+3%p)</b> — 학교 행사가 많던 주예요.</p>'],
-            caption: ['LUUP 해석', '<p>한 주도 내려가지 않고 오른 것은 루틴이 <b>습관으로 자리 잡는 신호</b>예요.</p><p>지금 실천율을 유지하면서, 새 루틴은 한 번에 하나씩만 더해 보세요.</p>']
+            caption: ['LUUP 해석', '<p class="pop_turn"><span>변화가 시작된 날</span><b>10월 22일 (4주차)</b></p><p>이날 <b>아침 8시 기상</b> 루틴을 시작한 뒤로 실천율이 주마다 평균 <b>+3%p → +6%p</b>로 두 배 빨리 올랐어요.</p><p>한 주도 내려가지 않은 건 루틴이 <b>습관으로 자리 잡는 신호</b>예요. 새 루틴은 한 번에 하나씩만 더해 보세요.</p>']
         },
         streak: {
             top: ['빠짐없이 이어 가는 요령', '<ul><li>잠들기 전 <b>내일 할 일 1개</b>만 정해 두기</li><li>가장 쉬운 루틴을 <b>하루 첫 루틴</b>으로</li><li>바쁜 날은 <b>짧은 버전</b>이라도 체크</li></ul>'],
             name: ['연속 기록 변화', '<p>지난달 최장 연속 <b>9일</b> → 이번 달 <b>18일</b></p><p>2배로 늘었어요. 지금은 <b>14일째</b> 이어 가는 중이에요.</p>'],
             orb: ['요일별 실천', '<ul><li>월 · 화 · 수 <b>모두 완료가 가장 많아요</b></li><li>토요일 <b>빠진 날 2일</b></li><li>일요일 <b>일부만 한 날 3일</b></li></ul>'],
-            caption: ['LUUP 해석', '<p>주말에 리듬이 조금 흐트러지는 편이에요.</p><p>토요일 아침에 <b>가족 함께 하는 루틴</b>을 하나 넣으면 연속 기록을 지키기 쉬워요.</p>']
+            caption: ['LUUP 해석', '<p class="pop_turn"><span>연속 기록이 시작된 날</span><b>11월 6일 (목)</b></p><p>이날 <b>토요일 아침 가족 산책</b>을 루틴에 넣은 뒤로 주말에도 빠지지 않고 18일째 이어 가고 있어요.</p><p>그 전에는 주말마다 끊겨 최장 9일이었어요.</p>']
         },
         done: {
             top: ['하루 평균 완료', '<p>하루 평균 <b>2.3개</b>를 완료했어요.</p><p>가장 많이 한 날은 <b>11월 12일 (6개)</b>예요.</p>'],
             name: ['지난달과 비교', '<p>지난달 <b>94개</b> → 이번 달 <b>126개</b></p><p>32개 더 해냈어요 (<b>+34%</b>).</p>'],
             orb: ['분야별 비율', '<ul><li>생활 습관 <b>48개 · 38%</b></li><li>공부 <b>36개 · 29%</b></li><li>운동 <b>24개 · 19%</b></li><li>독서 <b>18개 · 14%</b></li></ul>'],
-            caption: ['LUUP 해석', '<p>생활 습관은 충분히 자리 잡았어요.</p><p><b>독서</b> 비중이 가장 낮아요. 저녁 시간을 앞당기거나 10분짜리로 줄여 보세요.</p>']
+            caption: ['LUUP 해석', '<p class="pop_turn"><span>완료가 늘기 시작한 날</span><b>11월 3일 (월)</b></p><p>이날 <b>저녁 루틴을 8시 → 7시</b>로 옮긴 뒤 하루 평균 완료가 <b>1.8개 → 2.8개</b>로 늘었어요.</p><p>다만 <b>독서</b> 비중은 아직 가장 낮아요. 10분짜리로 줄여 보세요.</p>']
         },
         goals: {
             top: ['목표 달성 팁', '<ul><li>목표는 <b>2~3주 길이</b>가 가장 잘 지켜져요</li><li>달성하면 <b>작은 보상</b>을 함께 정해 두세요</li></ul>'],
             name: ['달성 기록', '<p>지금까지 <b>7개</b> 달성 · 진행 중 <b>2개</b></p><p>최근 달성: 아침 8시 기상 21일 (11.12)</p>'],
             orb: ['달성률이 높은 목표', '<ul><li>아침 8시 기상 21일 <b>100%</b></li><li>물 8잔 마시기 2주 <b>100%</b></li><li>하루 20페이지 독서 <b>93%</b></li><li>하루 30분 걷기 <b>93%</b></li></ul>'],
-            caption: ['LUUP 해석', '<p>짧고 구체적인 목표일수록 끝까지 해냈어요.</p><p>다음 목표도 <b>숫자로 정해진 목표</b>(예: 줄넘기 100개 2주)로 세워 보세요.</p>']
+            caption: ['LUUP 해석', '<p class="pop_turn"><span>달성이 이어진 시작점</span><b>10월 22일 (4주차)</b></p><p>이날 시작한 <b>아침 8시 기상 21일</b>을 11월 12일에 끝까지 해낸 뒤로, 3주 사이 목표 <b>3개</b>를 연달아 달성했어요.</p><p>다음 목표도 <b>숫자로 정해진 짧은 목표</b>로 세워 보세요.</p>']
         }
     };
     const pop = document.createElement('div');
@@ -867,12 +894,7 @@ document.addEventListener('DOMContentLoaded', () => {
         tour.querySelectorAll('li').forEach((li) => li.classList.toggle('is-on', li.dataset.step === key));
     }).observe(wrap, { attributes: true, attributeFilter: ['class'], subtree: true });
 
-    stay?.addEventListener('click', () => {
-        setTimeout(() => {
-            wrap.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            setTimeout(() => openCol('rate', true), 500);
-        }, 260);
-    });
+    // "리포트 더 보기"는 알림만 닫고 보던 화면(팝업 뜨기 전) 그대로 머묾
 });
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -922,4 +944,77 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }).observe(col, { attributes: true, attributeFilter: ['class'] });
     });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    // "새 루틴 만들기": 글자+화살표를 오른쪽 끝까지 보낼 거리 계산
+    const link = document.querySelector('.gr_end_top .gr_biglink, .gr_end .gr_biglink');
+    if (!link) return;
+    const measure = () => {
+        const cs = getComputedStyle(link);
+        const inner = [...link.children].reduce((w, el) => w + el.getBoundingClientRect().width, 0)
+            + (parseFloat(cs.columnGap) || parseFloat(cs.gap) || 0) * Math.max(link.children.length - 1, 0);
+        const room = link.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight) - inner;
+        link.style.setProperty('--slide', `${Math.max(0, room)}px`);
+    };
+    link.addEventListener('mouseenter', measure);
+    link.closest('.gr_end_top')?.addEventListener('mouseenter', measure);
+    link.addEventListener('focus', measure);
+    window.addEventListener('resize', measure);
+    (document.fonts?.ready || Promise.resolve()).then(measure);
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 상세 카드 아래: "변화가 시작된 날" + "아이가 잘 따라온 루틴" (기둥마다 다른 내용)
+    const MORE = {
+        rate: {
+            turn: ['10월 22일 (4주차)', '아침 8시 기상 루틴을 시작한 날이에요. 이날 이후 실천율이 주마다 평균 +3%p → +6%p로 두 배 빨리 올랐어요.'],
+            before: '시작 전 평균 49%', after: '시작 후 평균 71%',
+            best: [['아침 8시 기상', 100], ['물 8잔 마시기', 96], ['양치 · 세수', 93], ['받아쓰기 10문제', 78]]
+        },
+        streak: {
+            turn: ['11월 6일 (목)', '토요일 아침 가족 산책을 루틴에 넣은 주예요. 그 뒤로 주말에도 끊기지 않고 18일째 이어 가는 중이에요.'],
+            before: '그 전 최장 9일', after: '지금 18일째',
+            best: [['토요일 가족 산책', 100], ['아침 8시 기상', 100], ['잠들기 전 책 10분', 89], ['영어 단어 10개', 72]]
+        },
+        done: {
+            turn: ['11월 3일 (월)', '저녁 루틴을 8시에서 7시로 옮긴 날이에요. 피곤해지기 전에 끝내면서 하루 완료 수가 눈에 띄게 늘었어요.'],
+            before: '하루 평균 1.8개', after: '하루 평균 2.8개',
+            best: [['가방 챙기기 (생활 습관)', 98], ['숙제 먼저 하기 (공부)', 90], ['줄넘기 50개 (운동)', 82], ['책 10분 읽기 (독서)', 61]]
+        },
+        goals: {
+            turn: ['10월 22일 (4주차)', '첫 목표 "아침 8시 기상 21일"을 시작한 날이에요. 11월 12일에 끝까지 해낸 뒤 3주 사이 목표 3개를 연달아 달성했어요.'],
+            before: '그 전 달성 4개', after: '그 뒤 달성 +3개',
+            best: [['아침 8시 기상 21일', 100], ['물 8잔 마시기 2주', 100], ['하루 20페이지 독서', 93], ['하루 30분 걷기', 93]]
+        }
+    };
+    document.querySelectorAll('[data-col-detail]').forEach((detail) => {
+        const m = MORE[detail.dataset.colDetail];
+        if (!m) return;
+        const block = document.createElement('div');
+        block.className = 'gd_more';
+        block.innerHTML = `
+            <section class="gd_turn">
+                <p class="gd_kicker">변화가 시작된 날</p>
+                <p class="gd_date">${m.turn[0]}</p>
+                <p class="gd_text">${m.turn[1]}</p>
+                <div class="gd_compare"><span>${m.before}</span><i aria-hidden="true">→</i><b>${m.after}</b></div>
+            </section>
+            <section class="gd_best">
+                <p class="gd_kicker">아이가 잘 따라온 루틴</p>
+                <ol>${m.best.map(([name, v], i) => `<li><span class="gd_rank">${i + 1}</span><span class="gd_name">${name}</span><i class="gd_bar" style="--v:${v / 100}"></i><b>${v}%</b></li>`).join('')}</ol>
+                <p class="gd_note">실천율이 높은 순서예요. 1위 루틴은 시간을 바꾸지 말고 그대로 유지해 주세요.</p>
+            </section>`;
+        detail.append(block);
+    });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    // "다음 목표를 세워 볼까요": 글자를 한 자씩 나눠 두고, 카드를 가리키면 한 자씩 차례로 통통 튀며 색이 바뀜
+    const title = document.querySelector('.gr_end_top .gr_end_title');
+    if (!title || title.dataset.split) return;
+    title.dataset.split = '1';
+    const text = title.textContent;
+    title.setAttribute('aria-label', text);
+    title.innerHTML = [...text].map((ch, i) => (ch === ' ' ? ' ' : `<span class="ge_ch" aria-hidden="true" style="--c:${i}">${ch}</span>`)).join('');
 });

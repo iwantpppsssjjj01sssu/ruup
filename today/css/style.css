@@ -5975,3 +5975,52 @@ html.is-report-open body {
 
 /* 페이지 제목 줄임 (최대 116px → 88px) */
 .td_head .td_title { font-size: clamp(34px, 5vw, 88px); }
+
+/* 제목 "오늘의 루틴" → "오늘 [하루님의] 루틴" */
+.td_title {
+  white-space: nowrap;
+}
+
+.td_of {
+  display: inline-block;
+  overflow: hidden;
+  width: var(--of-w, auto);
+  vertical-align: bottom;
+  transition: width 0.6s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.3s ease;
+}
+
+.td_of.is-out {
+  width: 0;
+  opacity: 0;
+}
+
+.td_who {
+  display: inline-block;
+  overflow: hidden;
+  width: 0;
+  vertical-align: bottom;
+  white-space: nowrap;
+  color: #2563eb;
+  opacity: 0;
+  filter: blur(8px);
+  transition: width 0.9s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.6s ease 0.35s, filter 0.6s ease 0.35s;
+}
+
+.td_who.is-in {
+  width: var(--who-w, auto);
+  opacity: 1;
+  filter: blur(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .td_of,
+  .td_who {
+    transition: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .td_title {
+    white-space: normal;
+  }
+}

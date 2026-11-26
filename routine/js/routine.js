@@ -675,3 +675,30 @@ document.addEventListener('DOMContentLoaded', () => {
     renderFilters();
     refresh();
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 제목: "이번 달 루틴" → 잠시 뒤 "이번 달 하루님의 루틴" (가운데 이름이 벌어지며 스르륵 나타남)
+    const who = document.querySelector('[data-title-who]');
+    if (!who) return;
+    try {
+        const profile = JSON.parse(localStorage.getItem('luup-my-profile'));
+        const full = (profile?.name || '').trim();
+        if (full) {
+            const short = full.length === 3 ? full.slice(1) : full;
+            who.querySelector('[data-who-name]').textContent = short;
+            who.closest('h1')?.setAttribute('aria-label', `이번 달 ${short}님의 루틴`);
+        }
+    } catch { /* 기본 이름 사용 */ }
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const open = () => {
+        who.style.setProperty('--who-w', `${who.scrollWidth}px`);
+        who.classList.add('is-in');
+    };
+    (document.fonts?.ready || Promise.resolve()).then(() => setTimeout(open, reduce ? 0 : 900));
+    window.addEventListener('resize', () => {
+        if (who.classList.contains('is-in')) {
+            who.style.setProperty('--who-w', 'auto');
+            who.style.setProperty('--who-w', `${who.scrollWidth}px`);
+        }
+    });
+});

@@ -5257,3 +5257,638 @@ html.is-col-open .site_header {
 .gc_col.is-open .gc_name.gc_tap {
   text-decoration: none;
 }
+
+/* "새 루틴 만들기" 막대: 글자 · 화살표를 오른쪽 끝으로, 밑줄 없이 */
+.gr_end_top .gr_biglink {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  box-sizing: border-box;
+  padding-right: 10px;
+}
+
+.gr_end_top .gr_biglink,
+.gr_end_top .gr_biglink span {
+  text-decoration: none !important;
+  background-image: none;
+}
+
+.gr_end_top .gr_biglink:hover > *:not(i),
+.gr_end_top .gr_biglink:focus-visible > *:not(i) {
+  transform: translateX(-6px);
+}
+
+.gr_end_top .gr_biglink:hover i,
+.gr_end_top .gr_biglink:focus-visible i {
+  transform: rotate(45deg);
+}
+
+/* "새 루틴 만들기": 평소엔 왼쪽, 가리키면 글자 · 화살표가 오른쪽 끝까지 쓱 이동 (이동 거리 --slide는 JS가 계산) */
+.gr_end_top .gr_biglink {
+  justify-content: flex-start;
+  padding-left: 18px;
+  padding-right: 10px;
+}
+
+.gr_end_top .gr_biglink > *:not(i),
+.gr_end_top .gr_biglink i {
+  transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1), background 0.35s ease, color 0.35s ease;
+}
+
+.gr_end_top .gr_biglink:hover > *:not(i),
+.gr_end_top .gr_biglink:focus-visible > *:not(i) {
+  transform: translateX(var(--slide, 0px));
+}
+
+.gr_end_top .gr_biglink:hover i,
+.gr_end_top .gr_biglink:focus-visible i {
+  transform: translateX(var(--slide, 0px)) rotate(45deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gr_end_top .gr_biglink > * {
+    transition: none;
+  }
+}
+
+/* 가리켜 사진이 차오른 접힌 기둥: 아래쪽에 흰 그라데이션 → 검정 이름이 잘 보이게 */
+.gc_col:not(.is-open) .gc_pic::after {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 45%, rgba(255, 255, 255, 0.55) 72%, rgba(255, 255, 255, 0.92) 100%);
+}
+
+/* 성장률 동그라미 그래프: 크게, 아래 숫자 숨김(값 카드로 대신), 값 카드 떠오름 */
+.gc_col[data-col="rate"] .gc_orb svg {
+  width: 84%;
+}
+
+.gc_col[data-col="rate"] .gc_orb > b {
+  display: none;
+}
+
+.orb_tag {
+  opacity: 0;
+  filter: drop-shadow(0 3px 6px rgba(37, 99, 235, 0.18));
+}
+
+.gc_orb.is-fill .orb_tag {
+  animation: orb-fade 0.5s ease 2.3s forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orb_tag { opacity: 1; }
+}
+
+/* 성장률 동그라미: ↘ 버튼을 그래프 밖 아래 가운데로 */
+.gc_col[data-col="rate"] .gc_orb_go {
+  right: auto;
+  left: 50%;
+  bottom: 6%;
+  width: 28px;
+  height: 28px;
+  font-size: 13px;
+  transform: translateX(-50%);
+}
+
+.gc_col[data-col="rate"] .gc_orb svg {
+  margin-top: -8%;
+}
+
+/* 상세 카드: 더 반투명한 유리 (뒤 사진이 비쳐 보이게) */
+@media (min-width: 761px) {
+  .gc_detail {
+    background: rgba(255, 255, 255, 0.62);
+    -webkit-backdrop-filter: blur(22px) saturate(1.2);
+    backdrop-filter: blur(22px) saturate(1.2);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+  }
+
+  .gc_detail .gc_page .gr_chart,
+  .gc_detail .gc_page .gr_cal {
+    background: rgba(255, 255, 255, 0.55);
+  }
+}
+
+/* "+43% 실천율 상승" 태그: 파란 바탕 + 흰 글씨 + 상승 화살표, 은은히 숨 쉬는 그림자 */
+.orb_tag {
+  filter: drop-shadow(0 4px 8px rgba(37, 99, 235, 0.45));
+}
+
+.gc_orb.is-fill .orb_tag {
+  animation: orb-fade 0.5s ease 2.3s forwards, orb-tag-glow 2.4s ease-in-out 2.8s infinite;
+}
+
+@keyframes orb-tag-glow {
+  0%, 100% { filter: drop-shadow(0 4px 8px rgba(37, 99, 235, 0.45)); }
+  50% { filter: drop-shadow(0 4px 14px rgba(37, 99, 235, 0.75)); }
+}
+
+/* LUUP 해석: 변화가 시작된 날 강조 줄 */
+.gc_pop_body .pop_turn {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 10px;
+  margin: 0 0 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #eef3ff;
+}
+
+.gc_pop_body .pop_turn span {
+  font-size: 12px;
+  font-weight: 600;
+  color: #5b6472;
+}
+
+.gc_pop_body .pop_turn b {
+  font-size: 16px;
+  font-weight: 800;
+  color: #2563eb;
+}
+
+/* 상세 카드 아래: 변화가 시작된 날 + 잘 따라온 루틴 */
+.gd_more {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.gd_turn,
+.gd_best {
+  padding: 20px 22px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.gd_kicker {
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #2563eb;
+}
+
+.gd_date {
+  margin: 0 0 8px;
+  font-size: clamp(22px, 1.9vw, 28px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #111318;
+}
+
+.gd_text {
+  margin: 0 0 14px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: #3b4250;
+  word-break: keep-all;
+}
+
+.gd_compare {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #eef3ff;
+  font-size: 14px;
+}
+
+.gd_compare span {
+  color: #6b7280;
+}
+
+.gd_compare i {
+  font-style: normal;
+  color: #2563eb;
+}
+
+.gd_compare b {
+  font-weight: 700;
+  color: #2563eb;
+}
+
+.gd_best ol {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gd_best li {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1.2fr) minmax(0, 1fr) 42px;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #2b3038;
+}
+
+.gd_rank {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #e6ecf8;
+  font-size: 12px;
+  font-weight: 700;
+  color: #5b6472;
+}
+
+.gd_best li:first-child .gd_rank {
+  background: #2563eb;
+  color: #fff;
+}
+
+.gd_name {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.gd_bar {
+  position: relative;
+  height: 8px;
+  border-radius: 99px;
+  background: rgba(37, 99, 235, 0.1);
+  overflow: hidden;
+}
+
+.gd_bar::after {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: calc(var(--v) * 100%);
+  border-radius: inherit;
+  background: #2563eb;
+  transform-origin: left;
+}
+
+.gc_col.is-detail .gd_bar::after {
+  animation: gd-grow 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+}
+
+@keyframes gd-grow {
+  from { transform: scaleX(0); }
+}
+
+.gd_best b {
+  font-weight: 700;
+  text-align: right;
+  color: #111318;
+}
+
+.gd_note {
+  margin: 12px 0 0;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+@media (max-width: 1100px) {
+  .gd_more {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* 완료한 일 펼침: "이번 주 완료한 루틴 24개" + 하루 평균 */
+.gc_name .gc_label_open,
+.gc_name .gc_sub {
+  display: none;
+}
+
+.gc_col.is-open .gc_name .gc_label_open {
+  display: block;
+  font-size: clamp(16px, 1.3vw, 20px);
+  font-weight: 500;
+  opacity: 0.85;
+}
+
+.gc_col.is-open .gc_name .gc_label_open + b {
+  margin-top: 4px;
+}
+
+.gc_col.is-open .gc_name:has(.gc_label_open) .gc_label {
+  display: none;
+}
+
+.gc_col.is-open .gc_name .gc_sub {
+  display: block;
+  margin-top: 12px;
+  font-size: clamp(15px, 1.2vw, 18px);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.gc_col.is-open .gc_name .gc_sub em {
+  font-style: normal;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* 동그라미 아래 한글(개 달성 · 이번 주 24개 · 18일 …) 크게 */
+.gc_orb > b {
+  font-size: clamp(20px, 1.7vw, 26px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* 아래 둘러보기 막대(← 01 성장률 … 04 해낸 목표 →) 없앰, 글씨는 원래 높이로 */
+.gc_tour {
+  display: none !important;
+}
+
+.gr_cols.is-full .gc_caption,
+.gr_cols.is-full .gc_hint,
+.gr_cols.is-full .gc_name {
+  bottom: 44px;
+}
+
+/* 해낸 목표 동그라미: 네모 7개가 하나씩 떨어져 쌓임 */
+.orb_stack {
+  --u: clamp(20px, 2vw, 28px);
+  --g: 3px;
+  position: relative;
+  display: block;
+  width: calc(var(--u) * 3 + var(--g) * 2);
+  height: calc(var(--u) * 3 + var(--g) * 2);
+  margin-bottom: 4px;
+}
+
+.orb_stack i {
+  position: absolute;
+  left: calc(var(--x) * (var(--u) + var(--g)));
+  bottom: calc(var(--y) * (var(--u) + var(--g)));
+  width: var(--u);
+  height: var(--u);
+  border-radius: 6px;
+  background: linear-gradient(160deg, #6f9cf5 0%, #2563eb 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 4px 8px -4px rgba(37, 99, 235, 0.6);
+  opacity: 0;
+  transform: translateY(-60px) rotate(-12deg);
+}
+
+/* 맨 위 블록은 밝은 색으로 마무리 */
+.orb_stack i:nth-child(6),
+.orb_stack i:nth-child(7) {
+  background: linear-gradient(160deg, #a9c8ff 0%, #4f8cf5 100%);
+}
+
+.gc_orb.is-fill .orb_stack i {
+  animation: orb-drop 0.55s cubic-bezier(0.34, 1.4, 0.5, 1) forwards;
+  animation-delay: calc(1.1s + var(--k) * 0.14s);
+}
+
+@keyframes orb-drop {
+  0% { opacity: 0; transform: translateY(-60px) rotate(-12deg); }
+  60% { opacity: 1; transform: translateY(3px) rotate(2deg); }
+  100% { opacity: 1; transform: none; }
+}
+
+/* "7개 달성"은 블록이 다 쌓인 뒤 */
+.gc_col[data-col="goals"] .gc_orb.is-fill > b {
+  animation-delay: 2.2s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orb_stack i {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* 동그라미: 도형 조금 크게, 아래 글씨 조금 작게 · 살짝 아래로 */
+.orb_heat {
+  grid-template-columns: repeat(7, clamp(14px, 1.3vw, 18px));
+  gap: 5px;
+}
+
+.orb_heat i {
+  width: auto;
+  height: auto;
+  aspect-ratio: 1;
+  border-radius: 4px;
+}
+
+.orb_donut {
+  width: 64%;
+}
+
+.orb_stack {
+  --u: clamp(24px, 2.3vw, 32px);
+}
+
+.gc_orb > b {
+  margin-top: 10px;
+  font-size: clamp(16px, 1.35vw, 20px);
+}
+
+/* 성장률 동그라미: 값 카드 대신 그래프 아래 한 줄 멘트 */
+.gc_col[data-col="rate"] .gc_orb > b {
+  display: block;
+  margin-top: 2px;
+  font-size: clamp(13px, 1.05vw, 15px);
+  font-weight: 600;
+  color: #2563eb;
+}
+
+/* "다음 단계" 카드: 가리키면 색 반전 — 파랑 카드 → 흰 카드, 흰 버튼 → 파랑 버튼 */
+.gr_report .gr_end.gr_end_top {
+  transition: background 0.4s ease, box-shadow 0.4s ease, color 0.4s ease;
+}
+
+.gr_end_top .gr_label,
+.gr_end_top .gr_end_title,
+.gr_end_top .gr_label::before,
+.gr_end_top .gr_biglink,
+.gr_end_top .gr_biglink i {
+  transition: color 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.gr_report .gr_end.gr_end_top:hover,
+.gr_report .gr_end.gr_end_top:focus-within {
+  background: #fff !important;
+  box-shadow: 0 0 0 1px #dbe5fb, 0 24px 50px -24px rgba(29, 78, 216, 0.45) !important;
+}
+
+.gr_end_top:hover .gr_label,
+.gr_end_top:focus-within .gr_label {
+  color: #2563eb !important;
+}
+
+.gr_end_top:hover .gr_label::before,
+.gr_end_top:focus-within .gr_label::before {
+  background: #2563eb;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.18);
+}
+
+.gr_end_top:hover .gr_end_title,
+.gr_end_top:focus-within .gr_end_title {
+  color: #1d4ed8 !important;
+}
+
+.gr_end_top:hover .gr_biglink,
+.gr_end_top:focus-within .gr_biglink {
+  background: #2563eb;
+  color: #fff !important;
+}
+
+.gr_end_top:hover .gr_biglink i,
+.gr_end_top:focus-within .gr_biglink i {
+  background: #fff;
+  color: #2563eb;
+}
+
+/* 예전 남색 채움은 끄고 색 반전만 */
+.gr_end_top .gr_biglink::before {
+  display: none;
+}
+
+/* 제목 글자: 가리키면 한 자씩 살짝 위로 튀었다가 제자리 (왼쪽부터 차례로) */
+.ge_ch {
+  display: inline-block;
+  transition: color 0.4s ease;
+}
+
+.gr_end_top:hover .ge_ch,
+.gr_end_top:focus-within .ge_ch {
+  animation: ge-hop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation-delay: calc(var(--c) * 0.035s);
+}
+
+@keyframes ge-hop {
+  0% { transform: translateY(0); }
+  40% { transform: translateY(-7px); }
+  100% { transform: translateY(0); }
+}
+
+/* "다음 단계" 라벨: 점이 살짝 커졌다 작아짐 */
+.gr_end_top:hover .gr_label::before,
+.gr_end_top:focus-within .gr_label::before {
+  animation: ge-dot 0.6s ease;
+}
+
+@keyframes ge-dot {
+  50% { transform: scale(1.6); }
+}
+
+/* 버튼 글자: 밑에서 새 글자가 올라오듯 한 번 굴러감 */
+.gr_end_top .gr_biglink span {
+  display: inline-block;
+}
+
+.gr_end_top:hover .gr_biglink span,
+.gr_end_top:focus-within .gr_biglink span {
+  animation: ge-roll 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+@keyframes ge-roll {
+  0% { transform: translateY(0); opacity: 1; }
+  45% { transform: translateY(-60%); opacity: 0; }
+  55% { transform: translateY(60%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gr_end_top .ge_ch,
+  .gr_end_top .gr_biglink span,
+  .gr_end_top .gr_label::before {
+    animation: none !important;
+  }
+}
+
+/* =========================================================
+   "다음 단계" 카드 hover: 화려하게
+   - 카드가 살짝 떠오르며 기울고, 빛이 대각선으로 쓱 지나감
+   - 제목 글자: 한 자씩 크게 튀어 오르며 회전 · 파랑으로 물듦 (물결)
+   - "다음 단계" 라벨: 오른쪽으로 쭉 밀려남
+   - 버튼: 글자가 오른쪽 끝까지 확 날아가고, 화살표는 빙글 돌며 커짐
+   ========================================================= */
+.gr_report .gr_end.gr_end_top {
+  transition: background 0.45s ease, box-shadow 0.45s ease, transform 0.6s cubic-bezier(0.34, 1.4, 0.5, 1);
+}
+
+.gr_report .gr_end.gr_end_top:hover,
+.gr_report .gr_end.gr_end_top:focus-within {
+  transform: translateY(-8px) rotate(-1.2deg) scale(1.02);
+}
+
+/* 대각선 빛 */
+.gr_report .gr_end.gr_end_top::after {
+  content: '';
+  position: absolute;
+  inset: -40% auto -40% -60%;
+  width: 40%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.85), transparent);
+  transform: skewX(-20deg) translateX(0);
+  pointer-events: none;
+  opacity: 0;
+}
+
+.gr_report .gr_end.gr_end_top:hover::after,
+.gr_report .gr_end.gr_end_top:focus-within::after {
+  animation: ge-shine 0.9s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+@keyframes ge-shine {
+  0% { opacity: 0; transform: skewX(-20deg) translateX(0); }
+  20% { opacity: 1; }
+  100% { opacity: 0; transform: skewX(-20deg) translateX(520%); }
+}
+
+/* 제목 글자 물결 */
+.gr_end_top:hover .ge_ch,
+.gr_end_top:focus-within .ge_ch {
+  animation: ge-wave 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation-delay: calc(var(--c) * 0.045s);
+}
+
+@keyframes ge-wave {
+  0% { transform: translateY(0) rotate(0) scale(1); }
+  35% { transform: translateY(-16px) rotate(-10deg) scale(1.25); color: #60a5fa; }
+  70% { transform: translateY(3px) rotate(4deg) scale(0.95); }
+  100% { transform: none; }
+}
+
+/* 라벨 쭉 밀림 */
+.gr_end_top .gr_label {
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.4s ease, letter-spacing 0.6s ease;
+}
+
+.gr_end_top:hover .gr_label,
+.gr_end_top:focus-within .gr_label {
+  transform: translateX(14px);
+  letter-spacing: 0.12em;
+}
+
+/* 버튼 글자 · 화살표 */
+.gr_end_top .gr_biglink > *:not(i),
+.gr_end_top .gr_biglink i {
+  transition: transform 0.6s cubic-bezier(0.34, 1.3, 0.5, 1), background 0.4s ease, color 0.4s ease;
+}
+
+.gr_end_top:hover .gr_biglink > *:not(i),
+.gr_end_top:focus-within .gr_biglink > *:not(i) {
+  transform: translateX(var(--slide, 0px));
+}
+
+.gr_end_top:hover .gr_biglink i,
+.gr_end_top:focus-within .gr_biglink i {
+  transform: translateX(var(--slide, 0px)) rotate(405deg) scale(1.25);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gr_report .gr_end.gr_end_top,
+  .gr_report .gr_end.gr_end_top:hover {
+    transform: none;
+  }
+
+  .gr_report .gr_end.gr_end_top::after,
+  .gr_end_top .ge_ch {
+    animation: none !important;
+  }
+}
