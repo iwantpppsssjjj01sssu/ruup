@@ -1476,3 +1476,83 @@
   font-size: 14px;
   color: #6b7280;
 }
+
+/* 좋았던 날: 날짜 줄 */
+.my_report_stats li.is-dates {
+  flex-wrap: wrap;
+}
+
+.my_report_stats li.is-dates small {
+  flex-basis: 100%;
+  margin-top: 6px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #6b7280;
+  word-break: keep-all;
+}
+
+/* 이번 주 리포트 아래 "리포트 보기 · 보호자 공유": 회색 글씨 · 회색 밑줄 (가리키면 진하게) */
+.my_report_links a,
+.my_report_links button {
+  color: #8a919c !important;
+  border-bottom-color: #c4cad4 !important;
+  text-decoration-color: #c4cad4;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.my_report_links a:hover,
+.my_report_links button:hover {
+  color: #111318 !important;
+  border-bottom-color: #111318 !important;
+  text-decoration-color: #111318;
+}
+
+/* 이번 주 리포트 항목 이름(집중 시간 · 좋았던 날 · 루틴 달성): 검정 */
+.my_report_stats li > span {
+  color: #111318 !important;
+}
+
+/* "리포트 보기 · 보호자 공유" 글씨 작게 */
+.my_report_links a,
+.my_report_links button {
+  font-size: 15px !important;
+}
+
+/* 제목 MY PAGE와 아래 문장 간격: 루틴 페이지와 똑같이 18px */
+.my_hero .page_lead {
+  margin-top: -13px !important;
+}
+.my_hero .page_lead { margin-top: -53px !important; }
+.my_hero .page_lead { margin-top: -59px !important; }
+
+/* 제목 · 문장 간격: 화면 크기와 상관없이 항상 18px (음수 여백 대신 격자 행 간격을 0으로) */
+.my_hero {
+  row-gap: 0 !important;
+}
+
+.my_hero .page_lead {
+  margin-top: 18px !important;
+}
+
+.my_hero .my_intro {
+  margin-top: 28px;
+}
+/* 오른쪽 알림 카드가 길어도 제목 · 문장 줄은 늘어나지 않게 (남는 높이는 맨 아래 줄로) */
+.my_hero {
+  grid-template-rows: auto auto 1fr;
+}
+
+/* 좌우 여백: GROWTH와 똑같이 (제목 시작점 맞춤 · 오른쪽 끝도 --title-x) */
+.my_hero .my_title {
+  margin-left: calc(-0.059em + 1.8px) !important;
+}
+
+.my_page {
+  padding-left: var(--title-x) !important;
+  padding-right: var(--title-x) !important;
+}
+
+/* 아래 문장 첫 글자(우)를 MY의 M 왼쪽 끝에 맞춤 (실측 차이 약 3.7px) */
+.my_hero .page_lead {
+  padding-left: 2.3px !important;
+}

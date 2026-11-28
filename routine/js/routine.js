@@ -702,3 +702,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 첫 화면 "이번 달 달력 보기": 달력으로 부드럽게 내려감 + 사진 카드가 화면에 들어오면 차례로 날아옴
+    const hero = document.querySelector('.rc_hero');
+    if (!hero) return;
+    hero.querySelector('[data-rh-go]')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector('.rc_board');
+        const header = document.querySelector('.site_header');
+        const y = target.getBoundingClientRect().top + window.scrollY - (header ? header.offsetHeight : 0) - 16;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+    });
+    requestAnimationFrame(() => hero.classList.add('is-in'));
+});

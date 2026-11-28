@@ -959,3 +959,17 @@ document.addEventListener('DOMContentLoaded', () => {
         window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
     });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 고민 카드 앞면 아래 검정 화살표: 가리키면 옆에 "○○ 페이지로 이동" 글씨가 스르륵
+    document.querySelectorAll('.arc_card').forEach((card) => {
+        const foot = card.querySelector('.pp_foot');
+        const target = card.querySelector('.arc_no')?.textContent.trim();
+        if (!foot || !target || foot.querySelector('.pp_go_label')) return;
+        const name = target.replace(/ · .*$/, '');
+        const label = document.createElement('span');
+        label.className = 'pp_go_label';
+        label.textContent = /진단$/.test(name) ? `${name}으로 이동` : `${name}로 이동`;
+        foot.append(label);
+    });
+});

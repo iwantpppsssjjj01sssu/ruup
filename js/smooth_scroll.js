@@ -29,7 +29,15 @@
             return false;
         };
 
+        // 다른 코드가 화면을 자동으로 옮기는 중이면(window.__luupGlide) 관성 스크롤을 멈추고 그 위치를 따름
+        // → 기록 칸이 열리며 내려간 화면이 예전 목표 위치로 다시 끌려 올라가지 않게
         const step = () => {
+            if (window.__luupGlide) {
+                rafId = null;
+                target = current = window.scrollY;
+                root.style.scrollBehavior = '';
+                return;
+            }
             current += (target - current) * EASE;
             if (Math.abs(target - current) < 0.5) {
                 current = target;

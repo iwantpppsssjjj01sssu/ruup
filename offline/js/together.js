@@ -562,7 +562,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         streak: () => {
             const cells = [...document.querySelectorAll('.gr_heat .gr_day')].slice(-21).map((el, i) => `<i class="${(el.className.match(/lv\d/) || ['lv0'])[0]}" style="--k:${i}"></i>`).join('');
-            return `<span class="orb_heat">${cells}</span><b>18일</b>`;
+            return `<span class="orb_heat">${cells}</span><b>18일 연속 달성</b>`;
         },
         done: () => {
             const vals = [9, 7, 5, 3];
@@ -573,8 +573,8 @@ document.addEventListener('DOMContentLoaded', () => {
             return `<span class="orb_donut" style="background:conic-gradient(${stops})"></span><b>이번 주 24개</b>`;
         },
         goals: () => {
-            // 네모 블록 7개가 위에서 떨어져 계단처럼 쌓임 (아래 3 · 가운데 2 · 위 2)
-            const spots = [[0, 0], [1, 0], [2, 0], [0.5, 1], [1.5, 1], [0.5, 2], [1.5, 2]];
+            // 네모 블록 7개가 위에서 떨어져 쌓임 (아래 4 · 위 3)
+            const spots = [[0, 0], [1, 0], [2, 0], [3, 0], [0.5, 1], [1.5, 1], [2.5, 1]];
             const blocks = spots.map(([x, y], i) => `<i style="--x:${x};--y:${y};--k:${i}"></i>`).join('');
             return `<span class="orb_stack">${blocks}</span><b>7개 달성</b>`;
         }
@@ -585,7 +585,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const layer = document.createElement('div');
         layer.className = 'gc_layer';
         layer.innerHTML = `
-            <button type="button" class="gc_orb" aria-label="자세히 보기">${orbArt[key] ? orbArt[key]() : ''}<i class="gc_orb_go" aria-hidden="true">↘</i></button>
+            <button type="button" class="gc_orb" aria-label="자세히 보기">${orbArt[key] ? orbArt[key]() : ''}<i class="gc_orb_go" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></i></button>
             <p class="gc_caption">${text}</p>
             <button type="button" class="gc_hint">자세히 보기 <i aria-hidden="true">↘</i></button>`;
         col.append(layer);

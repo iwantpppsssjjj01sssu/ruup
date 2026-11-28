@@ -70,8 +70,19 @@
 
     <main class="today_page" data-today-page>
         <!-- 페이지 큰 제목: RECORD · 이번 달 루틴 · Growth · MY PAGE와 같은 서체·크기·위치 -->
-        <header class="td_head">
-            <p class="td_title" aria-hidden="true">오늘<span class="td_of">의</span> <span class="td_who" data-title-who><span data-who-name>하루</span>님의&nbsp;</span>루틴</p>
+        <!-- 첫 화면: 아치형 사진 카드 + 가운데 제목 · 설명 · 버튼 · 특징 3칸 -->
+        <header class="td_head td_hero">
+            <ul class="rh_arc ac_arc" aria-label="오늘의 루틴" data-arc-cards></ul>
+            <div class="rh_center">
+                <p class="td_title" aria-hidden="true">오늘<span class="td_of">의</span> <span class="td_who" data-title-who><span data-who-name>하루</span>님의&nbsp;</span>루틴</p>
+                <p class="td_lead">오늘 해야 할 루틴을 <b>순서대로</b> 보여 드려요.</p>
+                <a class="rh_btn" href="#today-title" data-rh-go>오늘 루틴 시작하기 <span aria-hidden="true">→</span></a>
+            </div>
+            <ul class="rh_feats">
+                <li><b>지금 할 일</b><span>진행 중인 루틴이 가운데에 크게</span></li>
+                <li><b>타이머 · 도움 요청</b><span>멈추고, 늘리고, 도움을 부를 수 있어요</span></li>
+                <li><b>루틴 리포트</b><span>지난 7일 기록과 소견을 확인해요</span></li>
+            </ul>
         </header>
         <section class="today_stage" data-stage aria-labelledby="today-title">
             <!-- 원근감 있는 바닥 그리드 -->

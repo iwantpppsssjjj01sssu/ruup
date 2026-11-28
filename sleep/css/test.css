@@ -8204,3 +8204,49 @@ html.is-sheet-open {
 .rd_glow_dot {
   display: none;
 }
+
+/* 오른쪽 마지막 판(날마다 집중도 등): 아래 끝 맞추려고 늘리던 것 해제 → 내용 높이만큼만 */
+@media (min-width: 1101px) {
+  .rd_body > .rd_section:last-of-type {
+    flex-grow: 0;
+  }
+
+  .rd_body {
+    min-height: 0;
+  }
+}
+
+/* 되돌림: 오른쪽 마지막 판은 다시 왼쪽과 아래 끝을 맞춰 늘어남 (빈 공간엔 정리 글) */
+@media (min-width: 1101px) {
+  .rd_body > .rd_section:last-of-type {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.rd_section_note {
+  margin: 28px 0 0;
+  padding-top: 22px;
+  border-top: 1px solid rgba(37, 99, 235, 0.1);
+}
+
+.rd_section_note h4 {
+  margin: 0 0 10px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #111318;
+}
+
+.rd_section_note p {
+  margin: 0 0 8px;
+  font-size: 15px;
+  line-height: 1.75;
+  color: #4b5563;
+  word-break: keep-all;
+}
+
+.rd_section_note b {
+  font-weight: 600;
+  color: #1d4ed8;
+}

@@ -5892,3 +5892,299 @@ html.is-col-open .site_header {
     animation: none !important;
   }
 }
+
+/* 상세 카드 작은 제목(주별 실천율 추이 등): 더 밝은 회색 */
+.gc_detail .gc_page .gr_label {
+  color: #b4bac4 !important;
+}
+
+/* 펼친 기둥 이름 · 숫자: 접힌 기둥 이름과 같은 크기 (두 줄, 같은 글씨 크기) */
+.gr_cols.is-full .gc_name,
+.gc_col.is-open .gc_name {
+  font-size: clamp(22px, 2.1vw, 32px) !important;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.gc_col.is-open .gc_name .gc_label,
+.gc_col.is-open .gc_name .gc_label_open,
+.gc_col.is-open .gc_name b {
+  margin: 0 !important;
+  font-size: inherit !important;
+  font-weight: 500 !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.02em !important;
+  opacity: 1 !important;
+}
+
+.gc_col.is-open .gc_name .gc_sub {
+  margin-top: 8px;
+  font-size: 15px;
+}
+
+/* 동그라미 안 버튼: 흰 원 + 파랑 ↗ + 부드러운 파란 그림자 (참고 버튼과 같게) */
+.gc_orb_go,
+.gc_col[data-col] .gc_orb_go {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #fff;
+  font-size: 17px;
+  font-weight: 600;
+  color: #2563eb;
+  box-shadow: 0 8px 20px -8px rgba(37, 99, 235, 0.45), 0 0 0 1px rgba(37, 99, 235, 0.06);
+  transition: transform 0.25s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.gc_orb:hover .gc_orb_go {
+  background: #2563eb;
+  color: #fff;
+  transform: rotate(45deg);
+}
+
+.gc_col[data-col="rate"] .gc_orb:hover .gc_orb_go {
+  transform: translateX(-50%) rotate(45deg);
+}
+
+/* 모든 동그라미: 버튼을 그래프(도형) 아래 가운데에 (성장률과 같은 자리) */
+.gc_orb .gc_orb_go,
+.gc_col[data-col] .gc_orb .gc_orb_go {
+  position: static;
+  order: 9;
+  margin-top: 10px;
+  transform: none;
+}
+
+.gc_orb:hover .gc_orb_go,
+.gc_col[data-col] .gc_orb:hover .gc_orb_go {
+  transform: rotate(45deg);
+}
+
+.gc_orb {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.gc_orb > svg,
+.gc_orb > span,
+.gc_orb > b {
+  flex: none;
+}
+
+/* 동그라미 버튼 화살표: 항상 ↗ (가리켜도 돌지 않음 · 색만 바뀜), 동그라미 안쪽에 들어가게 */
+.gc_orb .gc_orb_go,
+.gc_orb:hover .gc_orb_go,
+.gc_col[data-col] .gc_orb .gc_orb_go,
+.gc_col[data-col] .gc_orb:hover .gc_orb_go,
+.gc_col[data-col="rate"] .gc_orb:hover .gc_orb_go {
+  transform: none !important;
+  rotate: none !important;
+}
+
+.gc_col[data-col="rate"] .gc_orb .gc_orb_go {
+  left: auto;
+  margin-top: 4px;
+}
+
+.gc_col[data-col="rate"] .gc_orb svg {
+  width: 74%;
+  margin-top: 0;
+}
+
+/* 버튼 화살표 그림: 위 오른쪽(↗) 고정 */
+.gc_orb_go svg {
+  display: block;
+  transform: none !important;
+}
+
+/* 성장률 버튼: 그래프용 svg 크기 규칙이 버튼 화살표까지 키우던 것 → 다른 동그라미 버튼과 똑같이 */
+.gc_col[data-col] .gc_orb .gc_orb_go {
+  width: 40px !important;
+  height: 40px !important;
+  margin-top: 10px !important;
+}
+
+.gc_col[data-col] .gc_orb .gc_orb_go svg {
+  width: 18px !important;
+  height: 18px !important;
+  margin: 0 !important;
+}
+
+/* 해낸 목표 동그라미: 블록 더미가 동그라미 밖으로 넘치지 않게 작게 + 동그라미 안에서 잘리게 */
+.gc_orb {
+  overflow: hidden;
+}
+
+.gc_col[data-col="goals"] .orb_stack {
+  --u: clamp(18px, 1.6vw, 24px);
+  --g: 3px;
+  margin-top: 6px;
+}
+
+.gc_col[data-col="goals"] .gc_orb > b {
+  margin-top: 8px;
+}
+
+/* 연속 기록 동그라미: 달력 칸이 동그라미 테두리에 잘리지 않게 작게 */
+.gc_col[data-col="streak"] .orb_heat {
+  grid-template-columns: repeat(7, clamp(11px, 1.05vw, 15px));
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.gc_col[data-col="streak"] .orb_heat i {
+  border-radius: 3px;
+}
+
+/* "다음 단계" 라벨: 가리켜도 글자 사이가 벌어지지 않게 */
+.gr_end_top .gr_label,
+.gr_end_top:hover .gr_label,
+.gr_end_top:focus-within .gr_label {
+  letter-spacing: 0 !important;
+}
+
+/* 가리키면 제목 "다음 목표를 세워 볼까요"도 위 라벨(동그라미)과 같이 오른쪽으로 14px */
+.gr_end_top .gr_end_title {
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.4s ease;
+}
+
+.gr_end_top:hover .gr_end_title,
+.gr_end_top:focus-within .gr_end_title {
+  transform: translateX(14px);
+}
+
+/* 동그라미 안 내용(도형 · 글 · 버튼) 전체를 조금 아래로 */
+.gc_orb {
+  padding-top: 12%;
+  box-sizing: border-box;
+}
+
+/* "새 루틴 만들기": 가리키자마자 바로 (굴러가는 글자 효과가 이동을 늦추던 것 제거, 이동 · 색 빠르게) */
+.gr_end_top:hover .gr_biglink span,
+.gr_end_top:focus-within .gr_biglink span {
+  animation: none !important;
+}
+
+.gr_end_top .gr_biglink,
+.gr_end_top .gr_biglink > *:not(i),
+.gr_end_top .gr_biglink i {
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), background 0.18s ease, color 0.18s ease !important;
+  transition-delay: 0s !important;
+}
+
+/* 동그라미: 내용이 많아도 항상 정원 (높이 = 폭 고정), 안 내용은 가운데에서 살짝 아래 */
+.gc_orb {
+  width: clamp(170px, 15vw, 220px) !important;
+  height: clamp(170px, 15vw, 220px) !important;
+  aspect-ratio: 1 / 1 !important;
+  padding: 8% 0 0 !important;
+  justify-content: center !important;
+  overflow: hidden;
+}
+
+.gc_col[data-col="rate"] .gc_orb svg:not(.gc_orb_go svg) {
+  width: 66% !important;
+  height: auto;
+}
+
+@media (max-width: 760px) {
+  .gc_orb {
+    width: 120px !important;
+    height: 120px !important;
+  }
+}
+
+/* 성장률 동그라미: 그래프 + 버튼이 동그라미 정가운데에 (위 여백 없이, 그래프 조금 작게) */
+.gc_col[data-col="rate"] .gc_orb {
+  padding: 0 !important;
+  gap: 4px;
+}
+
+.gc_col[data-col="rate"] .gc_orb svg:not(.gc_orb_go svg) {
+  width: 58% !important;
+  margin: 0 !important;
+}
+
+.gc_col[data-col="rate"] .gc_orb .gc_orb_go {
+  margin-top: 2px !important;
+}
+
+/* 모든 동그라미: 위 여백 없이 내용(도형 · 글 · 버튼)이 정가운데, 버튼이 잘리지 않게 간격 줄임 */
+.gc_col[data-col] .gc_orb {
+  padding: 0 !important;
+  gap: 2px;
+}
+
+.gc_col[data-col] .gc_orb > b {
+  margin-top: 8px !important;
+}
+
+.gc_col[data-col] .gc_orb .gc_orb_go {
+  margin-top: 8px !important;
+  width: 36px !important;
+  height: 36px !important;
+}
+
+.gc_col[data-col="streak"] .orb_heat,
+.gc_col[data-col="goals"] .orb_stack {
+  margin-top: 0 !important;
+}
+
+.gc_col[data-col="done"] .orb_donut {
+  width: 50% !important;
+}
+
+/* 위 · 아래 흰 여백을 눈으로 봐도 같게: 그래프 그림 위쪽의 빈 칸만큼 보정 */
+.gc_col[data-col="rate"] .gc_orb svg:not(.gc_orb_go svg) {
+  margin-top: -16px !important;
+}
+
+/* 연속 기록: 버튼 그림자 때문에 아래가 좁아 보이던 것 → 내용 전체를 2px 위로 */
+.gc_col[data-col="streak"] .gc_orb {
+  padding-bottom: 4px !important;
+}
+
+/* 해낸 목표 블록: 아래 4개 · 위 3개 (폭 4칸 · 높이 2칸) */
+.gc_col[data-col="goals"] .orb_stack {
+  --u: clamp(20px, 1.8vw, 26px);
+  width: calc(var(--u) * 4 + var(--g) * 3);
+  height: calc(var(--u) * 2 + var(--g));
+}
+
+.gc_col[data-col="goals"] .orb_stack i:nth-child(6),
+.gc_col[data-col="goals"] .orb_stack i:nth-child(7) {
+  background: linear-gradient(160deg, #6f9cf5 0%, #2563eb 100%);
+}
+
+.gc_col[data-col="goals"] .orb_stack i:nth-child(n + 5) {
+  background: linear-gradient(160deg, #a9c8ff 0%, #4f8cf5 100%);
+}
+
+/* 동그라미 안 도형 · 글 · 버튼 전체를 살짝(8px) 아래로 */
+.gc_col[data-col] .gc_orb {
+  padding-top: 16px !important;
+  padding-bottom: 0 !important;
+}
+
+/* 완료한 일 동그라미: 도넛 · 글 · 버튼 조금씩 작게 (버튼이 아래로 잘리지 않게) */
+.gc_col[data-col="done"] .orb_donut {
+  width: 42% !important;
+}
+
+.gc_col[data-col="done"] .gc_orb > b {
+  margin-top: 8px !important;
+  font-size: clamp(14px, 1.15vw, 17px) !important;
+}
+
+.gc_col[data-col="done"] .gc_orb .gc_orb_go {
+  width: 32px !important;
+  height: 32px !important;
+  margin-top: 8px !important;
+}
+
+.gc_col[data-col="done"] .gc_orb .gc_orb_go svg {
+  width: 15px !important;
+  height: 15px !important;
+}

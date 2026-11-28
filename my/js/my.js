@@ -300,3 +300,16 @@ document.addEventListener('DOMContentLoaded', () => {
     radios.forEach((r) => r.addEventListener('change', sync));
     setTimeout(() => { box.hidden = !radios.find((r) => r.value === 'custom')?.checked; }, 0);
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 이번 주 리포트 "좋았던 날": 최근 7일 중 좋았던 5일의 날짜 (오늘 기준으로 매일 갱신)
+    const el = document.querySelector('[data-good-days]');
+    if (!el) return;
+    const t = new Date();
+    const WEEK = ['일', '월', '화', '수', '목', '금', '토'];
+    const skip = [2, 5]; // 7일 중 기분이 보통·안 좋았던 날(예시)
+    const days = Array.from({ length: 7 }, (_, i) => new Date(t.getFullYear(), t.getMonth(), t.getDate() - (6 - i)))
+        .filter((_, i) => !skip.includes(i))
+        .map((d) => `${d.getMonth() + 1}월 ${d.getDate()}일(${WEEK[d.getDay()]})`);
+    el.textContent = days.join(' · ');
+});

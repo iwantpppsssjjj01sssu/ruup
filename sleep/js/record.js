@@ -648,6 +648,7 @@ document.addEventListener('DOMContentLoaded', () => {
         root.style.scrollBehavior = 'auto';
         const duration = 900;
         const t0 = performance.now();
+        window.__luupGlide = true;
         const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
         const stop = () => { cancelled = true; };
         let cancelled = false;
@@ -656,6 +657,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const step = (now) => {
             if (cancelled) {
                 root.style.scrollBehavior = '';
+                window.__luupGlide = false;
                 return;
             }
             const t = Math.min((now - t0) / duration, 1);
@@ -664,6 +666,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 requestAnimationFrame(step);
             } else {
                 root.style.scrollBehavior = '';
+                window.__luupGlide = false;
                 window.removeEventListener('wheel', stop);
                 window.removeEventListener('touchstart', stop);
             }
@@ -782,6 +785,36 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (next && (next.classList.contains('rd_sub') || next.classList.contains('rd_close'))) break;
             }
         });
+        // 오른쪽 마지막 판 아래: 이번 주 내용을 글로 정리
+        const lastSection = body.querySelector('.rd_body > .rd_section:last-of-type');
+        if (lastSection && !lastSection.querySelector('.rd_section_note')) {
+            const dn = (d) => `${d.label}요일`;
+            const sorted = (k) => [...days].sort((x, y) => y[k] - x[k]);
+            const notes = {
+                routine: () => {
+                    const hi = sorted('done')[0], lo = sorted('done').slice(-1)[0];
+                    return [`이번 주에는 <b>${dn(hi)}</b>에 루틴을 가장 많이(${hi.done}개) 해냈고, <b>${dn(lo)}</b>에는 ${lo.done}개로 가장 적었어요.`,
+                        '주 초반보다 후반으로 갈수록 꾸준히 해내는 흐름이에요. 적게 한 날은 일정이 많았던 날인지 함께 살펴봐 주세요.'];
+                },
+                mood: () => {
+                    const good = days.filter((d) => d.mood <= 1).length;
+                    return [`일주일 중 <b>${good}일</b>은 기분 좋게 보냈어요.`,
+                        '기분이 안 좋았던 날에는 루틴 수도 함께 줄어드는 편이에요. 그날의 이야기를 짧게라도 들어 주면 다음 날 회복이 빨라요.'];
+                },
+                focus: () => {
+                    const hi = sorted('focus')[0], lo = sorted('focus').slice(-1)[0];
+                    return [`<b>${dn(hi)}</b>에 가장 잘 집중했고(${hi.focus}점), <b>${dn(lo)}</b>에는 집중이 어려웠어요(${lo.focus}점).`,
+                        '평균보다 높은 날이 절반 이상이에요. 집중이 낮았던 날은 공부 시간대나 장소가 달랐는지 비교해 보면 원인을 찾기 쉬워요.'];
+                },
+                memo: () => {
+                    const n = days.filter((d) => d.memo).length;
+                    return [`7일 중 <b>${n}일</b> 메모를 남겼어요.`,
+                        '스스로 해낸 일을 적은 메모가 가장 많아요. 메모를 함께 읽고 짧게 답해 주면 기록하는 습관이 더 오래 이어져요.'];
+                }
+            };
+            const lines = (notes[body.dataset.view] || notes.routine)();
+            lastSection.insertAdjacentHTML('beforeend', `<div class="rd_section_note"><h4>이번 주 한눈에 보기</h4>${lines.map((t) => `<p>${t}</p>`).join('')}</div>`);
+        }
         restoreParent();
         // 접기 버튼은 두 칸 밖(아래 가운데)으로
         const closeEl = body.querySelector('[data-ro-close]');

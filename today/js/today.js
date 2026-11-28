@@ -772,7 +772,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const VERDICT = {
         good: { icon: '✓', title: '잘 지키고 있어요', text: '지금처럼 해낸 날을 구체적으로 칭찬해 주세요.' },
         warn: { icon: '!', title: '조금 도와주세요', text: '아래 문제 중 하나만 골라 이번 주에 바꿔 보세요.' },
-        bad: { icon: '✕', title: '도움이 필요해요', text: '양을 줄이거나 시간을 옮기는 등 루틴 자체를 조정해 보세요.' }
+        bad: { icon: '😓', title: '도움이 필요해요', text: '양을 줄이거나 시간을 옮기는 등 루틴 자체를 조정해 보세요.' }
     };
     const LEVEL = { bad: '꼭 살펴보기', warn: '살펴보기' };
     const formatMinutes = (minutes) => {
@@ -1324,6 +1324,112 @@ document.addEventListener('DOMContentLoaded', () => {
         playIntro();
     });
 
+    // ---------- 첫 화면 아치: 오늘의 루틴 카드 5장을 아치형으로 (가로 카드 줄 대신) ----------
+    const arcList = document.querySelector('[data-arc-cards]');
+    const renderArc = () => {
+        if (!arcList) return;
+        const n = routines.length;
+        arcList.innerHTML = routines.map((routine, i) => {
+            const angle = n > 1 ? -54 + (i * 108) / (n - 1) : 0;
+            const isNext = routine === nextRoutine();
+            const state = routine.status === 'active' ? '진행 중' : isNext ? '다음 할 일' : STATE_LABEL[routine.status];
+            const meta = routine.status === 'done' ? `${routine.doneAt}에 끝냈어요`
+                : routine.status === 'active' ? (routine.steps ? `${routine.steps}${routine.unit} 중 ${routine.stepsDone}${routine.unit} 했어요` : '지금 하고 있어요')
+                : `약 ${routine.minutes}분 걸려요`;
+            return `<li class="ac_card is-${routine.status}${isNext ? ' is-next' : ''}" style="--k:${i};--a:${angle.toFixed(1)}deg;--n:${i}">
+                <button type="button" class="ac_btn" data-arc-open="${i}" aria-label="${routine.title} · ${state} · 리포트 보기">
+                    <span class="ac_top"><span class="ac_no">${pad(i + 1)}<small> · ${routine.at}</small></span><span class="ac_state">${state}</span></span>
+                    <span class="ac_title">${splitTitle(routine.title)}</span>
+                    <span class="ac_meta">${meta}</span>
+                    <span class="ac_art" aria-hidden="true">${cardArt(i)}</span>
+                    <span class="ac_go" aria-hidden="true">↗</span>
+                </button>
+            </li>`;
+        }).join('');
+    };
+    renderArc();
+    // 진행 중 카드 → 타이머 창(멈춤 · 시간 연장 · 도움 요청 · 문제 체크), 나머지 카드 → 리포트
+    // 숨겨 둔 카드 줄(track)을 통째로 창 안으로 옮겨 와서 기존 버튼 동작을 그대로 씀
+    const timerModal = document.createElement('div');
+    timerModal.className = 'timer_modal';
+    timerModal.hidden = true;
+    timerModal.innerHTML = '<button type="button" class="timer_modal_close" aria-label="타이머 닫기">✕</button><div class="timer_modal_box" role="dialog" aria-modal="true" aria-label="지금 하는 루틴 타이머"><div class="timer_modal_slot"></div></div>';
+    document.body.append(timerModal);
+    const trackHome = track.parentElement;
+    const closeTimer = () => {
+        timerModal.classList.remove('is-in');
+        document.documentElement.classList.remove('is-timer-open');
+        setTimeout(() => {
+            timerModal.hidden = true;
+            track.classList.remove('is-modal');
+            trackHome.append(track);
+        }, 250);
+    };
+    const openTimer = () => {
+        timerModal.querySelector('.timer_modal_slot').append(track);
+        track.classList.add('is-modal');
+        timerModal.hidden = false;
+        document.documentElement.classList.add('is-timer-open');
+        requestAnimationFrame(() => timerModal.classList.add('is-in'));
+    };
+    timerModal.querySelector('.timer_modal_close').addEventListener('click', closeTimer);
+    timerModal.addEventListener('click', (e) => { if (e.target === timerModal) closeTimer(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !timerModal.hidden && !report.open) closeTimer(); });
+    arcList?.addEventListener('click', (event) => {
+        const btn = event.target.closest('[data-arc-open]');
+        if (!btn) return;
+        const i = Number(btn.dataset.arcOpen);
+        if (routines[i]?.status === 'active') openTimer();
+        else openReport(i);
+    });
+    // ---------- 첫 화면 연출: 카드가 다 펼쳐지면 → 진행 중 카드만 남고 안내 문장 → 몇 초 뒤 타이머 창 ----------
+    (() => {
+        const hero = document.querySelector('.td_hero');
+        const activeIndex = routines.findIndex((r) => r.status === 'active');
+        if (!hero || !arcList || activeIndex < 0) return;
+        const reduceMo = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const lead = hero.querySelector('.td_lead');
+        const leadOriginal = lead ? lead.innerHTML : '';
+        const name = document.querySelector('.td_title [data-who-name]')?.textContent || '하루';
+        let stopped = false;
+        // 사용자가 먼저 카드를 누르거나 스크롤하면 자동 연출은 멈춤
+        ['wheel', 'touchstart', 'keydown'].forEach((t) => window.addEventListener(t, () => { stopped = true; }, { once: true, passive: true }));
+        arcList.addEventListener('click', () => { stopped = true; }, { once: true });
+        setTimeout(() => {
+            if (stopped) return;
+            hero.classList.add('is-focus');
+            arcList.querySelectorAll('.ac_card').forEach((c, i) => c.classList.toggle('is-keep', i === activeIndex));
+            // ✕: 남은 카드 옆 닫기 → 다시 카드 5장 · 원래 안내 문장으로 (자동 타이머도 멈춤)
+            const keep = arcList.querySelector('.ac_card.is-keep');
+            const originalLead = leadOriginal;
+            if (keep && !keep.querySelector('.ac_close')) {
+                keep.insertAdjacentHTML('beforeend', '<button type="button" class="ac_close" aria-label="모든 루틴 다시 보기">✕</button>');
+                keep.querySelector('.ac_close').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    stopped = true;
+                    hero.classList.remove('is-focus');
+                    arcList.querySelectorAll('.ac_card').forEach((c) => c.classList.remove('is-keep'));
+                    keep.querySelector('.ac_close')?.remove();
+                    if (lead) {
+                        lead.classList.add('is-swap');
+                        setTimeout(() => { lead.innerHTML = originalLead; lead.classList.remove('is-swap'); }, 300);
+                    }
+                });
+            }
+            if (lead) {
+                lead.classList.add('is-swap');
+                setTimeout(() => {
+                    lead.innerHTML = `현재 <b>${name}님</b>께서 진행 중인 활동은 <b class="td_now_name">${routines[activeIndex].title}</b>입니다.`;
+                    lead.classList.remove('is-swap');
+                }, reduceMo ? 0 : 300);
+            }
+            setTimeout(() => { if (!stopped) openTimer(); }, reduceMo ? 800 : 3200);
+        }, reduceMo ? 300 : 2600);
+    })();
+
+    // 타이머 창에서 루틴을 끝내면 아치 카드도 새로 그림
+    new MutationObserver(() => renderArc()).observe(track, { childList: true });
+
     // 로딩 화면(막대 3개)은 없앰 → 바로 화면이 보임
     // 마이페이지의 "리포트 보기"로 들어오면 진행 중인 루틴 리포트를 바로 열기
     if (location.hash === '#report') {
@@ -1350,4 +1456,17 @@ document.addEventListener('DOMContentLoaded', () => {
         who.style.setProperty('--who-w', `${who.scrollWidth}px`);
         who.classList.add('is-in');
     }, reduce ? 0 : 900));
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 첫 화면: 사진 카드 펼침 + "오늘 루틴 시작하기"로 카드 무대까지 부드럽게 이동
+    const hero = document.querySelector('.td_hero');
+    if (!hero) return;
+    hero.querySelector('[data-rh-go]')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        // 아래 무대가 없어졌으니: 지금 하는 루틴 카드를 눌러 그 루틴을 엶
+        const active = document.querySelector('.ac_card.is-active .ac_btn') || document.querySelector('.ac_card.is-next .ac_btn');
+        active?.click();
+    });
+    requestAnimationFrame(() => hero.classList.add('is-in'));
 });

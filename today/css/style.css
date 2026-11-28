@@ -6024,3 +6024,839 @@ html.is-report-open body {
     white-space: normal;
   }
 }
+
+/* =========================================================
+   TODAY 첫 화면: 루틴 페이지와 같은 아치형 사진 카드 + 가운데 제목
+   ========================================================= */
+.td_head.td_hero {
+  --R: clamp(300px, 36vw, 540px);
+  --tile: clamp(86px, 9.6vw, 150px);
+  position: relative;
+  display: grid;
+  justify-items: center;
+  min-height: calc(var(--R) + var(--tile) * 0.6);
+  padding: calc(var(--luup-header-h) + var(--R) * 0.62) var(--title-x) clamp(40px, 5vw, 72px);
+  overflow: hidden;
+  text-align: center;
+}
+
+.td_hero .rh_arc {
+  position: absolute;
+  left: 50%;
+  top: calc(var(--luup-header-h) + var(--R) + var(--tile) * 0.75);
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.td_hero .rh_arc li {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--tile);
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 22%;
+  box-shadow: 0 18px 34px -18px rgba(17, 19, 24, 0.35);
+  transform: translate(-50%, -50%) rotate(var(--a)) translateY(calc(var(--R) * -1));
+  opacity: 0;
+  transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.6s ease, box-shadow 0.3s ease;
+  transition-delay: calc(var(--k) * 0.06s);
+}
+
+.td_hero:not(.is-in) .rh_arc li {
+  transform: translate(-50%, -50%) rotate(0deg) translateY(calc(var(--R) * -0.4)) scale(0.6);
+}
+
+.td_hero.is-in .rh_arc li {
+  opacity: 1;
+}
+
+.td_hero .rh_arc li img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: td-float 5s ease-in-out infinite;
+  animation-delay: calc(var(--k) * -0.45s);
+}
+
+@keyframes td-float {
+  50% { transform: translateY(-6px) scale(1.03); }
+}
+
+.td_hero .rh_arc li:hover {
+  z-index: 2;
+  transform: translate(-50%, -50%) rotate(var(--a)) translateY(calc(var(--R) * -1 - 12px)) scale(1.12);
+  box-shadow: 0 26px 44px -18px rgba(17, 19, 24, 0.45);
+  transition-delay: 0s;
+}
+
+.td_hero .rh_center {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: min(640px, 60%);
+}
+
+.td_hero .td_title {
+  margin: 0 !important;
+  font-size: clamp(30px, 3.6vw, 60px) !important;
+  line-height: 1.1;
+  text-align: center;
+  white-space: normal;
+}
+
+.td_lead {
+  max-width: 520px;
+  margin: 18px auto 0;
+  font-size: clamp(15px, 1.2vw, 18px);
+  line-height: 1.6;
+  color: #6b7280;
+  word-break: keep-all;
+}
+
+.td_lead b {
+  font-weight: 600;
+  color: #111318;
+}
+
+.td_hero .rh_btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 26px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  background: #111318;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.td_hero .rh_btn:hover {
+  background: #2563eb;
+  transform: translateY(-2px);
+}
+
+.td_hero .rh_btn span {
+  transition: transform 0.25s ease;
+}
+
+.td_hero .rh_btn:hover span {
+  transform: translateX(4px);
+}
+
+.td_hero .rh_feats {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: min(720px, 80%);
+  margin: clamp(36px, 4vw, 56px) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.td_hero .rh_feats li {
+  display: grid;
+  gap: 6px;
+  padding: 4px 20px;
+}
+
+.td_hero .rh_feats li + li {
+  border-left: 1px solid #e3e6eb;
+}
+
+.td_hero .rh_feats b {
+  font-size: 17px;
+  font-weight: 600;
+  color: #111318;
+}
+
+.td_hero .rh_feats span {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #8a919c;
+  word-break: keep-all;
+}
+
+@media (max-width: 760px) {
+  .td_head.td_hero {
+    --R: 220px;
+    --tile: 70px;
+  }
+
+  .td_hero .rh_center {
+    max-width: 92%;
+  }
+
+  .td_hero .rh_feats {
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+    gap: 12px;
+  }
+
+  .td_hero .rh_feats li + li {
+    border-left: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .td_hero .rh_arc li,
+  .td_hero .rh_arc li img {
+    transition: none;
+    animation: none;
+  }
+}
+
+/* 맨 아래 양 끝 사진이 잘리지 않게 아래 여백 확보 */
+.td_head.td_hero {
+  padding-bottom: calc(var(--tile) * 0.9);
+}
+
+/* =========================================================
+   TODAY: 가로 카드 줄 대신 루틴 카드 5장을 첫 화면 아치에
+   - 끝낸 카드 코랄/파랑 · 진행 중 검정(연두 네온) · 예정 흰 점선
+   - 누르면 그 루틴 리포트가 열림
+   ========================================================= */
+.today_stage .stage_strip,
+.today_stage .stage_floor,
+.today_stage .stage_bl {
+  display: none !important;
+}
+
+.today_stage {
+  min-height: 0 !important;
+  height: auto !important;
+  padding-bottom: 40px;
+}
+
+.td_head.td_hero {
+  --R: clamp(320px, 36vw, 520px);
+  --tile: clamp(150px, 13vw, 210px);
+  padding-bottom: calc(var(--tile) * 0.6);
+}
+
+.td_hero .ac_arc li.ac_card {
+  width: var(--tile);
+  aspect-ratio: 3 / 4;
+  overflow: visible;
+  border-radius: 22px;
+  box-shadow: none;
+}
+
+.ac_btn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 16px 16px 14px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 22px 40px -22px rgba(17, 19, 24, 0.45);
+  font: inherit;
+  text-align: left;
+  color: #111318;
+  cursor: pointer;
+}
+
+.ac_card.is-done:nth-child(odd) .ac_btn { background: linear-gradient(160deg, #f06a74, #dc4655); color: #fff; }
+.ac_card.is-done:nth-child(even) .ac_btn { background: linear-gradient(160deg, #3c63f2, #2449e0); color: #fff; }
+.ac_card.is-active .ac_btn {
+  background: linear-gradient(160deg, #22252c, #0c0d10);
+  color: #fff;
+  box-shadow: 0 0 0 2px #d9ff6b, 0 0 22px 4px rgba(217, 255, 107, 0.45), 0 22px 40px -22px rgba(0, 0, 0, 0.6);
+  animation: active-neon-soft 1.1s ease-in-out infinite alternate;
+}
+.ac_card.is-todo .ac_btn { border: 1.5px dashed #c9d0da; color: #6b7280; }
+.ac_card.is-todo.is-next .ac_btn { border-color: #9aa3b2; color: #111318; }
+
+.ac_top {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+}
+
+.ac_no {
+  font-size: 18px;
+  font-weight: 400;
+  opacity: 0.85;
+}
+
+.ac_no small {
+  font-size: 12px;
+}
+
+.ac_state {
+  padding: 3px 8px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 600;
+  opacity: 0.85;
+  white-space: nowrap;
+}
+
+.ac_title {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  margin-top: 12px;
+  font-size: clamp(16px, 1.35vw, 21px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+.ac_title span {
+  opacity: 0.55;
+}
+
+.ac_meta {
+  position: relative;
+  z-index: 2;
+  margin-top: 6px;
+  font-size: 11px;
+  opacity: 0.75;
+}
+
+.ac_art {
+  position: absolute;
+  right: -14%;
+  bottom: -12%;
+  z-index: 1;
+  width: 78%;
+}
+
+.ac_art .card_art {
+  width: 100%;
+  animation: none;
+  transform: rotate(-8deg);
+}
+
+.ac_card.is-todo .ac_art {
+  opacity: 0.5;
+  filter: grayscale(1);
+}
+
+.ac_go {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  margin-top: auto;
+  border-radius: 50%;
+  background: #fff;
+  font-size: 12px;
+  color: #111318;
+  transition: transform 0.25s ease;
+}
+
+.ac_card.is-todo .ac_go { background: #e9ecf1; }
+.ac_card.is-active .ac_go { background: #d9ff6b; }
+
+.ac_btn:hover .ac_go,
+.ac_btn:focus-visible .ac_go {
+  transform: rotate(45deg);
+}
+
+.td_hero .ac_arc li.ac_card:hover {
+  transform: translate(-50%, -50%) rotate(var(--a)) translateY(calc(var(--R) * -1 - 14px)) scale(1.08);
+}
+
+.ac_btn:focus-visible {
+  outline: 3px solid #2563eb;
+  outline-offset: 3px;
+}
+
+@media (max-width: 760px) {
+  .td_head.td_hero {
+    --R: 230px;
+    --tile: 110px;
+  }
+
+  .ac_title { font-size: 13px; }
+  .ac_meta, .ac_state { display: none; }
+}
+
+/* 아치 카드: 기울기는 덜하게(위치각의 40%만), 제목은 아치 안쪽 아래로 */
+.td_head.td_hero {
+  padding-top: calc(var(--luup-header-h) + var(--R) * 0.78);
+}
+
+.td_hero .ac_arc li.ac_card {
+  transform: translate(-50%, -50%) rotate(var(--a)) translateY(calc(var(--R) * -1)) rotate(calc(var(--a) * -0.6));
+}
+
+.td_hero:not(.is-in) .ac_arc li.ac_card {
+  transform: translate(-50%, -50%) rotate(0deg) translateY(calc(var(--R) * -0.4)) scale(0.6);
+}
+
+.td_hero .ac_arc li.ac_card:hover {
+  transform: translate(-50%, -50%) rotate(var(--a)) translateY(calc(var(--R) * -1 - 14px)) rotate(calc(var(--a) * -0.6)) scale(1.08);
+}
+
+/* 아래 무대(인사 · 지금 · 진행 막대): 카드 줄이 빠졌으니 일반 흐름으로 차곡차곡 */
+.today_stage {
+  display: grid;
+  gap: 18px;
+  padding: 24px var(--title-x) 56px !important;
+  overflow: visible;
+}
+
+.today_stage .stage_corner {
+  position: static !important;
+  inset: auto !important;
+  width: auto;
+  margin: 0 !important;
+}
+
+.today_stage .stage_tr {
+  align-items: flex-start;
+}
+
+/* 아래 무대(인사 · 지금 시각 · 날짜 · 완료 수 · 진행 막대) 모두 없앰 */
+.today_page > .today_stage {
+  display: none !important;
+}
+
+/* 첫 화면(아치 카드 + 제목 + 특징 3칸)에 딱 맞는 흰 바탕, 아래 남는 빈 공간 없이 바로 푸터 */
+body:has(.today_page) {
+  background: #fff;
+}
+
+.today_page {
+  background: #fff;
+}
+
+.td_head.td_hero {
+  background: #fff;
+  padding-bottom: clamp(48px, 5vw, 80px);
+  margin-bottom: 0;
+}
+
+/* 첫 화면에서 아래 파란 푸터가 보이지 않게: 첫 화면을 화면 높이만큼 */
+.td_head.td_hero {
+  min-height: 100svh;
+  box-sizing: border-box;
+  align-content: start;
+}
+
+/* 헤더 아래 위쪽 여백 확보: 아치 카드 전체를 아래로 내림 */
+.td_head.td_hero {
+  --top-gap: clamp(48px, 6vw, 96px);
+  padding-top: calc(var(--luup-header-h) + var(--top-gap) + var(--R) * 0.78);
+}
+
+.td_hero .rh_arc {
+  top: calc(var(--luup-header-h) + var(--top-gap) + var(--R) + var(--tile) * 0.75);
+}
+
+/* 아치 카드: 제목 아래 작은 설명(08:10에 끝냈어요 · 약 15분 걸려요 · 7문제 했어요) 없앰 */
+.ac_meta {
+  display: none !important;
+}
+
+/* 아치 카드 제목 두 번째 줄(연습하기 · 준비하기 …)도 흐리지 않게 */
+.ac_title span {
+  opacity: 1;
+}
+
+/* =========================================================
+   타이머 창: 진행 중 카드를 누르면 화면 가운데에 크게 (문제 체크 · 멈춤 · 시간 연장 · 도움 요청)
+   ========================================================= */
+.timer_modal {
+  position: fixed;
+  inset: 0;
+  z-index: 250;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(10, 12, 16, 0.5);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.timer_modal.is-in {
+  opacity: 1;
+}
+
+.timer_modal_box {
+  position: relative;
+  width: min(1120px, 100%);
+  max-height: calc(100svh - 40px);
+  overflow-y: auto;
+  transform: translateY(16px) scale(0.98);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.timer_modal.is-in .timer_modal_box {
+  transform: none;
+}
+
+.timer_modal_close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 5;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+  font-size: 15px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.timer_modal_close:hover {
+  background: #fff;
+  color: #111318;
+}
+
+html.is-timer-open,
+html.is-timer-open body {
+  overflow: hidden;
+}
+
+/* 창 안의 카드 줄: 3D · 위치 계산 끄고 진행 중 카드 하나만 */
+.stage_track.is-modal {
+  position: static !important;
+  display: block !important;
+  width: 100%;
+  margin: 0;
+  transform: none !important;
+  pointer-events: auto;
+}
+
+.stage_track.is-modal > :not(.is-active) {
+  display: none !important;
+}
+
+.stage_track.is-modal > .stage_card.is-active {
+  --grow: 0px;
+  --lift: 0px;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 32px 32px 28px !important;
+  transform: none !important;
+  rotate: none !important;
+  translate: none !important;
+  opacity: 1 !important;
+  overflow: hidden;
+  border-radius: 24px;
+}
+
+.stage_track.is-modal > .stage_card.is-active .focus_art,
+.stage_track.is-modal > .stage_card.is-active .focus_more,
+.stage_track.is-modal > .stage_card.is-active .card_top_end .card_go {
+  display: none !important;
+}
+
+.stage_track.is-modal > .stage_card.is-active .focus_grid {
+  display: grid !important;
+  flex: none !important;
+  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr) !important;
+  gap: 28px !important;
+  margin-top: 20px !important;
+}
+
+.stage_track.is-modal > .stage_card.is-active .focus_left {
+  display: grid !important;
+  align-content: start;
+  justify-items: center;
+  gap: 16px;
+}
+
+.stage_track.is-modal > .stage_card.is-active .focus_right {
+  opacity: 1 !important;
+  overflow: visible !important;
+}
+
+.stage_track.is-modal .focus_timer {
+  position: relative;
+  width: min(100%, 230px);
+}
+
+.stage_track.is-modal .focus_ring {
+  width: 100%;
+  height: auto;
+}
+
+.stage_track.is-modal .focus_ring_track {
+  stroke: rgba(255, 255, 255, 0.12);
+}
+
+.stage_track.is-modal .focus_time {
+  color: #fff;
+}
+
+.stage_track.is-modal .focus_time small,
+.stage_track.is-modal .focus_state {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.stage_track.is-modal .focus_buddy {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .stage_track.is-modal > .stage_card.is-active .focus_grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .stage_track.is-modal .focus_steps {
+    width: 100%;
+  }
+}
+
+/* 진행 중 아치 카드: 네온 테두리 없애고, 카드 자체가 반짝(밝게) ↔ 원래로 깜빡임만 */
+.ac_card.is-active .ac_btn {
+  box-shadow: 0 22px 40px -22px rgba(0, 0, 0, 0.6) !important;
+  animation: ac-blink 1.2s ease-in-out infinite alternate !important;
+}
+
+@keyframes ac-blink {
+  from { filter: brightness(1); }
+  to { filter: brightness(1.55); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ac_card.is-active .ac_btn {
+    animation: none !important;
+  }
+}
+
+/* 타이머 창: 남은 시간 숫자 흰색으로 또렷하게, 닫기 버튼은 배지와 겹치지 않게 창 밖 오른쪽 위로 */
+.stage_track.is-modal .focus_time b,
+.stage_track.is-modal [data-timer] {
+  color: #fff !important;
+}
+
+.timer_modal_box {
+  overflow: visible;
+}
+
+.timer_modal_close {
+  top: 24px;
+  right: 24px;
+  background: #fff;
+  color: #111318;
+  box-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.5);
+}
+
+/* 리포트 왼쪽 위 라벨 "우리 아이 루틴 리포트 · 최근 7일" 조금 크게 */
+.report_eyebrow {
+  font-size: 15px;
+}
+
+.report_eyebrow {
+  letter-spacing: -0.02em;
+}
+
+/* "도움이 필요해요" 아이콘: 진땀 이모지가 잘 보이게 흰 원 위에 */
+.report_verdict.tone_bad > span {
+  background: #fff;
+  font-size: 18px;
+  box-shadow: 0 0 0 1px rgba(17, 19, 24, 0.06);
+}
+
+/* 첫 화면 연출: 진행 중 카드만 남고 나머지는 흐려지며 사라짐, 남은 카드는 살짝 커지며 빛남 */
+.td_hero.is-focus .ac_card:not(.is-keep) {
+  opacity: 0 !important;
+  pointer-events: none;
+  transition: opacity 0.6s ease !important;
+}
+
+.td_hero.is-focus .ac_card.is-keep {
+  z-index: 3;
+  transform: translate(-50%, -50%) rotate(var(--a)) translateY(calc(var(--R) * -1)) rotate(calc(var(--a) * -0.6)) scale(1.12) !important;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+/* 아래 안내 문장 바뀜 */
+.td_lead {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.td_lead.is-swap {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.td_lead .td_now_name {
+  color: #2563eb;
+}
+
+.td_hero.is-focus .rh_feats {
+  opacity: 0.35;
+  transition: opacity 0.6s ease;
+}
+
+/* 타이머 창 안 카드: 네온 테두리 없이 (반짝임 효과도 끔) */
+.stage_track.is-modal > .stage_card.is-active {
+  box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.6) !important;
+  animation: none !important;
+}
+
+/* 타이머 창: 세로를 줄여 화면 안에 컴팩트하게 + 모두 Pretendard */
+.timer_modal_box,
+.timer_modal_box * {
+  font-family: 'Pretendard Variable', 'Pretendard', var(--luup-font) !important;
+}
+
+.timer_modal_box {
+  width: min(860px, 100%);
+}
+
+.stage_track.is-modal > .stage_card.is-active {
+  padding: 24px 28px 24px !important;
+}
+
+.stage_track.is-modal .focus_title {
+  margin-top: 10px !important;
+  font-size: clamp(24px, 2.2vw, 32px) !important;
+  font-weight: 700;
+  line-height: 1.2 !important;
+}
+
+.stage_track.is-modal .focus_meta {
+  margin: 4px 0 0 !important;
+  font-size: 15px !important;
+}
+
+.stage_track.is-modal > .stage_card.is-active .focus_grid {
+  align-items: center;
+  gap: 24px !important;
+  margin-top: 14px !important;
+}
+
+.stage_track.is-modal .focus_timer {
+  width: min(100%, 190px) !important;
+}
+
+.stage_track.is-modal .focus_time b,
+.stage_track.is-modal [data-timer] {
+  font-size: clamp(28px, 2.6vw, 36px) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em;
+}
+
+.stage_track.is-modal .focus_steps {
+  padding: 16px 18px 14px !important;
+}
+
+.stage_track.is-modal .focus_steps_head b {
+  font-size: 20px !important;
+}
+
+.stage_track.is-modal .focus_controls {
+  margin-top: 10px !important;
+}
+
+.stage_track.is-modal .focus_control {
+  padding: 10px 6px !important;
+}
+
+.stage_track.is-modal .card_no {
+  font-size: 24px !important;
+}
+
+.stage_track.is-modal .card_no small {
+  font-size: 15px !important;
+}
+
+/* 타이머 남은 시간 숫자: 원 안에 여유 있게 작게 */
+.stage_track.is-modal .focus_time b,
+.stage_track.is-modal [data-timer] {
+  font-size: clamp(22px, 1.9vw, 28px) !important;
+  font-weight: 600 !important;
+  font-variant-numeric: tabular-nums;
+}
+
+.stage_track.is-modal .focus_time small,
+.stage_track.is-modal .focus_state {
+  font-size: 13px !important;
+}
+
+/* 타이머 창 제목: 한 줄로, 두 번째 말도 같은 흰색 */
+.stage_track.is-modal .focus_title {
+  display: block !important;
+  white-space: nowrap;
+}
+
+.stage_track.is-modal .focus_title span {
+  margin-left: 0.25em;
+  opacity: 1 !important;
+  color: inherit !important;
+}
+
+/* 타이머 창: 제목 아래 "10문제 중 7문제 했어요" 없앰 */
+.stage_track.is-modal .focus_meta {
+  display: none !important;
+}
+
+/* "7문제 완료": 숫자 · 글자 모두 같은 크기 medium, 네온 연두 */
+.stage_card.is-active .focus_steps_head p:first-child,
+.stage_card.is-active .focus_steps_head p:first-child b {
+  margin: 0;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  color: #d9ff6b !important;
+  text-shadow: 0 0 10px rgba(217, 255, 107, 0.55);
+}
+
+/* 타이머 창 "진행 중" 배지: 네온 연두 테두리 + 은은한 빛 */
+.stage_track.is-modal .stage_card.is-active .card_state {
+  border: 1.5px solid #d9ff6b !important;
+  box-shadow: 0 0 10px rgba(217, 255, 107, 0.4), inset 0 0 6px rgba(217, 255, 107, 0.15);
+}
+
+/* 남은 카드 오른쪽 위 ✕ 버튼 */
+.ac_close {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+  font-size: 14px;
+  color: #111318;
+  box-shadow: 0 8px 20px -8px rgba(17, 19, 24, 0.45), 0 0 0 1px rgba(17, 19, 24, 0.06);
+  cursor: pointer;
+  animation: ac-close-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s both;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.ac_close:hover {
+  background: #111318;
+  color: #fff;
+}
+
+@keyframes ac-close-in {
+  from { opacity: 0; transform: scale(0.5); }
+}
